@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="nomeGruppo.eathome.ui.login.LoginActivity"
+        android:name="nomeGruppo.eathome.ui.login.LoginFragment"
         android:label="@string/menu_login"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/fragment_login" />
 
     <fragment
         android:id="@+id/nav_logout"

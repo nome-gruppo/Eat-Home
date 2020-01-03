@@ -2,6 +2,9 @@ package nomeGruppo.eathome.ui.login;
 
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -9,12 +12,13 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,24 +27,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.ui.login.LoginViewModel;
-import nomeGruppo.eathome.ui.login.LoginViewModelFactory;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginFragment extends Fragment {
 
     private LoginViewModel loginViewModel;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        final ConstraintLayout layout = (ConstraintLayout) root.findViewById(R.id.fragment_activity);
 
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        final EditText usernameEditText = root.findViewById(R.id.username);
+        final EditText passwordEditText = root.findViewById(R.id.password);
+        final Button loginButton = root.findViewById(R.id.login);
+        final ProgressBar loadingProgressBar = root.findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -71,10 +75,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                 }
-                setResult(Activity.RESULT_OK);
+                getActivity().setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                finish();
+                getActivity().finish();
             }
         });
 
@@ -117,15 +121,17 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+
+        return root;
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity().getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 }
