@@ -5,6 +5,17 @@
 
     <!-- TODO modificare-->
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_menu_login"
+            android:title="@string/menu_login"/>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_logout"
+            android:title="@string/menu_logout"/>
+
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
@@ -16,11 +27,11 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_settings"
                 android:title="@string/menu_settings" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_info"
                 android:icon="@drawable/ic_menu_info"
                 android:title="@string/menu_info" />
         </menu>

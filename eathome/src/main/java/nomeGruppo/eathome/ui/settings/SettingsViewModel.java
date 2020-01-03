@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.ui.share;
+package nomeGruppo.eathome.ui.settings;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

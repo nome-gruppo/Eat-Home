@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.ui.send;
+package nomeGruppo.eathome.ui.info;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
