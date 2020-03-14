@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.ui.send;
+package nomeGruppo.eathome.ui.info;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

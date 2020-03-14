@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.ui.share;
+package nomeGruppo.eathome.ui.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
