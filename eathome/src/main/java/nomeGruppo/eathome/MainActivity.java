@@ -33,8 +33,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.Menu;
-import android.widget.SearchView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     int AUTOCOMPLETE_REQUEST_CODE = 1;
     String TAG ="xxx";
-
 
 
     // Set the fields to specify which types of place data to
@@ -79,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         NavigationUI.setupWithNavController(navigationView, navController);
 
         LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
+
 
         String apiKey = getString(R.string.api_key);
 //        View placeBar = inflater.inflate(R.layout.fragment_autocomplete, null);
