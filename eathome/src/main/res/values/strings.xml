@@ -3,7 +3,7 @@
     <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Eat@Home</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
@@ -13,6 +13,9 @@
     <string name="menu_info" translatable="false">Info</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_place_location" translatable="false">Map</string>
+    <string name="btn_search">Search</string>
+    <string name="menu_orders">Orders</string>
+    <string name="menu_booking">Bookings</string>
 
     <string name="api_key" translatable="false">AIzaSyD16nICsy8YDrIUIt_CXfoGgPpIJRNDeSI</string>
     <string name="title_activity_login">Sign in</string>

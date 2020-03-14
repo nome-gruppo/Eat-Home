@@ -24,6 +24,19 @@
 
     </group>
 
+    <item android:title="Functions">
+        <menu>
+            <item
+                android:id="@+id/orders"
+                android:icon="@drawable/ic_menu_orders"
+                android:title="@string/menu_orders" />
+            <item
+                android:id="@+id/booking"
+                android:icon="@drawable/ic_menu_booking"
+                android:title="@string/menu_booking" />
+        </menu>
+    </item>
+
     <item android:title="Communicate">
         <menu>
             <item
