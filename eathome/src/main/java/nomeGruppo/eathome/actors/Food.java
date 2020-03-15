@@ -1,11 +1,22 @@
 package nomeGruppo.eathome.actors;
 
-public class Food {
-    String nameFood;
-    String ingredients;
+import java.util.HashSet;
 
-    public Food(String nameFood, String ingredients){
+public class Food {
+
+    private String nameFood;
+    private HashSet<String> ingredients;
+
+    public Food(String nameFood){
         this.nameFood=nameFood;
-        this.ingredients=ingredients;
+        this.ingredients= new HashSet<>();
+    }
+
+    public boolean addIngredient(String ingredient){
+        return this.ingredients.add(ingredient);
+    }
+
+    public boolean removeIngredient(String ingredient){
+        return this.ingredients.remove(ingredient);
     }
 }
