@@ -16,7 +16,6 @@
     <string name="btn_search">Search</string>
     <string name="menu_orders">Orders</string>
     <string name="menu_booking">Bookings</string>
-
     <string name="api_key" translatable="false">AIzaSyD16nICsy8YDrIUIt_CXfoGgPpIJRNDeSI</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email" translatable="false">Email</string>
@@ -27,5 +26,12 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="btn_signin">SIGN IN</string>
+    <string name="txt_registration">Registration</string>
+    <string name="placeName">Insert name activity</string>
+    <string name="placeAdress">Insert adress activity</string>
+    <string name="placePhone">Insert phone number activity</string>
+    <string name="placeMail">Insert mail adress</string>
+    <string name="placePassword">Insert password</string>
 
 </resources>
