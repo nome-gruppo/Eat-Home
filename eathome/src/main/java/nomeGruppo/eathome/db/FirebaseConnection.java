@@ -15,7 +15,7 @@ import static android.content.ContentValues.TAG;
 public class FirebaseConnection {
     private DatabaseReference mDatabase;
 
-    FirebaseConnection() {
+    public FirebaseConnection() {
         this.mDatabase = FirebaseDatabase.getInstance("https://eathome-bc890.firebaseio.com/").getReference();
     }
 
@@ -23,8 +23,8 @@ public class FirebaseConnection {
         mDatabase.child(table).child(column).setValue(value);
     }
 
-    public void writeObject(String table, Object obj){
-        mDatabase.child(table).setValue(obj);
+    public void writeObject(String table, String id, Object obj){
+        mDatabase.child(table).child(id).setValue(obj);
     }
 
     public Object read() {

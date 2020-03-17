@@ -1,5 +1,7 @@
 package nomeGruppo.eathome;
 
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,34 +12,33 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.NoSuchElementException;
 
+import nomeGruppo.eathome.db.FirebaseConnection;
+
 
 public class PlaceRegistration extends AppCompatActivity {
 
-    EditText namePlace;
-    EditText phonePlace;
-    EditText adressPlace;
-    EditText mailPlace;
-    EditText passwordPlace;
-    ImageView imgPlace;
+    private EditText namePlace;
+    private EditText cityPlace;
+    private EditText phonePlace;
+    private EditText adressPlace;
+    private EditText mailPlace;
+    private EditText passwordPlace;
+    private ImageView imgPlace;
+    private Button btnSignin;
     static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
     static final int MY_PERMISSIONS_REQUEST_CAMERA=100;
     static final int HEIGHT_IMAGE=120;
@@ -49,7 +50,9 @@ public class PlaceRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_place_registration);
 
         namePlace=(EditText)findViewById(R.id.editNamePlace);
-        namePlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        namePlace.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamnete nella EditText successiva appena l'utente preme invio sulla tastiera
+        cityPlace=(EditText)findViewById(R.id.editCityPlace);
+        cityPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         phonePlace=(EditText)findViewById(R.id.editPhonePlace);
         phonePlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         adressPlace=(EditText)findViewById(R.id.editAdressPlace);
@@ -58,6 +61,10 @@ public class PlaceRegistration extends AppCompatActivity {
         mailPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         passwordPlace=(EditText)findViewById(R.id.editPasswordPlace);
         imgPlace= (ImageView) findViewById(R.id.imgPlace);
+        btnSignin=(Button)findViewById(R.id.btnSignin);
+
+        //creo l'oggetto Place
+        final Place place=new Place(this.namePlace.getText().toString(),this.cityPlace.getText().toString(),this.phonePlace.getText().toString(),this.adressPlace.getText().toString(),this.mailPlace.getText().toString(),this.passwordPlace.getText().toString());
 
         imgPlace.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +72,15 @@ public class PlaceRegistration extends AppCompatActivity {
                 selectImage(PlaceRegistration.this);
             }
         });
+
+        btnSignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseConnection db=new FirebaseConnection(); //apro la connessione al db
+                db.writeObject("places","2",place); //scrivo l'oggetto place nel db
+            }
+        });
+
     }
 
     //metodo per selezionare se caricare l'immagine tramite fotocamare, galleria o nulla

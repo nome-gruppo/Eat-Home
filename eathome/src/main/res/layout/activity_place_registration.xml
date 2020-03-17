@@ -26,6 +26,14 @@
         />
 
     <EditText
+        android:id="@+id/editCityPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/placeCity"
+        android:inputType="textPostalAddress" />
+
+    <EditText
         android:id="@+id/editAdressPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +66,7 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSignin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_signin" />

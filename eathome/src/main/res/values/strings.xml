@@ -28,10 +28,11 @@
     <string name="login_failed">"Login failed"</string>
     <string name="btn_signin">SIGN IN</string>
     <string name="txt_registration">Registration</string>
-    <string name="placeName">Insert name activity</string>
-    <string name="placeAdress">Insert adress activity</string>
-    <string name="placePhone">Insert phone number activity</string>
-    <string name="placeMail">Insert mail adress</string>
-    <string name="placePassword">Insert password</string>
+    <string name="placeName">Enter name activity</string>
+    <string name="placeAdress">Enter adress activity</string>
+    <string name="placePhone">Enter phone number activity</string>
+    <string name="placeMail">Enter mail adress</string>
+    <string name="placePassword">Enter password</string>
+    <string name="placeCity">Enter city</string>
 
 </resources>

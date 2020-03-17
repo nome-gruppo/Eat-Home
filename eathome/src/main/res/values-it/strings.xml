@@ -16,5 +16,6 @@
     <string name="placePhone">Inserisci numero di telefono</string>
     <string name="placeMail">Inserisci indirizzo mail</string>
     <string name="placePassword">Inserisci password</string>
+    <string name="placeCity">Inserisci città</string>
 
 </resources>
