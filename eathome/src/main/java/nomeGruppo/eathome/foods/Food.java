@@ -1,14 +1,14 @@
-package nomeGruppo.eathome.actors;
+package nomeGruppo.eathome.foods;
 
 import java.util.HashSet;
 
 public class Food {
 
-    private String nameFood;
+    private String name;
     private HashSet<String> ingredients;
 
-    public Food(String nameFood){
-        this.nameFood=nameFood;
+    public Food(String name){
+        this.name=name;
         this.ingredients= new HashSet<>();
     }
 

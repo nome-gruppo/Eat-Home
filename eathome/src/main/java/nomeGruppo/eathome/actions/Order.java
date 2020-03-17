@@ -9,23 +9,29 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import nomeGruppo.eathome.actors.Food;
+import nomeGruppo.eathome.foods.Food;
 
 public class Order {
 
-    private String addressOrder;
-    private String addressNumOrder;
-    private Date dateOrder;
-    private LocalTime timeOrder;
+    private int id;
+    private String address;
+    private String addressNum; // TODO da eliminare se si può isolare il numero dall'indirizzo
+    private Date date;
+    private LocalTime time;
     private HashMap<Food, Integer> foods;
     private OrderState orderState;
+    private final int idClient;
+    private final int idPlace;
 
-    public Order(String addressOrder, LocalTime timeOrder){
-        this.addressOrder=addressOrder;
-        this.dateOrder= Calendar.getInstance().getTime(); //imposta in automatico la data corrente per l'ordine
-        this.timeOrder=timeOrder;
+    public Order(String address, LocalTime time, int idClient, int idPlace){
+        //TODO leggi l'ultimo id dal database e incrementa uno
+        this.address = address;
+        this.date = Calendar.getInstance().getTime(); //imposta in automatico la data corrente per l'ordine
+        this.time =time;
         this.foods = new HashMap<>();
         this.orderState=OrderState.PENDING_CONFIRMATION;
+        this.idClient = idClient;
+        this.idPlace = idPlace;
     }
 
     public void addFood(Food food, int quantity){
@@ -37,9 +43,9 @@ public class Order {
     }
     public String getFormattedDateOrder(){
 
-        if(dateOrder != null){
+        if(date != null){
             @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-            return dateFormat.format(dateOrder);
+            return dateFormat.format(date);
         }else{
             NullPointerException e = new NullPointerException();
             e.printStackTrace();
