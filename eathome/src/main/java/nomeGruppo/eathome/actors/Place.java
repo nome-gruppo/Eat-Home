@@ -1,64 +1,28 @@
 package nomeGruppo.eathome.actors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actions.Order;
 
 public class Place {
-    String namePlace;
-    String cityPalce;
-    String phonePlace;
-    String adressPlace;
-    String mailPlace;
-    String passwordPlace;
-    List<Order> orderPlace;
-    List<Booking> bookingPlace;
 
-    public Place(){
+    private String name;
+    private String phone;
+    private String address;
+    private String addressNumber; // TODO da eliminare se si può isolare il numero dall'indirizzo
+    private ArrayList<Order> order;
+    private ArrayList<Booking> booking;
+    private boolean takesOrder;
+    private boolean takesBooking;
 
-    }
-
-    public Place(String name, String city, String phone,String adress,String mail,String password){
-        this.namePlace=name;
-        this.cityPalce=city;
-        this.phonePlace=phone;
-        this.adressPlace=adress;
-        this.mailPlace=mail;
-        this.passwordPlace=password;
-        this.orderPlace=null;
-        this.bookingPlace=null;
-    }
-
-    public String getNamePlace() {
-        return namePlace;
-    }
-
-    public String getCityPalce() {
-        return cityPalce;
-    }
-
-    public String getPhonePlace() {
-        return phonePlace;
-    }
-
-    public String getAdressPlace() {
-        return adressPlace;
-    }
-
-    public String getMailPlace() {
-        return mailPlace;
-    }
-
-    public String getPasswordPlace() {
-        return passwordPlace;
-    }
-
-    public List<Order> getOrderPlace() {
-        return orderPlace;
-    }
-
-    public List<Booking> getBookingPlace() {
-        return bookingPlace;
+    public Place(String name, String phone, String address, String addressNumber){
+        this.name=name;
+        this.phone=phone;
+        this.address = address;
+        this.address = addressNumber;
+        this.order = new ArrayList<>();
+        this.booking = new ArrayList<>();
     }
 }

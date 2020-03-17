@@ -6,16 +6,23 @@ import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actions.Order;
 
 public class Client {
-    String nameClient;
-    String surnameClient;
-    String phoneClient;
-    List<Order> orderClient;
-    List<Booking> bookingClient;
 
-    public Client(String name, String surname, String phone){
-        this.nameClient=name;
-        this.surnameClient=surname;
-        this.phoneClient=phone;
+    private int id;
+    private String name;
+    private String surname;
+    private String phone;
+    private String email;
+    private List<Order> orders;
+    private List<Booking> bookings;
+
+    public Client(String name, String surname, String email){
+        this.name=name;
+        this.surname=surname;
+        this.email=email;
+    }
+
+    public void setPhoneClient(String phoneClient){
+        this.phone=phoneClient;
     }
 }
 
