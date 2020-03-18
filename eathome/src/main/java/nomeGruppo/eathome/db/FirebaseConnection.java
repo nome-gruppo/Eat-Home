@@ -1,6 +1,7 @@
 package nomeGruppo.eathome.db;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -23,8 +24,8 @@ public class FirebaseConnection {
         mDatabase.child(table).child(column).setValue(value);
     }
 
-    public void writeObject(String table, String id, Object obj){
-        mDatabase.child(table).child(id).setValue(obj);
+    public void writeObject(String table, Object obj){
+        mDatabase.child(table).push().setValue(obj);
     }
 
     public Object read() {

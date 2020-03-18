@@ -29,10 +29,22 @@
     <string name="btn_signin">SIGN IN</string>
     <string name="txt_registration">Registration</string>
     <string name="placeName">Enter name activity</string>
-    <string name="placeAdress">Enter adress activity</string>
+    <string name="placeAdress">Enter address activity</string>
     <string name="placePhone">Enter phone number activity</string>
-    <string name="placeMail">Enter mail adress</string>
+    <string name="placeMail">Enter mail address</string>
     <string name="placePassword">Enter password</string>
     <string name="placeCity">Enter city</string>
+    <string name="addressNumberPlace">Enter address number</string>
+    <string name="pizzeria">Pizzeria</string>
+    <string name="italianRestaurant">Restaurant</string>
+    <string name="sushi">Sushi</string>
+    <string name="categories">Choose category</string>
+    <string name="orders">Takes orders</string>
+    <string name="bookings">Takes bookings</string>
+    <string name="either">Either</string>
+    <string name="actions">Choose actions</string>
+    <string name="deliveryCost">Insert delivery cost</string>
+    <string name="btn_go">Go</string>
+    <string name="ciSiamo">We are almost there</string>
 
 </resources>

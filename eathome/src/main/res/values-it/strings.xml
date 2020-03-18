@@ -17,5 +17,19 @@
     <string name="placeMail">Inserisci indirizzo mail</string>
     <string name="placePassword">Inserisci password</string>
     <string name="placeCity">Inserisci città</string>
+    <string name="addressNumberPlace">Inserisci numero civico</string>
+    <string name="pizzeria">Pizzeria</string>
+    <string name="italianRestaurant">Ristorante</string>
+    <string name="sushi">Sushi</string>
+    <string name="categories">Scegli categoria</string>
+    <string name="orders">Ordinazioni</string>
+    <string name="bookings">Prenotazioni</string>
+    <string name="either">Entrambe</string>
+    <string name="actions">Scegli azione</string>
+    <string name="deliveryCost">Inserisci costo spedizione</string>
+    <string name="btn_go">Vai</string>
+    <string name="ciSiamo">Ci siamo quasi</string>
+
+
 
 </resources>

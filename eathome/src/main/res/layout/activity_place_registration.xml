@@ -4,16 +4,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_registration" />
-
     <ImageView
         android:id="@+id/imgPlace"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         app:srcCompat="@drawable/upload_image" />
 
     <EditText
@@ -42,12 +36,108 @@
         android:inputType="textPostalAddress" />
 
     <EditText
+        android:id="@+id/editNumberAdressPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/addressNumberPlace"
+        android:inputType="number" />
+
+    <EditText
         android:id="@+id/editPhonePlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/placePhone"
         android:inputType="phone" />
+
+
+
+    <TextView
+        android:id="@+id/txtCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="18dp"
+        android:text="@string/categories" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radioPizzeria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pizzeria"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radioItalianRestaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/italianRestaurant"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radioSushi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sushi"
+        android:onClick="onRadioButtonClicked"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txtActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="18dp"
+        android:text="@string/actions" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radioOrders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/orders"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radioBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bookings"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radioEither"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/either"
+            android:onClick="onRadioButtonClicked"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txt3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="18dp"
+        android:text="@string/deliveryCost"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:id="@+id/txtDeliveryCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="18dp"
+        android:text="0"
+        android:inputType="numberDecimal" />
+
+    <SeekBar
+        android:id="@+id/seekDeliveryCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:progress="0"/>
+
 
     <EditText
         android:id="@+id/editMailPlace"
@@ -70,4 +160,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_signin" />
+
+
 </LinearLayout>
