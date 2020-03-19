@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.db.StorageConnection;
 
 public class ClientRegistrationActivity extends AppCompatActivity {
 
@@ -46,16 +47,18 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_registration);
 
-        imgClient.findViewById(R.id.imgClient);
-        nameClient.findViewById(R.id.editNameClient);
-        nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        surnameClient.findViewById(R.id.editSurnameClient);
-        surnameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        mailClient.findViewById(R.id.editMailClient);
-        mailClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        passwordClient.findViewById(R.id.editPasswordClient);
-        passwordClient.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        btnSignin.findViewById(R.id.btnSigninClient);
+        this.client=new Client();
+
+        this.imgClient=(ImageView)findViewById(R.id.imgClient);
+        this.nameClient=(EditText)findViewById(R.id.editNameClient);
+        this.nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        this.surnameClient=(EditText)findViewById(R.id.editSurnameClient);
+        this.surnameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        this.mailClient=(EditText)findViewById(R.id.editMailClient);
+        this.mailClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        this.passwordClient=(EditText)findViewById(R.id.editPasswordClient);
+        this.passwordClient.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        this.btnSignin=(Button)findViewById(R.id.btnSigninClient);
 
         imgClient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,15 +75,14 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                 client.setSurnameClient(surnameClient.getText().toString());
                 client.setEmailClient(mailClient.getText().toString());
                 client.setPasswordClient(passwordClient.getText().toString());
-
+                StorageConnection storage=new StorageConnection();
+                storage.uploadImage(imgClient);
                 FirebaseConnection db=new FirebaseConnection(); //apro la connessione al db
                 db.writeObject(NAME_TABLE,client); //scrivo l'oggetto client nel db
             }
         });
 
-
     }
-
 
     //metodo per selezionare se caricare l'immagine tramite fotocamare, galleria o nulla
     private void selectImage(Context context) {
@@ -225,7 +227,6 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                 }
             }
             return;
-
         }
     }
 }

@@ -54,6 +54,12 @@
             android:largeHeap="true"
             android:hardwareAccelerated="false"/>
 
+        <activity
+            android:name=".ClientRegistrationActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:largeHeap="true"
+            android:hardwareAccelerated="false"/>
 
     </application>
 

@@ -5,6 +5,7 @@ import nomeGruppo.eathome.utility.Categories;
 
 public class Place {
 
+    //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
     public String addressNumPlace;
     public String addressPlace;
     public String categories;

@@ -8,7 +8,6 @@ import nomeGruppo.eathome.actions.Order;
 public class Client {
 
     //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
-    public String id;
     public String nameClient;
     public String surnameClient;
     public String phoneClient;

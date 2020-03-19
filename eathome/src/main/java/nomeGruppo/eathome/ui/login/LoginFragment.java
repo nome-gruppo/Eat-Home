@@ -28,8 +28,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import nomeGruppo.eathome.ClientRegistrationActivity;
 import nomeGruppo.eathome.PlaceRegistrationActivity;
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Client;
 
 public class LoginFragment extends Fragment {
 
@@ -132,7 +134,6 @@ public class LoginFragment extends Fragment {
     }
 
     public void onClickSignUp(View view){
-
     }
 
     public void onClickSignUpPlace(View view){
