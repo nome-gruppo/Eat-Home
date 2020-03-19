@@ -39,6 +39,8 @@
     <string name="login_failed">Accesso fallito</string>
     <string name="tw_restaurantOwner">"Sei il titolare di un ristorante? Registrati qui "</string>
     <string name="pizzeriaRestaurant">Ristorante-pizzeria</string>
+    <string name="name">Inserisci nome</string>
+    <string name="surname">Inserisci cognome</string>
 
 
 

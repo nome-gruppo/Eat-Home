@@ -7,22 +7,36 @@ import nomeGruppo.eathome.actions.Order;
 
 public class Client {
 
-    private int id;
-    private String name;
-    private String surname;
-    private String phone;
-    private String email;
-    private List<Order> orders;
-    private List<Booking> bookings;
+    //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
+    public String id;
+    public String nameClient;
+    public String surnameClient;
+    public String phoneClient;
+    public String emailClient;
+    public String passwordClient;
 
-    public Client(String name, String surname, String email){
-        this.name=name;
-        this.surname=surname;
-        this.email=email;
+    public Client(){
+
     }
 
-    public void setPhoneClient(String phoneClient){
-        this.phone=phoneClient;
+    public void setNameClient(String nameClient) {
+        this.nameClient = nameClient;
+    }
+
+    public void setSurnameClient(String surnameClient) {
+        this.surnameClient = surnameClient;
+    }
+
+    public void setPhoneClient(String phoneClient) {
+        this.phoneClient = phoneClient;
+    }
+
+    public void setEmailClient(String emailClient) {
+        this.emailClient = emailClient;
+    }
+
+    public void setPasswordClient(String passwordClient) {
+        this.passwordClient = passwordClient;
     }
 }
 
