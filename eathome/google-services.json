@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "599787414437",
+    "firebase_url": "https://eathome-bc890.firebaseio.com",
+    "project_id": "eathome-bc890",
+    "storage_bucket": "eathome-bc890.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599787414437:android:f68b925a10fac71cd03e4c",
+        "android_client_info": {
+          "package_name": "nomeGruppo.eathome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599787414437-l3sg5q0v9jo99mhug16jea8obuc72vcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKv8GuzAhlHSQxouettrQydu9H3IjoZYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599787414437-l3sg5q0v9jo99mhug16jea8obuc72vcl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

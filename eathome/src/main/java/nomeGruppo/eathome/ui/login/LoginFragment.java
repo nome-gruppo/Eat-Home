@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -26,49 +28,53 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import nomeGruppo.eathome.PlaceRegistrationActivity;
 import nomeGruppo.eathome.R;
 
 public class LoginFragment extends Fragment {
 
-    private LoginViewModel loginViewModel;
+    private LoginViewModel loginLW;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
+        loginLW = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         final ConstraintLayout layout = (ConstraintLayout) root.findViewById(R.id.fragment_activity);
 
-        final EditText usernameEditText = root.findViewById(R.id.username);
-        final EditText passwordEditText = root.findViewById(R.id.password);
-        final Button loginButton = root.findViewById(R.id.login);
-        final ProgressBar loadingProgressBar = root.findViewById(R.id.loading);
+        final EditText usernameET = root.findViewById(R.id.fragment_login_et_username);
+        final EditText passwordET = root.findViewById(R.id.fragment_login_et_password);
+        final Button loginBtn = root.findViewById(R.id.fragment_login_btn_login);
+        final TextView signUpTW = root.findViewById(R.id.fragment_login_tw_signUp);
+        final TextView signUpPlaceTW = root.findViewById(R.id.fragment_login_tw_signUpPlace);
+        final ProgressBar loadingPB = root.findViewById(R.id.fragment_login_pb_loading);
 
-        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
+
+        loginLW.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
                 if (loginFormState == null) {
                     return;
                 }
-                loginButton.setEnabled(loginFormState.isDataValid());
+                loginBtn.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
+                    usernameET.setError(getString(loginFormState.getUsernameError()));
                 }
                 if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
+                    passwordET.setError(getString(loginFormState.getPasswordError()));
                 }
             }
         });
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
+        loginLW.getLoginResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
             @Override
             public void onChanged(@Nullable LoginResult loginResult) {
                 if (loginResult == null) {
                     return;
                 }
-                loadingProgressBar.setVisibility(View.GONE);
+                loadingPB.setVisibility(View.GONE);
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
                 }
@@ -95,34 +101,43 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                loginLW.loginDataChanged(usernameET.getText().toString(),
+                        passwordET.getText().toString());
             }
         };
-        usernameEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        usernameET.addTextChangedListener(afterTextChangedListener);
+        passwordET.addTextChangedListener(afterTextChangedListener);
+        passwordET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                    loginLW.login(usernameET.getText().toString(),
+                            passwordET.getText().toString());
                 }
                 return false;
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                loadingPB.setVisibility(View.VISIBLE);
+                loginLW.login(usernameET.getText().toString(),
+                        passwordET.getText().toString());
             }
         });
 
         return root;
+    }
+
+    public void onClickSignUp(View view){
+
+    }
+
+    public void onClickSignUpPlace(View view){
+        Intent signUpPlaceIntent = new Intent(getActivity(), PlaceRegistrationActivity.class);
+        startActivity(signUpPlaceIntent);
     }
 
     private void updateUiWithUser(LoggedInUserView model) {

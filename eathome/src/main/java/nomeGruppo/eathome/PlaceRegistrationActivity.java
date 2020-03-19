@@ -23,25 +23,21 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.util.NoSuchElementException;
-
-import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.Categories;
 
 
-public class PlaceRegistration extends AppCompatActivity {
+public class PlaceRegistrationActivity extends AppCompatActivity {
 
     private ImageView imgPlace;
     private EditText namePlace;
     private EditText cityPlace;
     private EditText phonePlace;
-    private EditText adressPlace;
+    private EditText addressPlace;
     private EditText mailPlace;
     private EditText passwordPlace;
     private EditText numberAddressPlace;
@@ -66,8 +62,8 @@ public class PlaceRegistration extends AppCompatActivity {
         namePlace.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamente nella EditText successiva appena l'utente preme invio sulla tastiera
         cityPlace=(EditText)findViewById(R.id.editCityPlace);
         cityPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        adressPlace=(EditText)findViewById(R.id.editAdressPlace);
-        adressPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        addressPlace =(EditText)findViewById(R.id.editAdressPlace);
+        addressPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         numberAddressPlace=(EditText)findViewById(R.id.editNumberAdressPlace);
         numberAddressPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         phonePlace=(EditText)findViewById(R.id.editPhonePlace);
@@ -84,7 +80,7 @@ public class PlaceRegistration extends AppCompatActivity {
         imgPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectImage(PlaceRegistration.this);
+                selectImage(PlaceRegistrationActivity.this);
             }
         });
 
@@ -92,7 +88,7 @@ public class PlaceRegistration extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 place.setAddressNumPlace(numberAddressPlace.getText().toString());
-                place.setAddressPlace(adressPlace.getText().toString());
+                place.setAddressPlace(addressPlace.getText().toString());
                 place.setCityPlace(cityPlace.getText().toString());
                 place.setNamePlace(namePlace.getText().toString());
                 place.setPasswordPlace(passwordPlace.getText().toString());
