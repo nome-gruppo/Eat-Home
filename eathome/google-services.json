@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "139264978067",
-    "firebase_url": "https://eathome-b21a0.firebaseio.com",
-    "project_id": "eathome-b21a0",
-    "storage_bucket": "eathome-b21a0.appspot.com"
+    "project_number": "599787414437",
+    "firebase_url": "https://eathome-bc890.firebaseio.com",
+    "project_id": "eathome-bc890",
+    "storage_bucket": "eathome-bc890.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:139264978067:android:dd44e4db4371c3f2f63166",
+        "mobilesdk_app_id": "1:599787414437:android:f68b925a10fac71cd03e4c",
         "android_client_info": {
           "package_name": "nomeGruppo.eathome"
         }
       },
       "oauth_client": [
         {
-          "client_id": "139264978067-iqpe0hqop5ogk8ssbmvjh7gdkacs9lnj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "nomeGruppo.eathome",
-            "certificate_hash": "49997201f12c4940cacb0ef80b6df0f1c02e61c4"
-          }
-        },
-        {
-          "client_id": "139264978067-lk457r5gun47fpkteu6k822j6ca3qehn.apps.googleusercontent.com",
+          "client_id": "599787414437-l3sg5q0v9jo99mhug16jea8obuc72vcl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCrfGRpiDsIE0lTXB0-q7-Vp1e9PA16870"
+          "current_key": "AIzaSyDKv8GuzAhlHSQxouettrQydu9H3IjoZYc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "139264978067-lk457r5gun47fpkteu6k822j6ca3qehn.apps.googleusercontent.com",
+              "client_id": "599787414437-l3sg5q0v9jo99mhug16jea8obuc72vcl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
