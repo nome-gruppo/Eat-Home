@@ -121,12 +121,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    public void onClickSignUpPlace(View view){
+    public void onClickSignInPlace(View view){
         Intent signUpPlaceIntent = new Intent(this, PlaceRegistrationActivity.class);
         startActivity(signUpPlaceIntent);
     }
 
+    public void onClickSignIn(View view){
 
+    }
 
 
 

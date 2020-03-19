@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -47,8 +46,8 @@ public class LoginFragment extends Fragment {
         final EditText usernameET = root.findViewById(R.id.fragment_login_et_username);
         final EditText passwordET = root.findViewById(R.id.fragment_login_et_password);
         final Button loginBtn = root.findViewById(R.id.fragment_login_btn_login);
-        final TextView signUpTW = root.findViewById(R.id.fragment_login_tw_signUp);
-        final TextView signUpPlaceTW = root.findViewById(R.id.fragment_login_tw_signUpPlace);
+        final TextView signInTW = root.findViewById(R.id.fragment_login_tw_signIn);
+        final TextView signInPlaceTW = root.findViewById(R.id.fragment_login_tw_signInPlace);
         final ProgressBar loadingPB = root.findViewById(R.id.fragment_login_pb_loading);
 
 
@@ -131,14 +130,6 @@ public class LoginFragment extends Fragment {
         return root;
     }
 
-    public void onClickSignUp(View view){
-
-    }
-
-    public void onClickSignUpPlace(View view){
-        Intent signUpPlaceIntent = new Intent(getActivity(), PlaceRegistrationActivity.class);
-        startActivity(signUpPlaceIntent);
-    }
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();

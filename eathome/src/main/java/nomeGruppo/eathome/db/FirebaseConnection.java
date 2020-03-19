@@ -25,6 +25,9 @@ public class FirebaseConnection {
     }
 
     public void writeObject(String table, Object obj){
+
+
+
         mDatabase.child(table).push().setValue(obj);
     }
 

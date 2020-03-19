@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -50,6 +51,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     static final int WIDTH_IMAGE=120;
     private Place place;
     private int currentDeliveryCost=0;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,8 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         btnSignin=(Button)findViewById(R.id.btnSignin);
         txtDeliveryCost=(TextView)findViewById(R.id.txtDeliveryCost);
 
+        final Intent placeSignInIntent = new Intent(this, PlaceRegistrationActivity.class);
+
         imgPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +92,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 place.setAddressNumPlace(numberAddressPlace.getText().toString());
                 place.setAddressPlace(addressPlace.getText().toString());
                 place.setCityPlace(cityPlace.getText().toString());
@@ -99,10 +104,13 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
                 FirebaseConnection db=new FirebaseConnection(); //apro la connessione al db
                 db.writeObject("Places",place); //scrivo l'oggetto place nel db
+
+                startActivity(placeSignInIntent);
+
             }
         });
 
-    }
+    }// fine onCreate
 
     private SeekBar.OnSeekBarChangeListener customSeekBarDelivery=
             new SeekBar.OnSeekBarChangeListener() {
