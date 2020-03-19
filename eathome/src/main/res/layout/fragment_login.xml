@@ -76,7 +76,7 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <TextView
-        android:id="@+id/fragment_login_tw_signUp"
+        android:id="@+id/fragment_login_tw_signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="163dp"
@@ -84,13 +84,14 @@
         android:layout_marginEnd="174dp"
         android:text="@string/tw_signUp"
         android:clickable="true"
-        android:onClick="onClickSignUp"
+        android:onClick="onClickSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_btn_login" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_btn_login"
+        tools:ignore="OnClick" />
 
     <TextView
-        android:id="@+id/fragment_login_tw_signUpPlace"
+        android:id="@+id/fragment_login_tw_signInPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="177dp"
@@ -98,9 +99,10 @@
         android:layout_marginEnd="160dp"
         android:text="@string/tw_restaurantOwner"
         android:clickable="true"
-        android:onClick="onClickSignUpPlace"
+        android:onClick="onClickSignInPlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signUp" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signIn"
+        tools:ignore="OnClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
