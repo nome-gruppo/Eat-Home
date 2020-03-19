@@ -49,7 +49,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     static final int HEIGHT_IMAGE=120;
     static final int WIDTH_IMAGE=120;
     private Place place;
-    private int currentDeliveryCost;
+    private int currentDeliveryCost=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         phonePlace=(EditText)findViewById(R.id.editPhonePlace);
         phonePlace.setImeOptions(EditorInfo.IME_ACTION_DONE);
         deliveryCost=(SeekBar) findViewById(R.id.seekDeliveryCost);
+        deliveryCost.setEnabled(false);
         deliveryCost.setOnSeekBarChangeListener(customSeekBarDelivery);
         mailPlace=(EditText)findViewById(R.id.editMailPlace);
         mailPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -140,15 +141,18 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
             case R.id.radioOrders:
                 if (checked)
                     place.setTakesOrderPlace(true);
+                    deliveryCost.setEnabled(true);
                     break;
             case R.id.radioBooking:
                 if (checked)
                     place.setTakesBookingPlace(true);
+                    deliveryCost.setEnabled(false);
                     break;
             case R.id.radioEither:
                 if (checked)
                     place.setTakesOrderPlace(true);
                     place.setTakesBookingPlace(true);
+                    deliveryCost.setEnabled(true);
                     break;
         }
     }
@@ -184,6 +188,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
 
     @Override
+    //in base al requestCode ricevuto setta imgPlace dalla fotocamaera o dalla galleria
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_CANCELED) {
@@ -219,6 +224,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    //metodo per dimensionare l'immagine all'interno del riquadro
     public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
         int height = bm.getHeight();

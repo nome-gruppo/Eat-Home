@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/addressNumberPlace"
-        android:inputType="number" />
+        android:inputType="textPostalAddress" />
 
     <EditText
         android:id="@+id/editPhonePlace"
@@ -74,6 +74,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/italianRestaurant"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radioPizzeriaRestaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pizzeriaRestaurant"
             android:onClick="onRadioButtonClicked"/>
         <RadioButton android:id="@+id/radioSushi"
         android:layout_width="wrap_content"
@@ -136,7 +141,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="5"
-        android:progress="0"/>
+        android:progress="0" />
 
 
     <EditText

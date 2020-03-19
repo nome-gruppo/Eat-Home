@@ -48,5 +48,6 @@
     <string name="ciSiamo">We are almost there</string>
     <string name="tw_signUp">Sign up</string>
     <string name="tw_restaurantOwner">Restaurant owner? Sign up here</string>
+    <string name="pizzeriaRestaurant">Restaurant-pizzeria</string>
 
 </resources>

@@ -38,6 +38,10 @@
     <string name="invalid_password">La password deve essere più lunda di 5 caratteri</string>
     <string name="login_failed">Accesso fallito</string>
     <string name="tw_restaurantOwner">"Sei il titolare di un ristorante? Registrati qui "</string>
+    <string name="pizzeriaRestaurant">Ristorante-pizzeria</string>
+
+
+
 
 
 </resources>
