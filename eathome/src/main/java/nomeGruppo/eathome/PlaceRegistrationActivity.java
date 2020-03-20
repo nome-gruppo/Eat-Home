@@ -51,7 +51,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     static final int WIDTH_IMAGE=120;
     private Place place;
     private int currentDeliveryCost=0;
-    private Toast toast;
+    private int duration = Toast.LENGTH_SHORT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         btnSignin=(Button)findViewById(R.id.btnSignin);
         txtDeliveryCost=(TextView)findViewById(R.id.txtDeliveryCost);
 
-        final Intent placeSignInIntent = new Intent(this, PlaceRegistrationActivity.class);
+        final Intent placeSignInIntent = new Intent(this, PlaceHomepageActivity.class);
 
         imgPlace.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,21 +92,29 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (numberAddressPlace.getText().toString().trim().length() == 0 && addressPlace.getText().toString().trim().length() == 0 && cityPlace.getText().toString().trim().length() == 0 &&
+                        namePlace.getText().toString().trim().length() == 0 && passwordPlace.getText().toString().trim().length() == 0 && mailPlace.getText().toString().trim().length() == 0 &&
+                        phonePlace.getText().toString().trim().length() == 0 && place.categories.trim().length() == 0) {
 
-                place.setAddressNumPlace(numberAddressPlace.getText().toString());
-                place.setAddressPlace(addressPlace.getText().toString());
-                place.setCityPlace(cityPlace.getText().toString());
-                place.setNamePlace(namePlace.getText().toString());
-                place.setPasswordPlace(passwordPlace.getText().toString());
-                place.setPhonePlace(phonePlace.getText().toString());
-                place.setEmailPlace(mailPlace.getText().toString());
-                place.setMenu(null);
+                    Toast.makeText(PlaceRegistrationActivity.this, "Compila tutti i campi", duration).show();
 
-                FirebaseConnection db=new FirebaseConnection(); //apro la connessione al db
-                db.writeObject("Places",place); //scrivo l'oggetto place nel db
+                } else {
 
-                startActivity(placeSignInIntent);
+                    place.setAddressNumPlace(numberAddressPlace.getText().toString());
+                    place.setAddressPlace(addressPlace.getText().toString());
+                    place.setCityPlace(cityPlace.getText().toString());
+                    place.setNamePlace(namePlace.getText().toString());
+                    place.setPasswordPlace(passwordPlace.getText().toString());
+                    place.setPhonePlace(phonePlace.getText().toString());
+                    place.setEmailPlace(mailPlace.getText().toString());
+                    place.setMenu(null);
 
+                    FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
+                    db.writeObject("Places", place); //scrivo l'oggetto place nel db
+
+                    startActivity(placeSignInIntent);
+
+                }
             }
         });
 

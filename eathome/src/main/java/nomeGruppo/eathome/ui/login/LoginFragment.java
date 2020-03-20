@@ -27,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import nomeGruppo.eathome.ClientRegistrationActivity;
 import nomeGruppo.eathome.PlaceRegistrationActivity;
 import nomeGruppo.eathome.R;
 
@@ -49,7 +50,6 @@ public class LoginFragment extends Fragment {
         final TextView signInTW = root.findViewById(R.id.fragment_login_tw_signIn);
         final TextView signInPlaceTW = root.findViewById(R.id.fragment_login_tw_signInPlace);
         final ProgressBar loadingPB = root.findViewById(R.id.fragment_login_pb_loading);
-
 
         loginLW.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
             @Override
