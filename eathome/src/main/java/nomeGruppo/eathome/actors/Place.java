@@ -15,7 +15,7 @@ public class Place implements Serializable {
     public int deliveryCost;
     public String emailPlace;
     public String namePlace;
-    public String passwordPlace;
+    public int passwordPlace;
     public String phonePlace;
     public boolean takesBookingPlace;
     public boolean takesOrderPlace;
@@ -24,7 +24,7 @@ public class Place implements Serializable {
 
     }
 
-    public Place(String addressNumPlace, String addressPlace, String cityPlace, int deliveryCost, String namePlace, String passwordPlace, String phonePlace) {
+    public Place(String addressNumPlace, String addressPlace, String cityPlace, int deliveryCost, String namePlace, int passwordPlace, String phonePlace) {
         this.addressNumPlace = addressNumPlace;
         this.addressPlace = addressPlace;
         this.categories = null;
@@ -73,7 +73,7 @@ public class Place implements Serializable {
         this.namePlace = namePlace;
     }
 
-    public void setPasswordPlace(String passwordPlace) {
+    public void setPasswordPlace(int passwordPlace) {
         this.passwordPlace = passwordPlace;
     }
 
