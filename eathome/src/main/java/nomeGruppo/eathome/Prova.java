@@ -28,7 +28,7 @@ public class Prova extends AppCompatActivity {
     private Button btnProva;
     private Place place;
     private boolean exists;
-    private List<Place>listPlace;
+    static ArrayList<Place>listPlace;
     private TextView txtProva;
 
     @Override
@@ -49,7 +49,10 @@ public class Prova extends AppCompatActivity {
                 FirebaseConnection db=new FirebaseConnection();
 
                 db.queryEqualTo("Places","emailPlace","in@gmail.com").addListenerForSingleValueEvent(valueEventListener);
-                
+
+                place=listPlace.get(0);
+                txtProva.setText(place.namePlace);
+
             }
         });
     }
@@ -61,7 +64,7 @@ public class Prova extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Place place1 = snapshot.getValue(Place.class);
-                    listPlace.add(place1);
+                    listPlace.add(0,place1);
                 }
             }
         }

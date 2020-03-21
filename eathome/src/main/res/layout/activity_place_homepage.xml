@@ -18,8 +18,25 @@
         android:layout_height="100dp"
         app:srcCompat="@drawable/upload_image" />
 
+    <TextView
+        android:id="@+id/txtMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menu"
+        android:textAlignment="center"
+        android:textSize="18dp"/>
 
+    <ImageButton
+        android:id="@+id/btnAddMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_button_add_menu" />
 
-
+    <ListView
+        android:id="@+id/listMenu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="#005b00"
+        android:dividerHeight="1dp" />
 
 </LinearLayout>

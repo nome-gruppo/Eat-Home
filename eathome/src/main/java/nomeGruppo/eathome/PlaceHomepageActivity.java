@@ -3,11 +3,8 @@ package nomeGruppo.eathome;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -20,7 +17,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,11 +29,16 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
+import nomeGruppo.eathome.foods.Food;
+import nomeGruppo.eathome.foods.Menu;
+import nomeGruppo.eathome.utility.MyMenuAdapter;
 
 import static android.content.ContentValues.TAG;
 
@@ -48,6 +52,11 @@ public class PlaceHomepageActivity extends AppCompatActivity {
     private ImageView imgPlace;
     private Place place;
     private TextView txtNamePlace;
+    private ListView listViewMenu;
+    private LinearLayoutManager layoutManager;
+    private List<Food> listFood;
+    private MyMenuAdapter mAdapter;
+    private ImageButton btnAddMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +67,17 @@ public class PlaceHomepageActivity extends AppCompatActivity {
 
         txtNamePlace=(TextView)findViewById(R.id.txtNamePlace);
         txtNamePlace.setText(place.namePlace);
+        btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
+
+        listViewMenu=(ListView)findViewById(R.id.listMenu);
+        listFood=new LinkedList<Food>();
+        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood);
+        listViewMenu.setAdapter(mAdapter);
 
         imgPlace= (ImageView)findViewById(R.id.placeImg);
+
+        FirebaseConnection db=new FirebaseConnection();
+        db.queryEqualTo("Menu","idPlace",place.idPlace);
 
         imgPlace.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +89,35 @@ public class PlaceHomepageActivity extends AppCompatActivity {
             }
         });
 
+        btnAddMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
     }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Menu menu = snapshot.getValue(Menu.class);
+                    listFood=menu.listFood;
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            // Getting Post failed, log a message
+            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            // ...
+        }
+    };
 
 
     private void openGallery(){

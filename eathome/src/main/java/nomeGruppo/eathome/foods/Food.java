@@ -4,19 +4,23 @@ import java.util.HashSet;
 
 public class Food {
 
-    private String name;
-    private HashSet<String> ingredients;
+    public String nameFood;
+    public double priceFood;
+    public String ingredientsFood;
 
-    public Food(String name){
-        this.name=name;
-        this.ingredients= new HashSet<>();
+    public Food(){
+
     }
 
-    public boolean addIngredient(String ingredient){
-        return this.ingredients.add(ingredient);
+    public void setName(String name) {
+        this.nameFood = name;
     }
 
-    public boolean removeIngredient(String ingredient){
-        return this.ingredients.remove(ingredient);
+    public void setPrice(double price) {
+        this.priceFood = price;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredientsFood = ingredients;
     }
 }

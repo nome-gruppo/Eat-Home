@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtNameFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="Message in a bottle"
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="17dip"
+        android:textStyle="bold"/>
+
+    <!-- Nome dell'artista -->
+
+    <TextView
+        android:id="@+id/txtPriceFood"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toLeftOf="@+id/arrow"
+        android:text="Police"
+        android:textColor="#343434"
+        android:textSize="12dip" />
+
+</LinearLayout>
