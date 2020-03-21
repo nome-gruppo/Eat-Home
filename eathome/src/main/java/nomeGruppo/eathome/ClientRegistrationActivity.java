@@ -77,7 +77,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
                     FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
                     db.writeObject(NAME_TABLE, client); //scrivo l'oggetto client nel db
-
+                    Toast.makeText(ClientRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
                     startActivity(clientHomeIntent);
 
                 }

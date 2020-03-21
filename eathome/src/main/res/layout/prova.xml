@@ -4,22 +4,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtNamePlace"
+    <Button
+        android:id="@+id/btnProva"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20dp"
-        android:textAlignment="center"/>
+        android:text="@string/btn_signin" />
 
-    <ImageView
-        android:id="@+id/placeImg"
+    <TextView
+        android:id="@+id/txtProva"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/upload_image" />
-
-
-
+        android:layout_height="wrap_content"
+        android:text="" />
 
 
 </LinearLayout>

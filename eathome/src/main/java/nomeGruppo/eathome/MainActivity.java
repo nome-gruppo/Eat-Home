@@ -131,6 +131,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(signUpClientIntent);
     }
 
+    public void onClickProva(View view){
+        Intent prova=new Intent(this,Prova.class);
+        startActivity(prova);
+    }
+
 
 
 

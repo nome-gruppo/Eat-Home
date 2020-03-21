@@ -4,12 +4,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imgPlace"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/upload_image" />
-
     <EditText
         android:id="@+id/editNamePlace"
         android:layout_width="match_parent"
@@ -75,6 +69,11 @@
             android:layout_height="wrap_content"
             android:text="@string/italianRestaurant"
             android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <RadioButton android:id="@+id/radioPizzeriaRestaurant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

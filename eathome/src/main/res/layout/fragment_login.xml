@@ -91,18 +91,33 @@
         tools:ignore="OnClick" />
 
     <TextView
-        android:id="@+id/fragment_login_tw_signInPlace"
+    android:id="@+id/fragment_login_tw_signInPlace"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="177dp"
+    android:layout_marginTop="37dp"
+    android:layout_marginEnd="160dp"
+    android:text="@string/tw_restaurantOwner"
+    android:clickable="true"
+    android:onClick="onClickSignInPlace"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signIn"
+    tools:ignore="OnClick" />
+
+    <TextView
+        android:id="@+id/fragment_login_tw_prova"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="177dp"
         android:layout_marginTop="37dp"
         android:layout_marginEnd="160dp"
-        android:text="@string/tw_restaurantOwner"
+        android:text="Prova"
         android:clickable="true"
-        android:onClick="onClickSignInPlace"
+        android:onClick="onClickProva"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signIn"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signInPlace"
         tools:ignore="OnClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

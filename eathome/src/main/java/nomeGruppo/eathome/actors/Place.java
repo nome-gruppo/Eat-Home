@@ -1,18 +1,19 @@
 package nomeGruppo.eathome.actors;
 
+import java.io.Serializable;
+
 import nomeGruppo.eathome.foods.Menu;
 import nomeGruppo.eathome.utility.Categories;
 
-public class Place {
-
+public class Place implements Serializable {
     //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
+    public String idPlace;
     public String addressNumPlace;
     public String addressPlace;
     public String categories;
     public String cityPlace;
     public int deliveryCost;
     public String emailPlace;
-    public Menu menu;
     public String namePlace;
     public String passwordPlace;
     public String phonePlace;
@@ -29,7 +30,6 @@ public class Place {
         this.categories = null;
         this.cityPlace = cityPlace;
         this.deliveryCost = deliveryCost;
-        this.menu = null;
         this.namePlace = namePlace;
         this.passwordPlace = passwordPlace;
         this.phonePlace = phonePlace;
@@ -69,10 +69,6 @@ public class Place {
         this.emailPlace = emailPlace;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
     public void setNamePlace(String namePlace) {
         this.namePlace = namePlace;
     }
@@ -85,5 +81,7 @@ public class Place {
         this.phonePlace = phonePlace;
     }
 
-
+    public void setIdPlace(String idPlace) {
+        this.idPlace = idPlace;
+    }
 }
