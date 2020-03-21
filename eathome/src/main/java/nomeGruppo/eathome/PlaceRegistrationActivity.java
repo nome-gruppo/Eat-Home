@@ -2,32 +2,25 @@ package nomeGruppo.eathome;
 
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import nomeGruppo.eathome.utility.Categories;
 
@@ -36,16 +29,17 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
     static final String NAME_TABLE="Places";
 
-    private EditText namePlace;
-    private EditText cityPlace;
-    private EditText phonePlace;
-    private EditText addressPlace;
-    private EditText mailPlace;
-    private EditText passwordPlace;
-    private EditText numberAddressPlace;
-    private SeekBar deliveryCost;
-    private Button btnSignin;
-    private TextView txtDeliveryCost;
+    private EditText namePlaceET;
+    private EditText cityPlaceET;
+    private EditText phonePlaceET;
+    private EditText addressPlaceET;
+    private EditText emailPlaceET;
+    private EditText passwordPlaceET;
+    private EditText numberAddressPlaceET;
+    private SeekBar deliveryCostSB;
+    private Button signinBtn;
+    private TextView deliveryCostTV;
+    private TextView statusTV;
     private Place place;
     private int currentDeliveryCost=0;
     private int duration = Toast.LENGTH_SHORT;
@@ -57,53 +51,64 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
         this.place=new Place();
 
-        namePlace=(EditText)findViewById(R.id.editNamePlace);
-        namePlace.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamente nella EditText successiva appena l'utente preme invio sulla tastiera
-        cityPlace=(EditText)findViewById(R.id.editCityPlace);
-        cityPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        addressPlace =(EditText)findViewById(R.id.editAdressPlace);
-        addressPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        numberAddressPlace=(EditText)findViewById(R.id.editNumberAdressPlace);
-        numberAddressPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        phonePlace=(EditText)findViewById(R.id.editPhonePlace);
-        phonePlace.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        deliveryCost=(SeekBar) findViewById(R.id.seekDeliveryCost);
-        deliveryCost.setEnabled(false);
-        deliveryCost.setOnSeekBarChangeListener(customSeekBarDelivery);
-        mailPlace=(EditText)findViewById(R.id.editMailPlace);
-        mailPlace.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        passwordPlace=(EditText)findViewById(R.id.editPasswordPlace);
-        btnSignin=(Button)findViewById(R.id.btnSignin);
-        txtDeliveryCost=(TextView)findViewById(R.id.txtDeliveryCost);
+        namePlaceET =(EditText)findViewById(R.id.editNamePlace);
+        namePlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamente nella EditText successiva appena l'utente preme invio sulla tastiera
+        cityPlaceET =(EditText)findViewById(R.id.editCityPlace);
+        cityPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        addressPlaceET =(EditText)findViewById(R.id.editAdressPlace);
+        addressPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        numberAddressPlaceET =(EditText)findViewById(R.id.editNumberAdressPlace);
+        numberAddressPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        phonePlaceET =(EditText)findViewById(R.id.editPhonePlace);
+        phonePlaceET.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        deliveryCostSB =(SeekBar) findViewById(R.id.seekDeliveryCost);
+        deliveryCostSB.setEnabled(false);
+        deliveryCostSB.setOnSeekBarChangeListener(customSeekBarDelivery);
+        emailPlaceET =(EditText)findViewById(R.id.editMailPlace);
+        emailPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        passwordPlaceET =(EditText)findViewById(R.id.editPasswordPlace);
+        signinBtn =(Button)findViewById(R.id.btnSignin);
+        deliveryCostTV =(TextView)findViewById(R.id.txtDeliveryCost);
+        statusTV = (TextView)findViewById(R.id.activity_place_registration_tw_status);
 
-        btnSignin.setOnClickListener(new View.OnClickListener() {
+        signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (numberAddressPlace.getText().toString().trim().length() == 0 || addressPlace.getText().toString().trim().length() == 0 || cityPlace.getText().toString().trim().length() == 0 ||
-                        namePlace.getText().toString().trim().length() == 0 || passwordPlace.getText().toString().trim().length() == 0 || mailPlace.getText().toString().trim().length() == 0 ||
-                        phonePlace.getText().toString().trim().length() == 0 || place.categories.trim().length() == 0) {
+                statusTV.setVisibility(View.INVISIBLE);
+                if (numberAddressPlaceET.getText().toString().trim().length() == 0 || addressPlaceET.getText().toString().trim().length() == 0 || cityPlaceET.getText().toString().trim().length() == 0 ||
+                        namePlaceET.getText().toString().trim().length() == 0 || passwordPlaceET.getText().toString().trim().length() == 0 || emailPlaceET.getText().toString().trim().length() == 0 ||
+                        phonePlaceET.getText().toString().trim().length() == 0 || place.categories.trim().length() == 0) {
 
                     Toast.makeText(PlaceRegistrationActivity.this, "Compila tutti i campi", duration).show();
 
                 } else {
 
-                    place.setAddressNumPlace(numberAddressPlace.getText().toString());
-                    place.setAddressPlace(addressPlace.getText().toString());
-                    place.setCityPlace(cityPlace.getText().toString());
-                    place.setNamePlace(namePlace.getText().toString());
-                    place.setPasswordPlace(passwordPlace.getText().toString());
-                    place.setPhonePlace(phonePlace.getText().toString());
-                    place.setEmailPlace(mailPlace.getText().toString());
-
                     FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
-                    place.setIdPlace(db.getKey(NAME_TABLE));//assegno la chiave random data da firebase al campo idPlace
-                    db.writeObject(NAME_TABLE, place); //scrivo l'oggetto place nel db
 
+                    //controllo che la mail non sia già presente nel database
+                    if(emailControl(db, NAME_TABLE, "emailPlace", emailPlaceET.getText().toString().trim())){
+                        statusTV.setVisibility(View.VISIBLE);
+                        emailPlaceET.setText("");
+                        passwordPlaceET.setText("");
+                    }else {
 
-                    Intent placeHomeIntent = new Intent(PlaceRegistrationActivity.this, PlaceHomepageActivity.class);
-                    placeHomeIntent.putExtra("PLACE",place);
-                    Toast.makeText(PlaceRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
-                    startActivity(placeHomeIntent);
+                        place.setAddressNumPlace(numberAddressPlaceET.getText().toString());
+                        place.setAddressPlace(addressPlaceET.getText().toString());
+                        place.setCityPlace(cityPlaceET.getText().toString());
+                        place.setNamePlace(namePlaceET.getText().toString());
+                        place.setPasswordPlace(passwordPlaceET.getText().toString().hashCode());
+                        place.setPhonePlace(phonePlaceET.getText().toString());
+                        place.setEmailPlace(emailPlaceET.getText().toString());
+
+                        place.setIdPlace(db.getKey(NAME_TABLE));//assegno la chiave random data da firebase al campo idPlace
+
+                        db.writeObject(NAME_TABLE, place); //scrivo l'oggetto place nel db
+
+                        Intent placeHomeIntent = new Intent(PlaceRegistrationActivity.this, PlaceHomepageActivity.class);
+                        placeHomeIntent.putExtra("PLACE", place);
+                        Toast.makeText(PlaceRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
+                        startActivity(placeHomeIntent);
+                    }
                 }
             }
         });
@@ -115,7 +120,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     currentDeliveryCost=seekBar.getProgress();
-                    txtDeliveryCost.setText(Integer.toString(currentDeliveryCost));
+                    deliveryCostTV.setText(Integer.toString(currentDeliveryCost));
                 }
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
@@ -147,22 +152,42 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
             case R.id.radioOrders:
                 if (checked)
                     place.setTakesOrderPlace(true);
-                    deliveryCost.setEnabled(true);
+                    deliveryCostSB.setEnabled(true);
                     break;
             case R.id.radioBooking:
                 if (checked)
                     place.setTakesBookingPlace(true);
-                    deliveryCost.setEnabled(false);
+                    deliveryCostSB.setEnabled(false);
                     break;
             case R.id.radioEither:
                 if (checked)
                     place.setTakesOrderPlace(true);
                     place.setTakesBookingPlace(true);
-                    deliveryCost.setEnabled(true);
+                    deliveryCostSB.setEnabled(true);
                     break;
         }
     }
 
+    private boolean emailControl(FirebaseConnection db, String tableName, String column, String value){
+        final boolean[] result = {false};
+
+        db.queryEqualTo(tableName, column, value).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    result[0] = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        return result[0];
+    }
 
 
 }
