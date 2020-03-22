@@ -43,4 +43,13 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_signin" />
 
+    <TextView
+        android:id="@+id/activity_client_registration_tw_status"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:text="Email già presente"
+        android:textSize="24dp"
+        android:visibility="invisible"
+        />
+
 </LinearLayout>
