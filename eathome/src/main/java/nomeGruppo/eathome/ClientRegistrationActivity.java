@@ -35,10 +35,10 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     private TextView statusTV;
     private Client client;
 
-
     private int duration = Toast.LENGTH_SHORT;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +47,18 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        this.client = new Client();
+        client = new Client();
 
-        this.nameClient = (EditText) findViewById(R.id.editNameClient);
-        this.nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        this.surnameClient = (EditText) findViewById(R.id.editSurnameClient);
-        this.surnameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        this.emailClient = (EditText) findViewById(R.id.editMailClient);
-        this.emailClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        this.passwordClient = (EditText) findViewById(R.id.editPasswordClient);
-        this.passwordClient.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        this.btnSignin = (Button) findViewById(R.id.btnSigninClient);
-        this.statusTV = (TextView) findViewById(R.id.activity_client_registration_tw_status);
+        nameClient = (EditText) findViewById(R.id.editNameClient);
+        nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        surnameClient = (EditText) findViewById(R.id.editSurnameClient);
+        surnameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        emailClient = (EditText) findViewById(R.id.editMailClient);
+        emailClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        passwordClient = (EditText) findViewById(R.id.editPasswordClient);
+        passwordClient.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        btnSignin = (Button) findViewById(R.id.btnSigninClient);
+        statusTV = (TextView) findViewById(R.id.activity_client_registration_tw_status);
 
 
         btnSignin.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +87,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         super.onStart();
 
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
     }
 
     @Override
@@ -101,7 +101,10 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         client.setEmailClient(emailClient.getText().toString().trim());
         client.setPhoneClient(null);
 
-        db.writeObject(NAME_TABLE, client); //scrivo l'oggetto client nel db
+        client.setIdClient(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
+
+        //assegno come chiave del db l'user id generato da Firebase Authentication
+        db.write(NAME_TABLE, user.getUid(), client);
     }
 
     public void createAccount(String email, String password) {
@@ -112,8 +115,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
+                            user = mAuth.getCurrentUser();
 
                             Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, MainActivity.class);
                             Toast.makeText(ClientRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
@@ -123,7 +125,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(ClientRegistrationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
+
                             statusTV.setText("Email già presente");
                             statusTV.setVisibility(View.VISIBLE);
 
@@ -131,7 +133,6 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                             passwordClient.setText("");
                         }
 
-                        // ...
                     }
                 });
     }

@@ -13,7 +13,7 @@
     <!-- TODO l'id precedente era container-->
 
     <EditText
-        android:id="@+id/fragment_login_et_username"
+        android:id="@+id/fragment_login_et_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -40,7 +40,7 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_et_username" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_et_email" />
 
     <Button
         android:id="@+id/fragment_login_btn_login"
