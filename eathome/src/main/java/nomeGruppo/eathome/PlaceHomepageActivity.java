@@ -5,6 +5,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -57,6 +59,7 @@ public class PlaceHomepageActivity extends AppCompatActivity {
     private List<Food> listFood;
     private MyMenuAdapter mAdapter;
     private ImageButton btnAddMenu;
+    private TextView txtPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,8 @@ public class PlaceHomepageActivity extends AppCompatActivity {
         txtNamePlace=(TextView)findViewById(R.id.txtNamePlace);
         txtNamePlace.setText(place.namePlace);
         btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
-
+        txtPath=(TextView)findViewById(R.id.txtPath);
+        txtPath.setVisibility(View.INVISIBLE);
         listViewMenu=(ListView)findViewById(R.id.listMenu);
         listFood=new LinkedList<Food>();
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood);
@@ -84,8 +88,8 @@ public class PlaceHomepageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 openGallery();
 
-                StorageConnection storage=new StorageConnection();
-                storage.uploadImage(imgPlace);
+                StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
+                storage.uploadImage(txtPath.getText().toString(),place.idPlace);//carico l'immagine nello Storage nella sottocartella con idPlace corrispondente
             }
         });
 
@@ -130,7 +134,15 @@ public class PlaceHomepageActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode==PICK_IMAGE) {
-            Uri imageUri = data.getData();
+            Uri imageUri = data.getData();//restituisce l'uri dell'immagine
+
+            //trasforma l'uri in path
+            Context context = getBaseContext();
+            Cursor cursor = getContentResolver().query(imageUri,null, null, null, null);
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            String absoluteFilePath = cursor.getString(idx);
+            txtPath.setText(absoluteFilePath);//assegno il valore del path dell'immagine a txtPath
             imgPlace.setImageURI(imageUri);
         }
     }

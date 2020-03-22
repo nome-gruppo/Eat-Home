@@ -13,20 +13,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 public class StorageConnection {
     private StorageReference mStorageRef;
 
     public StorageConnection(){
-        this.mStorageRef = FirebaseStorage.getInstance("gs://eathome-bc890.appspot.com").getReference();
+        FirebaseStorage firebaseStorage=FirebaseStorage.getInstance("gs://eathome-bc890.appspot.com");
+        this.mStorageRef = firebaseStorage.getReference();
     }
 
-    public void uploadImage(String  imageUri){
-        Uri file = Uri.fromFile(new File(imageUri));
-        StorageReference riversRef=this.mStorageRef.child("images/"+file.getLastPathSegment());
+    public void uploadImage(String  imagePath,String idPlace){
+        Uri file = Uri.fromFile(new File(imagePath));
+        StorageReference riversRef=this.mStorageRef.child("images/"+idPlace+"/"+file.getLastPathSegment());
         UploadTask uploadTask = riversRef.putFile(file);
 
 // Register observers to listen for when the download is done or if it fails
@@ -43,6 +42,20 @@ public class StorageConnection {
             }
         });
 
+    }
+
+    public void downloadImage(String idPlace,String path){
+            this.mStorageRef.child("images/"+idPlace+"/"+path).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
     }
 
 }
