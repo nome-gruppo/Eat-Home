@@ -8,11 +8,11 @@ import nomeGruppo.eathome.actions.Order;
 public class Client {
 
     //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
+    public String idClient;
     public String nameClient;
     public String surnameClient;
     public String phoneClient;
     public String emailClient;
-    public String passwordClient;
 
     public Client(){
 
@@ -34,8 +34,9 @@ public class Client {
         this.emailClient = emailClient;
     }
 
-    public void setPasswordClient(String passwordClient) {
-        this.passwordClient = passwordClient;
+
+    public void setIdClient(String idClient) {
+        this.idClient = idClient;
     }
 }
 

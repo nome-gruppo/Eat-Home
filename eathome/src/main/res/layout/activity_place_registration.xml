@@ -22,7 +22,7 @@
         android:inputType="textPostalAddress" />
 
     <EditText
-        android:id="@+id/editAdressPlace"
+        android:id="@+id/editAddressPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -30,7 +30,7 @@
         android:inputType="textPostalAddress" />
 
     <EditText
-        android:id="@+id/editNumberAdressPlace"
+        android:id="@+id/editNumberAddressPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

@@ -6,26 +6,26 @@ import java.util.Date;
 
 public class Booking {
 
-    private int id;
-    private Date date;
-    private LocalTime time;
-    private String personNum;
-    private BookingState bookingState;
-    private final int idClient;
-    private final int idPlace;
+    private int idBooking;
+    private Date dateBooking;
+    private LocalTime timeBooking;
+    private String personNumBooking;
+    private BookingState bookingStateBooking;
+    private final int idClientBooking;
+    private final int idPlaceBooking;
 
-    public Booking(Date date, LocalTime time, String personNumBooking,
+    public Booking(Date date, LocalTime time, String personNum,
                    int idClient, int idPlace){
         //TODO leggi l'ultimo id dal database e incrementa uno
-        this.date = date;
-        this.time = time;
-        this.personNum = personNum;
-        this.bookingState=BookingState.PENDING_CONFIRMATION;
-        this.idClient=idClient;
-        this.idPlace=idPlace;
+        this.dateBooking = date;
+        this.timeBooking = time;
+        this.personNumBooking = personNum;
+        this.bookingStateBooking=BookingState.PENDING_CONFIRMATION;
+        this.idClientBooking=idClient;
+        this.idPlaceBooking=idPlace;
     }
 
     public void setBookingState(BookingState bookingState){
-        this.bookingState=bookingState;
+        this.bookingStateBooking=bookingState;
     }
 }

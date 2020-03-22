@@ -60,8 +60,8 @@ public class Prova extends AppCompatActivity {
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Place place1 = snapshot.getValue(Place.class);
-//                    listPlace.add(place1);
+                    Place place1 = snapshot.getValue(Place.class);
+                    listPlace.add(place1);
                 }
             }
         }
