@@ -16,5 +16,11 @@
         android:layout_height="wrap_content"
         android:text="" />
 
+    <ImageView
+        android:id="@+id/imgProva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/upload_image" />
+
 
 </LinearLayout>

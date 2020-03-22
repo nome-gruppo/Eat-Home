@@ -3,5 +3,6 @@ package nomeGruppo.eathome.utility;
 public enum Categories {
     PIZZERIA,
     RISTORANTE_ITALIANO,
-    SUSHI
+    SUSHI,
+    PIZZERIA_RISTORANTE
 }

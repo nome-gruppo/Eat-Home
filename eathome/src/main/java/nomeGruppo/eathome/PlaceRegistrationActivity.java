@@ -220,6 +220,10 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                 if (checked)
                     place.setCategories(Categories.SUSHI.toString());
                 break;
+            case R.id.radioPizzeriaRestaurant:
+                if(checked)
+                    place.setCategories(Categories.PIZZERIA_RISTORANTE.toString());
+                break;
             case R.id.radioOrders:
                 if (checked)
                     place.setTakesOrderPlace(true);

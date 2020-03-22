@@ -24,21 +24,12 @@ public class StorageConnection {
         this.mStorageRef = FirebaseStorage.getInstance("gs://eathome-bc890.appspot.com").getReference();
     }
 
-    public void uploadImageView(ImageView img,String idPlace){
-        StorageReference storageRef=this.mStorageRef.child(idPlace+"/file.jpg");
-        Uri file= Uri.fromFile(new File("path/to/folderName/file.jpg"));
-        UploadTask uploadTask=storageRef.putFile(file);
-    }
+    public void uploadImage(String  imageUri){
+        Uri file = Uri.fromFile(new File(imageUri));
+        StorageReference riversRef=this.mStorageRef.child("images/"+file.getLastPathSegment());
+        UploadTask uploadTask = riversRef.putFile(file);
 
-    public void uploadImage(ImageView imageView){
-        imageView.setDrawingCacheEnabled(true);
-        imageView.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = mStorageRef.putBytes(data);
+// Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
