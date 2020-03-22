@@ -13,39 +13,39 @@ import nomeGruppo.eathome.foods.Food;
 
 public class Order {
 
-    private int id;
-    private String address;
-    private String addressNum; // TODO da eliminare se si può isolare il numero dall'indirizzo
-    private Date date;
-    private LocalTime time;
-    private HashMap<Food, Integer> foods;
-    private OrderState orderState;
-    private final int idClient;
-    private final int idPlace;
+    private int idOrder;
+    private String addressOrder;
+    private String addressNumOrder; // TODO da eliminare se si può isolare il numero dall'indirizzo
+    private Date dateOrder;
+    private LocalTime timeOrder;
+    private HashMap<Food, Integer> foodsOrder;
+    private OrderState orderStateOrder;
+    private final int idClientOrder;
+    private final int idPlaceOrder;
 
     public Order(String address, LocalTime time, int idClient, int idPlace){
         //TODO leggi l'ultimo id dal database e incrementa uno
-        this.address = address;
-        this.date = Calendar.getInstance().getTime(); //imposta in automatico la data corrente per l'ordine
-        this.time =time;
-        this.foods = new HashMap<>();
-        this.orderState=OrderState.PENDING_CONFIRMATION;
-        this.idClient = idClient;
-        this.idPlace = idPlace;
+        this.addressOrder = address;
+        this.dateOrder = Calendar.getInstance().getTime(); //imposta in automatico la data corrente per l'ordine
+        this.timeOrder =time;
+        this.foodsOrder = new HashMap<>();
+        this.orderStateOrder=OrderState.PENDING_CONFIRMATION;
+        this.idClientOrder = idClient;
+        this.idPlaceOrder = idPlace;
     }
 
     public void addFood(Food food, int quantity){
-        this.foods.put(food, quantity);
+        this.foodsOrder.put(food, quantity);
     }
 
     public void setOrderState(OrderState orderState){
-        this.orderState=orderState;
+        this.orderStateOrder=orderState;
     }
     public String getFormattedDateOrder(){
 
-        if(date != null){
+        if(dateOrder != null){
             @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-            return dateFormat.format(date);
+            return dateFormat.format(dateOrder);
         }else{
             NullPointerException e = new NullPointerException();
             e.printStackTrace();
