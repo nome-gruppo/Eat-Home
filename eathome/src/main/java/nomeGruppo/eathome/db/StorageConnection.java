@@ -2,6 +2,8 @@ package nomeGruppo.eathome.db;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -13,12 +15,19 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public class StorageConnection {
     private StorageReference mStorageRef;
 
     public StorageConnection(){
         this.mStorageRef = FirebaseStorage.getInstance("gs://eathome-bc890.appspot.com").getReference();
+    }
+
+    public void uploadImageView(ImageView img,String idPlace){
+        StorageReference storageRef=this.mStorageRef.child(idPlace+"/file.jpg");
+        Uri file= Uri.fromFile(new File("path/to/folderName/file.jpg"));
+        UploadTask uploadTask=storageRef.putFile(file);
     }
 
     public void uploadImage(ImageView imageView){

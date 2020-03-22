@@ -26,7 +26,7 @@ import static android.content.ContentValues.TAG;
 public class Prova extends AppCompatActivity {
 
     private Button btnProva;
-    private Place place;
+    public Place place;
     private boolean exists;
     private List<Place>listPlace;
     private TextView txtProva;
@@ -48,30 +48,28 @@ public class Prova extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseConnection db=new FirebaseConnection();
 
-                db.queryEqualTo("Places","emailPlace","in@gmail.com").addListenerForSingleValueEvent(valueEventListener);
+                db.queryEqualTo("Places","emailPlace","in@gmail.com").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Place place1 = snapshot.getValue(Place.class);
+                                place=place1;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting Post failed, log a message
+                        Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
                 
             }
         });
+
+        txtProva.setText(place.namePlace);
     }
-
-    ValueEventListener valueEventListener = new ValueEventListener() {
-
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Place place1 = snapshot.getValue(Place.class);
-//                    listPlace.add(place1);
-                }
-            }
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            // ...
-        }
-    };
-
 }

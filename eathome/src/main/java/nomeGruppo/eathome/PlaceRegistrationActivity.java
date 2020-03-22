@@ -86,7 +86,8 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                     FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
                     //controllo che la mail non sia già presente nel database
-                    if(emailControl(db, NAME_TABLE, "emailPlace", emailPlaceET.getText().toString().trim())){
+                    if(1==1){
+                        db.queryEqualTo(NAME_TABLE, "emailPlace", emailPlaceET.getText().toString().trim()).addListenerForSingleValueEvent(valueEventListener);
                         statusTV.setVisibility(View.VISIBLE);
                         emailPlaceET.setText("");
                         passwordPlaceET.setText("");
@@ -114,6 +115,26 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         });
 
     }// fine onCreate
+
+    ValueEventListener valueEventListener = new ValueEventListener(){
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if(dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Place place1 = snapshot.getValue(Place.class);
+                    Place place=place1;
+                    if(place1.emailPlace!=null){
+
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
 
     private SeekBar.OnSeekBarChangeListener customSeekBarDelivery=
             new SeekBar.OnSeekBarChangeListener() {
@@ -171,23 +192,10 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private boolean emailControl(FirebaseConnection db, String tableName, String column, String value){
         final boolean[] result = {false};
 
-        db.queryEqualTo(tableName, column, value).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    result[0] = true;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
         return result[0];
     }
+
+
 
 
 }
