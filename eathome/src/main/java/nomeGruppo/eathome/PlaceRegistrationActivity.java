@@ -56,7 +56,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
         this.place = new Place();
 
         namePlaceET = (EditText) findViewById(R.id.editNamePlace);
@@ -91,15 +90,12 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
                 } else {
 
-                    FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
-
                     String emailTemp = emailPlaceET.getText().toString().trim();
                     String passwordTemp = passwordPlaceET.getText().toString();
 
                     if (passwordControl(passwordTemp)) {
                         createAccount(emailTemp, passwordTemp);
                     }
-
                 }
             }
         });
@@ -115,8 +111,8 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
-    /**I dati vengono salvati nel database in onPause
-     *
+    /**
+     * I dati vengono salvati nel database in onPause
      */
     @Override
     protected void onPause() {
@@ -172,14 +168,14 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     }
 
     /*Metodo che controlla la validità della password
-    */
-    private boolean passwordControl(String password){
+     */
+    private boolean passwordControl(String password) {
 
-        if(password.length() < 6){
+        if (password.length() < 6) {
             statusTV.setText("La password deve essere almeno di 6 caratteri");
             statusTV.setVisibility(View.VISIBLE);
             return false;
-        }else{
+        } else {
             return true;
         }
     }

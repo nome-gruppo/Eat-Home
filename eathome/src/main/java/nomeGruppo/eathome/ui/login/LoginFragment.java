@@ -16,6 +16,7 @@ import androidx.annotation.StringRes;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,13 +28,28 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import nomeGruppo.eathome.ClientRegistrationActivity;
 import nomeGruppo.eathome.PlaceRegistrationActivity;
 import nomeGruppo.eathome.R;
 
 public class LoginFragment extends Fragment {
 
+    private static final String TAG = "LoginFragment";
+
     private LoginViewModel loginLW;
+    private FirebaseAuth mAuth;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +66,17 @@ public class LoginFragment extends Fragment {
         final TextView signInTW = root.findViewById(R.id.fragment_login_tw_signIn);
         final TextView signInPlaceTW = root.findViewById(R.id.fragment_login_tw_signInPlace);
         final ProgressBar loadingPB = root.findViewById(R.id.fragment_login_pb_loading);
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
+
 
         loginLW.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
             @Override
@@ -130,6 +157,106 @@ public class LoginFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null)
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+    }
+
+    private void signIn(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(getContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void getCurrentUser(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+           // Uri photoUrl = user.getPhotoUrl();
+
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getIdToken() instead.
+            String uid = user.getUid();
+        }
+    }
+
+//    private void updateUI(FirebaseUser user) {
+//
+//        hideProgressBar();
+//
+//        if (user != null) {
+//
+//            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
+//
+//                    user.getEmail(), user.isEmailVerified()));
+//
+//            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+//
+//
+//
+//            findViewById(R.id.emailPasswordButtons).setVisibility(View.GONE);
+//
+//            findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
+//
+//            findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
+//
+//
+//
+//            if (user.isEmailVerified()) {
+//
+//                findViewById(R.id.verifyEmailButton).setVisibility(View.GONE);
+//
+//            } else {
+//
+//                findViewById(R.id.verifyEmailButton).setVisibility(View.VISIBLE);
+//
+//            }
+//
+//        } else {
+//
+//            mStatusTextView.setText(R.string.signed_out);
+//
+//            mDetailTextView.setText(null);
+//
+//
+//
+//            findViewById(R.id.emailPasswordButtons).setVisibility(View.VISIBLE);
+//
+//            findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);
+//
+//            findViewById(R.id.signedInButtons).setVisibility(View.GONE);
+//
+//        }
+//
+//    }
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
