@@ -27,6 +27,10 @@ public class FirebaseConnection {
         mDatabase.child(table).child(column).setValue(value);
     }
 
+    public void write(String table, String column, Object value){
+        mDatabase.child(table).child(column).setValue(value);
+    }
+
     public void writeObject(String table, Object obj) {
         mDatabase.child(table).push().setValue(obj);
     }
@@ -63,6 +67,7 @@ public class FirebaseConnection {
     public Query queryEqualTo(String table,String column,String value){
          return mDatabase.child(table).orderByChild(column).equalTo(value);
     }
+
 }
 
 

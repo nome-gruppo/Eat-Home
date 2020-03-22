@@ -48,6 +48,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private int duration = Toast.LENGTH_SHORT;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        this.place = new Place();
+        place = new Place();
 
         namePlaceET = (EditText) findViewById(R.id.editNamePlace);
         namePlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamente nella EditText successiva appena l'utente preme invio sulla tastiera
@@ -99,16 +100,14 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                 }
             }
         });
-
     }// fine onCreate
-
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        // Check if user is signed in
+        user = mAuth.getCurrentUser();
     }
 
     /**
@@ -127,10 +126,10 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         place.setPhonePlace(phonePlaceET.getText().toString().trim());
         place.setEmailPlace(emailPlaceET.getText().toString().trim());
 
-        place.setIdPlace(db.getKey(NAME_TABLE));//assegno la chiave random data da firebase al campo idPlace
+        place.setIdPlace(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
 
-        db.writeObject(NAME_TABLE, place); //scrivo l'oggetto place nel db
-
+        //assegno come chiave del db l'user id generato da Firebase Authentication
+        db.write(NAME_TABLE,user.getUid(), place);
     }
 
 
@@ -142,8 +141,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
+                            user = mAuth.getCurrentUser();
 
                             Intent placeHomeIntent = new Intent(PlaceRegistrationActivity.this, PlaceHomepageActivity.class);
                             placeHomeIntent.putExtra("PLACE", place);
@@ -154,7 +152,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(PlaceRegistrationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
+
                             statusTV.setText("Email già presente");
                             statusTV.setVisibility(View.VISIBLE);
 
@@ -162,7 +160,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                             passwordPlaceET.setText("");
                         }
 
-                        // ...
                     }
                 });
     }

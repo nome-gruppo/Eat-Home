@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -34,8 +33,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomeGruppo.eathome.ClientRegistrationActivity;
-import nomeGruppo.eathome.PlaceRegistrationActivity;
 import nomeGruppo.eathome.R;
 
 public class LoginFragment extends Fragment {
@@ -60,7 +57,7 @@ public class LoginFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         final ConstraintLayout layout = (ConstraintLayout) root.findViewById(R.id.fragment_activity);
 
-        final EditText usernameET = root.findViewById(R.id.fragment_login_et_username);
+        final EditText emailET = root.findViewById(R.id.fragment_login_et_email);
         final EditText passwordET = root.findViewById(R.id.fragment_login_et_password);
         final Button loginBtn = root.findViewById(R.id.fragment_login_btn_login);
         final TextView signInTW = root.findViewById(R.id.fragment_login_tw_signIn);
@@ -70,12 +67,12 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String emailTemp = emailET.getText().toString().trim();
+                String passwordTemp = passwordET.getText().toString().trim();
 
+                signIn(emailTemp, passwordTemp);
             }
         });
-
-
-
 
 
         loginLW.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
@@ -86,7 +83,7 @@ public class LoginFragment extends Fragment {
                 }
                 loginBtn.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getUsernameError() != null) {
-                    usernameET.setError(getString(loginFormState.getUsernameError()));
+                    emailET.setError(getString(loginFormState.getUsernameError()));
                 }
                 if (loginFormState.getPasswordError() != null) {
                     passwordET.setError(getString(loginFormState.getPasswordError()));
@@ -127,32 +124,32 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginLW.loginDataChanged(usernameET.getText().toString(),
+                loginLW.loginDataChanged(emailET.getText().toString(),
                         passwordET.getText().toString());
             }
         };
-        usernameET.addTextChangedListener(afterTextChangedListener);
+        emailET.addTextChangedListener(afterTextChangedListener);
         passwordET.addTextChangedListener(afterTextChangedListener);
         passwordET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginLW.login(usernameET.getText().toString(),
+                    loginLW.login(emailET.getText().toString(),
                             passwordET.getText().toString());
                 }
                 return false;
             }
         });
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadingPB.setVisibility(View.VISIBLE);
-                loginLW.login(usernameET.getText().toString(),
-                        passwordET.getText().toString());
-            }
-        });
+//        loginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loadingPB.setVisibility(View.VISIBLE);
+//                loginLW.login(emailET.getText().toString(),
+//                        passwordET.getText().toString());
+//            }
+//        });
 
         return root;
     }
