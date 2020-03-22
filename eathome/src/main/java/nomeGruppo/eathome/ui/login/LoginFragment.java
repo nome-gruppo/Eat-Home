@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -33,7 +34,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nomeGruppo.eathome.PlaceHomepageActivity;
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class LoginFragment extends Fragment {
 
@@ -41,6 +44,10 @@ public class LoginFragment extends Fragment {
 
     private LoginViewModel loginLW;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private Intent homepageIntent;
+    private boolean signedIn = false;
+    private Object userData;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,9 +58,8 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
-        loginLW = ViewModelProviders.of(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
+//        loginLW = ViewModelProviders.of(this, new LoginViewModelFactory())
+//                .get(LoginViewModel.class);
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         final ConstraintLayout layout = (ConstraintLayout) root.findViewById(R.id.fragment_activity);
 
@@ -62,7 +68,7 @@ public class LoginFragment extends Fragment {
         final Button loginBtn = root.findViewById(R.id.fragment_login_btn_login);
         final TextView signInTW = root.findViewById(R.id.fragment_login_tw_signIn);
         final TextView signInPlaceTW = root.findViewById(R.id.fragment_login_tw_signInPlace);
-        final ProgressBar loadingPB = root.findViewById(R.id.fragment_login_pb_loading);
+//        final ProgressBar loadingPB = root.findViewById(R.id.fragment_login_pb_loading);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,76 +77,79 @@ public class LoginFragment extends Fragment {
                 String passwordTemp = passwordET.getText().toString().trim();
 
                 signIn(emailTemp, passwordTemp);
-            }
-        });
-
-
-        loginLW.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
-            @Override
-            public void onChanged(@Nullable LoginFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
-                }
-                loginBtn.setEnabled(loginFormState.isDataValid());
-                if (loginFormState.getUsernameError() != null) {
-                    emailET.setError(getString(loginFormState.getUsernameError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordET.setError(getString(loginFormState.getPasswordError()));
+                if(signedIn){
+                    searchInDb();
+                    startActivity(homepageIntent);
                 }
             }
         });
 
-        loginLW.getLoginResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingPB.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-                getActivity().setResult(Activity.RESULT_OK);
+//        loginLW.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
+//            @Override
+//            public void onChanged(@Nullable LoginFormState loginFormState) {
+//                if (loginFormState == null) {
+//                    return;
+//                }
+//                loginBtn.setEnabled(loginFormState.isDataValid());
+//                if (loginFormState.getUsernameError() != null) {
+//                    emailET.setError(getString(loginFormState.getUsernameError()));
+//                }
+//                if (loginFormState.getPasswordError() != null) {
+//                    passwordET.setError(getString(loginFormState.getPasswordError()));
+//                }
+//            }
+//        });
+//
+//        loginLW.getLoginResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
+//            @Override
+//            public void onChanged(@Nullable LoginResult loginResult) {
+//                if (loginResult == null) {
+//                    return;
+//                }
+//                loadingPB.setVisibility(View.GONE);
+//                if (loginResult.getError() != null) {
+//                    showLoginFailed(loginResult.getError());
+//                }
+//                if (loginResult.getSuccess() != null) {
+//                    updateUiWithUser(loginResult.getSuccess());
+//                }
+//                getActivity().setResult(Activity.RESULT_OK);
+//
+//                //Complete and destroy login activity once successful
+//                getActivity().finish();
+//            }
+//        });
 
-                //Complete and destroy login activity once successful
-                getActivity().finish();
-            }
-        });
-
-        TextWatcher afterTextChangedListener = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                loginLW.loginDataChanged(emailET.getText().toString(),
-                        passwordET.getText().toString());
-            }
-        };
-        emailET.addTextChangedListener(afterTextChangedListener);
-        passwordET.addTextChangedListener(afterTextChangedListener);
-        passwordET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginLW.login(emailET.getText().toString(),
-                            passwordET.getText().toString());
-                }
-                return false;
-            }
-        });
+//        TextWatcher afterTextChangedListener = new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // ignore
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                // ignore
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                loginLW.loginDataChanged(emailET.getText().toString(),
+//                        passwordET.getText().toString());
+//            }
+//        };
+//        emailET.addTextChangedListener(afterTextChangedListener);
+//        passwordET.addTextChangedListener(afterTextChangedListener);
+//        passwordET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    loginLW.login(emailET.getText().toString(),
+//                            passwordET.getText().toString());
+//                }
+//                return false;
+//            }
+//        });
 
 //        loginBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -158,7 +167,12 @@ public class LoginFragment extends Fragment {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null)
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
+        if(user == null){
+            signedIn = false;
+        }else{
+            signedIn = true;
+        }
     }
 
     private void signIn(String email, String password){
@@ -169,17 +183,35 @@ public class LoginFragment extends Fragment {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
+                            signedIn = true;
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(getContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            signedIn = false;
                         }
 
                         // ...
                     }
                 });
+    }
+
+    /*metodo che cerca nel l'utente nel database recuperando i dati
+     */
+    private void searchInDb(){
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+        //controlla tra gli utenti
+        if(firebaseConnection.searchUser(FirebaseConnection.CLIENT_TABLE, user.getUid())){
+            this.userData = firebaseConnection.getObjectFounded();
+            this.homepageIntent = new Intent();
+        }else{ //cerca tra i ristoratori
+            this.userData = firebaseConnection.getObjectFounded();
+            this.homepageIntent = new Intent(getActivity(), PlaceHomepageActivity.class);
+        }
     }
 
     @Override

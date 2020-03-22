@@ -1,9 +1,6 @@
 package nomeGruppo.eathome.db;
 
 import android.util.Log;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +14,11 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class FirebaseConnection {
+    public final static String PLACE_TABLE = "Places";
+    public final static String CLIENT_TABLE = "Clients";
+
     private DatabaseReference mDatabase;
+    private Object objectFounded;
 
     public FirebaseConnection() {
         this.mDatabase = FirebaseDatabase.getInstance("https://eathome-bc890.firebaseio.com/").getReference();
@@ -35,18 +36,32 @@ public class FirebaseConnection {
         mDatabase.child(table).push().setValue(obj);
     }
 
+    public boolean searchUser(String table, String userId){
+
+        mDatabase.child(table).child(userId).addListenerForSingleValueEvent(searchEventListener());
+
+        if(this.objectFounded == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public Object getObjectFounded(){
+        return this.objectFounded;
+    }
+
     public String getKey(String table){
         return mDatabase.child(table).push().getKey();
     }
 
-    public ValueEventListener valueEventListener(final Object obj) {
+    private ValueEventListener searchEventListener() {
         ValueEventListener valueEventListener = new ValueEventListener() {
             List<Object> objList = null;
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                Object object = snapshot.getValue(obj.getClass());
-                objList.add(object);
+            if(dataSnapshot.exists()){
+                objectFounded = dataSnapshot.getValue();
             }
         }
 
