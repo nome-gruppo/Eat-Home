@@ -31,9 +31,9 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         convertView = inflater.inflate(R.layout.listitem_menu, null);
         TextView titolo = (TextView)convertView.findViewById(R.id.txtNameFood);
         TextView prezzo = (TextView)convertView.findViewById(R.id.txtPriceFood);
-        Food c = getItem(position);
-        titolo.setText(c.nameFood);
-        prezzo.setText(Double.toString(c.priceFood));
+        Food food = getItem(position);
+        titolo.setText(food.nameFood);
+        prezzo.setText(Double.toString(food.priceFood));
         return convertView;
     }
 

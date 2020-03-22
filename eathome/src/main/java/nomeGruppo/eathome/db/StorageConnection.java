@@ -14,6 +14,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.io.File;
+import java.net.URL;
 
 public class StorageConnection {
     private StorageReference mStorageRef;
@@ -25,7 +26,7 @@ public class StorageConnection {
 
     public void uploadImage(String  imagePath,String idPlace){
         Uri file = Uri.fromFile(new File(imagePath));
-        StorageReference riversRef=this.mStorageRef.child("images/"+idPlace+"/"+file.getLastPathSegment());
+        StorageReference riversRef=this.mStorageRef.child("images/"+idPlace+".jpg");
         UploadTask uploadTask = riversRef.putFile(file);
 
 // Register observers to listen for when the download is done or if it fails
@@ -44,8 +45,8 @@ public class StorageConnection {
 
     }
 
-    public void downloadImage(String idPlace,String path){
-            this.mStorageRef.child("images/"+idPlace+"/"+path).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+    public void downloadImage(String idPlace){
+            this.mStorageRef.child("images/"+idPlace+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'

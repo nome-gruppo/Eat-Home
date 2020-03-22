@@ -118,6 +118,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
 
                             Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, MainActivity.class);
+                            
                             Toast.makeText(ClientRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
                             startActivity(clientHomeIntent);
                         } else {

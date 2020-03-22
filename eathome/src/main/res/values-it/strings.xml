@@ -41,6 +41,8 @@
     <string name="pizzeriaRestaurant">Ristorante-pizzeria</string>
     <string name="name">Inserisci nome</string>
     <string name="surname">Inserisci cognome</string>
+    <string name="nameFood">Inserisci nome voce menu</string>
+    <string name="ingredientsFood">Inserisci ingredienti</string>
 
 
 

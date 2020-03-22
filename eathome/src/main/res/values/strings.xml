@@ -51,6 +51,7 @@
     <string name="pizzeriaRestaurant">Restaurant-pizzeria</string>
     <string name="name">Enter name</string>
     <string name="surname">Enter surname</string>
-
+    <string name="nameFood">Enter food</string>
+    <string name="ingredientsFood">Enter ingredients</string>
 
 </resources>

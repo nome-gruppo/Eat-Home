@@ -3,13 +3,21 @@ package nomeGruppo.eathome;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -24,6 +32,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.utility.Categories;
 
 
@@ -31,6 +40,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
     static final String NAME_TABLE = "Places";
     private static final String TAG = "PlaceRegistration";
+
 
     private EditText namePlaceET;
     private EditText cityPlaceET;
@@ -78,6 +88,8 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         signinBtn = (Button) findViewById(R.id.btnSignin);
         deliveryCostTV = (TextView) findViewById(R.id.txtDeliveryCost);
         statusTV = (TextView) findViewById(R.id.activity_place_registration_tw_status);
+
+
 
         signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +142,8 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
         //assegno come chiave del db l'user id generato da Firebase Authentication
         db.write(NAME_TABLE,user.getUid(), place);
+
+
     }
 
 
@@ -235,6 +249,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                 break;
         }
     }
+
 
 
 }
