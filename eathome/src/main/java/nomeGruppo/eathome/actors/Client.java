@@ -1,11 +1,12 @@
 package nomeGruppo.eathome.actors;
 
+import java.io.Serializable;
 import java.util.List;
 
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actions.Order;
 
-public class Client {
+public class Client implements Serializable {
 
     //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
     public String idClient;

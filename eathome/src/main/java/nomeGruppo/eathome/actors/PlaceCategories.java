@@ -1,6 +1,6 @@
-package nomeGruppo.eathome.utility;
+package nomeGruppo.eathome.actors;
 
-public enum Categories {
+public enum PlaceCategories {
     PIZZERIA,
     RISTORANTE_ITALIANO,
     SUSHI,

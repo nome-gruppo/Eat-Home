@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.ui.login.LoginViewModel;
+import nomeGruppo.eathome.utility.Controls;
 
 public class ClientRegistrationActivity extends AppCompatActivity {
 
@@ -37,6 +39,10 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
     private int duration = Toast.LENGTH_SHORT;
 
+
+    private Controls control;
+
+
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
@@ -48,6 +54,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         client = new Client();
+        control = new Controls();
 
         nameClient = (EditText) findViewById(R.id.editNameClient);
         nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -73,7 +80,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                     String emailTemp = emailClient.getText().toString().trim();
                     String passwordTemp = passwordClient.getText().toString();
 
-                    if (passwordControl(passwordTemp)) {
+                    if (control.isEmailValid(emailTemp) && control.isPasswordValid(passwordTemp)) {
                         createAccount(emailTemp, passwordTemp);
                     }
                 }
@@ -86,7 +93,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // TODO Check if user is signed in (non-null) and update UI accordingly.
         user = mAuth.getCurrentUser();
     }
 
