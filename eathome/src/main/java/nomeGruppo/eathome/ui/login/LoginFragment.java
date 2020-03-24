@@ -3,10 +3,9 @@ package nomeGruppo.eathome.ui.login;
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,15 +16,12 @@ import androidx.annotation.StringRes;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,21 +29,32 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileNotFoundException;
+import java.util.Objects;
+
+import nomeGruppo.eathome.MainActivity;
 import nomeGruppo.eathome.PlaceHomepageActivity;
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment{
 
     private static final String TAG = "LoginFragment";
 
-    private LoginViewModel loginLW;
+    private LoginViewModel loginViewModel;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private Intent homepageIntent;
-    private boolean signedIn = false;
-    private Object userData;
+    private Button loginBtn;
+    private EditText emailET;
+    private EditText passwordET;
+    private ProgressBar loadingPB;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,87 +65,19 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-//        loginLW = ViewModelProviders.of(this, new LoginViewModelFactory())
-//                .get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+                .get(LoginViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_login, container, false);
-        final ConstraintLayout layout = (ConstraintLayout) root.findViewById(R.id.fragment_activity);
+//        final ConstraintLayout layout = (ConstraintLayout) root.findViewById(R.id.fragment_activity);
 
-        final EditText emailET = root.findViewById(R.id.fragment_login_et_email);
-        final EditText passwordET = root.findViewById(R.id.fragment_login_et_password);
-        final Button loginBtn = root.findViewById(R.id.fragment_login_btn_login);
-        final TextView signInTW = root.findViewById(R.id.fragment_login_tw_signIn);
-        final TextView signInPlaceTW = root.findViewById(R.id.fragment_login_tw_signInPlace);
-//        final ProgressBar loadingPB = root.findViewById(R.id.fragment_login_pb_loading);
+        emailET = root.findViewById(R.id.fragment_login_et_email);
+        passwordET = root.findViewById(R.id.fragment_login_et_password);
+        loginBtn = root.findViewById(R.id.fragment_login_btn_login);
+//        final TextView signInTW = root.findViewById(R.id.fragment_login_tw_signIn);
+//        final TextView signInPlaceTW = root.findViewById(R.id.fragment_login_tw_signInPlace);
+        loadingPB = root.findViewById(R.id.fragment_login_pb_loading);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String emailTemp = emailET.getText().toString().trim();
-                String passwordTemp = passwordET.getText().toString().trim();
-
-                signIn(emailTemp, passwordTemp);
-                if(signedIn){
-                    searchInDb();
-                    startActivity(homepageIntent);
-                }
-            }
-        });
-
-//        loginLW.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
-//            @Override
-//            public void onChanged(@Nullable LoginFormState loginFormState) {
-//                if (loginFormState == null) {
-//                    return;
-//                }
-//                loginBtn.setEnabled(loginFormState.isDataValid());
-//                if (loginFormState.getUsernameError() != null) {
-//                    emailET.setError(getString(loginFormState.getUsernameError()));
-//                }
-//                if (loginFormState.getPasswordError() != null) {
-//                    passwordET.setError(getString(loginFormState.getPasswordError()));
-//                }
-//            }
-//        });
-//
-//        loginLW.getLoginResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
-//            @Override
-//            public void onChanged(@Nullable LoginResult loginResult) {
-//                if (loginResult == null) {
-//                    return;
-//                }
-//                loadingPB.setVisibility(View.GONE);
-//                if (loginResult.getError() != null) {
-//                    showLoginFailed(loginResult.getError());
-//                }
-//                if (loginResult.getSuccess() != null) {
-//                    updateUiWithUser(loginResult.getSuccess());
-//                }
-//                getActivity().setResult(Activity.RESULT_OK);
-//
-//                //Complete and destroy login activity once successful
-//                getActivity().finish();
-//            }
-//        });
-
-//        TextWatcher afterTextChangedListener = new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // ignore
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                // ignore
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                loginLW.loginDataChanged(emailET.getText().toString(),
-//                        passwordET.getText().toString());
-//            }
-//        };
-//        emailET.addTextChangedListener(afterTextChangedListener);
-//        passwordET.addTextChangedListener(afterTextChangedListener);
 //        passwordET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //
 //            @Override
@@ -164,78 +103,184 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null)
-        user = mAuth.getCurrentUser();
-        if(user == null){
-            signedIn = false;
-        }else{
-            signedIn = true;
-        }
-    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    private void signIn(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            user = mAuth.getCurrentUser();
-                            signedIn = true;
+        TextWatcher afterTextChangedListener = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // ignore
+            }
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            signedIn = false;
-                        }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // ignore
+            }
 
-                        // ...
-                    }
-                });
+            @Override
+            public void afterTextChanged(Editable s) {
+//                loginViewModel.loginDataChanged(emailET.getText().toString(),
+//                        passwordET.getText().toString());
+                if(emailET.getText().toString().trim().length() == 0 || passwordET.getText().toString().trim().length() == 0){
+                    loginBtn.setEnabled(false);
+                }else{
+                    loginBtn.setEnabled(true);
+                }
+            }
+        };
+
+        emailET.addTextChangedListener(afterTextChangedListener);
+        passwordET.addTextChangedListener(afterTextChangedListener);
+
+
+
+        //listener tasto login
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadingPB.setVisibility(View.VISIBLE);
+                String emailTemp = emailET.getText().toString().trim();
+                String passwordTemp = passwordET.getText().toString().trim();
+
+                signIn(emailTemp, passwordTemp);
+
+            }
+        });//fine listener tasto login
+
+//        loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
+////            @Override
+////            public void onChanged(@Nullable LoginFormState loginFormState) {
+////                if (loginFormState == null) {
+////                    return;
+////                }
+////                loginBtn.setEnabled(loginFormState.isDataValid());
+////                if (loginFormState.getUsernameError() != null) {
+////                    emailET.setError(getString(loginFormState.getUsernameError()));
+////                }
+////                if (loginFormState.getPasswordError() != null) {
+////                    passwordET.setError(getString(loginFormState.getPasswordError()));
+////                }
+////            }
+////        });
+
+//        loginViewModel.getLoginResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
+//            @Override
+//            public void onChanged(@Nullable LoginResult loginResult) {
+//                if (loginResult == null) {
+//                    return;
+//                }
+//                loadingPB.setVisibility(View.GONE);
+//                if (loginResult.getError() != null) {
+//                    showLoginFailed(loginResult.getError());
+//                }
+//                if (loginResult.getSuccess() != null) {
+//                    updateUiWithUser(loginResult.getSuccess());
+//                }
+//                getActivity().setResult(Activity.RESULT_OK);
+//
+//                //Complete and destroy login activity once successful
+//                getActivity().finish();
+//            }
+//        });
+
+    }// fine metodo onViewCreated
+
+
+
+    private void signIn(final String email,final String password){
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInWithEmail:success");
+                                    user = mAuth.getCurrentUser();
+                                    searchInDb(FirebaseConnection.CLIENT_TABLE);
+
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(getContext(), "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+
+                                // [END_EXCLUDE]
+                            }
+                        });
+            }
+        });
     }
 
     /*metodo che cerca nel l'utente nel database recuperando i dati
      */
-    private void searchInDb(){
-        FirebaseConnection firebaseConnection = new FirebaseConnection();
+    private void searchInDb(final String table){
+        final DatabaseReference db = new FirebaseConnection().getmDatabase();
 
-        //controlla tra gli utenti
-        if(firebaseConnection.searchUser(FirebaseConnection.CLIENT_TABLE, user.getUid())){
-            this.userData = firebaseConnection.getObjectFounded();
-            this.homepageIntent = new Intent();
-        }else{ //cerca tra i ristoratori
-            this.userData = firebaseConnection.getObjectFounded();
-            this.homepageIntent = new Intent(getActivity(), PlaceHomepageActivity.class);
-        }
+
+                db.child(table).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+
+                            loadingPB.setVisibility(View.INVISIBLE);
+
+                            if(table.equals(FirebaseConnection.CLIENT_TABLE)){
+                                Client client = dataSnapshot.getValue(Client.class);
+                                Intent homepageIntent = new Intent(getActivity(), MainActivity.class);
+                                homepageIntent.putExtra("User", client);
+                                startActivity(homepageIntent);
+                            }else{
+                                Place place = dataSnapshot.getValue(Place.class);
+                                Intent homepageIntent = new Intent(getActivity(), PlaceHomepageActivity.class);
+                                homepageIntent.putExtra("PLACE", place);
+                                startActivity(homepageIntent);
+                            }
+                        }else if(!dataSnapshot.exists() && table.equals(FirebaseConnection.CLIENT_TABLE)){
+                            searchInDb(FirebaseConnection.PLACE_TABLE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+//        //controlla tra gli utenti
+//        if(firebaseConnection.searchUser(FirebaseConnection.CLIENT_TABLE, user.getUid())){
+//            this.userData = firebaseConnection.getObjectFounded();
+//            this.homepageIntent = new Intent();
+//        }else{ //cerca tra i ristoratori
+//            this.userData = firebaseConnection.getObjectFounded();
+//            this.homepageIntent = new Intent(getActivity(), PlaceHomepageActivity.class);
+//        }
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
 
-    private void getCurrentUser(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
-            String email = user.getEmail();
-           // Uri photoUrl = user.getPhotoUrl();
 
-            // Check if user's email is verified
-            boolean emailVerified = user.isEmailVerified();
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
-            String uid = user.getUid();
-        }
-    }
+//    private void getCurrentUser(){
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            // Name, email address, and profile photo Url
+//            String name = user.getDisplayName();
+//            String email = user.getEmail();
+//           // Uri photoUrl = user.getPhotoUrl();
+//
+//            // Check if user's email is verified
+//            boolean emailVerified = user.isEmailVerified();
+//
+//            // The user's ID, unique to the Firebase project. Do NOT use this value to
+//            // authenticate with your backend server, if you have one. Use
+//            // FirebaseUser.getIdToken() instead.
+//            String uid = user.getUid();
+//        }
+//    }
 
 //    private void updateUI(FirebaseUser user) {
 //
@@ -287,13 +332,14 @@ public class LoginFragment extends Fragment {
 //
 //    }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getActivity().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-    }
+//    private void updateUiWithUser(LoggedInUserView model) {
+//        String welcome = getString(R.string.welcome) + model.getDisplayName();
+//        // TODO : initiate successful logged in experience
+//        Toast.makeText(getActivity().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+//    }
+//
+//    private void showLoginFailed(@StringRes Integer errorString) {
+//        Toast.makeText(getActivity().getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+//    }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getActivity().getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
-    }
 }

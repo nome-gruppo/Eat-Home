@@ -3,21 +3,13 @@ package nomeGruppo.eathome;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,8 +24,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomeGruppo.eathome.db.StorageConnection;
-import nomeGruppo.eathome.utility.Categories;
+import nomeGruppo.eathome.actors.PlaceCategories;
+import nomeGruppo.eathome.ui.login.LoginViewModel;
+import nomeGruppo.eathome.utility.Controls;
 
 
 public class PlaceRegistrationActivity extends AppCompatActivity {
@@ -57,6 +50,8 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private int currentDeliveryCost = 0;
     private int duration = Toast.LENGTH_SHORT;
 
+    private Controls control;
+
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
@@ -68,6 +63,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         place = new Place();
+        control = new Controls();
 
         namePlaceET = (EditText) findViewById(R.id.editNamePlace);
         namePlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamente nella EditText successiva appena l'utente preme invio sulla tastiera
@@ -106,7 +102,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                     String emailTemp = emailPlaceET.getText().toString().trim();
                     String passwordTemp = passwordPlaceET.getText().toString();
 
-                    if (passwordControl(passwordTemp)) {
+                    if (control.isEmailValid(emailTemp) && control.isPasswordValid(passwordTemp)) {
                         createAccount(emailTemp, passwordTemp);
                     }
                 }
@@ -118,7 +114,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Check if user is signed in
+        // TODO Check if user is signed in
         user = mAuth.getCurrentUser();
     }
 
@@ -178,19 +174,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                 });
     }
 
-    /*Metodo che controlla la validità della password
-     */
-    private boolean passwordControl(String password) {
-
-        if (password.length() < 6) {
-            statusTV.setText("La password deve essere almeno di 6 caratteri");
-            statusTV.setVisibility(View.VISIBLE);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     private SeekBar.OnSeekBarChangeListener customSeekBarDelivery =
             new SeekBar.OnSeekBarChangeListener() {
                 @Override
@@ -217,19 +200,19 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.radioPizzeria:
                 if (checked)
-                    place.setCategories(Categories.PIZZERIA.toString());
+                    place.setCategories(PlaceCategories.PIZZERIA.toString());
                 break;
             case R.id.radioItalianRestaurant:
                 if (checked)
-                    place.setCategories(Categories.RISTORANTE_ITALIANO.toString());
+                    place.setCategories(PlaceCategories.RISTORANTE_ITALIANO.toString());
                 break;
             case R.id.radioSushi:
                 if (checked)
-                    place.setCategories(Categories.SUSHI.toString());
+                    place.setCategories(PlaceCategories.SUSHI.toString());
                 break;
             case R.id.radioPizzeriaRestaurant:
                 if(checked)
-                    place.setCategories(Categories.PIZZERIA_RISTORANTE.toString());
+                    place.setCategories(PlaceCategories.PIZZERIA_RISTORANTE.toString());
                 break;
             case R.id.radioOrders:
                 if (checked)

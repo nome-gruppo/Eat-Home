@@ -10,15 +10,19 @@ import nomeGruppo.eathome.data.LoginRepository;
 import nomeGruppo.eathome.data.Result;
 import nomeGruppo.eathome.data.model.LoggedInUser;
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.utility.Controls;
 
 public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
+    private Controls controls;
 
-    LoginViewModel(LoginRepository loginRepository) {
+
+    public LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
+        this.controls = new Controls();
     }
 
     LiveData<LoginFormState> getLoginFormState() {
@@ -42,29 +46,13 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void loginDataChanged(String username, String password) {
-        if (!isUserNameValid(username)) {
-            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
-        } else if (!isPasswordValid(password)) {
-            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
+        if (!controls.isEmailValid(username)) {
+//            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
+        } else if (!controls.isPasswordValid(password)) {
+//            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
         } else {
             loginFormState.setValue(new LoginFormState(true));
         }
     }
 
-    // A placeholder username validation check
-    private boolean isUserNameValid(String username) {
-        if (username == null) {
-            return false;
-        }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-        } else {
-            return !username.trim().isEmpty();
-        }
-    }
-
-    // A placeholder password validation check
-    private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
-    }
 }
