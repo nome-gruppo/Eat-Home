@@ -5,7 +5,7 @@ import java.util.HashSet;
 public class Food {
 
     public String nameFood;
-    public double priceFood;
+    public float priceFood;
     public String ingredientsFood;
 
     public Food(){
@@ -16,7 +16,7 @@ public class Food {
         this.nameFood = name;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.priceFood = price;
     }
 

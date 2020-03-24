@@ -21,7 +21,7 @@
         android:id="@+id/editIngredientsFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/ingredientsFood"
@@ -30,14 +30,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editNameFood" />
 
-    <ImageButton
-        android:id="@+id/btnAddFood"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="74dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editIngredientsFood"
-        app:srcCompat="@drawable/ic_button_add_menu" />
+    <EditText
+        android:id="@+id/editPriceFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="@string/enter_price"
+        app:layout_constraintStart_toStartOf="@+id/editIngredientsFood"
+        app:layout_constraintTop_toBottomOf="@+id/editIngredientsFood" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

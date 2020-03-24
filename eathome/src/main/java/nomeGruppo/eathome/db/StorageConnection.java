@@ -1,6 +1,7 @@
 package nomeGruppo.eathome.db;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
@@ -19,14 +20,14 @@ import java.net.URL;
 public class StorageConnection {
     private StorageReference mStorageRef;
 
-    public StorageConnection(){
-        FirebaseStorage firebaseStorage=FirebaseStorage.getInstance("gs://eathome-bc890.appspot.com");
+    public StorageConnection() {
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance("gs://eathome-bc890.appspot.com");
         this.mStorageRef = firebaseStorage.getReference();
     }
 
-    public void uploadImage(String  imagePath,String idPlace){
+    public void uploadImage(String imagePath, String idPlace) {
         Uri file = Uri.fromFile(new File(imagePath));
-        StorageReference riversRef=this.mStorageRef.child("images/"+idPlace+".jpg");
+        StorageReference riversRef = this.mStorageRef.child("images/" + idPlace + ".jpg");
         UploadTask uploadTask = riversRef.putFile(file);
 
 // Register observers to listen for when the download is done or if it fails
@@ -45,18 +46,8 @@ public class StorageConnection {
 
     }
 
-    public void downloadImage(String idPlace){
-            this.mStorageRef.child("images/"+idPlace+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
+    public StorageReference storageReference(String idPlace){
+        return this.mStorageRef.child("images/" + idPlace + ".jpg");
     }
 
 }
