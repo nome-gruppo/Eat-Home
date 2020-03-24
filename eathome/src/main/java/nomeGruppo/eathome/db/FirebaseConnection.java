@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 import nomeGruppo.eathome.MainActivity;
+import nomeGruppo.eathome.PlaceHomeActivity;
 import nomeGruppo.eathome.PlaceHomepageActivity;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
@@ -133,7 +134,7 @@ public class FirebaseConnection {
                         activity.finish();
                     }else{
                         Place place = dataSnapshot.getValue(Place.class);
-                        Intent intent = new Intent(activity, PlaceHomepageActivity.class);
+                        Intent intent = new Intent(activity, PlaceHomeActivity.class);
                         intent.putExtra(PLACE, place);
                         intent.putExtra(LOGGED_FLAG, true);
                         activity.startActivity(intent);

@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.utility.DialogAddMenu;
@@ -58,7 +59,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_homepage);
 
-        place = (Place) getIntent().getSerializableExtra("PLACE");
+        place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
         food=new Food();
 
