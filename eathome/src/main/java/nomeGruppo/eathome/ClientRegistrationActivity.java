@@ -21,8 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.ui.login.LoginViewModel;
-import nomeGruppo.eathome.utility.Controls;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class ClientRegistrationActivity extends AppCompatActivity {
 
@@ -40,7 +39,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     private int duration = Toast.LENGTH_SHORT;
 
 
-    private Controls control;
+    private UtilitiesAndControls control;
 
 
     private FirebaseAuth mAuth;
@@ -54,7 +53,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         client = new Client();
-        control = new Controls();
+        control = new UtilitiesAndControls();
 
         nameClient = (EditText) findViewById(R.id.editNameClient);
         nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -125,7 +124,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
 
                             Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, MainActivity.class);
-                            
+                            clientHomeIntent.putExtra(FirebaseConnection.CLIENT, user);
                             Toast.makeText(ClientRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
                             startActivity(clientHomeIntent);
                         } else {

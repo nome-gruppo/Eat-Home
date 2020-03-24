@@ -25,8 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.actors.PlaceCategories;
-import nomeGruppo.eathome.ui.login.LoginViewModel;
-import nomeGruppo.eathome.utility.Controls;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 
 public class PlaceRegistrationActivity extends AppCompatActivity {
@@ -50,7 +49,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private int currentDeliveryCost = 0;
     private int duration = Toast.LENGTH_SHORT;
 
-    private Controls control;
+    private UtilitiesAndControls control;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -63,7 +62,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         place = new Place();
-        control = new Controls();
+        control = new UtilitiesAndControls();
 
         namePlaceET = (EditText) findViewById(R.id.editNamePlace);
         namePlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamente nella EditText successiva appena l'utente preme invio sulla tastiera
@@ -154,7 +153,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
 
                             Intent placeHomeIntent = new Intent(PlaceRegistrationActivity.this, PlaceHomepageActivity.class);
-                            placeHomeIntent.putExtra("PLACE", place);
+                            placeHomeIntent.putExtra(FirebaseConnection.PLACE, place);
                             Toast.makeText(PlaceRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
                             startActivity(placeHomeIntent);
                         } else {

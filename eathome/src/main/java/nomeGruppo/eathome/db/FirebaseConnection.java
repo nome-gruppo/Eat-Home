@@ -1,9 +1,23 @@
 package nomeGruppo.eathome.db;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -11,11 +25,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import nomeGruppo.eathome.MainActivity;
+import nomeGruppo.eathome.PlaceHomepageActivity;
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.actors.Place;
+
 import static android.content.ContentValues.TAG;
 
 public class FirebaseConnection {
-    public final static String PLACE_TABLE = "Places";
-    public final static String CLIENT_TABLE = "Clients";
+
+    private static final String TAG = "FirebaseConnection";
+
+    public static final String PLACE_TABLE = "Places";
+    public static final String CLIENT_TABLE = "Clients";
+
+    //stringhe utilizzate negli intent
+    public static final String LOGGED_FLAG = "Logged";
+    public static final String PLACE = "Place";
+    public static final String CLIENT = "Client";
 
     private DatabaseReference mDatabase;
     private Object objectFounded;
@@ -83,6 +110,47 @@ public class FirebaseConnection {
          return mDatabase.child(table).orderByChild(column).equalTo(value);
     }
 
+    /*metodo per ricerca utente nel database Firebase nei nodi Clients e Places
+    *
+    *NB: per funzionare correttamente il parametro table passato deve essere Firebase.CLIENT_TABLE
+     */
+    public void searchUserInDb(final String userId, final String table, final ProgressBar progressBar, final Activity activity) throws Resources.NotFoundException {
+
+        mDatabase.child(table).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+                    progressBar.setVisibility(View.INVISIBLE);
+
+                    if(table.equals(FirebaseConnection.CLIENT_TABLE)){
+                        Client client = dataSnapshot.getValue(Client.class);
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        intent.putExtra(CLIENT, client);
+                        intent.putExtra(LOGGED_FLAG, true);
+                        activity.startActivity(intent);
+                        activity.finish();
+                    }else{
+                        Place place = dataSnapshot.getValue(Place.class);
+                        Intent intent = new Intent(activity, PlaceHomepageActivity.class);
+                        intent.putExtra(PLACE, place);
+                        intent.putExtra(LOGGED_FLAG, true);
+                        activity.startActivity(intent);
+                        activity.finish();
+                    }
+                }else if(!dataSnapshot.exists() && table.equals(FirebaseConnection.CLIENT_TABLE)){
+                    searchUserInDb(userId, PLACE_TABLE, progressBar, activity);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "searchUserInDb:onCancelled", databaseError.toException());
+                throw new Resources.NotFoundException();
+            }
+        });
+    }
 }
 
 
