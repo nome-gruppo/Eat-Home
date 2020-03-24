@@ -59,7 +59,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_homepage);
 
-        place = (Place) getIntent().getSerializableExtra("PLACE");
+        place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
         food=new Food();
 
