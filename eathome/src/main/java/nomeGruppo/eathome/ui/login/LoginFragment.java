@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -186,9 +187,13 @@ public class LoginFragment extends Fragment{
 
     }// fine metodo onViewCreated
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.user = mAuth.getCurrentUser();
+    }
 
-
-    private void signIn(final String email,final String password){
+    private void signIn(final String email, final String password){
 
         getActivity().runOnUiThread(new Runnable() {
             @Override

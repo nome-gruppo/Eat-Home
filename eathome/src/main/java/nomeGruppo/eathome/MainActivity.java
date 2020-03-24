@@ -33,11 +33,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     int AUTOCOMPLETE_REQUEST_CODE = 1;
     String TAG ="xxx";
+    private Client user;
 
 
     // Set the fields to specify which types of place data to
@@ -60,22 +65,40 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        boolean logged = getIntent().getBooleanExtra("logged", false);
+
 //        final ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.content_main);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //inizio setting navigation drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_settings, R.id.nav_info)
+                R.id.nav_home,R.id.nav_orders, R.id.nav_booking, R.id.nav_settings, R.id.nav_info)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        final Menu menu = navigationView.getMenu();
+
+        //rimuovi voci da navigation drawer in base a log in effettuat o no
+        if(logged){
+            menu.removeItem(R.id.nav_login);
+        }else{
+            user = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+            TextView textView = (TextView) findViewById(R.id.nav_header_tv);
+            textView.setText(user.nameClient);
+            menu.removeItem(R.id.nav_logout);
+            menu.removeGroup(R.id.nav_group_actions);
+            menu.removeItem(R.id.nav_settings);
+        }
+
+
 
         LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -118,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-    }
+    }// end onCreate
 
 
     public void onClickSignInPlace(View view){

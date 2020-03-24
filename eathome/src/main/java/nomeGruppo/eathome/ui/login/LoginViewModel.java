@@ -4,25 +4,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Patterns;
-
 import nomeGruppo.eathome.data.LoginRepository;
 import nomeGruppo.eathome.data.Result;
 import nomeGruppo.eathome.data.model.LoggedInUser;
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.utility.Controls;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
-    private Controls controls;
 
 
     public LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
-        this.controls = new Controls();
     }
 
     LiveData<LoginFormState> getLoginFormState() {
@@ -45,14 +41,14 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    public void loginDataChanged(String username, String password) {
-        if (!controls.isEmailValid(username)) {
-//            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
-        } else if (!controls.isPasswordValid(password)) {
-//            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
-        } else {
-            loginFormState.setValue(new LoginFormState(true));
-        }
-    }
+//    public void loginDataChanged(String username, String password) {
+//        if (!controls.isEmailValid(username)) {
+////            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
+//        } else if (!controls.isPasswordValid(password)) {
+////            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
+//        } else {
+//            loginFormState.setValue(new LoginFormState(true));
+//        }
+//    }
 
 }

@@ -3,11 +3,11 @@ package nomeGruppo.eathome.utility;
 import android.util.Patterns;
 /*Classe contenente tutti i controlli utili in più activities
  */
-public class Controls {
+public class UtilitiesAndControls {
 
     private static final int MIN_PASSWORD_LENGTH = 6;
 
-    public Controls(){
+    public UtilitiesAndControls(){
 
     }
 
@@ -27,4 +27,5 @@ public class Controls {
     public boolean isPasswordValid(String password) {
         return password != null && password.trim().length() >= MIN_PASSWORD_LENGTH;
     }
+
 }
