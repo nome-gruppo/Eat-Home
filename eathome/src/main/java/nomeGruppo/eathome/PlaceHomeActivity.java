@@ -20,14 +20,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nomeGruppo.eathome.actors.Place;
@@ -72,7 +78,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         bottomMenuPlace=(BottomNavigationView) findViewById(R.id.bottom_navigationPlace);
         imgPlace= (ImageView)findViewById(R.id.placeImg);
         btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
-
+        listFood=new ArrayList<>();
 
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -127,9 +133,26 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                         imgPlace.setImageBitmap(bitmap);
                     }
                 });
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.queryEqualTo("Menu","idPlace",place.idPlace);
+        final FirebaseConnection firebaseConnection=new FirebaseConnection();
+        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Food food=new Food();
+                        food.setName(snapshot.getKey());
+                        listFood.add(food);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
+
 
     @Override
     protected void onStop() {
@@ -216,9 +239,8 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         food.setPrice(priceFood);
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child("Food").child(place.idPlace).child("nameFood").setValue(food.nameFood);
-        firebaseConnection.getmDatabase().child("Food").child(place.idPlace).child(food.nameFood).child("ingredientsFood").setValue(food.ingredientsFood);
-        firebaseConnection.getmDatabase().child("Food").child(place.idPlace).child(food.nameFood).child("priceFood").setValue(food.priceFood);
+        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).child(food.nameFood).child("ingredientsFood").setValue(food.ingredientsFood);
+        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).child(food.nameFood).child("priceFood").setValue(food.priceFood);
 
         return food;
     }
