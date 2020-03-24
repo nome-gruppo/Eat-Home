@@ -104,6 +104,8 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             @Override
             public void onClick(View view) {
                 openDialog();
+
+
             }
         });
 
@@ -212,6 +214,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         food.setName(nameFood);
         food.setIngredients(ingredientsFood);
         food.setPrice(priceFood);
+
+        FirebaseConnection firebaseConnection=new FirebaseConnection();
+        firebaseConnection.getmDatabase().child("Food").child(place.idPlace).child("nameFood").setValue(food.nameFood);
+        firebaseConnection.getmDatabase().child("Food").child(place.idPlace).child(food.nameFood).child("ingredientsFood").setValue(food.ingredientsFood);
+        firebaseConnection.getmDatabase().child("Food").child(place.idPlace).child(food.nameFood).child("priceFood").setValue(food.priceFood);
+
         return food;
     }
 }
