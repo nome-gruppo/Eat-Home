@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.utility.DialogAddMenu;
@@ -124,6 +125,8 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                         imgPlace.setImageBitmap(bitmap);
                     }
                 });
+        FirebaseConnection firebaseConnection=new FirebaseConnection();
+        firebaseConnection.queryEqualTo("Menu","idPlace",place.idPlace);
     }
 
     @Override
