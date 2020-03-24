@@ -14,10 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.foods.Food;
 
 public class DialogAddMenu extends AppCompatDialogFragment {
     private EditText editNameFood;
     private EditText editIngredientsFood;
+    private EditText editPriceFood;
     private DialogAddMenuListener listener;
     @NonNull
     @Override
@@ -27,23 +29,25 @@ public class DialogAddMenu extends AppCompatDialogFragment {
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_insert_food,null);
 
-        builder.setView(view).setTitle("Name food").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle("Name food").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
             }
-        }).setPositiveButton("ok", new DialogInterface.OnClickListener() {
+        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String nameFood=editNameFood.getText().toString();
                 String ingredientsFood=editIngredientsFood.getText().toString();
-                listener.applyTexts(nameFood,ingredientsFood);
+                float priceFood=Float.parseFloat(editPriceFood.getText().toString());
+                listener.applyTexts(nameFood,ingredientsFood,priceFood);
 
             }
         });
 
         editNameFood=(EditText)view.findViewById(R.id.editNameFood);
         editIngredientsFood=(EditText)view.findViewById(R.id.editIngredientsFood);
+        editPriceFood=(EditText)view.findViewById(R.id.editPriceFood);
 
         return builder.create();
 
@@ -55,11 +59,11 @@ public class DialogAddMenu extends AppCompatDialogFragment {
         try {
             listener=(DialogAddMenuListener)context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()+"");
+            throw new ClassCastException(context.toString()+"Error");
         }
     }
 
     public interface DialogAddMenuListener{
-        void applyTexts(String nameFood,String ingredientsFood);
+        Food applyTexts(String nameFood, String ingredientsFood, float priceFood);
     }
 }

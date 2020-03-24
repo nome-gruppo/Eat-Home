@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -22,7 +23,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -47,8 +51,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private ImageButton btnAddMenu;
     private TextView txtPath;
     private BottomNavigationView bottomMenuPlace;
-    private TextView txtNameFood;
-    private TextView txtIngredientsFood;
+    private Food food;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         setContentView(R.layout.activity_place_homepage);
 
         place = (Place) getIntent().getSerializableExtra("PLACE");
+
+        food=new Food();
 
         txtNamePlace=(TextView)findViewById(R.id.txtNamePlace);
         txtNamePlace.setText(place.namePlace);
@@ -66,6 +71,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         bottomMenuPlace=(BottomNavigationView) findViewById(R.id.bottom_navigationPlace);
         imgPlace= (ImageView)findViewById(R.id.placeImg);
         btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
+
 
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -89,9 +95,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             @Override
             public void onClick(View view) {
                 openGallery();
-
-                StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-                storage.uploadImage(txtPath.getText().toString(),place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
             }
         });
 
@@ -105,6 +108,38 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        StorageConnection storageConnection=new StorageConnection();
+        StorageReference storageReference=storageConnection.storageReference(place.idPlace);
+        storageReference.getBytes(3840*3840)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                        imgPlace.setImageBitmap(bitmap);
+                    }
+                });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
+        storage.uploadImage(txtPath.getText().toString(),place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
+        storage.uploadImage(txtPath.getText().toString(),place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
     }
 
     private void openDialog(){
@@ -170,8 +205,10 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     }
 
     @Override
-    public void applyTexts(String nameFood, String ingredientsFood) {
-        txtNameFood.setText(nameFood);
-       txtIngredientsFood.setText(ingredientsFood);
+    public Food applyTexts(String nameFood, String ingredientsFood,float priceFood) {
+        food.setName(nameFood);
+        food.setIngredients(ingredientsFood);
+        food.setPrice(priceFood);
+        return food;
     }
 }

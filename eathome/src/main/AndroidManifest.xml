@@ -62,7 +62,7 @@
             android:hardwareAccelerated="false"/>
 
         <activity
-            android:name=".PlaceHomepageActivity"
+            android:name=".PlaceHomeActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"
             android:largeHeap="true"

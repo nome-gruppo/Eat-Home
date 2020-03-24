@@ -120,7 +120,6 @@ public class PlaceHomepageActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_insert_food);
                 EditText editNameFood=(EditText)dialog.findViewById(R.id.editNameFood);
                 EditText editIngredientsFood=(EditText)dialog.findViewById(R.id.editIngredientsFood);
-                ImageButton btnAddFood=(ImageButton) dialog.findViewById(R.id.btnAddFood);
             }
         });
     }

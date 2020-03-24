@@ -38,6 +38,7 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 
 import nomeGruppo.eathome.MainActivity;
+import nomeGruppo.eathome.PlaceHomeActivity;
 import nomeGruppo.eathome.PlaceHomepageActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
@@ -237,7 +238,7 @@ public class LoginFragment extends Fragment{
                                 startActivity(homepageIntent);
                             }else{
                                 Place place = dataSnapshot.getValue(Place.class);
-                                Intent homepageIntent = new Intent(getActivity(), PlaceHomepageActivity.class);
+                                Intent homepageIntent = new Intent(getActivity(), PlaceHomeActivity.class);
                                 homepageIntent.putExtra("PLACE", place);
                                 startActivity(homepageIntent);
                             }
