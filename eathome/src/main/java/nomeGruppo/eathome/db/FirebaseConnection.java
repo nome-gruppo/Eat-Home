@@ -121,7 +121,7 @@ public class FirebaseConnection {
                     if(progressBar != null) {
                         progressBar.setVisibility(View.INVISIBLE);
                     }
-
+                    //ricerca nel nodo clienti
                     if(node.equals(FirebaseConnection.CLIENT_TABLE)){
                         Client client = dataSnapshot.getValue(Client.class);
                         Intent intent = new Intent(activity, MainActivity.class);
@@ -129,7 +129,8 @@ public class FirebaseConnection {
                         intent.putExtra(LOGGED_FLAG, true);
                         activity.startActivity(intent);
                         activity.finish();
-                    }else{
+
+                    }else{ //ricerca nel nodo places
                         Place place = dataSnapshot.getValue(Place.class);
                         Intent intent = new Intent(activity, PlaceHomeActivity.class);
                         intent.putExtra(PLACE, place);
@@ -137,6 +138,7 @@ public class FirebaseConnection {
                         activity.startActivity(intent);
                         activity.finish();
                     }
+                    //se non è stato trovato l'id nel nodo clienti cerca in places
                 }else if(!dataSnapshot.exists() && node.equals(FirebaseConnection.CLIENT_TABLE)){
                     searchUserInDb(userId, PLACE_TABLE, progressBar, activity);
                 }
