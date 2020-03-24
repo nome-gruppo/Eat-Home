@@ -157,7 +157,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             user = mAuth.getCurrentUser();
 
-                            Intent placeHomeIntent = new Intent(PlaceRegistrationActivity.this, PlaceHomepageActivity.class);
+                            Intent placeHomeIntent = new Intent(PlaceRegistrationActivity.this, PlaceHomeActivity.class);
                             placeHomeIntent.putExtra("PLACE", place);
                             Toast.makeText(PlaceRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
                             startActivity(placeHomeIntent);

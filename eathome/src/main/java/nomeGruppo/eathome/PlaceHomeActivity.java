@@ -1,7 +1,5 @@
 package nomeGruppo.eathome;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,39 +11,28 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.List;
 
 import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.foods.Menu;
+import nomeGruppo.eathome.utility.DialogAddMenu;
 import nomeGruppo.eathome.utility.MyMenuAdapter;
 
-import static android.content.ContentValues.TAG;
-
-public class PlaceHomepageActivity extends AppCompatActivity {
-
+public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
     static final int PICK_IMAGE=100;
     static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
     static final int HEIGHT_IMAGE=100;
@@ -60,9 +47,11 @@ public class PlaceHomepageActivity extends AppCompatActivity {
     private ImageButton btnAddMenu;
     private TextView txtPath;
     private BottomNavigationView bottomMenuPlace;
+    private TextView txtNameFood;
+    private TextView txtIngredientsFood;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_homepage);
 
@@ -75,12 +64,8 @@ public class PlaceHomepageActivity extends AppCompatActivity {
         txtPath.setVisibility(View.INVISIBLE);
         listViewMenu=(ListView)findViewById(R.id.listMenu);
         bottomMenuPlace=(BottomNavigationView) findViewById(R.id.bottom_navigationPlace);
-
-        //FirebaseConnection db=new FirebaseConnection();
-        //db.queryEqualTo("Menu","idPlace",place.idPlace).addListenerForSingleValueEvent(valueEventListener);
-        //StorageConnection storageConnection=new StorageConnection();
-        //storageConnection.downloadImage(place.idPlace);
-
+        imgPlace= (ImageView)findViewById(R.id.placeImg);
+        btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
 
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -100,52 +85,32 @@ public class PlaceHomepageActivity extends AppCompatActivity {
             }
         });
 
-        listFood=new LinkedList<Food>();
-        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood);
-        listViewMenu.setAdapter(mAdapter);
-
-        imgPlace= (ImageView)findViewById(R.id.placeImg);
-
         imgPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGallery();
+
+                StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
+                storage.uploadImage(txtPath.getText().toString(),place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
             }
         });
+
 
         btnAddMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(PlaceHomepageActivity.this);
-                dialog.setContentView(R.layout.dialog_insert_food);
-                EditText editNameFood=(EditText)dialog.findViewById(R.id.editNameFood);
-                EditText editIngredientsFood=(EditText)dialog.findViewById(R.id.editIngredientsFood);
-                ImageButton btnAddFood=(ImageButton) dialog.findViewById(R.id.btnAddFood);
+                openDialog();
             }
         });
+
+
+
     }
 
-    ValueEventListener valueEventListener = new ValueEventListener() {
-
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Menu menu = snapshot.getValue(Menu.class);
-                    listFood=menu.listFood;
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-        }
-
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            // ...
-        }
-    };
+    private void openDialog(){
+        DialogAddMenu dialogAddMenu=new DialogAddMenu();
+        dialogAddMenu.show(getSupportFragmentManager(),"Dialog add menu");
+    }
 
     private void openGallery(){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);//intent per accedere alla galleria
@@ -158,7 +123,6 @@ public class PlaceHomepageActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode==PICK_IMAGE) {
             Uri imageUri = data.getData();//restituisce l'uri dell'immagine
-
             //trasforma l'Uri in Path
             Context context = getBaseContext();
             Cursor cursor = getContentResolver().query(imageUri,null, null, null, null);
@@ -166,10 +130,7 @@ public class PlaceHomepageActivity extends AppCompatActivity {
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
             String absoluteFilePath = cursor.getString(idx);
             txtPath.setText(absoluteFilePath);//assegno il valore del path dell'immagine a txtPath
-            imgPlace.setImageURI(imageUri);
-            BitmapDrawable drawable = (BitmapDrawable) imgPlace.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
-            getResizedBitmap(bitmap,WIDTH_IMAGE,HEIGHT_IMAGE);
+            imgPlace.setImageURI(imageUri);//assegno l'immagine come copertina della home
         }
     }
 
@@ -209,11 +170,8 @@ public class PlaceHomepageActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
-        StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-        storage.uploadImage(txtPath.getText().toString(),place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
+    public void applyTexts(String nameFood, String ingredientsFood) {
+        txtNameFood.setText(nameFood);
+       txtIngredientsFood.setText(ingredientsFood);
     }
-
 }

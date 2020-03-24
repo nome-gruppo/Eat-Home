@@ -29,11 +29,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
 
                 android:value="nomeGruppo.eathome.MainActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -61,6 +62,12 @@
             android:largeHeap="true"
             android:hardwareAccelerated="false"/>
 
+        <activity
+            android:name=".PlaceHomeActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:largeHeap="true"
+            android:hardwareAccelerated="false"/>
 
     </application>
 
