@@ -1,15 +1,14 @@
 package nomeGruppo.eathome;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -17,98 +16,39 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
-import android.view.View;
-import android.widget.TextView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Arrays;
-import java.util.List;
 
-import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.foods.Food;
+import nomeGruppo.eathome.utility.DialogAddMenu;
 
+public class MainActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private static final String TAG = "HomepageActivity";
 
-    private AppBarConfiguration mAppBarConfiguration;
+    private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private GoogleMap mMap;
-    int AUTOCOMPLETE_REQUEST_CODE = 1;
-    String TAG ="xxx";
-    private Client user;
 
-
-    // Set the fields to specify which types of place data to
-// return after the user has made a selection.
-
-    // Set the fields to specify which types of place data to
-// return after the user has made a selection.
-    List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+    private Food food;
+    private BottomNavigationView bottomMenuClient;
+    private boolean logged;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_place_homepage);
 
-        boolean logged = getIntent().getBooleanExtra("logged", false);
-
-//        final ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.content_main);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        //inizio setting navigation drawer
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home,R.id.nav_orders, R.id.nav_booking, R.id.nav_settings, R.id.nav_info)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-        final Menu menu = navigationView.getMenu();
-
-        //rimuovi voci da navigation drawer in base a log in effettuat o no
-        if(logged){
-            menu.removeItem(R.id.nav_login);
-        }else{
-            user = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
-            TextView textView = (TextView) findViewById(R.id.nav_header_tv);
-            textView.setText(user.nameClient);
-            menu.removeItem(R.id.nav_logout);
-            menu.removeGroup(R.id.nav_group_actions);
-            menu.removeItem(R.id.nav_settings);
-        }
-
-
-
-        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
-
+        logged = getIntent().getBooleanExtra(FirebaseConnection.LOGGED_FLAG, false);
 
         String apiKey = getString(R.string.api_key);
+        bottomMenuClient = (BottomNavigationView) findViewById(R.id.bottom_navigationClient);
+        food = new Food();
+
 //        View placeBar = inflater.inflate(R.layout.fragment_autocomplete, null);
 //        mainLayout.addView(placeBar);
-
 
         /**
          * Initialize Places. For simplicity, the API key is hard-coded. In a production
@@ -121,8 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(this);
 
-
-        // Initialize the AutocompleteSupportFragment.
+// Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
@@ -141,67 +80,52 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
+
+        bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_orders:
+
+                        break;
+                    case R.id.action_bookings:
+
+                        break;
+                    case R.id.action_profile:
+                        if(logged){
+                            //TODO il mio profilo
+                        }else{
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+
+                        break;
+                }
+                return true;
+            }
+        });
     }// end onCreate
 
 
-    public void onClickSignInPlace(View view){
-        Intent signUpPlaceIntent = new Intent(this, PlaceRegistrationActivity.class);
-        startActivity(signUpPlaceIntent);
-    }
 
-    public void onClickSignIn(View view){
-        Intent signUpClientIntent=new Intent(this,ClientRegistrationActivity.class);
-        startActivity(signUpClientIntent);
-    }
-
-    public void onClickProva(View view){
-        Intent prova=new Intent(this,Prova.class);
-        startActivity(prova);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
+//    /**
+//     * Manipulates the map once available.
+//     * This callback is triggered when the map is ready to be used.
+//     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+//     * we just add a marker near Sydney, Australia.
+//     * If Google Play services is not installed on the device, the user will be prompted to install
+//     * it inside the SupportMapFragment. This method will only be triggered once the user has
+//     * installed Google Play services and returned to the app.
+//     */
 //    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
+//    public void onMapReady(GoogleMap googleMap) {
+//        mMap = googleMap;
+//
+//        // Add a marker in Sydney and move the camera
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 //    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -218,5 +142,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // The user canceled the operation.
             }
         }
+    }
+
+
+    @Override
+    public Food applyTexts(String nameFood, String ingredientsFood,float priceFood) {
+        food.setName(nameFood);
+        food.setIngredients(ingredientsFood);
+        food.setPrice(priceFood);
+        return food;
     }
 }

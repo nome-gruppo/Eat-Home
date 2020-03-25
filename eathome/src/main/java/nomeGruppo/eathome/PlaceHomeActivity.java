@@ -49,13 +49,18 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private TextView txtPath;
     private BottomNavigationView bottomMenuPlace;
     private Food food;
+    private boolean logged;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_homepage);
 
-        place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        logged = getIntent().getBooleanExtra(FirebaseConnection.LOGGED_FLAG, false);
+
+        if(logged) {
+            place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        }
 
         food=new Food();
 
@@ -81,7 +86,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
                         break;
                     case R.id.action_profile:
-
+                        if(logged){
+                            //TODO il mio profilo
+                        }else{
+                            Intent intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                 }
                 return true;
