@@ -17,13 +17,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import nomeGruppo.eathome.actors.Place;
@@ -34,10 +41,10 @@ import nomeGruppo.eathome.utility.DialogAddMenu;
 import nomeGruppo.eathome.utility.MyMenuAdapter;
 
 public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
+
+    static final String NAME_TABLE_FOODS="Foods";
     static final int PICK_IMAGE=100;
     static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
-    static final int HEIGHT_IMAGE=100;
-    static final int WIDTH_IMAGE=200;
 
     private ImageView imgPlace;
     private Place place;
@@ -73,7 +80,9 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         bottomMenuPlace=(BottomNavigationView) findViewById(R.id.bottom_navigationPlace);
         imgPlace= (ImageView)findViewById(R.id.placeImg);
         btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
-
+        listFood=new LinkedList<>();
+        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood);
+        listViewMenu.setAdapter(mAdapter);
 
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -109,7 +118,8 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         btnAddMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog();
+                openDialog();//apro una finestra di dialogo per permettere all'utente inserire una nuova voce nel menu in maniera interattiva
+
             }
         });
 
@@ -121,8 +131,10 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     protected void onStart() {
         super.onStart();
 
-        StorageConnection storageConnection=new StorageConnection();
-        StorageReference storageReference=storageConnection.storageReference(place.idPlace);
+        StorageConnection storageConnection=new StorageConnection();//apro la connessione allo Storage di Firebase
+        StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
+
+        //metodo di lettura immagine tramite byte
         storageReference.getBytes(3840*3840)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
@@ -131,7 +143,29 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                         imgPlace.setImageBitmap(bitmap);
                     }
                 });
+
+        final FirebaseConnection firebaseConnection=new FirebaseConnection();
+
+        //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
+        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        listFood.add(snapshot.getValue(Food.class));
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
+
+
 
     @Override
     protected void onStop() {
@@ -212,10 +246,15 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     }
 
     @Override
-    public Food applyTexts(String nameFood, String ingredientsFood,float priceFood) {
+    public void applyTexts(String nameFood, String ingredientsFood,float priceFood) {
         food.setName(nameFood);
         food.setIngredients(ingredientsFood);
         food.setPrice(priceFood);
-        return food;
+
+        FirebaseConnection firebaseConnection=new FirebaseConnection();
+        firebaseConnection.getmDatabase().child(NAME_TABLE_FOODS).child(place.idPlace).push().setValue(food);//aggiungo il nuovo 'cibo' al databse
+
+        listFood.add(food);//aggiungo food alla lista
+        mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi
     }
 }

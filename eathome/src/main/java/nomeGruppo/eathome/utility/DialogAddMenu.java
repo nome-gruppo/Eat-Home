@@ -64,6 +64,6 @@ public class DialogAddMenu extends AppCompatDialogFragment {
     }
 
     public interface DialogAddMenuListener{
-        Food applyTexts(String nameFood, String ingredientsFood, float priceFood);
+        void applyTexts(String nameFood, String ingredientsFood, float priceFood);
     }
 }

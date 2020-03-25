@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,8 +22,8 @@ import nomeGruppo.eathome.foods.Menu;
 public class MyMenuAdapter extends ArrayAdapter<Food> {
 
     public MyMenuAdapter(Context context, int textViewResourceId,
-                         List<Food> objects) {
-        super(context, textViewResourceId, objects);
+                         List<Food> food) {
+        super(context, textViewResourceId, food);
     }
 
     @Override
