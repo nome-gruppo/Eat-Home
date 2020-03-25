@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/action_homePlace"
+    <item android:id="@+id/action_home"
         android:title="@string/menu_home"
         android:icon="@drawable/ic_menu_camera" />
-    <item android:id="@+id/action_ordersPlace"
+
+    <item android:id="@+id/action_orders"
         android:title="@string/orders"
         android:icon="@drawable/ic_menu_orders" />
-    <item android:id="@+id/action_bookingsPlace"
+
+    <item android:id="@+id/action_bookings"
         android:title="@string/bookings"
         android:icon="@drawable/ic_menu_booking" />
-    <item android:id="@+id/action_profilePlace"
+
+    <item android:id="@+id/action_profile"
         android:title="@string/my_account"
         android:icon="@drawable/ic_menu_login" />
 
