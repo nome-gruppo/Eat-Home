@@ -24,7 +24,7 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.utility.DialogAddMenu;
 
-public class MainActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
+public class HomepageActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
 
     private static final String TAG = "HomepageActivity";
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements DialogAddMenu.Dia
 
 // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+                getSupportFragmentManager().findFragmentById(R.id.activity_homepage_autocomplete_fragment);
 
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements DialogAddMenu.Dia
                         if(logged){
                             //TODO il mio profilo
                         }else{
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                             startActivity(intent);
                         }
 
@@ -146,10 +146,9 @@ public class MainActivity extends AppCompatActivity implements DialogAddMenu.Dia
 
 
     @Override
-    public Food applyTexts(String nameFood, String ingredientsFood,float priceFood) {
+    public void applyTexts(String nameFood, String ingredientsFood, float priceFood) {
         food.setName(nameFood);
         food.setIngredients(ingredientsFood);
         food.setPrice(priceFood);
-        return food;
     }
 }

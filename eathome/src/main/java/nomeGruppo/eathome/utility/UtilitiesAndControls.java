@@ -11,21 +11,43 @@ public class UtilitiesAndControls {
 
     }
 
-    // A placeholder username validation check
-    public boolean isEmailValid(String username) {
-        if (username == null) {
+    /**metodo che ontrolla la validità della mail
+     * l'input inserito deve aver il pattern di un indirizzo mail
+     * @param email
+     * @return
+     */
+    public boolean isEmailValid(String email) {
+        if (email == null) {
             return false;
         }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
+        if (email.contains("@")) {
+            return Patterns.EMAIL_ADDRESS.matcher(email).matches();
         } else {
-            return !username.trim().isEmpty();
+            return !email.trim().isEmpty();
         }
     }
 
-    // A placeholder password validation check
+    /** metodo controlla la validità della password
+     * la password non deve essere minore di 6 caratteri
+     * @param password
+     * @return
+     */
     public boolean isPasswordValid(String password) {
         return password != null && password.trim().length() >= MIN_PASSWORD_LENGTH;
+    }
+
+    /**il metodo controlla che la stringa inserita abbia un pattern simile a quello
+     * di un numero di telefono
+     *
+     * la stringa deve iniziare e finire con un numero, eve contenere numeri (può contenere anche spazi, punti, trattini)
+     * opzionalmente può essere preceduta da un +
+     * opzionalmente alcni numeri possono essere contenuti tra parentesi
+     *
+     * @param phone
+     * @return
+     */
+    public boolean isPhoneValid(String phone){
+        return Patterns.PHONE.matcher(phone).matches();
     }
 
 }

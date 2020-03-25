@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (table.equals(FirebaseConnection.CLIENT_TABLE)) {
                         Client client = dataSnapshot.getValue(Client.class);
-                        Intent homepageIntent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent homepageIntent = new Intent(LoginActivity.this, HomepageActivity.class);
                         homepageIntent.putExtra("User", client);
                         startActivity(homepageIntent);
                     } else {

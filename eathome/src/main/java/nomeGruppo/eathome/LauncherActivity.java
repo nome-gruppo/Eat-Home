@@ -19,7 +19,7 @@ public class LauncherActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private boolean isLogged;
+    private boolean logged;
     public TextView errorTv;
 
     @Override
@@ -40,9 +40,9 @@ public class LauncherActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         if (user == null) {
-            isLogged = false;
+            logged = false;
         } else {
-            isLogged = true;
+            logged = true;
         }
     }
 
@@ -51,9 +51,9 @@ public class LauncherActivity extends AppCompatActivity {
         super.onResume();
 
 
-        if (!isLogged) {
-            Intent homePageIntent = new Intent(this, MainActivity.class);
-            homePageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, isLogged);
+        if (!logged) {
+            Intent homePageIntent = new Intent(this, HomepageActivity.class);
+            homePageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, logged);
             startActivity(homePageIntent);
             finish();
         } else {

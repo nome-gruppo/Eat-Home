@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import nomeGruppo.eathome.MainActivity;
+import nomeGruppo.eathome.HomepageActivity;
 import nomeGruppo.eathome.PlaceHomeActivity;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
@@ -110,7 +110,7 @@ public class FirebaseConnection {
      * @param activity activity chiamante
      * @throws Resources.NotFoundException
      */
-    public void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) throws Resources.NotFoundException {
+    public void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
 
         mDatabase.child(node).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -124,7 +124,7 @@ public class FirebaseConnection {
                     //ricerca nel nodo clienti
                     if(node.equals(FirebaseConnection.CLIENT_TABLE)){
                         Client client = dataSnapshot.getValue(Client.class);
-                        Intent intent = new Intent(activity, MainActivity.class);
+                        Intent intent = new Intent(activity, HomepageActivity.class);
                         intent.putExtra(CLIENT, client);
                         intent.putExtra(LOGGED_FLAG, true);
                         activity.startActivity(intent);
@@ -147,7 +147,6 @@ public class FirebaseConnection {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, "searchUserInDb:onCancelled", databaseError.toException());
-                throw new Resources.NotFoundException();
             }
         });
     }
