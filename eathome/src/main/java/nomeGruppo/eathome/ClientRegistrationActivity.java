@@ -123,7 +123,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             user = mAuth.getCurrentUser();
 
-                            Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, MainActivity.class);
+                            Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, HomepageActivity.class);
                             clientHomeIntent.putExtra(FirebaseConnection.CLIENT, user);
                             Toast.makeText(ClientRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
                             startActivity(clientHomeIntent);
