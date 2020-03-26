@@ -24,7 +24,7 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.utility.DialogAddMenu;
 
-public class MainActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "HomepageActivity";
 
@@ -142,14 +142,5 @@ public class MainActivity extends AppCompatActivity implements DialogAddMenu.Dia
                 // The user canceled the operation.
             }
         }
-    }
-
-
-    @Override
-    public Food applyTexts(String nameFood, String ingredientsFood,float priceFood) {
-        food.setName(nameFood);
-        food.setIngredients(ingredientsFood);
-        food.setPrice(priceFood);
-        return food;
     }
 }

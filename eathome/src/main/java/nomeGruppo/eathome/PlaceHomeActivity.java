@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -57,6 +59,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private BottomNavigationView bottomMenuPlace;
     private Food food;
     private boolean logged;
+    private ImageButton btnDeleteFood;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +86,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         listFood=new LinkedList<>();
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood);
         listViewMenu.setAdapter(mAdapter);
+        btnDeleteFood=(ImageButton)findViewById(R.id.btnDeleteFood);
 
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -123,7 +127,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             }
         });
 
-
+        listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               String titolo=(String)adapterView.getItemAtPosition(i);
+            }
+        });
 
     }
 

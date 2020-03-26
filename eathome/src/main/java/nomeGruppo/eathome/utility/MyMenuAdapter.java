@@ -31,11 +31,13 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listitem_menu, null);
-        TextView titolo = (TextView)convertView.findViewById(R.id.txtNameFood);
-        TextView prezzo = (TextView)convertView.findViewById(R.id.txtPriceFood);
+        TextView title = (TextView)convertView.findViewById(R.id.txtNameFood);
+        TextView price = (TextView)convertView.findViewById(R.id.txtPriceFood);
+        TextView ingredients=(TextView)convertView.findViewById(R.id.txtIngredientsFood);
         Food food = getItem(position);
-        titolo.setText(food.nameFood);
-        prezzo.setText(Double.toString(food.priceFood));
+        title.setText(food.nameFood);
+        price.setText(Double.toString(food.priceFood));
+        ingredients.setText(food.ingredientsFood);
         return convertView;
     }
 
