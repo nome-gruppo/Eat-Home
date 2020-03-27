@@ -200,7 +200,7 @@ public class ClientProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 connection.reauthenticateUser(user, emailEt.getText().toString().trim(), oldPasswordEt.getText().toString());
-                mAuth.fetchSignInMethodsForEmail()
+               // mAuth.fetchSignInMethodsForEmail()
             }
         });
 
