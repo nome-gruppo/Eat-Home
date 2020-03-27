@@ -35,7 +35,6 @@ public class Client implements Serializable {
         this.emailClient = emailClient;
     }
 
-
     public void setIdClient(String idClient) {
         this.idClient = idClient;
     }

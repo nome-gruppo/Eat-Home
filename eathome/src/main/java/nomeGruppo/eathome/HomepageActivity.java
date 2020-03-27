@@ -22,6 +22,7 @@ import java.util.Arrays;
 
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
+import nomeGruppo.eathome.profile.ClientProfileActivity;
 import nomeGruppo.eathome.utility.DialogAddMenu;
 
 public class HomepageActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
@@ -93,7 +94,8 @@ public class HomepageActivity extends AppCompatActivity implements DialogAddMenu
                         break;
                     case R.id.action_profile:
                         if(logged){
-                            //TODO il mio profilo
+                            Intent intent = new Intent(HomepageActivity.this, ClientProfileActivity.class);
+                            startActivity(intent);
                         }else{
                             Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                             startActivity(intent);
