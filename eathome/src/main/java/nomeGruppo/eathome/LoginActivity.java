@@ -148,13 +148,15 @@ public class LoginActivity extends AppCompatActivity {
                     if (table.equals(FirebaseConnection.CLIENT_TABLE)) {
                         Client client = dataSnapshot.getValue(Client.class);
                         Intent homepageIntent = new Intent(LoginActivity.this, HomepageActivity.class);
-                        homepageIntent.putExtra("User", client);
+                        homepageIntent.putExtra(FirebaseConnection.CLIENT, client);
                         startActivity(homepageIntent);
+                        finish();
                     } else {
                         Place place = dataSnapshot.getValue(Place.class);
                         Intent homepageIntent = new Intent(LoginActivity.this, PlaceHomeActivity.class);
-                        homepageIntent.putExtra("PLACE", place);
+                        homepageIntent.putExtra(FirebaseConnection.PLACE, place);
                         startActivity(homepageIntent);
+                        finish();
                     }
                 } else if (!dataSnapshot.exists() && table.equals(FirebaseConnection.CLIENT_TABLE)) {
                     searchInDb(FirebaseConnection.PLACE_TABLE);
