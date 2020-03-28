@@ -1,15 +1,24 @@
 package nomeGruppo.eathome;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -20,24 +29,31 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.profile.ClientProfileActivity;
-import nomeGruppo.eathome.utility.DialogAddMenu;
+import nomeGruppo.eathome.db.StorageConnection;
+import nomeGruppo.eathome.utility.PlaceAdapter;
 
-public class HomepageActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
+public class HomepageActivity extends AppCompatActivity {
 
     private static final String TAG = "HomepageActivity";
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private GoogleMap mMap;
 
-    private Food food;
     private BottomNavigationView bottomMenuClient;
     private boolean logged;
+    private ListView listViewPlace;
+    private List<nomeGruppo.eathome.actors.Place> listPlace;
+    private PlaceAdapter mAdapter;
     private FirebaseUser user;
     private FirebaseAuth mAuth;
 
@@ -50,9 +66,29 @@ public class HomepageActivity extends AppCompatActivity implements DialogAddMenu
         logged = getIntent().getBooleanExtra(FirebaseConnection.LOGGED_FLAG, false);
         final ConstraintLayout mainLayout = new ConstraintLayout(this);
         String apiKey = getString(R.string.api_key);
-
         bottomMenuClient = (BottomNavigationView) findViewById(R.id.bottom_navigationClient);
-        food = new Food();
+
+        listViewPlace=(ListView)findViewById(R.id.listViewPlace);
+        listPlace=new LinkedList<>();
+        mAdapter=new PlaceAdapter(this,R.layout.fragment_place_info_homepage_activity,listPlace);
+        listViewPlace.setAdapter(mAdapter);
+
+
+
+        listViewPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(HomepageActivity.this,"clicked"+i,Toast.LENGTH_SHORT).show();
+                /*
+                Place place=(Place)adapterView.getItemAtPosition(i);
+                Intent placeInfoIntent=new Intent(HomepageActivity.this,PlaceInfoActivity.class);
+                placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
+                startActivity(placeInfoIntent);*/
+            }
+        });
+
+
+
 
 //        View placeBar = getLayoutInflater().inflate(R.layout.fragment_autocomplete, null);
 //        mainLayout.addView(placeBar);
@@ -68,12 +104,9 @@ public class HomepageActivity extends AppCompatActivity implements DialogAddMenu
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(this);
 
-
-
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.activity_homepage_autocomplete_fragment);
-//
-//        getSupportFragmentManager().beginTransaction().add(R.id.activity_homepage_autocomplete_fragment,autocompleteFragment, "Tag");
+// Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.activity_homepage_autocomplete_fragment);
 
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
 
@@ -117,18 +150,36 @@ public class HomepageActivity extends AppCompatActivity implements DialogAddMenu
         });
     }// end onCreate
 
+
     @Override
     protected void onStart() {
         super.onStart();
 
+        final FirebaseConnection firebaseConnection=new FirebaseConnection();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
         if(user != null){
             logged = true;
         }
+        firebaseConnection.getmDatabase().child(firebaseConnection.PLACE_TABLE).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
+
 
 
 //    /**
@@ -165,13 +216,5 @@ public class HomepageActivity extends AppCompatActivity implements DialogAddMenu
                 // The user canceled the operation.
             }
         }
-    }
-
-
-    @Override
-    public void applyTexts(String nameFood, String ingredientsFood, float priceFood) {
-        food.setName(nameFood);
-        food.setIngredients(ingredientsFood);
-        food.setPrice(priceFood);
     }
 }
