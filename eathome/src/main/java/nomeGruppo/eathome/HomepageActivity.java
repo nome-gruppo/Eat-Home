@@ -40,6 +40,7 @@ import java.util.List;
 
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
+import nomeGruppo.eathome.profile.ClientProfileActivity;
 import nomeGruppo.eathome.utility.PlaceAdapter;
 
 public class HomepageActivity extends AppCompatActivity {
