@@ -14,14 +14,6 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editSurnameClient"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/surname"
-        android:inputType="textPersonName" />
-
-    <EditText
         android:id="@+id/editMailClient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

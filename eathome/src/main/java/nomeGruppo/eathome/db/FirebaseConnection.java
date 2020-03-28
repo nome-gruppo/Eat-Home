@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
@@ -46,6 +48,8 @@ public class FirebaseConnection {
 
     private DatabaseReference mDatabase;
     private Object objectFounded;
+
+    private boolean operationSuccess = false;
 
     public FirebaseConnection() {
         this.mDatabase = FirebaseDatabase.getInstance("https://eathome-bc890.firebaseio.com/").getReference();
@@ -162,58 +166,78 @@ public class FirebaseConnection {
         });
     }// end searchUserInDb
 
-    public void reauthenticateUser(FirebaseUser user, String email, String password) {
+    public boolean getOperationSuccess(){
+        return operationSuccess;
+    }
+
+    public void reauthenticateUser(FirebaseUser user, String email, String password, final Activity activity) {
         AuthCredential credential = EmailAuthProvider
                 .getCredential(email, password);
+
+        operationSuccess = false;
 
         // Prompt the user to re-provide their sign-in credentials
         user.reauthenticate(credential)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Log.d(TAG, "User re-authenticated.");
+                        if(task.isSuccessful()) {
+                            Log.d(TAG, "User re-authenticated.");
+                            operationSuccess = true;
+                        }else {
+                            operationSuccess = false;
+                        }
                     }
                 });
     }
-    
-    public void updateEmail (FirebaseAuth firebaseAuth, final FirebaseUser user, String email) throws FirebaseAuthUserCollisionException{
 
+    public void updateEmail(FirebaseAuth firebaseAuth, final FirebaseUser user, final String email, final Activity activity) {
 
-
-
-
-
+        //controllo chr la mail non sia già presente
         firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-                @Override
-                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                    Log.d(TAG,""+task.getResult().getSignInMethods().size());
-                    if (task.getResult().getSignInMethods().size() == 0){
-                        user.updateEmail("user@example.com")
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Log.d(TAG, "User email address updated.");
-                                        }
-                                    }
-                                });
-                    }else {
-                        try {
-                            throw new FirebaseAuthUserCollisionException(TAG, "email già esistente");
-                        } catch (FirebaseAuthUserCollisionException e) {
-                            e.printStackTrace();
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+
+                Log.d(TAG, "" + task.getResult().getSignInMethods().size());
+
+                if (task.getResult().getSignInMethods().size() == 0) {
+                    user.updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(activity, "Email modificata correttamente", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(activity, "Non è stato possibile cambiare la mail", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }else{
+                    Toast.makeText(activity, "Email già presente", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+    }//fine updateEmail
+
+    public void updatePassword(final FirebaseUser user, final String newPassword, final Activity activity){
+        operationSuccess = false;
+        user.updatePassword(newPassword)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(activity, "Password modificata correttamente", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(activity, "Non è stato possibile cambiare la password", Toast.LENGTH_LONG).show();
                         }
                     }
-
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    e.printStackTrace();
-                }
-            });
-
+                });
     }
 }
 

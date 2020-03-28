@@ -29,7 +29,6 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     static final String NAME_TABLE = "Clients";
 
     private EditText nameClient;
-    private EditText surnameClient;
     private EditText emailClient;
     private EditText passwordClient;
     private Button btnSignin;
@@ -57,8 +56,6 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
         nameClient = (EditText) findViewById(R.id.editNameClient);
         nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        surnameClient = (EditText) findViewById(R.id.editSurnameClient);
-        surnameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         emailClient = (EditText) findViewById(R.id.editMailClient);
         emailClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         passwordClient = (EditText) findViewById(R.id.editPasswordClient);
@@ -70,7 +67,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameClient.getText().toString().trim().length() == 0 || surnameClient.getText().toString().trim().length() == 0 || emailClient.getText().toString().trim().length() == 0 || passwordClient.getText().toString().trim().length() == 0) {
+                if (nameClient.getText().toString().trim().length() == 0 || emailClient.getText().toString().trim().length() == 0 || passwordClient.getText().toString().trim().length() == 0) {
 
                     Toast.makeText(ClientRegistrationActivity.this, "Compila tutti i campi", duration).show();
 
@@ -103,7 +100,6 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
         client.setNameClient(nameClient.getText().toString().trim());
-        client.setSurnameClient(surnameClient.getText().toString().trim());
         client.setEmailClient(emailClient.getText().toString().trim());
         client.setPhoneClient(null);
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,6 +18,8 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
@@ -35,20 +38,23 @@ public class HomepageActivity extends AppCompatActivity implements DialogAddMenu
     private Food food;
     private BottomNavigationView bottomMenuClient;
     private boolean logged;
+    private FirebaseUser user;
+    private FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_place_homepage);
+        setContentView(R.layout.activity_homepage);
 
         logged = getIntent().getBooleanExtra(FirebaseConnection.LOGGED_FLAG, false);
-
+        final ConstraintLayout mainLayout = new ConstraintLayout(this);
         String apiKey = getString(R.string.api_key);
+
         bottomMenuClient = (BottomNavigationView) findViewById(R.id.bottom_navigationClient);
         food = new Food();
 
-//        View placeBar = inflater.inflate(R.layout.fragment_autocomplete, null);
+//        View placeBar = getLayoutInflater().inflate(R.layout.fragment_autocomplete, null);
 //        mainLayout.addView(placeBar);
 
         /**
@@ -62,9 +68,12 @@ public class HomepageActivity extends AppCompatActivity implements DialogAddMenu
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(this);
 
-// Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.activity_homepage_autocomplete_fragment);
+
+
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.activity_homepage_autocomplete_fragment);
+//
+//        getSupportFragmentManager().beginTransaction().add(R.id.activity_homepage_autocomplete_fragment,autocompleteFragment, "Tag");
 
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
 
@@ -108,6 +117,18 @@ public class HomepageActivity extends AppCompatActivity implements DialogAddMenu
         });
     }// end onCreate
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
+        if(user != null){
+            logged = true;
+        }
+
+    }
 
 
 //    /**

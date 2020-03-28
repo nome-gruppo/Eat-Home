@@ -37,6 +37,7 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
+import nomeGruppo.eathome.profile.PlaceProfileActivity;
 import nomeGruppo.eathome.utility.DialogAddMenu;
 import nomeGruppo.eathome.utility.MyMenuAdapter;
 
@@ -87,6 +88,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                Intent intent = null;
                 switch (item.getItemId()) {
                     case R.id.action_orders:
 
@@ -96,9 +98,10 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                         break;
                     case R.id.action_profile:
                         if(logged){
-                            //TODO il mio profilo
+                            intent = new Intent(PlaceHomeActivity.this, PlaceProfileActivity.class);
+                            startActivity(intent);
                         }else{
-                            Intent intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
+                            intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
                             startActivity(intent);
                         }
                         break;

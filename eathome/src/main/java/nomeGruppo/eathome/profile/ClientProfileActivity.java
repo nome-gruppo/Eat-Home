@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +19,7 @@ import nomeGruppo.eathome.HomepageActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class ClientProfileActivity extends AppCompatActivity {
 
@@ -38,6 +40,10 @@ public class ClientProfileActivity extends AppCompatActivity {
     private ImageButton phoneBtn;
     private Button logoutBtn;
 
+    private UtilitiesAndControls controls;
+
+    private boolean edit = false; //flag per controllare se qualche campo è stato modificato
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,15 +63,16 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         logoutBtn = findViewById(R.id.activity_client_btn_logout);
 
+        controls = new UtilitiesAndControls();
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
         //imposto gli hint
         nameEt.setHint(client.nameClient);
         emailEt.setHint(client.emailClient);
 
-        if(client.phoneClient == null){
+        if (client.phoneClient == null) {
             phoneEt.setHint("Telefono");
-        }else{
+        } else {
             phoneEt.setHint(client.phoneClient);
         }
 
@@ -76,10 +83,6 @@ public class ClientProfileActivity extends AppCompatActivity {
         phoneBtn.setClickable(false);
 
         initEditTextsListeners();
-
-
-
-
 
     }//end onCreate
 
@@ -98,7 +101,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    public void initEditTextsListeners(){
+    public void initEditTextsListeners() {
 
         nameEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,9 +116,9 @@ public class ClientProfileActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(nameEt.getText().toString().trim().length() == 0){
+                if (nameEt.getText().toString().trim().length() == 0) {
                     nameBtn.setClickable(false);
-                }else{
+                } else {
                     nameBtn.setClickable(true);
                 }
             }
@@ -129,14 +132,15 @@ public class ClientProfileActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Toast.makeText(ClientProfileActivity.this, "Inserisci anche il campo vecchia password per cambiare la mail", Toast.LENGTH_LONG).show();
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(emailEt.getText().toString().trim().length() == 0){
+                if ((emailEt.getText().toString().trim().length() == 0) && (oldPasswordEt.getText().length() == 0)) {
                     emailBtn.setClickable(false);
-                }else{
+                } else {
                     emailBtn.setClickable(true);
                 }
             }
@@ -150,14 +154,16 @@ public class ClientProfileActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Toast.makeText(ClientProfileActivity.this, "Inserisci anche il campo mail per cambiare la password", Toast.LENGTH_LONG).show();
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if((passwordConfirmEt.getText().length() == 0) && (oldPasswordEt.getText().length() == 0)){
+                if ((passwordConfirmEt.getText().length() == 0) && (oldPasswordEt.getText().length() == 0)
+                        && (passwordEt.getText().length() == 0) && (emailEt.getText().toString().trim().length() == 0)) {
                     passwordBtn.setClickable(false);
-                }else{
+                } else {
                     passwordBtn.setClickable(true);
                 }
             }
@@ -176,16 +182,16 @@ public class ClientProfileActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(phoneEt.getText().toString().trim().length() == 0){
+                if (phoneEt.getText().toString().trim().length() == 0) {
                     phoneBtn.setClickable(false);
-                }else{
+                } else {
                     phoneBtn.setClickable(true);
                 }
             }
         });
     }//fine metodo initEditTextListener()
 
-    public void initButtonsListeners(){
+    public void initButtonsListeners() {
 
         final FirebaseConnection connection = new FirebaseConnection();
 
@@ -193,14 +199,86 @@ public class ClientProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 client.setNameClient(nameEt.getText().toString().trim());
+                edit = true;
             }
         });
 
         emailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                connection.reauthenticateUser(user, emailEt.getText().toString().trim(), oldPasswordEt.getText().toString());
-               // mAuth.fetchSignInMethodsForEmail()
+                String email = emailEt.getText().toString().trim();
+                String oldPassword = oldPasswordEt.getText().toString();
+
+                connection.reauthenticateUser(user, email, oldPassword, ClientProfileActivity.this);
+
+                //controlla riautentificazione utente
+                if (connection.getOperationSuccess()) {
+                    //controllo validità formato mail
+                    if (controls.isEmailValid(email)) {
+
+                        connection.updateEmail(mAuth, user, email, ClientProfileActivity.this);
+
+                        //controllo se l'email è stata cambiata, allora modifica le informazioni da inserire nel database database
+                        if (email.equals(user.getEmail())) {
+                            client.emailClient = email;
+                            edit = true;
+                            Toast.makeText(ClientProfileActivity.this, "Email cambiata correttamente", Toast.LENGTH_LONG).show();
+                        }
+
+                    } else {
+                        Toast.makeText(ClientProfileActivity.this, "Email non valida", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(ClientProfileActivity.this, "Password non corretta", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        passwordBtn.setOnClickListener(new View.OnClickListener() {
+            String email = emailEt.getText().toString().trim();
+            String oldPassword = oldPasswordEt.getText().toString();
+            String password = passwordEt.getText().toString();
+            String confirmPassword = passwordConfirmEt.getText().toString();
+
+            @Override
+            public void onClick(View view) {
+                connection.reauthenticateUser(user, email, oldPassword, ClientProfileActivity.this);
+
+                //controllo riautentificazione utente
+                if (connection.getOperationSuccess()){
+
+                    //controllo uguaglianza password
+                    if(oldPassword.equals(password) && password.equals(confirmPassword)){
+
+                        if(controls.isPasswordValid(confirmPassword)){
+
+                            connection.updatePassword(user, password, ClientProfileActivity.this);
+                            if(connection.getOperationSuccess()){
+                                edit = true;
+                            }
+                        }else{
+                            Toast.makeText(ClientProfileActivity.this, "Formato password non corrette", Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+                        Toast.makeText(ClientProfileActivity.this, "Le password non sono corrette", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(ClientProfileActivity.this, "Email non corretta", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        phoneBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if(controls.isPhoneValid(phoneEt.getText().toString().trim())){
+                    client.setPhoneClient(phoneEt.getText().toString().trim());
+                    edit = true;
+                    Toast.makeText(ClientProfileActivity.this, "Telefono cambiato correttamente", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(ClientProfileActivity.this, "Telefono non valido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
