@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.GoogleMap;
@@ -65,7 +63,6 @@ public class HomepageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         logged = getIntent().getBooleanExtra(FirebaseConnection.LOGGED_FLAG, false);
-        final ConstraintLayout mainLayout = new ConstraintLayout(this);
         String apiKey = getString(R.string.api_key);
         bottomMenuClient = (BottomNavigationView) findViewById(R.id.bottom_navigationClient);
 
