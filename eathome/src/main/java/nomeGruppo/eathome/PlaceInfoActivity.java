@@ -48,10 +48,6 @@ public class PlaceInfoActivity extends AppCompatActivity {
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
-        listFood=new LinkedList<>();
-        mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood);
-        listViewFoodInfo.setAdapter(mAdapter);
-
         this.imgPlaceInfo=(ImageView) findViewById(R.id.imgPlaceInfo);
         this.listViewFoodInfo=(ListView)findViewById(R.id.listViewFoodInfo);
         this.txtDeliveryPlaceInfo=(TextView)findViewById(R.id.txtDeliveryPlaceInfo);
@@ -64,6 +60,11 @@ public class PlaceInfoActivity extends AppCompatActivity {
         this.txtNamePlaceInfo.setText(this.place.namePlace);
         this.txtAddressPlaceInfo.setText(this.place.addressPlace+" "+this.place.addressNumPlace);
         this.txtCityPlaceInfo.setText(this.place.cityPlace);
+
+        listFood=new LinkedList<>();
+        listFood.add(new Food());
+        mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood);
+        listViewFoodInfo.setAdapter(mAdapter);
 
         if(this.place.takesBookingPlace){
             this.txtBookingPlaceInfo.setVisibility(View.VISIBLE);

@@ -22,6 +22,7 @@ public class AddressAdapter extends ArrayAdapter<String> {
     private ImageButton editBtn;
     private ImageButton deleteBtn;
 
+
     public AddressAdapter(@NonNull Context context, int resource, List<String> list) {
         super(context, resource, list);
     }
@@ -44,9 +45,10 @@ public class AddressAdapter extends ArrayAdapter<String> {
         addressET.setHint(address);
 
         addressET.setEnabled(false);
-        addressET.setTag(position);
+
         editBtn.setTag(position);
-        deleteBtn.setTag(position);
+
+
 
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +56,7 @@ public class AddressAdapter extends ArrayAdapter<String> {
                 addressET.setEnabled(true);
             }
         });
+
 
         return convertView;
     }
