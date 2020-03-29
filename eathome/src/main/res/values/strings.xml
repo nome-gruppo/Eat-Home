@@ -55,5 +55,7 @@
     <string name="ingredientsFood">Enter ingredients</string>
     <string name="my_account">My account</string>
     <string name="enter_price">Enter price</string>
+    <string name="delivery_expected">Delivery is available for this location at the cost of</string>
+    <string name="booking_expected">Booking is available for this place</string>
 
 </resources>

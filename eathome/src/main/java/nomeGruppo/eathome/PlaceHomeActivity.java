@@ -133,7 +133,8 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               String titolo=(String)adapterView.getItemAtPosition(i);
+               Food food=(Food)adapterView.getItemAtPosition(i);
+
             }
         });
 

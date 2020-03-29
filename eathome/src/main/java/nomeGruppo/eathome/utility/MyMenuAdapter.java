@@ -36,7 +36,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         TextView ingredients=(TextView)convertView.findViewById(R.id.txtIngredientsFood);
         Food food = getItem(position);
         title.setText(food.nameFood);
-        price.setText(Double.toString(food.priceFood));
+        price.setText(Float.toString(food.priceFood));
         ingredients.setText(food.ingredientsFood);
         return convertView;
     }
