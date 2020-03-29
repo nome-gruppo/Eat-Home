@@ -47,6 +47,7 @@
     <string name="enter_price">Inserisci prezzo</string>
     <string name="delivery_expected">Per questo locale la consegna è disponibile al costo di</string>
     <string name="booking_expected">Per questo locale la prenotazione è disponibile</string>
+    <string name="confirmation">Sei sicuro di voler cancellare </string>
 
 
 

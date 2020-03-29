@@ -85,7 +85,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         imgPlace= (ImageView)findViewById(R.id.placeImg);
         btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
         listFood=new LinkedList<>();
-        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood);
+        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
         listViewMenu.setAdapter(mAdapter);
         btnDeleteFood=(ImageButton)findViewById(R.id.btnDeleteFood);
 

@@ -48,12 +48,12 @@
         android:id="@+id/txtAddressPlaceFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="208dp"
+        android:layout_marginStart="44dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgPlaceFragment"
         app:layout_constraintTop_toBottomOf="@+id/txtNamePlaceFragment"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.948" />
 
     <TextView
         android:id="@+id/txtTypePlaceFragment"
@@ -64,12 +64,4 @@
         app:layout_constraintStart_toStartOf="@+id/txtNamePlaceFragment"
         app:layout_constraintTop_toBottomOf="@+id/txtNamePlaceFragment" />
 
-    <TextView
-        android:id="@+id/txtCityPlaceFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/txtTypePlaceFragment"
-        app:layout_constraintTop_toBottomOf="@+id/txtTypePlaceFragment" />
 </androidx.constraintlayout.widget.ConstraintLayout>

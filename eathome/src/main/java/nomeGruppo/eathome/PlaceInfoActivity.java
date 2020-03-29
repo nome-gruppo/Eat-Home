@@ -17,7 +17,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.utility.MyMenuAdapter;
+import nomeGruppo.eathome.utility.MenuAdapterForClient;
 
 public class PlaceInfoActivity extends AppCompatActivity {
 
@@ -39,7 +38,7 @@ public class PlaceInfoActivity extends AppCompatActivity {
     private TextView txtCityPlaceInfo;
     private TextView txtDeliveryCostInfo;
     private List<Food> listFood;
-    private MyMenuAdapter mAdapter;
+    private MenuAdapterForClient mAdapter;
 
 
     @Override
@@ -50,17 +49,17 @@ public class PlaceInfoActivity extends AppCompatActivity {
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
         listFood=new LinkedList<>();
-        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood);
+        mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood);
         listViewFoodInfo.setAdapter(mAdapter);
 
-        this.imgPlaceInfo=findViewById(R.id.imgPlaceInfo);
-        this.listViewFoodInfo=findViewById(R.id.listViewFoodInfo);
-        this.txtDeliveryPlaceInfo=findViewById(R.id.txtDeliveryPlaceInfo);
-        this.txtBookingPlaceInfo=findViewById(R.id.txtBookingPlaceInfo);
-        this.txtNamePlaceInfo=findViewById(R.id.txtNamePlaceInfo);
-        this.txtAddressPlaceInfo=findViewById(R.id.txtAddressPlaceInfo);
-        this.txtCityPlaceInfo=findViewById(R.id.txtCityPlaceInfo);
-        this.txtDeliveryCostInfo=findViewById(R.id.txtDeliveryCostInfo);
+        this.imgPlaceInfo=(ImageView) findViewById(R.id.imgPlaceInfo);
+        this.listViewFoodInfo=(ListView)findViewById(R.id.listViewFoodInfo);
+        this.txtDeliveryPlaceInfo=(TextView)findViewById(R.id.txtDeliveryPlaceInfo);
+        this.txtBookingPlaceInfo=(TextView)findViewById(R.id.txtBookingPlaceInfo);
+        this.txtNamePlaceInfo=(TextView)findViewById(R.id.txtNamePlaceInfo);
+        this.txtAddressPlaceInfo=(TextView)findViewById(R.id.txtAddressPlaceInfo);
+        this.txtCityPlaceInfo=(TextView)findViewById(R.id.txtCityPlaceInfo);
+        this.txtDeliveryCostInfo=(TextView)findViewById(R.id.txtDeliveryCostInfo);
 
         this.txtNamePlaceInfo.setText(this.place.namePlace);
         this.txtAddressPlaceInfo.setText(this.place.addressPlace+" "+this.place.addressNumPlace);
