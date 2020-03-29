@@ -3,7 +3,6 @@ package nomeGruppo.eathome;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,13 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
 
@@ -42,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
     private EditText emailET;
     private EditText passwordET;
-    private ProgressBar loadingPB;
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         emailET = findViewById(R.id.activity_login_et_email);
         passwordET = findViewById(R.id.activity_login_et_password);
         loginBtn = findViewById(R.id.activity_login_btn_login);
-        loadingPB = findViewById(R.id.activity_login_pb_loading);
+        progressBar = findViewById(R.id.activity_login_pb_loading);
 
         emailET.addTextChangedListener(afterTextChangedListener);
         passwordET.addTextChangedListener(afterTextChangedListener);
@@ -63,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadingPB.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 String emailTemp = emailET.getText().toString().trim();
                 String passwordTemp = passwordET.getText().toString().trim();
 
@@ -91,11 +84,13 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    FirebaseConnection connection = new FirebaseConnection();
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
                                     user = mAuth.getCurrentUser();
-                                    searchInDb(FirebaseConnection.CLIENT_TABLE);
+                                    connection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_TABLE, progressBar, LoginActivity.this);
                                 } else {
+                                    progressBar.setVisibility(View.INVISIBLE);
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
@@ -129,55 +124,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
-
-
-    /*metodo che cerca nel l'utente nel database recuperando i dati
-     */
-    private void searchInDb(final String table) {
-        final DatabaseReference db = new FirebaseConnection().getmDatabase();
-
-
-        db.child(table).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-
-                    loadingPB.setVisibility(View.INVISIBLE);
-
-                    if (table.equals(FirebaseConnection.CLIENT_TABLE)) {
-                        Client client = dataSnapshot.getValue(Client.class);
-                        Intent homepageIntent = new Intent(LoginActivity.this, HomepageActivity.class);
-                        homepageIntent.putExtra(FirebaseConnection.CLIENT, client);
-                        startActivity(homepageIntent);
-                        finish();
-                    } else {
-                        Place place = dataSnapshot.getValue(Place.class);
-                        Intent homepageIntent = new Intent(LoginActivity.this, PlaceHomeActivity.class);
-                        homepageIntent.putExtra(FirebaseConnection.PLACE, place);
-                        startActivity(homepageIntent);
-                        finish();
-                    }
-                } else if (!dataSnapshot.exists() && table.equals(FirebaseConnection.CLIENT_TABLE)) {
-                    searchInDb(FirebaseConnection.PLACE_TABLE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-//        //controlla tra gli utenti
-//        if(firebaseConnection.searchUser(FirebaseConnection.CLIENT_TABLE, user.getUid())){
-//            this.userData = firebaseConnection.getObjectFounded();
-//            this.homepageIntent = new Intent();
-//        }else{ //cerca tra i ristoratori
-//            this.userData = firebaseConnection.getObjectFounded();
-//            this.homepageIntent = new Intent(getActivity(), PlaceHomepageActivity.class);
-//        }
-    }
 
 
 //    private void getCurrentUser(){
