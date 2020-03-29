@@ -34,13 +34,11 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         TextView title = (TextView)convertView.findViewById(R.id.txtNamePlaceFragment);
         TextView type = (TextView)convertView.findViewById(R.id.txtTypePlaceFragment);
         TextView address=(TextView)convertView.findViewById(R.id.txtAddressPlaceFragment);
-        TextView city=(TextView)convertView.findViewById(R.id.txtCityPlaceFragment);
         ImageView imgPlace=(ImageView)convertView.findViewById(R.id.imgPlaceFragment);
         Place place = getItem(position);
         title.setText(place.namePlace);
         type.setText(place.categories);
-        address.setText(place.addressPlace);
-        city.setText(place.cityPlace);
+        address.setText(place.cityPlace+" "+place.addressPlace+", "+place.addressNumPlace);
         setImage(imgPlace, place);
 
         return convertView;

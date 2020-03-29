@@ -76,12 +76,10 @@ public class HomepageActivity extends AppCompatActivity {
         listViewPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(HomepageActivity.this,"clicked"+i,Toast.LENGTH_SHORT).show();
-                /*
-                Place place=(Place)adapterView.getItemAtPosition(i);
+                nomeGruppo.eathome.actors.Place place=(nomeGruppo.eathome.actors.Place)adapterView.getItemAtPosition(i);
                 Intent placeInfoIntent=new Intent(HomepageActivity.this,PlaceInfoActivity.class);
                 placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
-                startActivity(placeInfoIntent);*/
+                startActivity(placeInfoIntent);
             }
         });
 
