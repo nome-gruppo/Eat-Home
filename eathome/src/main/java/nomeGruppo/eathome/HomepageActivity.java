@@ -36,6 +36,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.profile.ClientProfileActivity;
@@ -50,6 +51,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomMenuClient;
     private boolean logged;
+    private Client client;
     private ListView listViewPlace;
     private List<nomeGruppo.eathome.actors.Place> listPlace;
     private PlaceAdapter mAdapter;
@@ -71,8 +73,6 @@ public class HomepageActivity extends AppCompatActivity {
         mAdapter=new PlaceAdapter(this,R.layout.fragment_place_info_homepage_activity,listPlace);
         listViewPlace.setAdapter(mAdapter);
 
-
-
         listViewPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -85,6 +85,8 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
 
+
+            client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
 
 
@@ -135,6 +137,7 @@ public class HomepageActivity extends AppCompatActivity {
                     case R.id.action_profile:
                         if(logged){
                             Intent intent = new Intent(HomepageActivity.this, ClientProfileActivity.class);
+                            intent.putExtra(FirebaseConnection.CLIENT, client);
                             startActivity(intent);
                         }else{
                             Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
@@ -160,7 +163,7 @@ public class HomepageActivity extends AppCompatActivity {
         if(user != null){
             logged = true;
         }
-        firebaseConnection.getmDatabase().child(firebaseConnection.PLACE_TABLE).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

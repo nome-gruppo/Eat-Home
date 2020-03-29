@@ -191,7 +191,6 @@
 
     <Button
         android:id="@+id/activity_client_btn_myAddresses"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="89dp"
@@ -205,7 +204,6 @@
 
     <Button
         android:id="@+id/activity_client_deleteAccount"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="87dp"
@@ -218,13 +216,12 @@
 
     <Button
         android:id="@+id/activity_client_btn_logout"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="87dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="236dp"
-        android:text="Button"
+        android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_client_deleteAccount" />

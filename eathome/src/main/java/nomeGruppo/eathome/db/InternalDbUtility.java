@@ -13,7 +13,7 @@ public class InternalDbUtility extends AppCompatActivity {
     final static String PASSWORD="password";
 
     private SQLiteDatabase mDatabase;
-    private DbInternalConnection db;
+    private DBOpenHelper db;
     private Cursor cursor;
 
     public InternalDbUtility() {
@@ -30,7 +30,7 @@ public class InternalDbUtility extends AppCompatActivity {
     }
 
     public void writeLogin(String username,String password) {
-        db = new DbInternalConnection(this);
+        db = new DBOpenHelper(this);
         mDatabase = db.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(USER_NAME, username);

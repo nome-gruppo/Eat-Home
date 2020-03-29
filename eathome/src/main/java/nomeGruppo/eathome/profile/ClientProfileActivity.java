@@ -38,7 +38,9 @@ public class ClientProfileActivity extends AppCompatActivity {
     private ImageButton emailBtn;
     private ImageButton passwordBtn;
     private ImageButton phoneBtn;
+    private Button myAddressesBtn;
     private Button logoutBtn;
+
 
     private UtilitiesAndControls controls;
 
@@ -61,6 +63,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         passwordBtn = findViewById(R.id.activity_client_profile_imBtn_password_confirm);
         phoneBtn = findViewById(R.id.activity_client_profile_imBtn_phone);
 
+        myAddressesBtn = findViewById(R.id.activity_client_btn_myAddresses);
         logoutBtn = findViewById(R.id.activity_client_btn_logout);
 
         controls = new UtilitiesAndControls();
@@ -83,6 +86,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         phoneBtn.setClickable(false);
 
         initEditTextsListeners();
+        initButtonsListeners();
 
     }//end onCreate
 
@@ -92,13 +96,17 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-
-
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+
+        if(edit){
+            FirebaseConnection connection = new FirebaseConnection();
+
+            connection.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
+        }
     }
 
     public void initEditTextsListeners() {
@@ -282,6 +290,14 @@ public class ClientProfileActivity extends AppCompatActivity {
             }
         });
 
+        myAddressesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myAddressesIntent = new Intent(ClientProfileActivity.this, MyAddressesActivity.class);
+                startActivity(myAddressesIntent);
+            }
+        });
+
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -293,7 +309,5 @@ public class ClientProfileActivity extends AppCompatActivity {
             }
         });
     }//fine initButtonsListeners()
-
-
 }
 

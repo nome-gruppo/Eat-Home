@@ -166,6 +166,9 @@ public class FirebaseConnection {
         });
     }// end searchUserInDb
 
+    public<T> void updateDate(String table, String key, T object){
+
+    }
     public boolean getOperationSuccess(){
         return operationSuccess;
     }

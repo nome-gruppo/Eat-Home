@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".profile.PlaceProfileActivity"/>
+        <activity android:name=".profile.MyAddressesActivity"></activity>
+        <activity android:name=".profile.PlaceProfileActivity" />
         <activity android:name=".profile.ClientProfileActivity" />
         <activity android:name=".LauncherActivity">
             <intent-filter>
@@ -63,21 +64,18 @@
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
-        android:name=".HomepageActivity"
-        android:hardwareAccelerated="false"
-        android:label="@string/title_activity_main"
-        android:largeHeap="true"
-        android:theme="@style/AppTheme.NoActionBar" />
-
+            android:name=".HomepageActivity"
+            android:hardwareAccelerated="false"
+            android:label="@string/title_activity_main"
+            android:largeHeap="true"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
-        
     </application>
 
 </manifest>
