@@ -13,6 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
+        android:enabled="false"
         app:layout_constraintEnd_toStartOf="@+id/fragment_address_btn_edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
