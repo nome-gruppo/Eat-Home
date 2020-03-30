@@ -29,7 +29,7 @@
     <string name="btn_signin">SIGN IN</string>
     <string name="txt_registration">Registration</string>
     <string name="placeName">Enter name activity</string>
-    <string name="placeAdress">Enter address activity</string>
+    <string name="placeAdress">Enter address</string>
     <string name="placePhone">Enter phone number activity</string>
     <string name="placeMail">Enter mail address</string>
     <string name="placePassword">Enter password</string>
@@ -58,6 +58,5 @@
     <string name="delivery_expected">Delivery is available for this location at the cost of</string>
     <string name="booking_expected">Booking is available for this place</string>
     <string name="confirmation">Are you sure you want to cancel </string>
-
 
 </resources>

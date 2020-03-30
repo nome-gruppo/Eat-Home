@@ -12,7 +12,7 @@
     <string name="btn_signin">REGISTRATI</string>
     <string name="txt_registration">Registrazione</string>
     <string name="placeName">Inserisci nome attività</string>
-    <string name="placeAdress">Inserisci indirizzo attività</string>
+    <string name="placeAdress">Inserisci indirizzo</string>
     <string name="placePhone">Inserisci numero di telefono</string>
     <string name="placeMail">Inserisci indirizzo mail</string>
     <string name="placePassword">Inserisci password</string>

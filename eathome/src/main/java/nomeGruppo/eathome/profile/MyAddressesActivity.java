@@ -5,8 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -28,7 +30,7 @@ import java.util.List;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.db.DBOpenHelper;
 
-public class MyAddressesActivity extends AppCompatActivity {
+public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
 
     private TextView newAddressTV;
     private ImageButton addAddressBtn;
@@ -62,8 +64,8 @@ public class MyAddressesActivity extends AppCompatActivity {
 
 
         final int rows = c.getColumnCount();
-        View[] views = new View[rows];
-        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //View[] views = new View[rows];
+        //LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
 
@@ -71,21 +73,30 @@ public class MyAddressesActivity extends AppCompatActivity {
             TextView noAddressET = findViewById(R.id.activity_my_address_et_noAddresses);
             noAddressET.setVisibility(View.VISIBLE);
         }else{
-            HashSet<AddressFragment> hashSetAddresses = new HashSet<>(rows);
-            c.moveToFirst();
-            for(int i = 0; i < rows; i++) {
+            //HashSet<AddressFragment> hashSetAddresses = new HashSet<>(rows);
+          while(c.moveToNext()){
 //                c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS))
-                hashSetAddresses.add(new AddressFragment());
-                views[i] = inflater.inflate(R.layout.fragment_address, null);
-                addressList.add(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)));
+                //hashSetAddresses.add(new AddressFragment());
+                //views[i] = inflater.inflate(R.layout.fragment_address, null);
+                String address=c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS));
+                addressList.add(address);
 //                addresses_list.addView(views[i]);
-
-                c.moveToNext();
             }
+            mAdapter.notifyDataSetChanged();
         }
+
+        addAddressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
+            }
+        });
     }
 
-
+    public void openDialog(){
+        DialogAddAddress dialogAddAddress=new DialogAddAddress();
+        dialogAddAddress.show(getSupportFragmentManager(),"Dialog add address");
+    }
 
     public void createadd(){
         ContentValues values = new ContentValues();
@@ -99,4 +110,10 @@ public class MyAddressesActivity extends AppCompatActivity {
         values.clear();
     }
 
+    @Override
+    public void applyTexts(String city, String address, String numberAddress) {
+        ContentValues values=new ContentValues();
+        values.put(DBOpenHelper.ADDRESS,city+" - "+address+" - "+numberAddress);
+        mDB.insert(DBOpenHelper.TABLE_NAME,null,values);
+    }
 }
