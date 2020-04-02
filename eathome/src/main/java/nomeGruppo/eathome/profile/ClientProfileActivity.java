@@ -39,8 +39,8 @@ public class ClientProfileActivity extends AppCompatActivity {
     private ImageButton passwordBtn;
     private ImageButton phoneBtn;
     private Button myAddressesBtn;
+    private Button deleteAccountBtn;
     private Button logoutBtn;
-
 
     private UtilitiesAndControls controls;
 
@@ -62,8 +62,8 @@ public class ClientProfileActivity extends AppCompatActivity {
         emailBtn = findViewById(R.id.activity_client_profile_imBtn_email);
         passwordBtn = findViewById(R.id.activity_client_profile_imBtn_password_confirm);
         phoneBtn = findViewById(R.id.activity_client_profile_imBtn_phone);
-
         myAddressesBtn = findViewById(R.id.activity_client_btn_myAddresses);
+        deleteAccountBtn = findViewById(R.id.activity_client_btn_deleteAccount);
         logoutBtn = findViewById(R.id.activity_client_btn_logout);
 
         controls = new UtilitiesAndControls();
@@ -297,6 +297,8 @@ public class ClientProfileActivity extends AppCompatActivity {
                 startActivity(myAddressesIntent);
             }
         });
+
+
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override

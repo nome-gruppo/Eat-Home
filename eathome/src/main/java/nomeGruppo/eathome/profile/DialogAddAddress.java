@@ -14,13 +14,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.utility.DialogAddMenu;
 
 public class DialogAddAddress extends AppCompatDialogFragment {
+
+    private static final String SPLIT = ", ";
+
     private EditText editCity;
     private EditText editAddress;
     private EditText editNumberAddress;
     private DialogAddAddress.DialogAddAddressListener listener;
+    private String fullAddress;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -28,6 +32,10 @@ public class DialogAddAddress extends AppCompatDialogFragment {
 
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_insert_address,null);
+
+        editAddress=(EditText)view.findViewById(R.id.editAddressClient);
+        editCity=(EditText)view.findViewById(R.id.editCityClient);
+        editNumberAddress=(EditText)view.findViewById(R.id.editNumberAddressClient);
 
         builder.setView(view).setTitle("Insert address").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -40,17 +48,20 @@ public class DialogAddAddress extends AppCompatDialogFragment {
                 String cityClient=editCity.getText().toString();
                 String addressClient=editAddress.getText().toString();
                 String numberAddressClient=editNumberAddress.getText().toString();
-                listener.applyTexts(cityClient,addressClient,numberAddressClient);
+
+                fullAddress = addressClient + SPLIT + numberAddressClient + SPLIT + cityClient;
+
+                listener.applyTexts(addressClient,numberAddressClient, cityClient);
 
             }
         });
 
-        editAddress=(EditText)view.findViewById(R.id.editAddressClient);
-        editCity=(EditText)view.findViewById(R.id.editCityClient);
-        editNumberAddress=(EditText)view.findViewById(R.id.editNumberAddressClient);
-
         return builder.create();
 
+    }
+
+    public String getFullAddress(){
+        return fullAddress;
     }
 
     @Override
