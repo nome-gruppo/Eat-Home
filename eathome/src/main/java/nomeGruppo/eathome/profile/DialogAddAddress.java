@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.utility.DialogAddMenu;
 
 public class DialogAddAddress extends AppCompatDialogFragment {
     private EditText editCity;

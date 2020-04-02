@@ -45,6 +45,7 @@ public class FirebaseConnection {
     public static final String LOGGED_FLAG = "Logged";
     public static final String PLACE = "Place";
     public static final String CLIENT = "Client";
+    public static final String ORDER="Order";
 
     private DatabaseReference mDatabase;
     private Object objectFounded;

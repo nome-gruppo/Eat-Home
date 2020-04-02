@@ -9,9 +9,7 @@
     <ImageView
         android:id="@+id/imgPlaceInfo"
         android:layout_width="200dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toTopOf="@+id/txtNamePlaceInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +41,7 @@
         android:id="@+id/txtAddressPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="23dp"
         android:layout_marginBottom="19dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/txtDeliveryCostInfo"
@@ -53,7 +51,7 @@
         android:id="@+id/txtDeliveryPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="13dp"
         android:text="@string/delivery_expected"
         android:visibility="invisible"
@@ -64,11 +62,11 @@
         android:id="@+id/txtDeliveryCostInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:text="Text View"
+        android:layout_marginEnd="15dp"
+        android:text="0"
         android:visibility="invisible"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtDeliveryPlaceInfo"
-        app:layout_constraintStart_toStartOf="@+id/txtAddressPlaceInfo" />
+        app:layout_constraintEnd_toEndOf="@+id/txtAddressPlaceInfo" />
 
     <TextView
         android:id="@+id/txtBookingPlaceInfo"
@@ -77,20 +75,54 @@
         android:layout_marginBottom="11dp"
         android:text="@string/booking_expected"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/listViewFoodInfo"
+        app:layout_constraintBottom_toBottomOf="@+id/listViewFoodInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/listViewFoodInfo"
         android:layout_width="0dp"
-        android:layout_height="531dp"
-        android:layout_marginStart="1dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="234dp"
-        android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"></ListView>
+
+
+    <Button
+        android:id="@+id/btnOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="15dp"
+        android:enabled="false"
+        android:text="@string/action_order"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClient"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginBottom="15dp"
+        android:enabled="false"
+        android:text="@string/action_book"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClient"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigationClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

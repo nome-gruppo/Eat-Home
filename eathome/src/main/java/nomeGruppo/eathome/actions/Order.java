@@ -2,6 +2,7 @@ package nomeGruppo.eathome.actions;
 
 import android.annotation.SuppressLint;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -11,17 +12,22 @@ import java.util.HashMap;
 
 import nomeGruppo.eathome.foods.Food;
 
-public class Order {
+public class Order implements Serializable {
 
-    private int idOrder;
-    private String addressOrder;
-    private String addressNumOrder; // TODO da eliminare se si può isolare il numero dall'indirizzo
-    private Date dateOrder;
-    private LocalTime timeOrder;
-    private HashMap<Food, Integer> foodsOrder;
-    private OrderState orderStateOrder;
-    private final int idClientOrder;
-    private final int idPlaceOrder;
+    public int idOrder;
+    public String addressOrder;
+    public String addressNumOrder; // TODO da eliminare se si può isolare il numero dall'indirizzo
+    public Date dateOrder;
+    public LocalTime timeOrder;
+    public HashMap<Food, Integer> foodsOrder;
+    public OrderState orderStateOrder;
+    public int idClientOrder;
+    public int idPlaceOrder;
+
+
+    public Order() {
+
+    }
 
     public Order(String address, LocalTime time, int idClient, int idPlace){
         //TODO leggi l'ultimo id dal database e incrementa uno
@@ -52,5 +58,41 @@ public class Order {
             throw e;
         }
 
+    }
+
+    public void setFoodsOrder(HashMap<Food, Integer> foodsOrder) {
+        this.foodsOrder = foodsOrder;
+    }
+
+    public void setIdOrder(int idOrder) {
+        this.idOrder = idOrder;
+    }
+
+    public void setAddressOrder(String addressOrder) {
+        this.addressOrder = addressOrder;
+    }
+
+    public void setAddressNumOrder(String addressNumOrder) {
+        this.addressNumOrder = addressNumOrder;
+    }
+
+    public void setDateOrder(Date dateOrder) {
+        this.dateOrder = dateOrder;
+    }
+
+    public void setTimeOrder(LocalTime timeOrder) {
+        this.timeOrder = timeOrder;
+    }
+
+    public void setOrderStateOrder(OrderState orderStateOrder) {
+        this.orderStateOrder = orderStateOrder;
+    }
+
+    public void setIdClientOrder(int idClientOrder) {
+        this.idClientOrder = idClientOrder;
+    }
+
+    public void setIdPlaceOrder(int idPlaceOrder) {
+        this.idPlaceOrder = idPlaceOrder;
     }
 }

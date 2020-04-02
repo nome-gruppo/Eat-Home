@@ -1,26 +1,27 @@
 package nomeGruppo.eathome.utility;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.foods.Food;
 
 public class MenuAdapterForClient extends ArrayAdapter<Food> {
+    private HashMap<Food,Integer>order;
 
     public MenuAdapterForClient(Context context, int textViewResourceId,
-                         List<Food> food) {
+                                List<Food> food, HashMap<Food,Integer>order) {
         super(context, textViewResourceId, food);
+        this.order=order;
     }
 
     @Override
@@ -45,6 +46,7 @@ public class MenuAdapterForClient extends ArrayAdapter<Food> {
                 int  i=Integer.parseInt(counter.getText().toString());
                 i++;
                 counter.setText(Integer.toString(i));
+                order.put(food,i);
             }
         });
 
@@ -56,6 +58,7 @@ public class MenuAdapterForClient extends ArrayAdapter<Food> {
                     i--;
                 }
                 counter.setText(Integer.toString(i));
+                order.put(food,i);
             }
         });
 

@@ -48,6 +48,13 @@
     <string name="delivery_expected">Per questo locale la consegna è disponibile al costo di</string>
     <string name="booking_expected">Per questo locale la prenotazione è disponibile</string>
     <string name="confirmation">Sei sicuro di voler cancellare </string>
+    <string name="action_order">Ordina</string>
+    <string name="action_book">Prenota</string>
+    <string name="order_summary">Riepilogo ordine</string>
+    <string name="choose_address">Scegli indirizzo di spedizione</string>
+    <string name="tot_order">Totale ordine</string>
+    <string name="tot_delivery">Costi di spedizione</string>
+    <string name="total">Totale</string>
 
 
 
