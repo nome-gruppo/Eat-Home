@@ -1,8 +1,6 @@
 package nomeGruppo.eathome;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,14 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -72,6 +70,9 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
     private AddressAdapter addressAdapter;
     private List<String>listAddress;
 
+    private FirebaseUser user;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,12 +107,12 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood,listFoodOrder);
         listViewFoodInfo.setAdapter(mAdapter);
 
-        if(this.place.takesBookingPlace==true){
+        if(this.place.takesBookingPlace){
             this.txtBookingPlaceInfo.setVisibility(View.VISIBLE);
             this.btnBook.setEnabled(true);
         }
 
-        if(this.place.takesOrderPlace==true){
+        if(this.place.takesOrderPlace){
             this.txtDeliveryPlaceInfo.setVisibility(View.VISIBLE);
             this.txtDeliveryCostInfo.setText(Integer.toString(this.place.deliveryCost));
             this.txtDeliveryCostInfo.setVisibility(View.VISIBLE);
@@ -121,10 +122,12 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialogOrder(listFoodOrder,place);
-
-                //TODO verificare se loggato o meno(passare l'oggetto user nell'intent infondo openDialogChooseAddress
-
+                if(user == null) {
+                    openDialogOrder(listFoodOrder, place);
+                }else{
+                    Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
+                    startActivity(loginIntent);
+                }
             }
         });
 
@@ -151,7 +154,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                opendDialogChooseAddress(nameFood,finalTot,place);//se clicca su ok va avanti al successivo dialogo
+                openDialogChooseAddress(nameFood,finalTot,place);//se clicca su ok va avanti al successivo dialogo
 
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -165,7 +168,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
     }
 
     //dialog per selezionare l'indirizzo di spedizione
-    private void opendDialogChooseAddress(final ArrayList<String>nameFood, final float finalTot,final Place place){
+    private void openDialogChooseAddress(final ArrayList<String>nameFood, final float finalTot, final Place place){
         final AlertDialog.Builder builder=new AlertDialog.Builder(this);
         LayoutInflater inflater=PlaceInfoActivity.this.getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_choose_address,null);
@@ -203,6 +206,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String addressOrder =(String)adapterView.getItemAtPosition(i);
                 Intent orderActivity=new Intent(PlaceInfoActivity.this,ConfirmOrderActivity.class);
+                orderActivity.putExtra("UserID", user.getUid());
                 orderActivity.putExtra(FirebaseConnection.PLACE,place);
                 orderActivity.putExtra("NameFood", nameFood);
                 orderActivity.putExtra("Tot", finalTot);
@@ -215,6 +219,9 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
     @Override
     protected void onStart() {
         super.onStart();
+
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         StorageConnection storageConnection=new StorageConnection();//apro la connessione allo Storage di Firebase
         StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante

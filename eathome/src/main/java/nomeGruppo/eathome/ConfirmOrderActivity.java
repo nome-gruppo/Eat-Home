@@ -140,11 +140,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         order.setAddressOrder(addressOrder);
         order.setNameClientOrder(editName.getText().toString());
         order.setFoodsOrder(listFoodOrder);
+        order.setIdClientOrder(getIntent().getStringExtra("UserID"));
         order.setIdPlaceOrder(place.idPlace);
         order.setPhoneClientOrder(editPhone.getText().toString());
         order.setTimeOrder(chooseTime.getText().toString());
-
-        // TODO setIdClient in order
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().setValue(order);
