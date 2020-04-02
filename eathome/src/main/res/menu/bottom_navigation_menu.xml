@@ -7,7 +7,7 @@
 
     <item android:id="@+id/action_orders"
         android:title="@string/orders"
-        android:icon="@drawable/ic_menu_orders" />
+        android:icon="@drawable/ic_menu_scooter" />
 
     <item android:id="@+id/action_bookings"
         android:title="@string/bookings"
