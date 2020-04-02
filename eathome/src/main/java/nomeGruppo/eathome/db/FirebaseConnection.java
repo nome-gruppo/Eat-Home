@@ -40,6 +40,7 @@ public class FirebaseConnection {
 
     public static final String PLACE_TABLE = "Places"; //todo rinomina tutti i table in node
     public static final String CLIENT_TABLE = "Clients";
+    public static final String ORDER_TABLE = "Orders";
 
     //stringhe utilizzate negli intent
     public static final String LOGGED_FLAG = "Logged";

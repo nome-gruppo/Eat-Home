@@ -51,6 +51,7 @@ import nomeGruppo.eathome.utility.MenuAdapterForClient;
 
 public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
 
+    private static final String SPLIT = ", ";
     private Place place;
     private Order order;
     private HashMap<Food,Integer> listFoodOrder;
@@ -68,6 +69,8 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
     private MenuAdapterForClient mAdapter;
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
+    private AddressAdapter addressAdapter;
+    private List<String>listAddress;
 
 
     @Override
@@ -81,6 +84,8 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getReadableDatabase();
+        this.listAddress=new LinkedList<>();
+        this.addressAdapter=new AddressAdapter(PlaceInfoActivity.this,R.layout.listitem_address,listAddress);
 
         this.imgPlaceInfo=(ImageView) findViewById(R.id.imgPlaceInfo);
         this.listViewFoodInfo=(ListView)findViewById(R.id.listViewFoodInfo);
@@ -118,20 +123,23 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
             public void onClick(View view) {
                 openDialogOrder(listFoodOrder,place);
 
+                //TODO verificare se loggato o meno(passare l'oggetto user nell'intent infondo openDialogChooseAddress
+
             }
         });
 
     }
 
+    //dialog che visualizza l'elenci dei cibi ordinati con costo e quantità
     public void openDialogOrder(final HashMap<Food,Integer>listFoodOrder, final Place place){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle(this.getResources().getString(R.string.order_summary));
         float tot=0;
         String message="";
         final ArrayList<String>nameFood=new ArrayList<>();
-        for(Map.Entry<Food,Integer>entry:listFoodOrder.entrySet()){
+        for(Map.Entry<Food,Integer>entry:listFoodOrder.entrySet()){//scorro l'hashMap per prendere il nome dei cibi e la quantità
             Food key=entry.getKey();
-            nameFood.add(key.nameFood);
+            nameFood.add("X " +entry.getValue()+ " "+ key.nameFood);
             int number=entry.getValue();
             float totParz=key.priceFood*number;
             tot+=totParz;
@@ -143,7 +151,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                opendDialogChooseAddress(nameFood,finalTot,place);
+                opendDialogChooseAddress(nameFood,finalTot,place);//se clicca su ok va avanti al successivo dialogo
 
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -156,10 +164,8 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         alert.show();
     }
 
+    //dialog per selezionare l'indirizzo di spedizione
     private void opendDialogChooseAddress(final ArrayList<String>nameFood, final float finalTot,final Place place){
-
-        final List<String>listAddress=new LinkedList<>();
-        final AddressAdapter addressAdapter=new AddressAdapter(this,R.layout.listitem_address,listAddress);
         final AlertDialog.Builder builder=new AlertDialog.Builder(this);
         LayoutInflater inflater=PlaceInfoActivity.this.getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_choose_address,null);
@@ -169,27 +175,29 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         listViewAddress.setAdapter(addressAdapter);
         ImageButton btnAddAddress=view.findViewById(R.id.btnAddAddress);
 
+        //leggo in SQLite gli indirizzi presenti e li assegno alla listView
         final Cursor c = mDB.query(DBOpenHelper.TABLE_NAME,DBOpenHelper.COLUMNS, null, null, null, null, null);
 
         while(c.moveToNext()){
-            String address=c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS));
+            String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;
+            address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS)) + SPLIT);
+            address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY)));
             listAddress.add(address);
         }
         addressAdapter.notifyDataSetChanged();
         AlertDialog alert = builder.create();
         alert.show();
 
+        //bottone che mi permette l'aggiunta di un nuovo indirizzo
         btnAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogAddAddress dialogAddAddress = new DialogAddAddress();
                 dialogAddAddress.show(getSupportFragmentManager(), "Dialog add address");
-                if(dialogAddAddress.isRemoving()){
-                    readDb(c,listAddress,addressAdapter);
-                }
             }
         });
 
+        //una volta che l'utente seleziona l'indirizzo si passa alla successiva Activity per la conferma dell'ordine
         listViewAddress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -203,15 +211,6 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
             }
         });
     }
-
-    private void readDb(Cursor c,List<String>listAddress, AddressAdapter addressAdapter){
-        while(c.moveToNext()){
-            String address=c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS));
-            listAddress.add(address);
-        }
-        addressAdapter.notifyDataSetChanged();
-    }
-
 
     @Override
     protected void onStart() {
@@ -250,12 +249,10 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         });
     }
 
-
     @Override
     public void applyTexts(String city, String address, String numberAddress) {
-        ContentValues values=new ContentValues();
-        values.put(DBOpenHelper.ADDRESS,city+" - "+address+" - "+numberAddress);
-        mDB.insert(DBOpenHelper.TABLE_NAME,null,values);
+        addressAdapter.notifyDataSetChanged();
+        mDBHelper.addAddress(mDB, address, numberAddress, city);
     }
 
     private class AddressAdapter extends ArrayAdapter<String> {

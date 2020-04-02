@@ -65,4 +65,7 @@
     <string name="tot_order">Total order</string>
     <string name="tot_delivery">Delivery cost</string>
     <string name="total">Total</string>
+    <string name="confirm_order">Confirm</string>
+    <string name="are_you_sure">Are you sure you want to confirm this order?</string>
+    <string name="choose_time">Choose the time</string>
 </resources>

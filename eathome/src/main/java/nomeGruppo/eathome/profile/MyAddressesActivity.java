@@ -81,7 +81,6 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     @Override
     public void applyTexts(String address, String numberAddress, String city) {
-
         mAdapter.notifyDataSetChanged();
         mDBHelper.addAddress(mDB, address, numberAddress, city);
     }
