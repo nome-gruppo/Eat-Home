@@ -1,5 +1,6 @@
 package nomeGruppo.eathome.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,12 +13,16 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME="myAddresses";
     public static final String _ID = "_id";
+    public static final String CITY = "city";
     public static final String ADDRESS="address";
-    public static final String[] COLUMNS = {_ID,ADDRESS};
+    public static final String NUM_ADDRESS="numAddress";
+    public static final String[] COLUMNS = {_ID, CITY, ADDRESS, NUM_ADDRESS};
 
     private static final String CREATE_CMD = "CREATE TABLE " + TABLE_NAME + "("
             + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + ADDRESS + " VARCHAR(255) NOT NULL)";
+            + CITY + " VARCHAR(100) NOT NULL,"
+            + ADDRESS + " VARCHAR(255) NOT NULL,"
+            + NUM_ADDRESS + " VARCHAR(10) NOT NULL)";
 
 //    public final static String[]columns_credenziali={USER_NAME,PASSWORD};
 //    final static String CREATE_CREDENZIALI="CREATE TABLE "+TABLE_NAME+"("+USER_NAME+" VARCHAR(10)PRIMARY KEY,"+PASSWORD+" VARCHAR(15)NOT NULL)";
@@ -39,6 +44,15 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     void deleteDatabase() {
         mContext.deleteDatabase(DB_NAME);
+    }
+
+    public void addAddress(SQLiteDatabase db, String address, String numAddress, String city){
+        ContentValues values=new ContentValues();
+
+        values.put(ADDRESS, address);
+        values.put(NUM_ADDRESS, numAddress);
+        values.put(CITY, city);
+        db.insert(TABLE_NAME,null,values);
     }
 
 }

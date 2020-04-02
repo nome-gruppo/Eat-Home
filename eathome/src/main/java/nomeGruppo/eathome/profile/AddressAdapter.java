@@ -1,5 +1,6 @@
 package nomeGruppo.eathome.profile;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,16 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.foods.Food;
 
 
 public class AddressAdapter extends ArrayAdapter<String> {
@@ -33,19 +30,19 @@ public class AddressAdapter extends ArrayAdapter<String> {
         super(context, resource, list);
     }
 
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.fragment_address, null);
+            convertView = inflater.inflate(R.layout.fragment_my_address, null);
 
+            addressET = convertView.findViewById(R.id.fragment_address_et);
+            editBtn = convertView.findViewById(R.id.fragment_address_btn_edit);
+            deleteBtn = convertView.findViewById(R.id.fragment_address_btn_delete);
         }
-
-        addressET = convertView.findViewById(R.id.fragment_address_et);
-        editBtn = convertView.findViewById(R.id.fragment_address_btn_edit);
-        deleteBtn = convertView.findViewById(R.id.fragment_address_btn_delete);
 
         String address = getItem(position);
         addressET.setText(address);
@@ -56,7 +53,6 @@ public class AddressAdapter extends ArrayAdapter<String> {
                openDialog(addressET.getText().toString());
             }
         });
-
 
         return convertView;
     }
@@ -84,7 +80,7 @@ public class AddressAdapter extends ArrayAdapter<String> {
         EditText editCity=(EditText)view.findViewById(R.id.editCityClient);
         EditText editNumberAddress=(EditText)view.findViewById(R.id.editNumberAddressClient);
 
-        String[] split=address.split(" - ");
+        String[] split=address.split(", ");
 
         editCity.setText(split[0]);
         editAddress.setText(split[1]);

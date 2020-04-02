@@ -1,6 +1,7 @@
 package nomeGruppo.eathome.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,64 +10,60 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
+
 import java.util.ArrayList;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.db.DBOpenHelper;
 
-public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
+public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener{
 
-    private TextView newAddressTV;
-    private ImageButton addAddressBtn;
+    private static final String SPLIT = ", ";
     private AddressAdapter mAdapter;
     private ArrayList<String> addressList;
-    private SQLiteDatabase mDB = null;
+
     private DBOpenHelper mDBHelper;
-    private ListView addressesLW;
+    private SQLiteDatabase mDB;
+
+    private DialogAddAddress dialogAddAddress;
+
+    private ArrayList<String> newAddresses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_addresses);
 
-        newAddressTV = findViewById(R.id.activity_my_address_et_new_address);
-        addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
-        addressesLW = findViewById(R.id.activity_my_addresses_listView);
-//        LinearLayout addresses_list = (LinearLayout) findViewById(R.id.activity_my_addresses_linearLayout);
+        ImageButton addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
+        ListView addressesLW = findViewById(R.id.activity_my_addresses_listView);
 
         addressList = new ArrayList<>();
-        mAdapter = new AddressAdapter(this, R.layout.fragment_address, addressList);
+        newAddresses = new ArrayList<>();
+        mAdapter = new AddressAdapter(this, R.layout.fragment_my_place_autocomplete, addressList);
 
         mDBHelper = new DBOpenHelper(this);
         mDB = mDBHelper.getWritableDatabase();
 
-        addressesLW.setAdapter(mAdapter);
-//        createadd();
+
 
         Cursor c = mDB.query(DBOpenHelper.TABLE_NAME,DBOpenHelper.COLUMNS, null, null, null, null, null);
 
-
-
         final int rows = c.getColumnCount();
-        //View[] views = new View[rows];
-        //LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-
-
+        //recupero indirizzi dal database
         if(rows == 0){
             TextView noAddressET = findViewById(R.id.activity_my_address_et_noAddresses);
             noAddressET.setVisibility(View.VISIBLE);
         }else{
-            //HashSet<AddressFragment> hashSetAddresses = new HashSet<>(rows);
           while(c.moveToNext()){
-//                c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS))
-                //hashSetAddresses.add(new AddressFragment());
-                //views[i] = inflater.inflate(R.layout.fragment_address, null);
-                String address=c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS));
+
+                String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;
+                address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS)) + SPLIT);
+                address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY)));
                 addressList.add(address);
-//                addresses_list.addView(views[i]);
             }
-            mAdapter.notifyDataSetChanged();
+            addressesLW.setAdapter(mAdapter);
         }
 
         addAddressBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,26 +75,21 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     }
 
     public void openDialog(){
-        DialogAddAddress dialogAddAddress=new DialogAddAddress();
+        dialogAddAddress=new DialogAddAddress();
         dialogAddAddress.show(getSupportFragmentManager(),"Dialog add address");
     }
 
-    public void createadd(){
-        ContentValues values = new ContentValues();
+    @Override
+    public void applyTexts(String address, String numberAddress, String city) {
 
-        values.put(DBOpenHelper.ADDRESS, "via roma");
-        mDB.insert(DBOpenHelper.TABLE_NAME, null, values);
-        values.clear();
-
-        values.put(DBOpenHelper.ADDRESS, "via mignozzi");
-        mDB.insert(DBOpenHelper.TABLE_NAME,null,values);
-        values.clear();
+        mAdapter.notifyDataSetChanged();
+        mDBHelper.addAddress(mDB, address, numberAddress, city);
     }
 
     @Override
-    public void applyTexts(String city, String address, String numberAddress) {
-        ContentValues values=new ContentValues();
-        values.put(DBOpenHelper.ADDRESS,city+" - "+address+" - "+numberAddress);
-        mDB.insert(DBOpenHelper.TABLE_NAME,null,values);
+    protected void onStop() {
+        super.onStop();
+
+        mDB.close();
     }
 }
