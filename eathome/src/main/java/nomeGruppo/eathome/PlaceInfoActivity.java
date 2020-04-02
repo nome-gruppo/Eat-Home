@@ -122,7 +122,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user == null) {
+                if(user != null) {
                     openDialogOrder(listFoodOrder, place);
                 }else{
                     Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
