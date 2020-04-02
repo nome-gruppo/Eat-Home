@@ -41,6 +41,7 @@ public class FirebaseConnection {
     public static final String PLACE_TABLE = "Places"; //todo rinomina tutti i table in node
     public static final String CLIENT_TABLE = "Clients";
     public static final String ORDER_TABLE = "Orders";
+    public static final String LOGIN_FLAG = "Login from another activity"; //flag per controllare se l'activity login è stata chiamata da un'altra activity
 
     //stringhe utilizzate negli intent
     public static final String LOGGED_FLAG = "Logged";
@@ -144,8 +145,13 @@ public class FirebaseConnection {
                         Intent intent = new Intent(activity, HomepageActivity.class);
                         intent.putExtra(CLIENT, client);
                         intent.putExtra(LOGGED_FLAG, true);
-                        activity.startActivity(intent);
-                        activity.finish();
+
+                        if (activity.getIntent().getBooleanExtra(FirebaseConnection.LOGIN_FLAG, false)){
+                            activity.finish();
+                        }else {
+                            activity.startActivity(intent);
+                            activity.finish();
+                        }
 
                     } else { //ricerca nel nodo places
                         Place place = dataSnapshot.getValue(Place.class);

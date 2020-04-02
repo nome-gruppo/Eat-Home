@@ -126,6 +126,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
                     openDialogOrder(listFoodOrder, place);
                 }else{
                     Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
+                    loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);
                     startActivity(loginIntent);
                 }
             }
