@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginFragment";
 
-
+    
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private Button loginBtn;

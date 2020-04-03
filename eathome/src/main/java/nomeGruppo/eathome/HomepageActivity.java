@@ -14,7 +14,6 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
@@ -196,9 +195,24 @@ public class HomepageActivity extends AppCompatActivity{
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_orders:
-
+                        if(logged){
+                            Intent intent = new Intent(HomepageActivity.this, ClientOrderInfoActivity.class);
+                            intent.putExtra(FirebaseConnection.CLIENT, client);
+                            startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                     case R.id.action_bookings:
+                        if(logged){
+                            Intent intent = new Intent(HomepageActivity.this, ClientBookingInfoActivity.class);
+                            intent.putExtra(FirebaseConnection.CLIENT, client);
+                            startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
 
                         break;
                     case R.id.action_profile:
