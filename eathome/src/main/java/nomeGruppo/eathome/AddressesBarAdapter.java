@@ -10,15 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressesBarAdapter extends ArrayAdapter<String>{
+public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
 
     private static final String TAG = "TAG";
     private Context mContext;
     private TextView item;
-    private List<String> list;      //lista per controllare che non vengano mostrate repliche
+    private List<AutocompletePrediction> list;      //lista per controllare che non vengano mostrate repliche
 
     public AddressesBarAdapter(@NonNull Context context, int resource) {
         super(context, resource);
@@ -27,11 +29,17 @@ public class AddressesBarAdapter extends ArrayAdapter<String>{
     }
 
     @Override
-    public void add(String string){
-        if(!list.contains(string)) {
-            list.add(string);
-            super.add(string);
+    public void add(AutocompletePrediction prediction){
+        if(!list.contains(prediction)) {
+            list.add(prediction);
+            super.add(prediction);
         }
+    }
+
+    @Nullable
+    @Override
+    public AutocompletePrediction getItem(int position) {
+        return super.getItem(position);
     }
 
     @NonNull
@@ -44,8 +52,7 @@ public class AddressesBarAdapter extends ArrayAdapter<String>{
             convertView = inflater.inflate(R.layout.dropdown_list_layout, null);
         }
         item = convertView.findViewById(R.id.list_item);
-        item.setText(getItem(position));
-
+        item.setText(getItem(position).getFullText(null));
 
         return convertView;
     }
