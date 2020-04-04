@@ -54,7 +54,7 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.profile.ClientProfileActivity;
 import nomeGruppo.eathome.utility.PlaceAdapter;
 
-public class HomepageActivity extends AppCompatActivity {
+public class HomepageActivity extends AppCompatActivity{
 
     private static final String TAG = "HomepageActivity";
 
@@ -388,8 +388,24 @@ public class HomepageActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_orders:
 
+                    if(logged){
+                        Intent intent = new Intent(HomepageActivity.this, ClientOrderInfoActivity.class);
+                        intent.putExtra(FirebaseConnection.CLIENT, client);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
                     break;
                 case R.id.action_bookings:
+                    if(logged){
+                        Intent intent = new Intent(HomepageActivity.this, ClientBookingInfoActivity.class);
+                        intent.putExtra(FirebaseConnection.CLIENT, client);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
 
                     break;
                 case R.id.action_profile:

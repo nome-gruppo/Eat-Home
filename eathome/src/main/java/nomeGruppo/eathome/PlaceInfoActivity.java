@@ -122,8 +122,24 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user == null) {
+                if(user != null) {
                     openDialogOrder(listFoodOrder, place);
+                }else{
+                    Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
+                    loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);
+                    startActivity(loginIntent);
+                }
+            }
+        });
+
+        btnBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(user != null) {
+                    Intent bookingActivity=new Intent(PlaceInfoActivity.this,ConfirmBookingActivity.class);
+                    bookingActivity.putExtra(FirebaseConnection.PLACE,place);
+                    bookingActivity.putExtra("UserID",user.getUid());
+                    startActivity(bookingActivity);
                 }else{
                     Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
                     loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);

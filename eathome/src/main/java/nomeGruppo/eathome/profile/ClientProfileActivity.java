@@ -6,19 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nomeGruppo.eathome.ClientOrderInfoActivity;
 import nomeGruppo.eathome.HomepageActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class ClientProfileActivity extends AppCompatActivity {
@@ -44,12 +48,26 @@ public class ClientProfileActivity extends AppCompatActivity {
 
     private UtilitiesAndControls controls;
 
+    private MenuNavigationItemSelected menuNavigationItemSelected;
+    private BottomNavigationView bottomMenuClient;
+
     private boolean edit = false; //flag per controllare se qualche campo è stato modificato
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_profile);
+
+        this.bottomMenuClient=findViewById(R.id.bottom_navigationClientProfile);
+        this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        this.menuNavigationItemSelected=new MenuNavigationItemSelected();
+
+        bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                return menuNavigationItemSelected.menuNavigation(item,client, ClientProfileActivity.this);
+            }
+        });
 
         nameEt = findViewById(R.id.activity_client_et_name);
         emailEt = findViewById(R.id.activity_client_et_email);
@@ -67,7 +85,6 @@ public class ClientProfileActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.activity_client_btn_logout);
 
         controls = new UtilitiesAndControls();
-        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
         //imposto gli hint
         nameEt.setHint(client.nameClient);
