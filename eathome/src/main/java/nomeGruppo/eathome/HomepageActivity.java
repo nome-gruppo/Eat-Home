@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,15 +22,18 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
@@ -46,8 +52,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -59,7 +67,7 @@ public class HomepageActivity extends AppCompatActivity{
     private static final String TAG = "HomepageActivity";
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
-    private static final int REQUEST_PERMISSION_LOCATION_CODE = 1;
+    private static final int REQUEST_PERMISSION_LOCATION_CODE = 1000;
 //    private GoogleMap mMap;
 
     private FirebaseUser user;
@@ -89,6 +97,13 @@ public class HomepageActivity extends AppCompatActivity{
 
     private SharedPreferences mPreferences;
 
+    private LocationCallback locationCallback;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    private int locationRequestCode = 1000;
+    private double wayLatitude = 0.0, wayLongitude = 0.0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +129,10 @@ public class HomepageActivity extends AppCompatActivity{
         mPreferences = getSharedPreferences("AddressesPref", Context.MODE_PRIVATE);
         userCity = mPreferences.getString("city", null);
 
+        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+
         //se non è mai stata effettuata una ricerca prima
         if (userCity == null) {
             listViewPlace.setVisibility(View.GONE);
@@ -127,6 +146,19 @@ public class HomepageActivity extends AppCompatActivity{
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), getString(R.string.api_key));
         }
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    // Update UI with location data
+                    // ...
+                }
+            }
+        };
 
         //inizializza tutti i listeners
         initListeners();
@@ -251,12 +283,13 @@ public class HomepageActivity extends AppCompatActivity{
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 //    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
+    @Override
+    protected void onStop() {
+        super.onStop();
         SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putString("addresses", addressesBar.getText().toString());
+        String string = addressesBar.getText().toString();
+        editor.putString("address", addressesBar.getText().toString());
         editor.putString("city", userCity);
 
         editor.apply();
@@ -265,6 +298,7 @@ public class HomepageActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
@@ -275,6 +309,12 @@ public class HomepageActivity extends AppCompatActivity{
                 Log.i(TAG, status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
+            }
+        }
+
+        if(requestCode == REQUEST_PERMISSION_LOCATION_CODE){
+            if(resultCode == 0){
+
             }
         }
     }
@@ -388,21 +428,21 @@ public class HomepageActivity extends AppCompatActivity{
             switch (item.getItemId()) {
                 case R.id.action_orders:
 
-                    if(logged){
+                    if (logged) {
                         Intent intent = new Intent(HomepageActivity.this, ClientOrderInfoActivity.class);
                         intent.putExtra(FirebaseConnection.CLIENT, client);
                         startActivity(intent);
-                    }else{
+                    } else {
                         Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }
                     break;
                 case R.id.action_bookings:
-                    if(logged){
+                    if (logged) {
                         Intent intent = new Intent(HomepageActivity.this, ClientBookingInfoActivity.class);
                         intent.putExtra(FirebaseConnection.CLIENT, client);
                         startActivity(intent);
-                    }else{
+                    } else {
                         Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }
@@ -429,47 +469,169 @@ public class HomepageActivity extends AppCompatActivity{
         @Override
         public void onLocationChanged(Location location) {
             mLocation = location;
+//            addressesBar.setText(mLocation.get);
         }
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {
-
+            Log.d("Latitude", "status");
         }
 
         @Override
         public void onProviderEnabled(String s) {
-
+            Log.d("Latitude", "enable");
         }
 
         @Override
         public void onProviderDisabled(String s) {
-
+            Log.d("Latitude", "disabled");
         }
     };
 
     View.OnClickListener findPlacesBtnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+//
+//            mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//            FusedLocationProviderClient fusedLocationProviderClient = new FusedLocationProviderClient(HomepageActivity.this );
+//            if ((ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
+//                    (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+//
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(HomepageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) &&
+//                        ActivityCompat.shouldShowRequestPermissionRationale(HomepageActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+//
+//                    //TODO mostrare una spiegazione del perchè sono richiesti i permessi
+//                } else {
+//                    ActivityCompat.requestPermissions(HomepageActivity.this,
+//                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION_CODE);
+////                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+////                    startActivity(intent);
+//
+//                }
+//                return;
+//            } else {
+//
+//               mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//
+//            }
 
-            mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if ((ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
-                    (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+//            LocationRequest locationRequest = LocationRequest.create();
+//            locationRequest.setInterval(1000);
+//            locationRequest.setFastestInterval(50);
+//            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//            fusedLocationProviderClient.requestLocationUpdates(locationRequest,locationCallback,Looper.getMainLooper());
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale(HomepageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) &&
-                        ActivityCompat.shouldShowRequestPermissionRationale(HomepageActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            // check permission
+                //richiedo permessi
+                if (ActivityCompat.checkSelfPermission(HomepageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(HomepageActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    //permessi non concessi
 
-                    //TODO mostrare una spiegazione del perchè sono richiesti i permessi
+                    ActivityCompat.requestPermissions(HomepageActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                            locationRequestCode);
+
+//                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                startActivity(intent);
+
                 } else {
-                    ActivityCompat.requestPermissions(HomepageActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_LOCATION_CODE);
+                    //permessi concessi
 
-                }
-                return;
-            } else {
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                    String string = LocationManager.GPS_PROVIDER;
+
+                    if(mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    mFusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                wayLatitude = location.getLatitude();
+                                wayLongitude = location.getLongitude();
+
+                                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                List<Address> list = null;
+                                try {
+                                    list= geocoder.getFromLocation(wayLatitude,wayLongitude,1);
+
+                                    addressesBar.setText(list.get(0).getAddressLine(0));
+
+
+                                    userCity = list.get(0).getLocality();
+
+                                    findPlacesBtn.setVisibility(View.GONE);
+                                    search(userCity);
+                                    listViewPlace.setVisibility(View.VISIBLE);
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+                    });
+
+                    mFusedLocationClient.getLastLocation().addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(HomepageActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else{
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
             }
         }
     };
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION_LOCATION_CODE) {
+
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                mFusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            wayLatitude = location.getLatitude();
+                            wayLongitude = location.getLongitude();
+
+                            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                            List<Address> list = null;
+                            try {
+                                list= geocoder.getFromLocation(wayLatitude,wayLongitude,1);
+
+                                addressesBar.setText(list.get(0).getAddressLine(0));
+
+
+                                userCity = list.get(0).getLocality();
+
+                                findPlacesBtn.setVisibility(View.GONE);
+                                search(userCity);
+                                listViewPlace.setVisibility(View.VISIBLE);
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+
+                mFusedLocationClient.getLastLocation().addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(HomepageActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
+        }
+    }// end onRequestPermissionsResult
 
     private void search(String city) {
 
