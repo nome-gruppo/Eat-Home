@@ -95,14 +95,29 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                 Intent intent = null;
                 switch (item.getItemId()) {
                     case R.id.action_orders:
-
+                        if(logged){
+                            intent = new Intent(PlaceHomeActivity.this, PlaceOrderInfoActivity.class);
+                            intent.putExtra(FirebaseConnection.PLACE,place);
+                            startActivity(intent);
+                        }else{
+                            intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                     case R.id.action_bookings:
-
+                        if(logged){
+                            intent = new Intent(PlaceHomeActivity.this, PlaceBookingInfoActivity.class);
+                            intent.putExtra(FirebaseConnection.PLACE,place);
+                            startActivity(intent);
+                        }else{
+                            intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                     case R.id.action_profile:
                         if(logged){
                             intent = new Intent(PlaceHomeActivity.this, PlaceProfileActivity.class);
+                            intent.putExtra(FirebaseConnection.PLACE,place);
                             startActivity(intent);
                         }else{
                             intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
