@@ -21,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -65,7 +66,6 @@ public class HomepageActivity extends AppCompatActivity {
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int REQUEST_PERMISSION_LOCATION_CODE = 1000;
-//    private GoogleMap mMap;
 
     private BottomNavigationView bottomMenuClient;
 
@@ -92,6 +92,8 @@ public class HomepageActivity extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
     private FirebaseUser user;
 
+    private TextView noPlacesTw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +103,7 @@ public class HomepageActivity extends AppCompatActivity {
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
+        noPlacesTw = findViewById(R.id.activity_homepage_tw_no_places);
         bottomMenuClient = findViewById(R.id.bottom_navigationClient);
         addressesBar = findViewById(R.id.activity_homepage_autoTV);
         listViewPlace = findViewById(R.id.listViewPlace);
@@ -226,32 +229,6 @@ public class HomepageActivity extends AppCompatActivity {
         });
     }//end loadAddresses
 
-
-    View.OnClickListener findPlacesBtnListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-
-            //richiedo permessi
-            if (ActivityCompat.checkSelfPermission(HomepageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(HomepageActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                //permessi non concessi
-
-                ActivityCompat.requestPermissions(HomepageActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                        REQUEST_PERMISSION_LOCATION_CODE);
-
-            } else {
-                //permessi concessi
-
-                if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
-                }
-            }
-        }
-    };
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -276,11 +253,17 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    noPlacesTw.setVisibility(View.GONE);
+                    listViewPlace.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
                     }
                     listViewPlace.setAdapter(placeAdapter);
 //                        placeAdapter.notifyDataSetChanged();
+                }else{
+                    listViewPlace.setVisibility(View.GONE);
+                    noPlacesTw.setVisibility(View.VISIBLE);
+
                 }
                 //placeAdapter.notifyDataSetChanged();
             }
@@ -355,7 +338,27 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
 
-        findPlacesBtn.setOnClickListener(findPlacesBtnListener);
+        findPlacesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //richiedo permessi
+                if (ActivityCompat.checkSelfPermission(HomepageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(HomepageActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    //permessi non concessi
+
+                    ActivityCompat.requestPermissions(HomepageActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                            REQUEST_PERMISSION_LOCATION_CODE);
+
+                } else {
+                    //permessi concessi
+
+                    if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                    }
+                }
+            }
+        });
 
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
