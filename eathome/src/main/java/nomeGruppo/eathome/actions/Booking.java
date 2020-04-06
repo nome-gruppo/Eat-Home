@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class Booking {
 
-    public String idBooking;
     public String dateBooking;
     public String timeBooking;
     public int personNumBooking;
@@ -16,10 +15,6 @@ public class Booking {
 
     public Booking(){
 
-    }
-
-    public void setIdBooking(String idBooking) {
-        this.idBooking = idBooking;
     }
 
     public void setDateBooking(String dateBooking) {

@@ -31,7 +31,9 @@ import androidx.fragment.app.DialogFragment;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -144,6 +146,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         order.setIdPlaceOrder(place.idPlace);
         order.setPhoneClientOrder(editPhone.getText().toString());
         order.setTimeOrder(chooseTime.getText().toString());
+        order.setDateOrder(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        order.setTotalOrder(totOrder);
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().setValue(order);

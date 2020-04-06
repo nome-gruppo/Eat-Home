@@ -150,7 +150,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
 
     }
 
-    //dialog che visualizza l'elenci dei cibi ordinati con costo e quantità
+    //dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
     public void openDialogOrder(final HashMap<Food,Integer>listFoodOrder, final Place place){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle(this.getResources().getString(R.string.order_summary));

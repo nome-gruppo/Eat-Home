@@ -36,7 +36,8 @@
     <string name="placeCity">Enter city</string>
     <string name="addressNumberPlace">Enter address number</string>
     <string name="pizzeria">Pizzeria</string>
-    <string name="sushi" translatable="false">Sushi</string>
+    <string name="italianRestaurant">Restaurant</string>
+    <string name="sushi">Sushi</string>
     <string name="categories">Choose category</string>
     <string name="orders">Takes orders</string>
     <string name="bookings">Takes bookings</string>
@@ -67,6 +68,8 @@
     <string name="confirm_order">Confirm</string>
     <string name="are_you_sure">Are you sure you want to confirm?</string>
     <string name="choose_time">Choose the time</string>
+    <string name="no_booking">Sorry! There are no booking</string>
+    <string name="no_order">Sorry! There are no order</string>
     <string name="italianRestaurant">Italian Restaurant</string>
 
 </resources>

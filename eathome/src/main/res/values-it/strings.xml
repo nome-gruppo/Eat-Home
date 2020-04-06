@@ -19,6 +19,8 @@
     <string name="placeCity">Inserisci città</string>
     <string name="addressNumberPlace">Inserisci numero civico</string>
     <string name="pizzeria">Pizzeria</string>
+    <string name="italianRestaurant">Ristorante</string>
+    <string name="sushi">Sushi</string>
     <string name="categories">Scegli categoria</string>
     <string name="orders">Ordinazioni</string>
     <string name="bookings">Prenotazioni</string>
@@ -56,6 +58,12 @@
     <string name="confirm_order">Conferma</string>
     <string name="are_you_sure">Sei sicuro di voler confermare?</string>
     <string name="choose_time">Seleziona ora di consegna</string>
+    <string name="no_booking">Spiacenti! Non ci sono prenotazioni</string>
+    <string name="no_order">Spiacenti! Non ci sono ordinazioni</string>
+
+
+
+
     <string name="italianRestaurant">Ristorante italiano</string>
 
 

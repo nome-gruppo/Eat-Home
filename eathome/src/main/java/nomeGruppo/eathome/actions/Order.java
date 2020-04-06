@@ -15,12 +15,13 @@ import nomeGruppo.eathome.foods.Food;
 
 public class Order implements Serializable {
 
-    public String idOrder;
     public String addressOrder;
     public String nameClientOrder;
     public String phoneClientOrder;
     public String timeOrder;
+    public String dateOrder;
     public ArrayList<String> foodsOrder;
+    public float totalOrder;
     public String idClientOrder;
     public String idPlaceOrder;
 
@@ -31,10 +32,6 @@ public class Order implements Serializable {
 
     public void setFoodsOrder(ArrayList<String> foodsOrder) {
         this.foodsOrder = foodsOrder;
-    }
-
-    public void setIdOrder(String idOrder) {
-        this.idOrder = idOrder;
     }
 
     public void setAddressOrder(String addressOrder) {
@@ -60,5 +57,13 @@ public class Order implements Serializable {
 
     public void setPhoneClientOrder(String phoneClientOrder) {
         this.phoneClientOrder = phoneClientOrder;
+    }
+
+    public void setDateOrder(String dateOrder) {
+        this.dateOrder = dateOrder;
+    }
+
+    public void setTotalOrder(float totalOrder) {
+        this.totalOrder = totalOrder;
     }
 }
