@@ -4,5 +4,6 @@ public enum PlaceCategories {
     PIZZERIA,
     RISTORANTE_ITALIANO,
     SUSHI,
-    PIZZERIA_RISTORANTE
+    PIZZERIA_RISTORANTE,
+    ALTRO
 }
