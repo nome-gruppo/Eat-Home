@@ -68,5 +68,7 @@
     <string name="confirm_order">Confirm</string>
     <string name="are_you_sure">Are you sure you want to confirm?</string>
     <string name="choose_time">Choose the time</string>
+    <string name="no_booking">Sorry! There are no booking</string>
+    <string name="no_order">Sorry! There are no order</string>
 
 </resources>

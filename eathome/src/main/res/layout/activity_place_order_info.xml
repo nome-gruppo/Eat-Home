@@ -7,24 +7,49 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlaceOrderInfo"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNoOrderPlace"
         app:menu="@menu/bottom_navigation_menu" />
 
     <ListView
         android:id="@+id/listViewPlaceOrderInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="parent"
+        android:layout_marginBottom="267dp"
+        app:layout_constraintBottom_toTopOf="@+id/imgNoOrderPlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNoOrderPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="300dp"
+        android:visibility="invisible"
+        android:text="@string/no_order"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlaceOrderInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgNoOrderPlace" />
+
+    <ImageView
+        android:id="@+id/imgNoOrderPlace"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="29dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/txtNoOrderPlace"
+        app:layout_constraintEnd_toEndOf="@+id/txtNoOrderPlace"
+        app:layout_constraintStart_toStartOf="@+id/txtNoOrderPlace"
+        app:layout_constraintTop_toBottomOf="@+id/listViewPlaceOrderInfo"
+        app:srcCompat="@drawable/ic_emoticon_sad" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

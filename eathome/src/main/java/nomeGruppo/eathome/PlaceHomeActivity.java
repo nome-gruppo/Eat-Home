@@ -158,6 +158,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     @Override
     protected void onStart() {
         super.onStart();
+        listFood.clear();
 
         StorageConnection storageConnection=new StorageConnection();//apro la connessione allo Storage di Firebase
         StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
@@ -175,7 +176,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         final FirebaseConnection firebaseConnection=new FirebaseConnection();
 
         //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
-        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

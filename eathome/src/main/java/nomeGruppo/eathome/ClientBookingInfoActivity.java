@@ -2,7 +2,10 @@ package nomeGruppo.eathome;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,10 +34,13 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
     private List<Booking> listBooking;
     private BookingInfoAdapter bookingInfoAdapter;
     private FirebaseConnection firebaseConnection;
+    private TextView txtNoBooking;
+    private ImageView imgNoBooking;
 
     @Override
     protected void onStart() {
         super.onStart();
+        listBooking.clear();
         firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild("idClientBooking").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -43,6 +49,9 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
                         Booking booking = snapshot.getValue(Booking.class);
                         listBooking.add(booking);
                     }
+                }else{
+                    txtNoBooking.setVisibility(View.VISIBLE);
+                    imgNoBooking.setVisibility(View.VISIBLE);
                 }
                 bookingInfoAdapter.notifyDataSetChanged();
             }
@@ -67,6 +76,8 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
         this.listBooking=new LinkedList<>();
         this.bookingInfoAdapter=new BookingInfoAdapter(this,R.layout.listitem_booking_info,listBooking);
         this.listViewBookingInfo.setAdapter(bookingInfoAdapter);
+        this.txtNoBooking=findViewById(R.id.txtNoBookingClient);
+        this.imgNoBooking=findViewById(R.id.imgNoBookingClient);
 
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

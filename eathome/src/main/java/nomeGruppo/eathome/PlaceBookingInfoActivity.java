@@ -2,7 +2,10 @@ package nomeGruppo.eathome;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import nomeGruppo.eathome.actions.Booking;
-import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
@@ -31,6 +33,8 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
     private ListView listViewBooking;
     private List<Booking> listBooking;
     private PlaceBookingAdapter placeBookingAdapter;
+    private TextView txtNoBooking;
+    private ImageView imgNoBookin;
 
 
     @Override
@@ -43,6 +47,8 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         this.bottomMenuPlace=findViewById(R.id.bottom_navigationPlaceBookingInfo);
         this.listViewBooking=findViewById(R.id.listViewPlaceBookingInfo);
         this.listBooking=new LinkedList<>();
+        this.txtNoBooking=findViewById(R.id.txtNoBookingPlace);
+        this.imgNoBookin=findViewById(R.id.imgNoBookingPlace);
         this.placeBookingAdapter=new PlaceBookingAdapter(this,R.layout.listitem_booking_info,listBooking);
 
         this.bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,11 +57,14 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
                 return menuNavigationItemSelected.menuNavigationPlace(item,place,PlaceBookingInfoActivity.this);
             }
         });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        listBooking.clear();
+
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild("idPlaceBooking").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -65,6 +74,9 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
                         Booking booking = snapshot.getValue(Booking.class);
                         listBooking.add(booking);
                     }
+                }else{
+                    txtNoBooking.setVisibility(View.VISIBLE);
+                    imgNoBookin.setVisibility(View.VISIBLE);
                 }
                 placeBookingAdapter.notifyDataSetChanged();
             }

@@ -2,7 +2,10 @@ package nomeGruppo.eathome;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +34,8 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
     private OrderInfoAdapter orderInfoAdapter;
     private List<Order>listOrder;
     private FirebaseConnection firebaseConnection;
+    private TextView txtNoOrder;
+    private ImageView imgNoOrder;
 
     @Override
     protected void onStart() {
@@ -52,6 +57,8 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
         this.listOrder=new LinkedList<>();
         this.orderInfoAdapter=new OrderInfoAdapter(this,R.layout.listitem_order_info,listOrder);
         this.listViewOrderInfo.setAdapter(orderInfoAdapter);
+        this.txtNoOrder=findViewById(R.id.txtNoOrderClient);
+        this.imgNoOrder=findViewById(R.id.imgNoOrderClient);
 
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -63,12 +70,18 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
     }
 
     private void readOrder(){
+        listOrder.clear();
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("idClientOrder").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    Order order=snapshot.getValue(Order.class);
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Order order = snapshot.getValue(Order.class);
                         listOrder.add(order);
+                    }
+                }else{
+                    txtNoOrder.setVisibility(View.VISIBLE);
+                    imgNoOrder.setVisibility(View.VISIBLE);
                 }
                 orderInfoAdapter.notifyDataSetChanged();
             }
