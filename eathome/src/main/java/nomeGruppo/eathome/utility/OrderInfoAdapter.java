@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -37,33 +39,12 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
         TextView date=(TextView)convertView.findViewById(R.id.txtDateOrderInfo);
         TextView phone=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
         final Order order = getItem(position);
-        Place place=readPlace(order.idPlaceOrder);
-        title.setText(place.namePlace);
-        total.setText(Float.toString(order.totalOrder));
-        address.setText(place.cityPlace+" "+place.addressPlace+" "+place.addressNumPlace);
+        title.setText(order.placeOrder.namePlace);
+        total.setText(Float.toString(order.totalOrder)+" €");
+        address.setText(order.placeOrder.cityPlace+" "+order.placeOrder.addressPlace+" "+order.placeOrder.addressNumPlace);
         date.setText(order.dateOrder+" "+order.timeOrder);
-        phone.setText(place.phonePlace);
+        phone.setText(order.placeOrder.phonePlace);
         return convertView;
     }
 
-    public Place readPlace(String idPlace){
-        final Place[] place = new Place[1];
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.queryEqualTo(FirebaseConnection.PLACE_TABLE,idPlace,idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                        place[0] =snapshot.getValue(Place.class);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        return place[0];
-    }
 }

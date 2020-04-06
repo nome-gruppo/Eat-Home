@@ -33,7 +33,7 @@ public class PlaceOrderAdapter extends ArrayAdapter <Order>{
         TextView phone=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
         final Order order = getItem(position);
         title.setText(order.nameClientOrder);
-        total.setText(Float.toString(order.totalOrder));
+        total.setText(Float.toString(order.totalOrder)+" €");
         address.setText(order.addressOrder);
         date.setText(order.dateOrder+" "+order.timeOrder);
         phone.setText(order.phoneClientOrder);

@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.foods.Food;
 
 public class Order implements Serializable {
@@ -23,7 +24,7 @@ public class Order implements Serializable {
     public ArrayList<String> foodsOrder;
     public float totalOrder;
     public String idClientOrder;
-    public String idPlaceOrder;
+    public Place placeOrder;
 
 
     public Order() {
@@ -47,8 +48,8 @@ public class Order implements Serializable {
         this.idClientOrder = idClientOrder;
     }
 
-    public void setIdPlaceOrder(String idPlaceOrder) {
-        this.idPlaceOrder = idPlaceOrder;
+    public void setPlaceOrder(Place placeOrder) {
+        this.placeOrder = placeOrder;
     }
 
     public void setNameClientOrder(String nameClientOrder) {
