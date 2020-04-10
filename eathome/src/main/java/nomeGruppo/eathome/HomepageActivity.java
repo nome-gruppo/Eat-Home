@@ -21,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,11 +53,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
 import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.profile.ClientProfileActivity;
 import nomeGruppo.eathome.utility.PlaceAdapter;
@@ -65,13 +70,14 @@ public class HomepageActivity extends AppCompatActivity {
     private static final String TAG = "HomepageActivity";
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
-    private static final int REQUEST_PERMISSION_LOCATION_CODE = 1000;
+    private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
+    private static final int SEARCH_FILTER_REQUEST_CODE = 51;
 
     private BottomNavigationView bottomMenuClient;
 
     private Client client;
 
-    private List<nomeGruppo.eathome.actors.Place> listPlace;
+    private LinkedList<nomeGruppo.eathome.actors.Place> listPlace;
     private PlaceAdapter placeAdapter;
 
     private AutoCompleteTextView addressesBar;
@@ -93,6 +99,7 @@ public class HomepageActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     private TextView noPlacesTw;
+    private FloatingActionButton filterFab;
 
 
     @Override
@@ -103,6 +110,7 @@ public class HomepageActivity extends AppCompatActivity {
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
+        filterFab = findViewById(R.id.activity_homepage_fab_filter);
         noPlacesTw = findViewById(R.id.activity_homepage_tw_no_places);
         bottomMenuClient = findViewById(R.id.bottom_navigationClient);
         addressesBar = findViewById(R.id.activity_homepage_autoTV);
@@ -232,7 +240,7 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSION_LOCATION_CODE) {
+        if (requestCode == PERMISSION_LOCATION_REQUEST_CODE) {
 
             // If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
@@ -249,7 +257,7 @@ public class HomepageActivity extends AppCompatActivity {
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //cerca nel database i locali nella città dell'utente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).equalTo(city, "cityPlace").addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByChild("cityPlace").equalTo(city).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -258,11 +266,15 @@ public class HomepageActivity extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
                     }
+
+                    Collections.sort(listPlace, new PlacesByName());
+
                     listViewPlace.setAdapter(placeAdapter);
 //                        placeAdapter.notifyDataSetChanged();
-                }else{
+                } else {
                     listViewPlace.setVisibility(View.GONE);
                     noPlacesTw.setVisibility(View.VISIBLE);
+                    filterFab.setClickable(false);
 
                 }
                 //placeAdapter.notifyDataSetChanged();
@@ -347,7 +359,7 @@ public class HomepageActivity extends AppCompatActivity {
                     //permessi non concessi
 
                     ActivityCompat.requestPermissions(HomepageActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                            REQUEST_PERMISSION_LOCATION_CODE);
+                            PERMISSION_LOCATION_REQUEST_CODE);
 
                 } else {
                     //permessi concessi
@@ -365,9 +377,6 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_home:
-
-                        break;
                     case R.id.action_orders:
 
                         if (user != null) {
@@ -413,9 +422,24 @@ public class HomepageActivity extends AppCompatActivity {
 
                 String mAddress = addressesBarAdapter.getItem(position).getFullText(null).toString();
                 addressesBar.setText(mAddress);
-                //la città è situata nel penultimo elemento dell'array
-                //userCity = splits[splits.length - 1].trim();
 
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+                try {
+                    userCity = geocoder.getFromLocationName(mAddress,1).get(0).getLocality();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        filterFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent filtersIntent = new Intent(HomepageActivity.this, PlacesFilterActivity.class);
+                startActivityForResult(filtersIntent,SEARCH_FILTER_REQUEST_CODE);
             }
         });
 
@@ -429,4 +453,12 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
     }//end initListeners
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("placesList", listPlace);
+    }
 }

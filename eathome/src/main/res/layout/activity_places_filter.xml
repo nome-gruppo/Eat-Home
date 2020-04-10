@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlacesFilterActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/activity_places_filter_rg_type"
+        android:layout_width="177dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="198dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <RadioButton
+            android:id="@+id/activity_places_filter_rb_delivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="filtersOnRadioButtonClicked"
+            android:text="Delivery"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="78dp" />
+
+        <RadioButton
+            android:id="@+id/activity_places_filter_rb_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="filtersOnRadioButtonClicked"
+            android:text="Booking"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="110dp"/>
+
+        <RadioButton
+            android:id="@+id/activity_places_filter_rb_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="filtersOnRadioButtonClicked"
+            android:text="All"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="142dp" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/activity_places_filter_tw_categories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="303dp"
+        android:text="Categories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_places_filter_rg_type" />
+
+    <CheckBox
+        android:id="@+id/activity_places_filter_cb_restaurant_pizzeria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="276dp"
+        android:checked="true"
+        android:text="@string/pizzeriaRestaurant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_cb_sushi" />
+
+    <CheckBox
+        android:id="@+id/activity_places_filter_cb_sushi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="276dp"
+        android:checked="true"
+        android:text="@string/sushi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_cb_itaRestaurant" />
+
+    <CheckBox
+        android:id="@+id/activity_places_filter_cb_itaRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="276dp"
+        android:checked="true"
+        android:text="@string/italianRestaurant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_cb_pizzeria" />
+
+    <CheckBox
+        android:id="@+id/activity_places_filter_cb_pizzeria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="276dp"
+        android:checked="true"
+        android:text="@string/pizzeria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_tw_categories" />
+
+    <CheckBox
+        android:id="@+id/activity_places_filter_cb_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="303dp"
+        android:checked="true"
+        android:text="Other"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_cb_restaurant_pizzeria" />
+
+    <TextView
+        android:id="@+id/activity_places_filter_tw_free_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="34dp"
+        android:text="Only Free Delivery"
+        app:layout_constraintEnd_toStartOf="@id/activity_places_filter_chip_free_delivery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_cb_other" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/activity_places_filter_chip_free_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="228dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_cb_restaurant_pizzeria" />
+
+    <TextView
+        android:id="@+id/activity_places_filter_tw_valuation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="254dp"
+        android:text="Average valutaion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_tw_free_delivery" />
+
+    <SeekBar
+        android:id="@+id/activity_places_filter_sb_valuation"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="337dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="37dp"
+        android:max="5"
+        android:progress="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_tw_valuation" />
+
+    <TextView
+        android:id="@+id/activity_places_filter_tw_orderBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="321dp"
+        android:text="Order by"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_sb_valuation" />
+
+
+    <RadioGroup
+        android:id="@+id/activity_places_filter_rg_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="86dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_places_filter_tw_orderBy">
+
+        <RadioButton
+            android:id="@+id/activity_places_filter_rb_name_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="orderByOnRadioButtonClicked"
+            android:text="Name" />
+
+        <RadioButton
+            android:id="@+id/activity_places_filter_rb_valuation_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="orderByOnRadioButtonClicked"
+            android:text="Valuation" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/activity_places_filter_btn_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="162dp"
+        android:text="Mostra locali"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_places_filter_rg_order" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

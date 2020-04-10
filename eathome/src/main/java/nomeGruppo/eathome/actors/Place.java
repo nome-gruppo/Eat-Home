@@ -1,8 +1,9 @@
 package nomeGruppo.eathome.actors;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
-public class Place implements Serializable {
+public class Place implements Serializable{
     //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
     public String idPlace;
     public String addressNumPlace;
@@ -13,6 +14,7 @@ public class Place implements Serializable {
     public String emailPlace;
     public String namePlace;
     public String phonePlace;
+    public float valuation;
     public boolean takesBookingPlace;
     public boolean takesOrderPlace;
 
@@ -75,4 +77,5 @@ public class Place implements Serializable {
     public void setIdPlace(String idPlace) {
         this.idPlace = idPlace;
     }
+
 }

@@ -42,6 +42,7 @@ public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
         return super.getItem(position);
     }
 
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

@@ -26,6 +26,8 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         super(context, textViewResourceId, place);
     }
 
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
@@ -59,7 +61,4 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
 
                 });
     }
-
-
-
 }
