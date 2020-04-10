@@ -365,6 +365,9 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.action_home:
+
+                        break;
                     case R.id.action_orders:
 
                         if (user != null) {
@@ -408,9 +411,10 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                String[] splits = addressesBarAdapter.getItem(position).getSecondaryText(null).toString().split(",");
+                String mAddress = addressesBarAdapter.getItem(position).getFullText(null).toString();
+                addressesBar.setText(mAddress);
                 //la città è situata nel penultimo elemento dell'array
-                userCity = splits[splits.length - 1].trim();
+                //userCity = splits[splits.length - 1].trim();
 
             }
         });

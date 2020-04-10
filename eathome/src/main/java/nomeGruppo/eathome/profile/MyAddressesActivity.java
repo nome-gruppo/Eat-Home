@@ -30,13 +30,15 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     private ArrayList<String> newAddresses;
 
+    private ListView addressesLW;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_addresses);
 
         ImageButton addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
-        ListView addressesLW = findViewById(R.id.activity_my_addresses_listView);
+        addressesLW = findViewById(R.id.activity_my_addresses_listView);
 
         addressList = new ArrayList<>();
         newAddresses = new ArrayList<>();
@@ -81,6 +83,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     @Override
     public void applyTexts(String address, String numberAddress, String city) {
+        addressList.add(city+", "+address+", "+numberAddress);
         mAdapter.notifyDataSetChanged();
         mDBHelper.addAddress(mDB, address, numberAddress, city);
     }

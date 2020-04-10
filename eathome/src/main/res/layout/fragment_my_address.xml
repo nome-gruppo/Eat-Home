@@ -8,12 +8,13 @@
     <EditText
         android:id="@+id/fragment_address_et"
         android:layout_width="234dp"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:enabled="false"
         app:layout_constraintEnd_toStartOf="@+id/fragment_address_btn_edit"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
