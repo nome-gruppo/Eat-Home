@@ -264,7 +264,19 @@ public class HomepageActivity extends AppCompatActivity {
                     noPlacesTw.setVisibility(View.GONE);
                     listViewPlace.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
+                        String  mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
+                        boolean mFound = false;
+
+                        //controlla locale non sia già mostrato
+                        for(nomeGruppo.eathome.actors.Place item: listPlace){
+                            if (item.idPlace.equals(mPlaceId)) {
+                                mFound = true;
+                                break;
+                            }
+                        }
+                        if(!mFound) {
+                            listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
+                        }
                     }
 
                     Collections.sort(listPlace, new PlacesByName());

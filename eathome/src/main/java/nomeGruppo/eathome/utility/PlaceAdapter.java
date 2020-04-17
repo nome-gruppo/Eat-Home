@@ -41,6 +41,17 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         title.setText(place.namePlace);
         type.setText(place.categories);
         address.setText(place.cityPlace+" "+place.addressPlace+", "+place.addressNumPlace);
+
+        if(!place.takesBookingPlace){
+            ImageView mImageView = convertView.findViewById(R.id.list_places_booking_icon);
+            mImageView.setVisibility(View.GONE);
+        }
+
+        if(!place.takesOrderPlace){
+            ImageView mImageView = convertView.findViewById(R.id.list_places_delivery_icon);
+            mImageView.setVisibility(View.GONE);
+        }
+
         setImage(imgPlace, place);
 
         return convertView;
