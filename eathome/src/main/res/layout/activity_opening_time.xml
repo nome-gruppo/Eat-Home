@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="102dp"
+        android:text="@string/set_opening"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="0dp"
@@ -52,9 +63,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:showText="true"
                 android:textOff="@string/close"
                 android:textOn="@string/open"
-                android:showText="true"
                 tools:layout_editor_absoluteX="128dp"
                 tools:layout_editor_absoluteY="409dp" />
 
@@ -98,9 +109,9 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:showText="true"
                 android:textOff="@string/close"
                 android:textOn="@string/open"
-                android:showText="true"
                 tools:layout_editor_absoluteX="128dp"
                 tools:layout_editor_absoluteY="409dp" />
 
@@ -143,9 +154,9 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:showText="true"
                 android:textOff="@string/close"
                 android:textOn="@string/open"
-                android:showText="true"
                 tools:layout_editor_absoluteX="128dp"
                 tools:layout_editor_absoluteY="409dp" />
 
@@ -189,9 +200,9 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:showText="true"
                 android:textOff="@string/close"
                 android:textOn="@string/open"
-                android:showText="true"
                 tools:layout_editor_absoluteX="128dp"
                 tools:layout_editor_absoluteY="409dp" />
 
@@ -234,9 +245,9 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:showText="true"
                 android:textOff="@string/close"
                 android:textOn="@string/open"
-                android:showText="true"
                 tools:layout_editor_absoluteX="128dp"
                 tools:layout_editor_absoluteY="409dp" />
 
@@ -279,9 +290,9 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:showText="true"
                 android:textOff="@string/close"
                 android:textOn="@string/open"
-                android:showText="true"
                 tools:layout_editor_absoluteX="128dp"
                 tools:layout_editor_absoluteY="409dp" />
 
@@ -289,7 +300,9 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="-7dp"
+            tools:layout_editor_absoluteY="335dp">
 
             <TextView
                 android:id="@+id/textView9"
@@ -324,14 +337,24 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:showText="true"
                 android:textOff="@string/close"
                 android:textOn="@string/open"
-                android:showText="true"
                 tools:layout_editor_absoluteX="128dp"
                 tools:layout_editor_absoluteY="409dp" />
 
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/btnSigninPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="137dp"
+        android:text="@string/btn_signin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,9 @@ package nomeGruppo.eathome.actors;
 
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.HashMap;
+
+import nomeGruppo.eathome.utility.Days;
 
 public class Place implements Serializable{
     //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
@@ -17,6 +20,7 @@ public class Place implements Serializable{
     public float valuation;
     public boolean takesBookingPlace;
     public boolean takesOrderPlace;
+    public HashMap<Days,String>openingTime;
 
     public Place(){
 
@@ -78,4 +82,11 @@ public class Place implements Serializable{
         this.idPlace = idPlace;
     }
 
+    public void setOpeningTime(HashMap<Days, String> openingTime) {
+        this.openingTime = openingTime;
+    }
+
+    public void setValuation(float valuation) {
+        this.valuation = valuation;
+    }
 }

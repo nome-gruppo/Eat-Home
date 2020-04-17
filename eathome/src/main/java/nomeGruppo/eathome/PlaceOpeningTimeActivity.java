@@ -1,27 +1,43 @@
 package nomeGruppo.eathome;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.Calendar;
+import java.util.HashMap;
+
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.Days;
 
 public class PlaceOpeningTimeActivity extends AppCompatActivity {
+    private Place place;
     private TimePickerDialog picker;
     private EditText editMonday,editTuesday,editWednesday,editThursday,editFriday,editSaturday,editSunday;
     private EditText editMondayClosed,editTuesdayClosed,editWednesdayClosed,editThursdayClosed,editFridayClosed,editSaturdayClosed,editSundayClosed;
     private Switch switchMonday, switchTuesday,switchWednesday,switchThursday,switchFriday,switchSaturday,switchSunday;
+    private Button btnSignin;
+    private HashMap<Days,String>openingTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opening_time);
+
+        this.place=(Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
         this.editMonday=findViewById(R.id.editMonday);
         this.editTuesday=findViewById(R.id.editTuesday);
@@ -44,37 +60,92 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.switchFriday=findViewById(R.id.switchFriday);
         this.switchSaturday=findViewById(R.id.switchSaturday);
         this.switchSunday=findViewById(R.id.switchSunday);
+        this.btnSignin=findViewById(R.id.btnSigninPlace);
+        this.openingTime=new HashMap<>(7);
 
-        if(!switchMonday.isChecked()) {
-            editMonday.setEnabled(false);
-            editMondayClosed.setEnabled(false);
-        }
-        if(!switchFriday.isChecked()){
-            editFriday.setEnabled(false);
-            editFridayClosed.setEnabled(false);
-        }
-        if(!switchTuesday.isChecked()){
-            editTuesday.setEnabled(false);
-            editTuesdayClosed.setEnabled(false);
-        }
-        if(!switchWednesday.isChecked()){
-            editWednesday.setEnabled(false);
-            editWednesdayClosed.setEnabled(false);
-        }
-        if(!switchThursday.isChecked()){
-            editThursday.setEnabled(false);
-            editThursdayClosed.setEnabled(false);
-        }
-        if(!switchSaturday.isChecked()){
-            editSaturday.setEnabled(false);
-            editSaturdayClosed.setEnabled(false);
-        }
-        if(!switchSunday.isChecked()){
-            editSunday.setEnabled(false);
-            editSundayClosed.setEnabled(false);
-            editSundayClosed.setClickable(false);
-            editSunday.setClickable(false);
-        }
+        switchMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(!isChecked){
+                    editMonday.setEnabled(false);
+                    editMondayClosed.setEnabled(false);
+                    editMonday.setText("");
+                    editMondayClosed.setText("");
+                }
+            }
+        });
+
+        switchTuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(!isChecked){
+                    editTuesday.setEnabled(false);
+                    editTuesdayClosed.setEnabled(false);
+                    editTuesday.setText("");
+                    editTuesdayClosed.setText("");
+                }
+            }
+        });
+
+        switchWednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(!isChecked){
+                    editWednesday.setEnabled(false);
+                    editWednesdayClosed.setEnabled(false);
+                    editWednesday.setText("");
+                    editWednesdayClosed.setText("");
+                }
+            }
+        });
+
+        switchThursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(!isChecked){
+                    editThursday.setEnabled(false);
+                    editThursdayClosed.setEnabled(false);
+                    editThursday.setText("");
+                    editThursdayClosed.setText("");
+                }
+            }
+        });
+
+        switchFriday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(!isChecked){
+                    editFriday.setEnabled(false);
+                    editFridayClosed.setEnabled(false);
+                    editFriday.setText("");
+                    editFridayClosed.setText("");
+                }
+            }
+        });
+
+        switchSaturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(!isChecked){
+                    editSaturday.setEnabled(false);
+                    editSaturdayClosed.setEnabled(false);
+                    editSaturday.setText("");
+                    editSaturdayClosed.setText("");
+                }
+            }
+        });
+
+        switchSunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(!isChecked){
+                    editSunday.setEnabled(false);
+                    editSundayClosed.setEnabled(false);
+                    editSunday.setText("");
+                    editSundayClosed.setText("");
+                }
+            }
+        });
 
         editMonday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -385,5 +456,35 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
           }
       });
 
+      btnSignin.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              openingTime.put(Days.MONDAY,editMonday.getText().toString()+"-"+editMondayClosed.getText().toString());
+              openingTime.put(Days.TUESDAY,editTuesday.getText().toString()+"-"+editTuesdayClosed.getText().toString());
+              openingTime.put(Days.WEDNESDAY,editWednesday.getText().toString()+"-"+editWednesdayClosed.getText().toString());
+              openingTime.put(Days.THURSDAY,editThursday.getText().toString()+"-"+editThursdayClosed.getText().toString());
+              openingTime.put(Days.FRIDAY,editFriday.getText().toString()+"-"+editFridayClosed.getText().toString());
+              openingTime.put(Days.SATURDAY,editSaturday.getText().toString()+"-"+editSaturdayClosed.getText().toString());
+              openingTime.put(Days.SUNDAY,editSunday.getText().toString()+"-"+editSundayClosed.getText().toString());
+
+              place.setOpeningTime(openingTime);
+
+              Intent homePlaceIntent=new Intent(PlaceOpeningTimeActivity.this,PlaceHomeActivity.class);
+              homePlaceIntent.putExtra(FirebaseConnection.PLACE,place);
+              Toast.makeText(PlaceOpeningTimeActivity.this, "Registrazione effettuata con successo", Toast.LENGTH_SHORT).show();
+              startActivity(homePlaceIntent);
+          }
+      });
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
+
+        //assegno come chiave del db l'user id generato da Firebase Authentication
+        db.write(FirebaseConnection.PLACE_TABLE,place.idPlace, place);
     }
 }

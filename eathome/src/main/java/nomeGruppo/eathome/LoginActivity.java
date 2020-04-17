@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordET;
     private ProgressBar progressBar;
     private TextView txtPlaceRegistration;
+    private TextView txtClientRegistration;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.activity_login_btn_login);
         progressBar = findViewById(R.id.activity_login_pb_loading);
         txtPlaceRegistration=findViewById(R.id.fragment_login_tw_signInPlace);
+        txtClientRegistration=findViewById(R.id.fragment_login_tw_signIn);
 
         emailET.addTextChangedListener(afterTextChangedListener);
         passwordET.addTextChangedListener(afterTextChangedListener);
@@ -72,8 +74,16 @@ public class LoginActivity extends AppCompatActivity {
         txtPlaceRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent placeRegistration=new Intent(LoginActivity.this,PlaceOpeningTimeActivity.class);
+                Intent placeRegistration=new Intent(LoginActivity.this,PlaceRegistrationActivity.class);
                 startActivity(placeRegistration);
+            }
+        });
+
+        txtClientRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent clientRegistration=new Intent(LoginActivity.this,ClientRegistrationActivity.class);
+                startActivity(clientRegistration);
             }
         });
     }

@@ -142,13 +142,6 @@
         android:max="5"
         android:progress="0" />
 
-    <Button
-        android:id="@+id/toggleButtonSetOpening"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/set_opening" />
-
-
     <EditText
         android:id="@+id/editMailPlace"
         android:layout_width="match_parent"

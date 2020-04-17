@@ -30,7 +30,6 @@ import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class PlaceRegistrationActivity extends AppCompatActivity {
 
-    static final String NAME_TABLE = "Places";
     private static final String TAG = "PlaceRegistration";
 
 
@@ -45,7 +44,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private Button signinBtn;
     private TextView deliveryCostTV;
     private TextView statusTV;
-    private Button toggleButtonSetOpening;
     private Place place;
     private int currentDeliveryCost = 0;
     private int duration = Toast.LENGTH_SHORT;
@@ -84,15 +82,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         signinBtn = (Button) findViewById(R.id.btnSignin);
         deliveryCostTV = (TextView) findViewById(R.id.txtDeliveryCost);
         statusTV = (TextView) findViewById(R.id.activity_place_registration_tw_status);
-        toggleButtonSetOpening=findViewById(R.id.toggleButtonSetOpening);
-
-        toggleButtonSetOpening.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openingTimeIntent=new Intent(PlaceRegistrationActivity.this,PlaceOpeningTimeActivity.class);
-                startActivity(openingTimeIntent);
-            }
-        });
 
         signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,26 +117,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     /**
      * I dati vengono salvati nel database in onPause
      */
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
-
-        place.setAddressNumPlace(numberAddressPlaceET.getText().toString().trim());
-        place.setAddressPlace(addressPlaceET.getText().toString().trim());
-        place.setCityPlace(cityPlaceET.getText().toString().trim());
-        place.setNamePlace(namePlaceET.getText().toString().trim());
-        place.setPhonePlace(phonePlaceET.getText().toString().trim());
-        place.setEmailPlace(emailPlaceET.getText().toString().trim());
-
-        place.setIdPlace(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
-
-        //assegno come chiave del db l'user id generato da Firebase Authentication
-        db.write(NAME_TABLE,user.getUid(), place);
-
-    }
-
 
     public void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -159,10 +128,18 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             user = mAuth.getCurrentUser();
 
-                            Intent placeHomeIntent = new Intent(PlaceRegistrationActivity.this, PlaceHomeActivity.class);
-                            placeHomeIntent.putExtra(FirebaseConnection.PLACE, place);
-                            Toast.makeText(PlaceRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
-                            startActivity(placeHomeIntent);
+                            place.setAddressNumPlace(numberAddressPlaceET.getText().toString().trim());
+                            place.setAddressPlace(addressPlaceET.getText().toString().trim());
+                            place.setCityPlace(cityPlaceET.getText().toString().trim());
+                            place.setNamePlace(namePlaceET.getText().toString().trim());
+                            place.setPhonePlace(phonePlaceET.getText().toString().trim());
+                            place.setEmailPlace(emailPlaceET.getText().toString().trim());
+
+                            place.setIdPlace(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
+
+                            Intent placeOpeningTimeIntent = new Intent(PlaceRegistrationActivity.this, PlaceOpeningTimeActivity.class);
+                            placeOpeningTimeIntent.putExtra(FirebaseConnection.PLACE, place);
+                            startActivity(placeOpeningTimeIntent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
