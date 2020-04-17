@@ -3,6 +3,7 @@ package nomeGruppo.eathome;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailET;
     private EditText passwordET;
     private ProgressBar progressBar;
+    private TextView txtPlaceRegistration;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.activity_login_et_password);
         loginBtn = findViewById(R.id.activity_login_btn_login);
         progressBar = findViewById(R.id.activity_login_pb_loading);
+        txtPlaceRegistration=findViewById(R.id.fragment_login_tw_signInPlace);
 
         emailET.addTextChangedListener(afterTextChangedListener);
         passwordET.addTextChangedListener(afterTextChangedListener);
@@ -64,6 +68,14 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });//fine listener tasto login
+
+        txtPlaceRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent placeRegistration=new Intent(LoginActivity.this,PlaceOpeningTimeActivity.class);
+                startActivity(placeRegistration);
+            }
+        });
     }
 
 
@@ -124,6 +136,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
+
+
 
 
 //    private void getCurrentUser(){

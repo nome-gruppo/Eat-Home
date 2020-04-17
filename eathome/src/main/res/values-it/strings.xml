@@ -19,7 +19,7 @@
     <string name="placeCity">Inserisci città</string>
     <string name="addressNumberPlace">Inserisci numero civico</string>
     <string name="pizzeria">Pizzeria</string>
-    <string name="italianRestaurant">Ristorante</string>
+    <string name="italianRestaurant">Ristorante italiano</string>
     <string name="sushi">Sushi</string>
     <string name="categories">Scegli categoria</string>
     <string name="orders">Ordinazioni</string>
@@ -60,11 +60,16 @@
     <string name="choose_time">Seleziona ora di consegna</string>
     <string name="no_booking">Spiacenti! Non ci sono prenotazioni</string>
     <string name="no_order">Spiacenti! Non ci sono ordinazioni</string>
-
-
-
-
-    <string name="italianRestaurant">Ristorante italiano</string>
-
-
+    <string name="monday">Lunedì</string>
+    <string name="tuesday">Martedì</string>
+    <string name="wednesday">Mercoledì</string>
+    <string name="thursday">Giovedì</string>
+    <string name="friday">Venerdì</string>
+    <string name="saturday">Sabato</string>
+    <string name="sunday">Domenica</string>
+    <string name="open">Aperto</string>
+    <string name="close">Chiuso</string>
+    <string name="set_opening">Imposta giorni e orari di apertura</string>
+    <string name="from">Da:</string>
+    <string name="to">A:</string>
 </resources>

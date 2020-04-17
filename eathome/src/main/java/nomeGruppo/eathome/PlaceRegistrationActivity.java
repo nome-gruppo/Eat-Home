@@ -45,6 +45,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private Button signinBtn;
     private TextView deliveryCostTV;
     private TextView statusTV;
+    private Button toggleButtonSetOpening;
     private Place place;
     private int currentDeliveryCost = 0;
     private int duration = Toast.LENGTH_SHORT;
@@ -83,8 +84,15 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         signinBtn = (Button) findViewById(R.id.btnSignin);
         deliveryCostTV = (TextView) findViewById(R.id.txtDeliveryCost);
         statusTV = (TextView) findViewById(R.id.activity_place_registration_tw_status);
+        toggleButtonSetOpening=findViewById(R.id.toggleButtonSetOpening);
 
-
+        toggleButtonSetOpening.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openingTimeIntent=new Intent(PlaceRegistrationActivity.this,PlaceOpeningTimeActivity.class);
+                startActivity(openingTimeIntent);
+            }
+        });
 
         signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +145,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
         //assegno come chiave del db l'user id generato da Firebase Authentication
         db.write(NAME_TABLE,user.getUid(), place);
-
 
     }
 
@@ -231,8 +238,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
 
 }
 

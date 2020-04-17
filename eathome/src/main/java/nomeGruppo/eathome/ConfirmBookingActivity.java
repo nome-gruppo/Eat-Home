@@ -143,7 +143,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         booking.setDateBooking(txtDateBooking.getText().toString());
         booking.setTimeBooking(txtHourBooking.getText().toString());
         booking.setIdClientBooking(getIntent().getStringExtra("UserID"));
-        booking.setIdPlaceBooking(place.idPlace);
+        booking.setPlaceBooking(place);
         booking.setPersonNumBooking(Integer.parseInt(txtNumberPersonBooking.getText().toString()));
         booking.setNameBooking(editNameBooking.getText().toString());
 

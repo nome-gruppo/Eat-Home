@@ -94,11 +94,9 @@
     android:layout_marginEnd="160dp"
     android:text="@string/tw_restaurantOwner"
     android:clickable="true"
-    android:onClick="onClickSignInPlace"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signIn"
-    tools:ignore="OnClick" />
+    app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signIn" />
 
     <TextView
         android:id="@+id/fragment_login_tw_prova"

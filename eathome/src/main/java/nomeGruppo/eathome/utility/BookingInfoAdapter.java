@@ -36,32 +36,10 @@ public class BookingInfoAdapter extends ArrayAdapter<Booking> {
         TextView date=(TextView)convertView.findViewById(R.id.txtDateBookingInfo);
         TextView number=(TextView)convertView.findViewById(R.id.txtNumberPersonBookingInfo);
         final Booking booking = getItem(position);
-        Place place=readPlace(booking.idPlaceBooking);
-        title.setText(place.namePlace);
-        address.setText(place.cityPlace+" "+place.addressPlace+" "+place.addressNumPlace);
+        title.setText(booking.placeBooking.namePlace);
+        address.setText(booking.placeBooking.cityPlace+" "+booking.placeBooking.addressPlace+" "+booking.placeBooking.addressNumPlace);
         date.setText(booking.dateBooking+" "+booking.timeBooking);
         number.setText(booking.personNumBooking);
         return convertView;
     }
-
-    private Place readPlace(String idPlace){
-        final Place[] place = {new Place()};
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    place[0] =snapshot.getValue(Place.class);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        return place[0];
-    }
-
-
 }

@@ -4,6 +4,8 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 
+import nomeGruppo.eathome.actors.Place;
+
 public class Booking {
 
     public String dateBooking;
@@ -11,7 +13,7 @@ public class Booking {
     public int personNumBooking;
     public String nameBooking;
     public String idClientBooking;
-    public String idPlaceBooking;
+    public Place placeBooking;
 
     public Booking(){
 
@@ -37,7 +39,7 @@ public class Booking {
         this.idClientBooking = idClientBooking;
     }
 
-    public void setIdPlaceBooking(String idPlaceBooking) {
-        this.idPlaceBooking = idPlaceBooking;
+    public void setPlaceBooking(Place placeBooking) {
+        this.placeBooking = placeBooking;
     }
 }

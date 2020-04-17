@@ -36,7 +36,7 @@
     <string name="placeCity">Enter city</string>
     <string name="addressNumberPlace">Enter address number</string>
     <string name="pizzeria">Pizzeria</string>
-    <string name="italianRestaurant">Restaurant</string>
+    <string name="italianRestaurant">Italian restaurant</string>
     <string name="sushi">Sushi</string>
     <string name="categories">Choose category</string>
     <string name="orders">Takes orders</string>
@@ -70,6 +70,17 @@
     <string name="choose_time">Choose the time</string>
     <string name="no_booking">Sorry! There are no booking</string>
     <string name="no_order">Sorry! There are no order</string>
-    <string name="italianRestaurant">Italian Restaurant</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="set_opening">Set opening days and hours</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
 
 </resources>
