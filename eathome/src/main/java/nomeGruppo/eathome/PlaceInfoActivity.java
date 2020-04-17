@@ -73,6 +73,8 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
     private FirebaseUser user;
     private FirebaseAuth mAuth;
 
+    private boolean firstTime;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,6 +104,8 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         this.txtNamePlaceInfo.setText(this.place.namePlace);
         this.txtAddressPlaceInfo.setText(this.place.addressPlace+" "+this.place.addressNumPlace);
         this.txtCityPlaceInfo.setText(this.place.cityPlace);
+
+        this.firstTime = true;
 
         listFood=new LinkedList<>();
         mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood,listFoodOrder);
@@ -253,6 +257,15 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
                     }
                 });
 
+        if(firstTime) {
+            loadFood();
+        }
+        firstTime = false;
+
+
+    }
+
+    private void loadFood(){
         final FirebaseConnection firebaseConnection=new FirebaseConnection();
 
         //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
@@ -272,7 +285,6 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
             }
         });
     }
-
     @Override
     public void applyTexts(String city, String address, String numberAddress) {
         addressAdapter.notifyDataSetChanged();
