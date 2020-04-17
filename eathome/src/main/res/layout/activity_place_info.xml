@@ -83,10 +83,10 @@
         android:id="@+id/listViewFoodInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="234dp"
+        android:layout_marginTop="11dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/txtBookingPlaceInfo"></ListView>
 
 
     <Button
