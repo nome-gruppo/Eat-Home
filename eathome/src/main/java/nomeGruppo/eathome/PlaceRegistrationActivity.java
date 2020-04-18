@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
@@ -119,6 +120,14 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
      */
 
     public void createAccount(String email, String password) {
+
+//        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(this, new OnCompleteListener<SignInMethodQueryResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+//
+//            }
+//        });
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -140,6 +149,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                             Intent placeOpeningTimeIntent = new Intent(PlaceRegistrationActivity.this, PlaceOpeningTimeActivity.class);
                             placeOpeningTimeIntent.putExtra(FirebaseConnection.PLACE, place);
                             startActivity(placeOpeningTimeIntent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

@@ -21,7 +21,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +53,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -128,7 +126,6 @@ public class HomepageActivity extends AppCompatActivity {
 
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
 
         //se non è mai stata effettuata una ricerca prima
         if (userCity == null) {
@@ -264,6 +261,7 @@ public class HomepageActivity extends AppCompatActivity {
                     noPlacesTw.setVisibility(View.GONE);
                     listViewPlace.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        nomeGruppo.eathome.actors.Place temp = snapshot.getValue(nomeGruppo.eathome.actors.Place.class);
                         String  mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
                         boolean mFound = false;
 
@@ -305,7 +303,24 @@ public class HomepageActivity extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search(userCity);
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                List<Address> list = null;
+
+                try {
+                    list = geocoder.getFromLocationName(addressesBar.getText().toString(),1);
+
+
+                    userCity = list.get(0).getLocality();
+
+                    search(userCity);
+                } catch (IOException e) {
+
+                    Toast.makeText(getApplicationContext(), "Località non trovata", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+
+                }
+
+
             }
         });
 
@@ -327,6 +342,7 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
+                loadAddresses(addressesBar.getText().toString());
                 addressesBarAdapter.notifyDataSetChanged();
                 addressesBar.setAdapter(addressesBarAdapter);
             }
@@ -358,7 +374,7 @@ public class HomepageActivity extends AppCompatActivity {
         mFusedLocationClient.getLastLocation().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(HomepageActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HomepageActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         });
 

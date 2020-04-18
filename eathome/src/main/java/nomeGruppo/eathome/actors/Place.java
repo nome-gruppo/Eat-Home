@@ -20,7 +20,7 @@ public class Place implements Serializable{
     public float valuation;
     public boolean takesBookingPlace;
     public boolean takesOrderPlace;
-    public HashMap<Days,String>openingTime;
+    public HashMap<String,String>openingTime;
 
     public Place(){
 
@@ -82,7 +82,7 @@ public class Place implements Serializable{
         this.idPlace = idPlace;
     }
 
-    public void setOpeningTime(HashMap<Days, String> openingTime) {
+    public void setOpeningTime(HashMap<String, String> openingTime) {
         this.openingTime = openingTime;
     }
 

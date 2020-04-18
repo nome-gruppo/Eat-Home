@@ -30,7 +30,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     private EditText editMondayClosed,editTuesdayClosed,editWednesdayClosed,editThursdayClosed,editFridayClosed,editSaturdayClosed,editSundayClosed;
     private Switch switchMonday, switchTuesday,switchWednesday,switchThursday,switchFriday,switchSaturday,switchSunday;
     private Button btnSignin;
-    private HashMap<Days,String>openingTime;
+    private HashMap<String,String>openingTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -459,13 +459,13 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
       btnSignin.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              openingTime.put(Days.MONDAY,editMonday.getText().toString()+"-"+editMondayClosed.getText().toString());
-              openingTime.put(Days.TUESDAY,editTuesday.getText().toString()+"-"+editTuesdayClosed.getText().toString());
-              openingTime.put(Days.WEDNESDAY,editWednesday.getText().toString()+"-"+editWednesdayClosed.getText().toString());
-              openingTime.put(Days.THURSDAY,editThursday.getText().toString()+"-"+editThursdayClosed.getText().toString());
-              openingTime.put(Days.FRIDAY,editFriday.getText().toString()+"-"+editFridayClosed.getText().toString());
-              openingTime.put(Days.SATURDAY,editSaturday.getText().toString()+"-"+editSaturdayClosed.getText().toString());
-              openingTime.put(Days.SUNDAY,editSunday.getText().toString()+"-"+editSundayClosed.getText().toString());
+              openingTime.put(Days.MONDAY.toString(),editMonday.getText().toString()+"-"+editMondayClosed.getText().toString());
+              openingTime.put(Days.TUESDAY.toString(),editTuesday.getText().toString()+"-"+editTuesdayClosed.getText().toString());
+              openingTime.put(Days.WEDNESDAY.toString(),editWednesday.getText().toString()+"-"+editWednesdayClosed.getText().toString());
+              openingTime.put(Days.THURSDAY.toString(),editThursday.getText().toString()+"-"+editThursdayClosed.getText().toString());
+              openingTime.put(Days.FRIDAY.toString(),editFriday.getText().toString()+"-"+editFridayClosed.getText().toString());
+              openingTime.put(Days.SATURDAY.toString(),editSaturday.getText().toString()+"-"+editSaturdayClosed.getText().toString());
+              openingTime.put(Days.SUNDAY.toString(),editSunday.getText().toString()+"-"+editSundayClosed.getText().toString());
 
               place.setOpeningTime(openingTime);
 
@@ -473,6 +473,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
               homePlaceIntent.putExtra(FirebaseConnection.PLACE,place);
               Toast.makeText(PlaceOpeningTimeActivity.this, "Registrazione effettuata con successo", Toast.LENGTH_SHORT).show();
               startActivity(homePlaceIntent);
+              finish();
           }
       });
 
