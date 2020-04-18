@@ -11,13 +11,17 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -30,7 +34,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     private EditText editMondayClosed,editTuesdayClosed,editWednesdayClosed,editThursdayClosed,editFridayClosed,editSaturdayClosed,editSundayClosed;
     private Switch switchMonday, switchTuesday,switchWednesday,switchThursday,switchFriday,switchSaturday,switchSunday;
     private Button btnSignin;
-    private HashMap<Days,String>openingTime;
+    private Map<String,Object> openingTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -459,15 +463,13 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
       btnSignin.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              openingTime.put(Days.MONDAY,editMonday.getText().toString()+"-"+editMondayClosed.getText().toString());
-              openingTime.put(Days.TUESDAY,editTuesday.getText().toString()+"-"+editTuesdayClosed.getText().toString());
-              openingTime.put(Days.WEDNESDAY,editWednesday.getText().toString()+"-"+editWednesdayClosed.getText().toString());
-              openingTime.put(Days.THURSDAY,editThursday.getText().toString()+"-"+editThursdayClosed.getText().toString());
-              openingTime.put(Days.FRIDAY,editFriday.getText().toString()+"-"+editFridayClosed.getText().toString());
-              openingTime.put(Days.SATURDAY,editSaturday.getText().toString()+"-"+editSaturdayClosed.getText().toString());
-              openingTime.put(Days.SUNDAY,editSunday.getText().toString()+"-"+editSundayClosed.getText().toString());
-
-              place.setOpeningTime(openingTime);
+              openingTime.put(Days.MONDAY.toString(),editMonday.getText().toString()+"-"+editMondayClosed.getText().toString());
+              openingTime.put(Days.TUESDAY.toString(),editTuesday.getText().toString()+"-"+editTuesdayClosed.getText().toString());
+              openingTime.put(Days.WEDNESDAY.toString(),editWednesday.getText().toString()+"-"+editWednesdayClosed.getText().toString());
+              openingTime.put(Days.THURSDAY.toString(),editThursday.getText().toString()+"-"+editThursdayClosed.getText().toString());
+              openingTime.put(Days.FRIDAY.toString(),editFriday.getText().toString()+"-"+editFridayClosed.getText().toString());
+              openingTime.put(Days.SATURDAY.toString(),editSaturday.getText().toString()+"-"+editSaturdayClosed.getText().toString());
+              openingTime.put(Days.SUNDAY.toString(),editSunday.getText().toString()+"-"+editSundayClosed.getText().toString());
 
               Intent homePlaceIntent=new Intent(PlaceOpeningTimeActivity.this,PlaceHomeActivity.class);
               homePlaceIntent.putExtra(FirebaseConnection.PLACE,place);
@@ -485,6 +487,17 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
         //assegno come chiave del db l'user id generato da Firebase Authentication
-        db.write(FirebaseConnection.PLACE_TABLE,place.idPlace, place);
+        db.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).setValue(place).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+        db.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("openingTime").updateChildren(openingTime);
     }
 }

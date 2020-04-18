@@ -3,6 +3,7 @@ package nomeGruppo.eathome.actors;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 
 import nomeGruppo.eathome.utility.Days;
 
@@ -20,7 +21,7 @@ public class Place implements Serializable{
     public float valuation;
     public boolean takesBookingPlace;
     public boolean takesOrderPlace;
-    public HashMap<Days,String>openingTime;
+    public HashMap<String,Object> openingTime;
 
     public Place(){
 
@@ -82,11 +83,12 @@ public class Place implements Serializable{
         this.idPlace = idPlace;
     }
 
-    public void setOpeningTime(HashMap<Days, String> openingTime) {
+    public void setOpeningTime(HashMap<String,Object> openingTime) {
         this.openingTime = openingTime;
     }
 
     public void setValuation(float valuation) {
         this.valuation = valuation;
     }
+
 }
