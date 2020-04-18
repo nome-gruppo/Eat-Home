@@ -41,6 +41,7 @@ import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.profile.PlaceProfileActivity;
 import nomeGruppo.eathome.utility.DialogAddMenu;
+import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.MyMenuAdapter;
 
 public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
@@ -61,6 +62,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private Food food;
     private boolean logged;
     private ImageButton btnDeleteFood;
+    private MenuNavigationItemSelected menuNavigationItemSelected;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,44 +87,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
         listViewMenu.setAdapter(mAdapter);
         btnDeleteFood=(ImageButton)findViewById(R.id.btnDeleteFood);
+        this.menuNavigationItemSelected=new MenuNavigationItemSelected();
 
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                Intent intent = null;
-                switch (item.getItemId()) {
-                    case R.id.action_orders:
-                        if(logged){
-                            intent = new Intent(PlaceHomeActivity.this, PlaceOrderInfoActivity.class);
-                            intent.putExtra(FirebaseConnection.PLACE,place);
-                            startActivity(intent);
-                        }else{
-                            intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.action_bookings:
-                        if(logged){
-                            intent = new Intent(PlaceHomeActivity.this, PlaceBookingInfoActivity.class);
-                            intent.putExtra(FirebaseConnection.PLACE,place);
-                            startActivity(intent);
-                        }else{
-                            intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                    case R.id.action_profile:
-                        if(logged){
-                            intent = new Intent(PlaceHomeActivity.this, PlaceProfileActivity.class);
-                            intent.putExtra(FirebaseConnection.PLACE,place);
-                            startActivity(intent);
-                        }else{
-                            intent = new Intent(PlaceHomeActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }
-                        break;
-                }
-                return true;
+                return menuNavigationItemSelected.menuNavigationPlace(item,place,PlaceHomeActivity.this);
             }
         });
 
