@@ -3,6 +3,7 @@ package nomeGruppo.eathome;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -11,9 +12,14 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
@@ -24,6 +30,8 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.Days;
 
 public class PlaceOpeningTimeActivity extends AppCompatActivity {
+
+    private static final String TAG = "PlaceOpeningTime";
     private Place place;
     private TimePickerDialog picker;
     private EditText editMonday,editTuesday,editWednesday,editThursday,editFriday,editSaturday,editSunday;
@@ -33,6 +41,9 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     private HashMap<String,String>openingTime;
     private static final String SPLIT=":";
     private static final int LENGTH=5;
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +75,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.switchSunday=findViewById(R.id.switchSunday);
         this.btnSignin=findViewById(R.id.btnSigninPlace);
         this.openingTime=new HashMap<>(7);
+
+        this.mAuth = FirebaseAuth.getInstance();
 
         switchMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -470,23 +483,60 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
               place.setOpeningTime(openingTime);
 
-              Intent homePlaceIntent=new Intent(PlaceOpeningTimeActivity.this,PlaceHomeActivity.class);
-              homePlaceIntent.putExtra(FirebaseConnection.PLACE,place);
-              Toast.makeText(PlaceOpeningTimeActivity.this, "Registrazione effettuata con successo", Toast.LENGTH_SHORT).show();
-              startActivity(homePlaceIntent);
-              finish();
+              createAccount(place.emailPlace, getIntent().getStringExtra("password"));
+
           }
       });
 
     }
 
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//
+//
+//        //assegno come chiave del db l'user id generato da Firebase Authentication
+//
+//    }
+
+    //TODO controlla se si può mettere in onStop
     @Override
     protected void onPause() {
         super.onPause();
 
         FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
-        //assegno come chiave del db l'user id generato da Firebase Authentication
         db.write(FirebaseConnection.PLACE_TABLE,place.idPlace, place);
+
+    }
+
+    private void createAccount(String email, String password){
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            user = mAuth.getCurrentUser();
+
+                            place.setIdPlace(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
+
+                            Intent placeOpeningTimeIntent = new Intent(PlaceOpeningTimeActivity.this, PlaceHomeActivity.class);
+                            placeOpeningTimeIntent.putExtra(FirebaseConnection.PLACE, place);
+                            Toast.makeText(PlaceOpeningTimeActivity.this, "Registrazione effettuata con successo", Toast.LENGTH_SHORT).show();
+                            startActivity(placeOpeningTimeIntent);
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(PlaceOpeningTimeActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
     }
 }

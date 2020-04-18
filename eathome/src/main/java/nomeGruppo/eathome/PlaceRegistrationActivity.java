@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +54,6 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private UtilitiesAndControls control;
 
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,71 +101,50 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                     String passwordTemp = passwordPlaceET.getText().toString();
 
                     if (control.isEmailValid(emailTemp) && control.isPasswordValid(passwordTemp)) {
-                        createAccount(emailTemp, passwordTemp);
+                        checkAccount(emailTemp, passwordTemp);
                     }
                 }
             }
         });
     }// fine onCreate
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    public void checkAccount(String email, final String password) {
 
-        // TODO Check if user is signed in
-        user = mAuth.getCurrentUser();
-    }
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(this, new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                if(task.isSuccessful()) {
+                    if (task.getResult().getSignInMethods().isEmpty()) {
 
-    /**
-     * I dati vengono salvati nel database in onPause
-     */
+                        place.setAddressNumPlace(numberAddressPlaceET.getText().toString().trim());
+                        place.setAddressPlace(addressPlaceET.getText().toString().trim());
+                        place.setCityPlace(cityPlaceET.getText().toString().trim());
+                        place.setNamePlace(namePlaceET.getText().toString().trim());
+                        place.setPhonePlace(phonePlaceET.getText().toString().trim());
+                        place.setEmailPlace(emailPlaceET.getText().toString().trim());
 
-    public void createAccount(String email, String password) {
+                        Intent placeOpeningTimeIntent = new Intent(PlaceRegistrationActivity.this, PlaceOpeningTimeActivity.class);
+                        placeOpeningTimeIntent.putExtra(FirebaseConnection.PLACE, place);
+                        placeOpeningTimeIntent.putExtra("password", password);
+                        startActivity(placeOpeningTimeIntent);
+                        finish();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(PlaceRegistrationActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
 
-//        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(this, new OnCompleteListener<SignInMethodQueryResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-//
-//            }
-//        });
+                        statusTV.setText("Email già presente");
+                        statusTV.setVisibility(View.VISIBLE);
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            user = mAuth.getCurrentUser();
-
-                            place.setAddressNumPlace(numberAddressPlaceET.getText().toString().trim());
-                            place.setAddressPlace(addressPlaceET.getText().toString().trim());
-                            place.setCityPlace(cityPlaceET.getText().toString().trim());
-                            place.setNamePlace(namePlaceET.getText().toString().trim());
-                            place.setPhonePlace(phonePlaceET.getText().toString().trim());
-                            place.setEmailPlace(emailPlaceET.getText().toString().trim());
-
-                            place.setIdPlace(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
-
-                            Intent placeOpeningTimeIntent = new Intent(PlaceRegistrationActivity.this, PlaceOpeningTimeActivity.class);
-                            placeOpeningTimeIntent.putExtra(FirebaseConnection.PLACE, place);
-                            startActivity(placeOpeningTimeIntent);
-                            finish();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(PlaceRegistrationActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
-                            statusTV.setText("Email già presente");
-                            statusTV.setVisibility(View.VISIBLE);
-
-                            emailPlaceET.setText("");
-                            passwordPlaceET.setText("");
-                        }
-
+                        emailPlaceET.setText("");
+                        passwordPlaceET.setText("");
                     }
-                });
+                }
+            }
+        });
+
+
     }
 
     private SeekBar.OnSeekBarChangeListener customSeekBarDelivery =
