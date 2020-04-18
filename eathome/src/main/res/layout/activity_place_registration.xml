@@ -58,7 +58,7 @@
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <RadioButton android:id="@+id/radioPizzeria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,23 +69,20 @@
             android:layout_height="wrap_content"
             android:text="@string/italianRestaurant"
             android:onClick="onRadioButtonClicked"/>
-    </RadioGroup>
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
         <RadioButton android:id="@+id/radioPizzeriaRestaurant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pizzeriaRestaurant"
             android:onClick="onRadioButtonClicked"/>
+
         <RadioButton android:id="@+id/radioSushi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sushi"
         android:onClick="onRadioButtonClicked"/>
-
     </RadioGroup>
+
 
     <TextView
         android:id="@+id/txtActions"
