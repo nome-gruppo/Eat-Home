@@ -1,6 +1,7 @@
 package nomeGruppo.eathome;
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +26,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.Places;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,10 +43,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import nomeGruppo.eathome.actions.Order;
@@ -47,7 +60,7 @@ import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.profile.DialogAddAddress;
 import nomeGruppo.eathome.utility.MenuAdapterForClient;
 
-public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
+public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddress.DialogAddAddressListener, OnMapReadyCallback {
 
     private static final String SPLIT = ", ";
     private Place place;
@@ -74,6 +87,8 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
     private FirebaseAuth mAuth;
 
     private boolean firstTime;
+
+    private GoogleMap mMap;
 
 
     @Override
@@ -107,6 +122,15 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
 
         this.firstTime = true;
 
+//        MapFragment mMapFragment = MapFragment.newInstance();
+//        FragmentTransaction fragmentTransaction =
+//                getFragmentManager().beginTransaction();
+//        fragmentTransaction.add(R.id.activity_place_info, mMapFragment);
+//        fragmentTransaction.commit();
+
+        MapFragment mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        mMapFragment.getMapAsync(this);
+
         listFood=new LinkedList<>();
         mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood,listFoodOrder);
         listViewFoodInfo.setAdapter(mAdapter);
@@ -122,6 +146,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
             this.txtDeliveryCostInfo.setVisibility(View.VISIBLE);
             this.btnOrder.setEnabled(true);
         }
+
 
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,6 +288,35 @@ public class PlaceInfoActivity extends AppCompatActivity implements DialogAddAdd
         firstTime = false;
 
 
+    }
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        String address = place.addressPlace;
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+        Address mAddress = new Address(Locale.getDefault());
+        List<Address> mList = null;
+        try {
+            mList = geocoder.getFromLocationName(place.cityPlace, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        mAddress.setAddressLine();
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(mList.get(0).getLatitude(), mList.get(0).getLongitude());
     }
 
     private void loadFood(){

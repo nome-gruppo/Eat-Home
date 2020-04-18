@@ -39,12 +39,12 @@
         android:layout_width="301dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="8dp"
         android:text=""
         android:textColor="#343434"
         android:textSize="12dip"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNameFoodPlaceInfo" />
 
     <ImageButton
         android:id="@+id/btnAddFoodPlaceInfo"
@@ -60,9 +60,8 @@
         android:id="@+id/btnDeleteFoodPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/txtIngredientsFoodPlaceInfo"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtCounterFoodPlaceInfo"
         app:layout_constraintTop_toBottomOf="@+id/txtIngredientsFoodPlaceInfo"
         app:srcCompat="@drawable/ic_less" />
 

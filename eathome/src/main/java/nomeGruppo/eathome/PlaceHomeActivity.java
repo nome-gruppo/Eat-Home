@@ -69,10 +69,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
         logged = getIntent().getBooleanExtra(FirebaseConnection.LOGGED_FLAG, false);
 
-        if(logged) {
-            place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        }
-
+        place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         food=new Food();
 
         txtNamePlace=(TextView)findViewById(R.id.txtNamePlace);
