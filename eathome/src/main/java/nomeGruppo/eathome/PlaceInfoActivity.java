@@ -1,5 +1,6 @@
 package nomeGruppo.eathome;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -45,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -76,6 +78,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private TextView txtAddressPlaceInfo;
     private TextView txtCityPlaceInfo;
     private TextView txtDeliveryCostInfo;
+    private TextView txtOpeningTime;
     private Button btnOrder;
     private Button btnBook;
     private List<Food> listFood;
@@ -84,6 +87,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private SQLiteDatabase mDB;
     private AddressAdapter addressAdapter;
     private List<String>listAddress;
+
 
     private FirebaseUser user;
     private FirebaseAuth mAuth;
@@ -115,6 +119,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         this.txtAddressPlaceInfo=(TextView)findViewById(R.id.txtAddressPlaceInfo);
         this.txtCityPlaceInfo=(TextView)findViewById(R.id.txtCityPlaceInfo);
         this.txtDeliveryCostInfo=(TextView)findViewById(R.id.txtDeliveryCostInfo);
+        this.txtOpeningTime=findViewById(R.id.txtOpeningTime);
         this.btnBook=(Button)findViewById(R.id.btnBook);
         this.btnOrder=(Button)findViewById(R.id.btnOrder);
 
@@ -283,7 +288,8 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
                         imgPlaceInfo.setImageBitmap(bitmap);
                     }
                 });
-        
+
+        openingTime();
 
         if(firstTime) {
             loadFood();
@@ -291,6 +297,64 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         firstTime = false;
 
 
+    }
+
+    public void openingTime() {
+        final Calendar calendar = Calendar.getInstance();
+        String day = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes=calendar.get(Calendar.MINUTE);
+        String openingTime = place.openingTime.get(day);
+        if (openingTime != "-" || openingTime != "Da:-A:") {
+            int hourOpening = Integer.parseInt(openingTime.substring(0, 2));
+            int minutesOpening=Integer.parseInt(openingTime.substring(3));
+            Integer.parseInt(openingTime.substring(3));
+            if (hourOpening < hour) {
+                txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + openingTime);
+                return;
+            } else{
+                if (hourOpening == hour && minutesOpening<minutes) {
+                    txtOpeningTime.setText(getResources().getString(R.string.opening_time)+" "+openingTime);
+                    return;
+                }
+                else {
+                    txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + openingTime);
+                    return;
+                }
+            }
+        } else {
+            txtOpeningTime.setText(getResources().getString(R.string.closed_place) + " " + openingTime);
+            btnOrder.setEnabled(false);
+            return;
+        }
+    }
+
+    private String getDayOfWeek(int value) {//funzione per convertire DAY_OF_WEEK restituito da Calendar da formato numerico a String
+        String day = "";
+        switch (value) {
+            case 1:
+                day = "MONDAY";
+                break;
+            case 2:
+                day = "TUESDAY";
+                break;
+            case 3:
+                day = "WEDNESDAY";
+                break;
+            case 4:
+                day = "THURSDAY";
+                break;
+            case 5:
+                day = "FRIDAY";
+                break;
+            case 6:
+                day = "SATURDAY";
+                break;
+            case 7:
+                day = "SUNDAY";
+                break;
+        }
+        return day;
     }
 
 

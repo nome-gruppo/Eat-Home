@@ -72,4 +72,7 @@
     <string name="set_opening">Imposta giorni e orari di apertura</string>
     <string name="from">Da:</string>
     <string name="to">A:</string>
+    <string name="opening_time">Il locale ora è aperto fino alle  </string>
+    <string name="closed_time">Il locale ora è chiuso. Apre alle  </string>
+    <string name="closed_place">Il locale è chiuso oggi </string>
 </resources>
