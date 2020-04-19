@@ -45,6 +45,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -281,6 +282,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
                         imgPlaceInfo.setImageBitmap(bitmap);
                     }
                 });
+        
 
         if(firstTime) {
             loadFood();
@@ -289,6 +291,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
 
 
     }
+
 
     /**
      * Manipulates the map once available.
