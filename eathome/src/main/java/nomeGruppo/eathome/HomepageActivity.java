@@ -260,6 +260,8 @@ public class HomepageActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     noPlacesTw.setVisibility(View.GONE);
                     listViewPlace.setVisibility(View.VISIBLE);
+                    listPlace.clear();
+                    
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         nomeGruppo.eathome.actors.Place temp = snapshot.getValue(nomeGruppo.eathome.actors.Place.class);
                         String  mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
@@ -278,6 +280,11 @@ public class HomepageActivity extends AppCompatActivity {
                     }
 
                     Collections.sort(listPlace, new PlacesByName());
+
+                    noPlacesTw.setVisibility(View.GONE);
+                    listViewPlace.setVisibility(View.VISIBLE);
+                    findPlacesBtn.setVisibility(View.GONE);
+                    filterFab.setClickable(true);
 
                     listViewPlace.setAdapter(placeAdapter);
 //                        placeAdapter.notifyDataSetChanged();

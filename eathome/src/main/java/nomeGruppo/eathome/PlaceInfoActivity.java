@@ -33,6 +33,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
@@ -309,14 +310,19 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         Address mAddress = new Address(Locale.getDefault());
         List<Address> mList = null;
         try {
-            mList = geocoder.getFromLocationName(place.cityPlace, 1);
+            mList = geocoder.getFromLocationName(place.addressPlace + " " +place.addressNumPlace+","+ place.cityPlace, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
 //        mAddress.setAddressLine();
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(mList.get(0).getLatitude(), mList.get(0).getLongitude());
+        LatLng placeLatLng = new LatLng(mList.get(0).getLatitude(), mList.get(0).getLongitude());
+        LatLngBounds bounds = new LatLngBounds(new LatLng(placeLatLng.latitude-0.001, placeLatLng.longitude -0.001),
+                new LatLng(placeLatLng.latitude+0.001, placeLatLng.longitude+0.001));
+        mMap.addMarker(new MarkerOptions().position(placeLatLng));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,0));
+
     }
 
     private void loadFood(){
