@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +17,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
@@ -36,6 +41,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     private ImageButton btnDeletePersonBooking;
     private Button btnConfirmBooking;
     private EditText editNameBooking;
+    private TextView txtDayOfWeek;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         this.btnDeletePersonBooking=findViewById(R.id.btnDeletePersonBooking);
         this.btnConfirmBooking=findViewById(R.id.btnConfirmBooking);
         this.editNameBooking=findViewById(R.id.editNameClientBooking);
+        this.txtDayOfWeek=null;
 
         btnAddPersonBooking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,21 +102,40 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-        txtDateBooking.setText(dayOfMonth+"/"+(month++)+"/"+year);//setto la data in base alla scelta dell'utente. N.B. moth++ perchè partono da 0 e non da 1
-        openDialogChooseHour();//una volta selezionata la data apro il dialog per scegliere l'ora
+        LocalDate dateBooking=LocalDate.of(year,month,dayOfMonth++);//moth++ perchè i mesi partono da 0 e non da 1
+        String dayOfWeek=dateBooking.getDayOfWeek().toString();
+        if(place.openingTime.get(dayOfWeek)!="-"){
+            txtDateBooking.setText(dateBooking.toString());//setto la data in base alla scelta dell'utente.
+            openDialogChooseHour(dayOfWeek);//una volta selezionata la data apro il dialog per scegliere l'ora
+        }else{
+            Toast.makeText(ConfirmBookingActivity.this,"Il locale è chiuso nella data selezionata",Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void openDialogChooseHour(){
+    private void openDialogChooseHour(String dayOfWeek){
         DialogFragment timePicker=new TimePickerFragment();
         timePicker.show(getSupportFragmentManager(),"Time picker");
+        txtDayOfWeek.setText(dayOfWeek);
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
-        txtHourBooking.setText(hour+" : "+minutes);//setto l'ora della prenotazione
+        String day=txtDayOfWeek.getText().toString();
+        String openingTime=place.openingTime.get(day);
+        LocalTime hourOpening=LocalTime.parse(openingTime.substring(0,5));
+        LocalTime hourClosed=LocalTime.parse(openingTime.substring(6));
+        LocalTime hourBooking=LocalTime.of(hour,minutes);
+
+        if(hourBooking.isAfter(hourOpening)&&hourBooking.isBefore(hourClosed)){
+            txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
+        }else{
+         Toast.makeText(ConfirmBookingActivity.this,"Ora non valida",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openDialogConfirm(){//dialog  di conferma
