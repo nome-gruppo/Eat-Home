@@ -137,7 +137,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         String openingTime=place.openingTime.get(day);
         Time hourOpening=openingTimeUtility.getTimeOpening(openingTime);
         Time hourClosed=openingTimeUtility.getTimeClosed(openingTime);
-        Time hourBooking=Time.valueOf(hour+":"+minutes);
+        Time hourBooking=Time.valueOf(hour+":"+minutes+":"+00);
         //se hourBooking è maggiore di hourOpening restituisce un valore positivo e se è minore di hourClosed restituisce un valore negativo
         if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
             txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
