@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
@@ -38,6 +40,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.LocalTime;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +49,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,6 +67,7 @@ import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.profile.DialogAddAddress;
 import nomeGruppo.eathome.utility.MenuAdapterForClient;
+import nomeGruppo.eathome.utility.OpeningTime;
 
 public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddress.DialogAddAddressListener, OnMapReadyCallback {
 
@@ -87,6 +92,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private SQLiteDatabase mDB;
     private AddressAdapter addressAdapter;
     private List<String>listAddress;
+    private OpeningTime openingTimeUtility;
 
 
     private FirebaseUser user;
@@ -105,6 +111,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.listFoodOrder=new HashMap<>();
         this.order=new Order();
+        this.openingTimeUtility=new OpeningTime();
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getReadableDatabase();
@@ -269,6 +276,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onStart() {
         super.onStart();
@@ -301,62 +309,26 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
 
     public void openingTime() {
         final Calendar calendar = Calendar.getInstance();
-        String day = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minutes=calendar.get(Calendar.MINUTE);
+        String day = openingTimeUtility.getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)-1);
         String openingTime = place.openingTime.get(day);
-        if (openingTime != "-" || openingTime != "Da:-A:") {
-            int hourOpening = Integer.parseInt(openingTime.substring(0, 2));
-            int minutesOpening=Integer.parseInt(openingTime.substring(3));
-            Integer.parseInt(openingTime.substring(3));
-            if (hourOpening < hour) {
-                txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + openingTime);
+        Time localTime=new Time(System.currentTimeMillis());
+        if (openingTime.length()>10) {
+            Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);
+            Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);
+            //se localTime è maggiore di timeOpening restituisce un valore positivo e se  è minore di timeClosed restituisce un valore negativo
+            if (localTime.after(timeOpening)&&localTime.before(timeClosed)) {
+                txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + timeClosed.getHours()+":"+timeClosed.toString());
                 return;
             } else{
-                if (hourOpening == hour && minutesOpening<minutes) {
-                    txtOpeningTime.setText(getResources().getString(R.string.opening_time)+" "+openingTime);
-                    return;
-                }
-                else {
-                    txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + openingTime);
-                    return;
-                }
+                txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + timeOpening.getHours()+":"+timeOpening.toString());
+                return;
             }
         } else {
-            txtOpeningTime.setText(getResources().getString(R.string.closed_place) + " " + openingTime);
+            txtOpeningTime.setText(getResources().getString(R.string.closed_place));
             btnOrder.setEnabled(false);
             return;
         }
     }
-
-    private String getDayOfWeek(int value) {//funzione per convertire DAY_OF_WEEK restituito da Calendar da formato numerico a String
-        String day = "";
-        switch (value) {
-            case 1:
-                day = "MONDAY";
-                break;
-            case 2:
-                day = "TUESDAY";
-                break;
-            case 3:
-                day = "WEDNESDAY";
-                break;
-            case 4:
-                day = "THURSDAY";
-                break;
-            case 5:
-                day = "FRIDAY";
-                break;
-            case 6:
-                day = "SATURDAY";
-                break;
-            case 7:
-                day = "SUNDAY";
-                break;
-        }
-        return day;
-    }
-
 
     /**
      * Manipulates the map once available.

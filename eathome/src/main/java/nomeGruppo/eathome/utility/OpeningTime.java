@@ -2,8 +2,16 @@ package nomeGruppo.eathome.utility;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.os.Build;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
+
+import androidx.annotation.RequiresApi;
+
+import com.google.android.libraries.places.api.model.LocalTime;
+
+import java.sql.Time;
 import java.util.Calendar;
 
 
@@ -57,6 +65,42 @@ public class OpeningTime {
         editClosed.setEnabled(false);
         editOpen.setText("");
         editClosed.setText("");
+    }
+
+    public String getDayOfWeek(int value) {//funzione per convertire DAY_OF_WEEK restituito da Calendar da formato numerico a String
+        String day = "";
+        switch (value) {
+            case 1:
+                day = "MONDAY";
+                break;
+            case 2:
+                day = "TUESDAY";
+                break;
+            case 3:
+                day = "WEDNESDAY";
+                break;
+            case 4:
+                day = "THURSDAY";
+                break;
+            case 5:
+                day = "FRIDAY";
+                break;
+            case 6:
+                day = "SATURDAY";
+                break;
+            case 7:
+                day = "SUNDAY";
+                break;
+        }
+        return day;
+    }
+
+    public Time getTimeOpening(String openingTime){
+        return Time.valueOf(openingTime.substring(0,5)+":"+00);
+    }
+
+    public Time getTimeClosed(String openingTime){
+        return Time.valueOf(openingTime.substring(6)+":"+00);
     }
 
 }

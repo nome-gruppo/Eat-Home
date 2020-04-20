@@ -21,13 +21,19 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.libraries.places.api.model.LocalTime;
+
+
+import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.DatePickerFragment;
+import nomeGruppo.eathome.utility.OpeningTime;
 import nomeGruppo.eathome.utility.TimePickerFragment;
 
 public class ConfirmBookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -42,6 +48,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     private Button btnConfirmBooking;
     private EditText editNameBooking;
     private TextView txtDayOfWeek;
+    private OpeningTime openingTimeUtility;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +66,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         this.btnConfirmBooking=findViewById(R.id.btnConfirmBooking);
         this.editNameBooking=findViewById(R.id.editNameClientBooking);
         this.txtDayOfWeek=null;
+        this.openingTimeUtility=new OpeningTime();
 
         btnAddPersonBooking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,12 +110,14 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-        LocalDate dateBooking=LocalDate.of(year,month,dayOfMonth++);//moth++ perchè i mesi partono da 0 e non da 1
-        String dayOfWeek=dateBooking.getDayOfWeek().toString();
-        if(place.openingTime.get(dayOfWeek)!="-"){
+        Calendar dateBooking=Calendar.getInstance();
+        dateBooking.set(year,month++,dayOfMonth);//moth++ perchè i mesi partono da 0 e non da 1
+
+        //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorn della settimana
+        String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
+        if(place.openingTime.get(dayOfWeek).length()>10){
             txtDateBooking.setText(dateBooking.toString());//setto la data in base alla scelta dell'utente.
             openDialogChooseHour(dayOfWeek);//una volta selezionata la data apro il dialog per scegliere l'ora
         }else{
@@ -121,17 +131,15 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         txtDayOfWeek.setText(dayOfWeek);
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
         String day=txtDayOfWeek.getText().toString();
         String openingTime=place.openingTime.get(day);
-        LocalTime hourOpening=LocalTime.parse(openingTime.substring(0,5));
-        LocalTime hourClosed=LocalTime.parse(openingTime.substring(6));
-        LocalTime hourBooking=LocalTime.of(hour,minutes);
-
-        if(hourBooking.isAfter(hourOpening)&&hourBooking.isBefore(hourClosed)){
+        Time hourOpening=openingTimeUtility.getTimeOpening(openingTime);
+        Time hourClosed=openingTimeUtility.getTimeClosed(openingTime);
+        Time hourBooking=Time.valueOf(hour+":"+minutes);
+        //se hourBooking è maggiore di hourOpening restituisce un valore positivo e se è minore di hourClosed restituisce un valore negativo
+        if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
             txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
         }else{
          Toast.makeText(ConfirmBookingActivity.this,"Ora non valida",Toast.LENGTH_SHORT).show();
