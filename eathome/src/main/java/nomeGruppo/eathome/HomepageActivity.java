@@ -22,7 +22,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -98,7 +97,6 @@ public class HomepageActivity extends AppCompatActivity {
 
     private TextView noPlacesTw;
     private FloatingActionButton filterFab;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -310,22 +308,23 @@ public class HomepageActivity extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                List<Address> list = null;
-
-                try {
-                    list = geocoder.getFromLocationName(addressesBar.getText().toString(),1);
 
 
-                    userCity = list.get(0).getLocality();
-
-                    search(userCity);
-                } catch (IOException e) {
-
-                    Toast.makeText(getApplicationContext(), "Località non trovata", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-
-                }
+//                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+//                List<Address> list = null;
+//
+//                try {
+//                    list = geocoder.getFromLocationName(addressesBar.getText().toString(),1);
+//
+//                    userCity = list.get(0).getLocality();
+//
+//                    search(userCity);
+//                } catch (IOException e) {
+//
+//                    Toast.makeText(getApplicationContext(), "Località non trovata", Toast.LENGTH_LONG).show();
+//                    e.printStackTrace();
+//
+//                }
 
 
             }
@@ -455,6 +454,22 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+//                String placeID = addressesBarAdapter.getItem(position).getPlaceId();
+//                String url = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+ placeID + "key=" + getString(R.string.api_key);
+//
+//                try {
+//                    JSONObject jsonObject = new JSONObject(url);
+//                    JSONObject jsonCoordinates = jsonObject.getJSONObject("geometry").getJSONObject("location");
+//                    latitude = jsonCoordinates.getDouble("lat");
+//                    longitude = jsonCoordinates.getDouble("lng");
+//
+//                    Location mLocation = new Location("");
+//                    mLocation.setLatitude(latitude);
+//                    mLocation.setLongitude(longitude);
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
                 String mAddress = addressesBarAdapter.getItem(position).getFullText(null).toString();
                 addressesBar.setText(mAddress);
 

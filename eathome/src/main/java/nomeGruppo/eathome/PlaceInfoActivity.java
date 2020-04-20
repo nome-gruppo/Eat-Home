@@ -1,7 +1,6 @@
 package nomeGruppo.eathome;
 
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,7 +34,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.libraries.places.api.Places;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -88,8 +85,6 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private FirebaseAuth mAuth;
 
     private boolean firstTime;
-
-    private GoogleMap mMap;
 
 
     @Override
@@ -302,27 +297,23 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        String address = place.addressPlace;
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
-        Address mAddress = new Address(Locale.getDefault());
-        List<Address> mList = null;
         try {
-            mList = geocoder.getFromLocationName(place.addressPlace + " " +place.addressNumPlace+","+ place.cityPlace, 1);
+            List<Address> mList = geocoder.getFromLocationName(place.cityPlace, 1);
+
+            LatLng placeLatLng = new LatLng(mList.get(0).getLatitude(), mList.get(0).getLongitude());
+            LatLngBounds bounds = new LatLngBounds(new LatLng(placeLatLng.latitude-0.001, placeLatLng.longitude -0.001),
+                    new LatLng(placeLatLng.latitude+0.001, placeLatLng.longitude+0.001));
+            googleMap.addMarker(new MarkerOptions().position(placeLatLng));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,0));
         } catch (IOException e) {
             e.printStackTrace();
         }
 //        mAddress.setAddressLine();
 
         // Add a marker in Sydney and move the camera
-        LatLng placeLatLng = new LatLng(mList.get(0).getLatitude(), mList.get(0).getLongitude());
-        LatLngBounds bounds = new LatLngBounds(new LatLng(placeLatLng.latitude-0.001, placeLatLng.longitude -0.001),
-                new LatLng(placeLatLng.latitude+0.001, placeLatLng.longitude+0.001));
-        mMap.addMarker(new MarkerOptions().position(placeLatLng));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,0));
-
     }
 
     private void loadFood(){
