@@ -2,46 +2,36 @@ package nomeGruppo.eathome;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import org.w3c.dom.Text;
 
+import com.google.android.libraries.places.api.model.LocalTime;
+
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Timer;
 
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.profile.DialogAddAddress;
+import nomeGruppo.eathome.utility.OpeningTime;
 import nomeGruppo.eathome.utility.TimePickerFragment;
 
 public class ConfirmOrderActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
@@ -58,7 +48,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
     private EditText editPhone;
     private Button btnConfirm;
     private EditText chooseTime;
-    private TimePickerDialog timePickerDialog;
+    private OpeningTime openingTimeUtility;
 
 
     private SQLiteDatabase mDB = null;
@@ -76,6 +66,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.totOrder=(Float) getIntent().getExtras().getFloat("Tot");
         this.listFoodOrder= (ArrayList<String>)getIntent().getSerializableExtra("NameFood");
         this.addressOrder=(String) getIntent().getExtras().getString("AddressOrder");
+        this.openingTimeUtility=new OpeningTime();
 
         this.txtTotOrder=findViewById(R.id.txtTotOrder);
         this.txtTotDelivery=findViewById(R.id.txtDeliveryCostOrder);
@@ -156,7 +147,18 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-        EditText editChooseTime=findViewById(R.id.editChooseTime);
-        editChooseTime.setText(hourOfDay+" : "+minutes);
+        Time timeOrder=Time.valueOf(hourOfDay+":"+minutes+":"+00);
+        String openingTime=place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
+        Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);
+        Time timeClosed=openingTimeUtility.getTimeOpening(openingTime);
+
+        if(timeOrder.after(timeOpening)&&timeOrder.before(timeClosed)){
+            EditText editChooseTime=findViewById(R.id.editChooseTime);
+            editChooseTime.setText(timeOrder.toString());
+        }else{
+            Toast.makeText(ConfirmOrderActivity.this,"Orario non valido",Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }

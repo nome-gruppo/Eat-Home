@@ -28,12 +28,14 @@ import java.util.HashMap;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.Days;
+import nomeGruppo.eathome.utility.OpeningTime;
 
 public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
     private static final String TAG = "PlaceOpeningTime";
     private Place place;
     private TimePickerDialog picker;
+    private OpeningTime openingTimeUtility;
     private EditText editMonday,editTuesday,editWednesday,editThursday,editFriday,editSaturday,editSunday;
     private EditText editMondayClosed,editTuesdayClosed,editWednesdayClosed,editThursdayClosed,editFridayClosed,editSaturdayClosed,editSundayClosed;
     private Switch switchMonday, switchTuesday,switchWednesday,switchThursday,switchFriday,switchSaturday,switchSunday;
@@ -75,6 +77,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.switchSunday=findViewById(R.id.switchSunday);
         this.btnSignin=findViewById(R.id.btnSigninPlace);
         this.openingTime=new HashMap<>(7);
+        this.openingTimeUtility=new OpeningTime();
 
         this.mAuth = FirebaseAuth.getInstance();
 
@@ -82,10 +85,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
-                    editMonday.setEnabled(false);
-                    editMondayClosed.setEnabled(false);
-                    editMonday.setText("");
-                    editMondayClosed.setText("");
+                    openingTimeUtility.setSwitch(editMonday,editMondayClosed);
                 }
             }
         });
@@ -94,10 +94,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
-                    editTuesday.setEnabled(false);
-                    editTuesdayClosed.setEnabled(false);
-                    editTuesday.setText("");
-                    editTuesdayClosed.setText("");
+                   openingTimeUtility.setSwitch(editTuesday,editTuesday);
                 }
             }
         });
@@ -106,10 +103,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
-                    editWednesday.setEnabled(false);
-                    editWednesdayClosed.setEnabled(false);
-                    editWednesday.setText("");
-                    editWednesdayClosed.setText("");
+                    openingTimeUtility.setSwitch(editWednesday,editWednesdayClosed);
                 }
             }
         });
@@ -118,10 +112,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
-                    editThursday.setEnabled(false);
-                    editThursdayClosed.setEnabled(false);
-                    editThursday.setText("");
-                    editThursdayClosed.setText("");
+                    openingTimeUtility.setSwitch(editThursday,editThursdayClosed);
                 }
             }
         });
@@ -130,10 +121,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
-                    editFriday.setEnabled(false);
-                    editFridayClosed.setEnabled(false);
-                    editFriday.setText("");
-                    editFridayClosed.setText("");
+                    openingTimeUtility.setSwitch(editFriday,editFridayClosed);
                 }
             }
         });
@@ -142,10 +130,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
-                    editSaturday.setEnabled(false);
-                    editSaturdayClosed.setEnabled(false);
-                    editSaturday.setText("");
-                    editSaturdayClosed.setText("");
+                    openingTimeUtility.setSwitch(editSaturday,editSaturdayClosed);
                 }
             }
         });
@@ -154,10 +139,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
-                    editSunday.setEnabled(false);
-                    editSundayClosed.setEnabled(false);
-                    editSunday.setText("");
-                    editSundayClosed.setText("");
+                    openingTimeUtility.setSwitch(editSunday,editSundayClosed);
                 }
             }
         });
@@ -268,205 +250,70 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         editWednesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                // time picker dialog
-                picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editWednesday.setText(sHour + SPLIT + sMinute);
-                            }
-                        }, hour, minutes, true);
-                picker.show();
+                openingTimeUtility.setOpeningTime(PlaceOpeningTimeActivity.this,editWednesday);
             }
         });
 
         editWednesdayClosed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String hourMonday=editWednesday.getText().toString();
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                if(hourMonday.length()==LENGTH){//se l'orario di apertura è stato settato allora faccio partire l'orologio da questo orario
-                    hour=Integer.parseInt(hourMonday.substring(0,2));
-                    minutes=Integer.parseInt(hourMonday.substring(3));
-                }
-                // time picker dialog
-                picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editWednesdayClosed.setText(sHour + SPLIT + sMinute);
-                            }
-                        }, hour, minutes, true);
-                picker.show();
+                openingTimeUtility.setOpeningTimeClose(PlaceOpeningTimeActivity.this, editWednesday, editWednesdayClosed);
             }
         });
 
         editThursday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                // time picker dialog
-                picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editThursday.setText(sHour + SPLIT + sMinute);
-                            }
-                        }, hour, minutes, true);
-                picker.show();
+                openingTimeUtility.setOpeningTime(PlaceOpeningTimeActivity.this,editThursday);
             }
         });
 
         editThursdayClosed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String hourMonday=editThursday.getText().toString();
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                if(hourMonday.length()==LENGTH){//se l'orario di apertura è stato settato allora faccio partire l'orologio da questo orario
-                    hour=Integer.parseInt(hourMonday.substring(0,2));
-                    minutes=Integer.parseInt(hourMonday.substring(3));
-                }
-                // time picker dialog
-                picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editThursdayClosed.setText(sHour + SPLIT + sMinute);
-                            }
-                        }, hour, minutes, true);
-                picker.show();
+                openingTimeUtility.setOpeningTimeClose(PlaceOpeningTimeActivity.this,editThursday,editThursdayClosed);
             }
         });
 
       editFriday.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              final Calendar cldr = Calendar.getInstance();
-              int hour = cldr.get(Calendar.HOUR_OF_DAY);
-              int minutes = cldr.get(Calendar.MINUTE);
-              // time picker dialog
-              picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                      new TimePickerDialog.OnTimeSetListener() {
-                          @Override
-                          public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                              editFriday.setText(sHour + SPLIT + sMinute);
-                          }
-                      }, hour, minutes, true);
-              picker.show();
+              openingTimeUtility.setOpeningTime(PlaceOpeningTimeActivity.this,editFriday);
           }
       });
 
       editFridayClosed.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              String hourMonday=editFriday.getText().toString();
-              final Calendar cldr = Calendar.getInstance();
-              int hour = cldr.get(Calendar.HOUR_OF_DAY);
-              int minutes = cldr.get(Calendar.MINUTE);
-              if(hourMonday.length()==LENGTH){//se l'orario di apertura è stato settato allora faccio partire l'orologio da questo orario
-                  hour=Integer.parseInt(hourMonday.substring(0,2));
-                  minutes=Integer.parseInt(hourMonday.substring(3));
-              }
-              // time picker dialog
-              picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                      new TimePickerDialog.OnTimeSetListener() {
-                          @Override
-                          public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                              editFridayClosed.setText(sHour + SPLIT + sMinute);
-                          }
-                      }, hour, minutes, true);
-              picker.show();
+              openingTimeUtility.setOpeningTimeClose(PlaceOpeningTimeActivity.this,editFriday,editFridayClosed);
           }
       });
 
       editSaturday.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              final Calendar cldr = Calendar.getInstance();
-              int hour = cldr.get(Calendar.HOUR_OF_DAY);
-              int minutes = cldr.get(Calendar.MINUTE);
-              // time picker dialog
-              picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                      new TimePickerDialog.OnTimeSetListener() {
-                          @Override
-                          public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                              editSaturday.setText(sHour + SPLIT + sMinute);
-                          }
-                      }, hour, minutes, true);
-              picker.show();
+              openingTimeUtility.setOpeningTime(PlaceOpeningTimeActivity.this,editSaturday);
           }
       });
 
       editSaturdayClosed.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              String hourMonday=editSaturday.getText().toString();
-              final Calendar cldr = Calendar.getInstance();
-              int hour = cldr.get(Calendar.HOUR_OF_DAY);
-              int minutes = cldr.get(Calendar.MINUTE);
-              if(hourMonday.length()==LENGTH){//se l'orario di apertura è stato settato allora faccio partire l'orologio da questo orario
-                  hour=Integer.parseInt(hourMonday.substring(0,2));
-                  minutes=Integer.parseInt(hourMonday.substring(3));
-              }
-              // time picker dialog
-              picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                      new TimePickerDialog.OnTimeSetListener() {
-                          @Override
-                          public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                              editSaturdayClosed.setText(sHour + SPLIT + sMinute);
-                          }
-                      }, hour, minutes, true);
-              picker.show();
+              openingTimeUtility.setOpeningTimeClose(PlaceOpeningTimeActivity.this,editSaturday,editSaturdayClosed);
           }
       });
 
       editSunday.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              final Calendar cldr = Calendar.getInstance();
-              int hour = cldr.get(Calendar.HOUR_OF_DAY);
-              int minutes = cldr.get(Calendar.MINUTE);
-              // time picker dialog
-              picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                      new TimePickerDialog.OnTimeSetListener() {
-                          @Override
-                          public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                              editSunday.setText(sHour + SPLIT + sMinute);
-                          }
-                      }, hour, minutes, true);
-              picker.show();
+              openingTimeUtility.setOpeningTime(PlaceOpeningTimeActivity.this,editSunday);
           }
       });
 
       editSundayClosed.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              String hourMonday=editSunday.getText().toString();
-              final Calendar cldr = Calendar.getInstance();
-              int hour = cldr.get(Calendar.HOUR_OF_DAY);
-              int minutes = cldr.get(Calendar.MINUTE);
-              if(hourMonday.length()==LENGTH){//se l'orario di apertura è stato settato allora faccio partire l'orologio da questo orario
-                  hour=Integer.parseInt(hourMonday.substring(0,2));
-                  minutes=Integer.parseInt(hourMonday.substring(3));
-              }
-              // time picker dialog
-              picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                      new TimePickerDialog.OnTimeSetListener() {
-                          @Override
-                          public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                              editSundayClosed.setText(sHour + SPLIT + sMinute);
-                          }
-                      }, hour, minutes, true);
-              picker.show();
+              openingTimeUtility.setOpeningTimeClose(PlaceOpeningTimeActivity.this,editSunday,editSundayClosed);
           }
       });
 

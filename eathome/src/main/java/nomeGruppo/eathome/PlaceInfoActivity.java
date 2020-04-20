@@ -1,6 +1,8 @@
 package nomeGruppo.eathome;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,6 +39,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.Places;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +48,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +66,7 @@ import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.profile.DialogAddAddress;
 import nomeGruppo.eathome.utility.MenuAdapterForClient;
+import nomeGruppo.eathome.utility.OpeningTime;
 
 public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddress.DialogAddAddressListener, OnMapReadyCallback {
 
@@ -72,6 +82,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private TextView txtAddressPlaceInfo;
     private TextView txtCityPlaceInfo;
     private TextView txtDeliveryCostInfo;
+    private TextView txtOpeningTime;
     private Button btnOrder;
     private Button btnBook;
     private List<Food> listFood;
@@ -80,6 +91,8 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private SQLiteDatabase mDB;
     private AddressAdapter addressAdapter;
     private List<String>listAddress;
+    private OpeningTime openingTimeUtility;
+
 
     private FirebaseUser user;
     private FirebaseAuth mAuth;
@@ -95,6 +108,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.listFoodOrder=new HashMap<>();
         this.order=new Order();
+        this.openingTimeUtility=new OpeningTime();
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getReadableDatabase();
@@ -109,6 +123,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         this.txtAddressPlaceInfo=(TextView)findViewById(R.id.txtAddressPlaceInfo);
         this.txtCityPlaceInfo=(TextView)findViewById(R.id.txtCityPlaceInfo);
         this.txtDeliveryCostInfo=(TextView)findViewById(R.id.txtDeliveryCostInfo);
+        this.txtOpeningTime=findViewById(R.id.txtOpeningTime);
         this.btnBook=(Button)findViewById(R.id.btnBook);
         this.btnOrder=(Button)findViewById(R.id.btnOrder);
 
@@ -258,6 +273,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onStart() {
         super.onStart();
@@ -278,12 +294,37 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
                     }
                 });
 
+        openingTime();
+
         if(firstTime) {
             loadFood();
         }
         firstTime = false;
 
 
+    }
+
+    public void openingTime() {
+        final Calendar calendar = Calendar.getInstance();
+        String day = openingTimeUtility.getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)-1);
+        String openingTime = place.openingTime.get(day);
+        Time localTime=new Time(System.currentTimeMillis());
+        if (openingTime.length()>10) {
+            Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);
+            Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);
+            //se localTime è maggiore di timeOpening restituisce un valore positivo e se  è minore di timeClosed restituisce un valore negativo
+            if (localTime.after(timeOpening)&&localTime.before(timeClosed)) {
+                txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + timeClosed.getHours()+":"+timeClosed.toString());
+                return;
+            } else{
+                txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + timeOpening.getHours()+":"+timeOpening.toString());
+                return;
+            }
+        } else {
+            txtOpeningTime.setText(getResources().getString(R.string.closed_place));
+            btnOrder.setEnabled(false);
+            return;
+        }
     }
 
     /**

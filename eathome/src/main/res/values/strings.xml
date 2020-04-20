@@ -82,5 +82,8 @@
     <string name="set_opening">Set opening days and hours</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="opening_time">The place is now open until </string>
+    <string name="closed_time">The place is now closed. Opens at </string>
+    <string name="closed_place">The place is closed today </string>
 
 </resources>
