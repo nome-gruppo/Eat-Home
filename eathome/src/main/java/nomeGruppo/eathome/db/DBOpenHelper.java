@@ -12,17 +12,26 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private final Context mContext;
 
     public static final String TABLE_NAME="myAddresses";
+    public static final String TABLE_NAME_INFO="myInfo";
     public static final String _ID = "_id";
     public static final String CITY = "city";
     public static final String ADDRESS="address";
     public static final String NUM_ADDRESS="numAddress";
+    public static final String NAME_PLACE="namePlace";
+    public static final String DATE_TIME="date";
     public static final String[] COLUMNS = {_ID, CITY, ADDRESS, NUM_ADDRESS};
+    public static final String[] COLUMNS_INFO={_ID,NAME_PLACE,DATE_TIME};
 
     private static final String CREATE_CMD = "CREATE TABLE " + TABLE_NAME + "("
             + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CITY + " VARCHAR(100) NOT NULL,"
             + ADDRESS + " VARCHAR(255) NOT NULL,"
             + NUM_ADDRESS + " VARCHAR(10) NOT NULL)";
+
+    private static final String CREATE_INFO="CREATE TABLE " + TABLE_NAME_INFO + "("
+            + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + NAME_PLACE + " VARCHAR(50) NOT NULL,"
+            + DATE_TIME + " SMALLDATETIME NOT NULL)";
 
 //    public final static String[]columns_credenziali={USER_NAME,PASSWORD};
 //    final static String CREATE_CREDENZIALI="CREATE TABLE "+TABLE_NAME+"("+USER_NAME+" VARCHAR(10)PRIMARY KEY,"+PASSWORD+" VARCHAR(15)NOT NULL)";
@@ -35,6 +44,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_CMD);
+        db.execSQL(CREATE_INFO);
     }
 
     @Override
@@ -55,4 +65,11 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME,null,values);
     }
 
+    public void addInfo(SQLiteDatabase db, String place, String date){
+        ContentValues values=new ContentValues();
+
+        values.put(NAME_PLACE, place);
+        values.put(DATE_TIME, date);
+        db.insert(TABLE_NAME_INFO,null,values);
+    }
 }

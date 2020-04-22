@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -58,6 +60,7 @@ import java.util.Locale;
 
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.PlacesByName;
+import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.profile.ClientProfileActivity;
 import nomeGruppo.eathome.utility.PlaceAdapter;
@@ -98,6 +101,9 @@ public class HomepageActivity extends AppCompatActivity {
     private TextView noPlacesTw;
     private FloatingActionButton filterFab;
 
+    private DBOpenHelper mDBHelper;
+    private SQLiteDatabase mDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +111,9 @@ public class HomepageActivity extends AppCompatActivity {
 
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+
+        this.mDBHelper = new DBOpenHelper(this);
+        this.mDB = mDBHelper.getReadableDatabase();
 
         filterFab = findViewById(R.id.activity_homepage_fab_filter);
         noPlacesTw = findViewById(R.id.activity_homepage_tw_no_places);
@@ -149,6 +158,14 @@ public class HomepageActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
+        Cursor c = mDB.query(DBOpenHelper.TABLE_NAME_INFO,DBOpenHelper.COLUMNS_INFO, null, null, null, null, null);
+
+        final int rows = c.getColumnCount();
+        if(rows > 0) {
+            String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
+            openDialogReview(namePlace);
+        }
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
@@ -158,8 +175,13 @@ public class HomepageActivity extends AppCompatActivity {
 
             search(userCity);
 
-        }//end else
+        }//end if
     }//end onStart
+
+    private void openDialogReview(String namePlace){
+        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(namePlace);
+        dialogEnterPlaceReview.show(getSupportFragmentManager(),"Enter review");
+    }
 
     @Override
     protected void onStop() {

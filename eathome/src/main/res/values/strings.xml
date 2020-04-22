@@ -85,5 +85,8 @@
     <string name="opening_time">The place is now open until </string>
     <string name="closed_time">The place is now closed. Opens at </string>
     <string name="closed_place">The place is closed today </string>
+    <string name="notNow">Not now</string>
+    <string name="send">Send</string>
+    <string name="enterReview">Enter a review</string>
 
 </resources>

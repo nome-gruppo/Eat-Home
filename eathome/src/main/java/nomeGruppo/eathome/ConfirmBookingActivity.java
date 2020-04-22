@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,7 @@ import java.util.Date;
 
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.DatePickerFragment;
 import nomeGruppo.eathome.utility.OpeningTime;
@@ -50,6 +52,9 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     private TextView txtDayOfWeek;
     private OpeningTime openingTimeUtility;
 
+    private DBOpenHelper mDBHelper;
+    private SQLiteDatabase mDB;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +72,10 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         this.editNameBooking=findViewById(R.id.editNameClientBooking);
         this.txtDayOfWeek=null;
         this.openingTimeUtility=new OpeningTime();
+
+        this.mDBHelper = new DBOpenHelper(this);
+        this.mDB = mDBHelper.getWritableDatabase();
+
 
         btnAddPersonBooking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,9 +125,9 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         dateBooking.set(year,month++,dayOfMonth);//moth++ perchè i mesi partono da 0 e non da 1
 
         //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorn della settimana
-        String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
-        if(place.openingTime.get(dayOfWeek).length()>10){
-            txtDateBooking.setText(dateBooking.toString());//setto la data in base alla scelta dell'utente.
+        String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK)-1);
+        if(place.openingTime.get(dayOfWeek).length()>8){
+            txtDateBooking.setText(year+"/"+(month++)+"/"+dayOfMonth);//setto la data in base alla scelta dell'utente.
             openDialogChooseHour(dayOfWeek);//una volta selezionata la data apro il dialog per scegliere l'ora
         }else{
             Toast.makeText(ConfirmBookingActivity.this,"Il locale è chiuso nella data selezionata",Toast.LENGTH_SHORT).show();
@@ -126,14 +135,14 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     }
 
     private void openDialogChooseHour(String dayOfWeek){
+        txtHourBooking.setText(dayOfWeek);
         DialogFragment timePicker=new TimePickerFragment();
         timePicker.show(getSupportFragmentManager(),"Time picker");
-        txtDayOfWeek.setText(dayOfWeek);
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
-        String day=txtDayOfWeek.getText().toString();
+        String day=txtHourBooking.getText().toString();
         String openingTime=place.openingTime.get(day);
         Time hourOpening=openingTimeUtility.getTimeOpening(openingTime);
         Time hourClosed=openingTimeUtility.getTimeClosed(openingTime);
@@ -183,6 +192,8 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.writeObject(FirebaseConnection.BOOKING_TABLE,booking);//inserisco booking all'interno del Db
+
+        mDBHelper.addInfo(mDB,place.namePlace,txtDateBooking.getText().toString()+" "+txtHourBooking.getText().toString()+":"+00);
         return true;
     }
 

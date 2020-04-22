@@ -75,4 +75,7 @@
     <string name="opening_time">Il locale ora è aperto fino alle  </string>
     <string name="closed_time">Il locale ora è chiuso. Apre alle  </string>
     <string name="closed_place">Il locale è chiuso oggi </string>
+    <string name="notNow">Non ora</string>
+    <string name="send">Invia</string>
+    <string name="enterReview">Inserisci una recensione</string>
 </resources>
