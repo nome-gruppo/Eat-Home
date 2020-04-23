@@ -173,7 +173,7 @@ public class HomepageActivity extends AppCompatActivity {
             String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
             openDialogReview(namePlace);
         }*/
-        
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
