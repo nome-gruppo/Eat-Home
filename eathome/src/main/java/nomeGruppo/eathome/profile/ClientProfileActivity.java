@@ -17,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomeGruppo.eathome.ClientOrderInfoActivity;
 import nomeGruppo.eathome.HomepageActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
@@ -51,6 +50,8 @@ public class ClientProfileActivity extends AppCompatActivity {
     private MenuNavigationItemSelected menuNavigationItemSelected;
     private BottomNavigationView bottomMenuClient;
 
+    private DialogDeleteAccount dialog;
+
     private boolean edit = false; //flag per controllare se qualche campo è stato modificato
 
     @Override
@@ -72,7 +73,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         nameEt = findViewById(R.id.activity_client_et_name);
         emailEt = findViewById(R.id.activity_client_et_email);
         oldPasswordEt = findViewById(R.id.activity_client_et_oldPassword);
-        passwordEt = findViewById(R.id.activity_client_et_password);
+        passwordEt = findViewById(R.id.activity_client_et_newPassword);
         passwordConfirmEt = findViewById(R.id.activity_client_et_password_confirm);
         phoneEt = findViewById(R.id.activity_client_et_phone);
 
@@ -220,6 +221,7 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         final FirebaseConnection connection = new FirebaseConnection();
 
+
         nameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -234,7 +236,7 @@ public class ClientProfileActivity extends AppCompatActivity {
                 String email = emailEt.getText().toString().trim();
                 String oldPassword = oldPasswordEt.getText().toString();
 
-                connection.reauthenticateUser(user, email, oldPassword, ClientProfileActivity.this);
+                connection.reauthenticateUser(user, email, oldPassword);
 
                 //controlla riautentificazione utente
                 if (connection.getOperationSuccess()) {
@@ -262,22 +264,22 @@ public class ClientProfileActivity extends AppCompatActivity {
         passwordBtn.setOnClickListener(new View.OnClickListener() {
             String email = emailEt.getText().toString().trim();
             String oldPassword = oldPasswordEt.getText().toString();
-            String password = passwordEt.getText().toString();
+            String newPassword = passwordEt.getText().toString();
             String confirmPassword = passwordConfirmEt.getText().toString();
 
             @Override
             public void onClick(View view) {
-                connection.reauthenticateUser(user, email, oldPassword, ClientProfileActivity.this);
+                connection.reauthenticateUser(user, email, oldPassword);
 
-                //controllo riautentificazione utente
+                //controllo riautenticazione utente
                 if (connection.getOperationSuccess()){
 
                     //controllo uguaglianza password
-                    if(oldPassword.equals(password) && password.equals(confirmPassword)){
+                    if(oldPassword.equals(newPassword) && newPassword.equals(confirmPassword)){
 
                         if(controls.isPasswordValid(confirmPassword)){
 
-                            connection.updatePassword(user, password, ClientProfileActivity.this);
+                            connection.updatePassword(user, newPassword, ClientProfileActivity.this);
                             if(connection.getOperationSuccess()){
                                 edit = true;
                             }
@@ -325,6 +327,14 @@ public class ClientProfileActivity extends AppCompatActivity {
                 homepageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, false);
                 startActivity(homepageIntent);
                 finish();
+            }
+        });
+
+        deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new DialogDeleteAccount();
+                dialog.show(getSupportFragmentManager(), "Dialog delete account");
             }
         });
     }//fine initButtonsListeners()

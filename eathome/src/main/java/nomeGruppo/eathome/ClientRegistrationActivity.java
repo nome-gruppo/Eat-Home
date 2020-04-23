@@ -140,17 +140,4 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                 });
     }
 
-    /*Metodo che controlla la validità della password
-     */
-    private boolean passwordControl(String password) {
-
-        if (password.length() < 6) {
-            statusTV.setText("La password deve essere almeno di 6 caratteri");
-            statusTV.setVisibility(View.VISIBLE);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
 }

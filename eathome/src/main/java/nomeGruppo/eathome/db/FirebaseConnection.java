@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -183,7 +184,7 @@ public class FirebaseConnection {
         return operationSuccess;
     }
 
-    public void reauthenticateUser(FirebaseUser user, String email, String password, final Activity activity) {
+    public void reauthenticateUser(FirebaseUser user, String email, String password) {
         AuthCredential credential = EmailAuthProvider
                 .getCredential(email, password);
 
@@ -248,6 +249,34 @@ public class FirebaseConnection {
                             Toast.makeText(activity, "Password modificata correttamente", Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(activity, "Non è stato possibile cambiare la password", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    public void deleteAccount(FirebaseUser user, final String uID){
+
+        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User account deleted.");
+
+                            mDatabase.child(CLIENT_TABLE).child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists()){
+                                        dataSnapshot.getRef().removeValue();
+                                    }else{
+                                        mDatabase.child(PLACE_TABLE).child(uID).removeValue();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                         }
                     }
                 });

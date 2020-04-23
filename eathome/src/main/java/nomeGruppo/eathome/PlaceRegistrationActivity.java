@@ -187,6 +187,11 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                 if(checked)
                     place.setCategories(PlaceCategories.PIZZERIA_RISTORANTE.toString());
                 break;
+            case R.id.radioOther:
+                if(checked)
+                    place.setCategories(PlaceCategories.ALTRO.toString());
+                break;
+
             case R.id.radioOrders:
                 if (checked)
                     place.setTakesOrderPlace(true);
