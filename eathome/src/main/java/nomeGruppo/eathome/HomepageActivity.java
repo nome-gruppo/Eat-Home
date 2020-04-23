@@ -53,7 +53,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -72,6 +76,7 @@ public class HomepageActivity extends AppCompatActivity {
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
     private static final int SEARCH_FILTER_REQUEST_CODE = 51;
+
 
     private BottomNavigationView bottomMenuClient;
 
@@ -157,15 +162,18 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
-        Cursor c = mDB.query(DBOpenHelper.TABLE_NAME_INFO,DBOpenHelper.COLUMNS_INFO, null, null, null, null, null);
-
-        final int rows = c.getColumnCount();
+        /*
+        String query="SELECT "+DBOpenHelper._ID+","+DBOpenHelper.NAME_PLACE+" FROM "
+                +DBOpenHelper.TABLE_NAME_INFO+" WHERE "+DBOpenHelper.DATEDIFF+" >1";
+        //Cursor c = mDB.query(DBOpenHelper.TABLE_NAME_INFO,DBOpenHelper.COLUMNS_INFO,null,null,null,null,null);
+        Cursor c=mDB.rawQuery(query,null);
+        final int rows = c.getCount();
         if(rows > 0) {
+            c.moveToFirst();
             String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
             openDialogReview(namePlace);
-        }
+        }*/
+        
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 

@@ -42,8 +42,8 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
     private Booking booking;
     private Place place;
-    private TextView txtDateBooking;
-    private TextView txtHourBooking;
+    private EditText txtDateBooking;
+    private EditText txtHourBooking;
     private TextView txtNumberPersonBooking;
     private ImageButton btnAddPersonBooking;
     private ImageButton btnDeletePersonBooking;
@@ -70,7 +70,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         this.btnDeletePersonBooking=findViewById(R.id.btnDeletePersonBooking);
         this.btnConfirmBooking=findViewById(R.id.btnConfirmBooking);
         this.editNameBooking=findViewById(R.id.editNameClientBooking);
-        this.txtDayOfWeek=null;
+        this.txtDayOfWeek=findViewById(R.id.txtDayOfWeek);
         this.openingTimeUtility=new OpeningTime();
 
         this.mDBHelper = new DBOpenHelper(this);
@@ -100,11 +100,30 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         btnConfirmBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(editNameBooking.getText().toString().trim().length()==0){
+                if(editNameBooking.getText().toString().trim().length()==0||txtDateBooking.getText().toString().trim().length()==0||
+                        txtHourBooking.getText().toString().trim().length()==0){
                     Toast.makeText(ConfirmBookingActivity.this,"Completa tutti i campi",Toast.LENGTH_SHORT).show();
                 }else {
                     openDialogConfirm();
                 }
+            }
+        });
+
+        txtHourBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtDateBooking.toString().trim().length()==0){
+                    Toast.makeText(ConfirmBookingActivity.this, "Devi selezionare prima una data", Toast.LENGTH_SHORT).show();
+                }else {
+                    openDialogChooseHour(txtDayOfWeek.getText().toString());
+                }
+            }
+        });
+
+        txtDateBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCalendar();
             }
         });
 
@@ -114,6 +133,11 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     @Override
     protected void onStart() {
         super.onStart();
+
+        openCalendar();
+    }
+
+    private void openCalendar(){
         DialogFragment datePicker=new DatePickerFragment();//apro il calendario
         datePicker.show(getSupportFragmentManager(),"Date picker");
     }
@@ -131,18 +155,21 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
             openDialogChooseHour(dayOfWeek);//una volta selezionata la data apro il dialog per scegliere l'ora
         }else{
             Toast.makeText(ConfirmBookingActivity.this,"Il locale è chiuso nella data selezionata",Toast.LENGTH_SHORT).show();
+            openCalendar();
         }
     }
 
     private void openDialogChooseHour(String dayOfWeek){
-        txtHourBooking.setText(dayOfWeek);
+        //setto la TextView con il giorno della settiama corrispondente alla prenotazione che mi
+        // servirà per confrontare se l'ora della prenotazione in quel giorno è valida o no
+        txtDayOfWeek.setText(dayOfWeek);
         DialogFragment timePicker=new TimePickerFragment();
         timePicker.show(getSupportFragmentManager(),"Time picker");
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
-        String day=txtHourBooking.getText().toString();
+        String day=txtDayOfWeek.getText().toString();//prendo il giorno della settimana corrispondente alla data della prenotazione
         String openingTime=place.openingTime.get(day);
         Time hourOpening=openingTimeUtility.getTimeOpening(openingTime);
         Time hourClosed=openingTimeUtility.getTimeClosed(openingTime);
@@ -152,6 +179,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
             txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
         }else{
          Toast.makeText(ConfirmBookingActivity.this,"Ora non valida",Toast.LENGTH_SHORT).show();
+         openDialogChooseHour(day);
         }
     }
 
@@ -193,7 +221,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.writeObject(FirebaseConnection.BOOKING_TABLE,booking);//inserisco booking all'interno del Db
 
-        mDBHelper.addInfo(mDB,place.namePlace,txtDateBooking.getText().toString()+" "+txtHourBooking.getText().toString()+":"+00);
+        mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,booking.dateBooking+" "+booking.timeBooking+":"+"00");
         return true;
     }
 

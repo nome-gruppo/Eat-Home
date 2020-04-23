@@ -51,7 +51,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
     private OpeningTime openingTimeUtility;
 
 
-    private SQLiteDatabase mDB = null;
+    private SQLiteDatabase mDB;
     private DBOpenHelper mDBHelper;
     private String addressOrder;
 
@@ -67,6 +67,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.listFoodOrder= (ArrayList<String>)getIntent().getSerializableExtra("NameFood");
         this.addressOrder=(String) getIntent().getExtras().getString("AddressOrder");
         this.openingTimeUtility=new OpeningTime();
+
+        this.mDBHelper = new DBOpenHelper(this);
+        this.mDB = mDBHelper.getReadableDatabase();
 
         this.txtTotOrder=findViewById(R.id.txtTotOrder);
         this.txtTotDelivery=findViewById(R.id.txtDeliveryCostOrder);
@@ -93,7 +96,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
             @Override
             public void onClick(View view) {
                 if(editName.getText().toString().trim().length()==0||chooseTime.getText().toString().trim().length()==0){
-                    Toast.makeText(ConfirmOrderActivity.this, "Inserisci nome destinatario", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConfirmOrderActivity.this, "Inserisci nome destinatario o orario di consegna", Toast.LENGTH_SHORT).show();
                 }else{
                     openDialogConfirm();
                 }
@@ -142,6 +145,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().setValue(order);
+
+        mDBHelper.addInfo(mDB,place.idPlace, place.namePlace,new SimpleDateFormat("yyyy-MM-dd").format(new Date())+" "+order.timeOrder);
         return true;
     }
 
@@ -150,7 +155,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         Time timeOrder=Time.valueOf(hourOfDay+":"+minutes+":"+00);
         String openingTime=place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
         Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);
-        Time timeClosed=openingTimeUtility.getTimeOpening(openingTime);
+        Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);
 
         if(timeOrder.after(timeOpening)&&timeOrder.before(timeClosed)){
             EditText editChooseTime=findViewById(R.id.editChooseTime);

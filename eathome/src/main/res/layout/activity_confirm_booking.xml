@@ -9,28 +9,28 @@
         android:id="@+id/txtNumberPersonBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="1"
         app:layout_constraintBottom_toBottomOf="@+id/btnAddPersonBooking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnAddPersonBooking" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtDateBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="53dp"
-        android:text="TextView"
+        android:hint="Date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtHourBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
-        android:layout_marginEnd="34dp"
-        android:text="TextView"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/choose_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,9 +38,9 @@
         android:id="@+id/btnAddPersonBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="18dp"
         app:layout_constraintEnd_toStartOf="@+id/txtHourBooking"
-        app:layout_constraintTop_toBottomOf="@+id/txtHourBooking"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
         app:srcCompat="@drawable/ic_button_add_menu" />
 
     <ImageButton
@@ -48,21 +48,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
+        android:layout_marginTop="138dp"
         android:layout_marginEnd="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtNumberPersonBooking"
         app:layout_constraintEnd_toStartOf="@+id/btnConfirmBooking"
         app:layout_constraintStart_toStartOf="@+id/txtDateBooking"
-        app:layout_constraintTop_toTopOf="@+id/btnAddPersonBooking"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_less" />
 
     <Button
         android:id="@+id/btnConfirmBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="115dp"
         android:layout_marginTop="58dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="115dp"
         android:text="@string/confirm_order"
-        app:layout_constraintEnd_toEndOf="@+id/editNameClientBooking"
+        app:layout_constraintEnd_toEndOf="@+id/txtHourBooking"
+        app:layout_constraintStart_toEndOf="@+id/txtDateBooking"
         app:layout_constraintTop_toBottomOf="@+id/editNameClientBooking" />
 
     <EditText
@@ -71,10 +73,31 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="78dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/name"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDeletePersonBooking" />
+
+    <TextView
+        android:id="@+id/txtDayOfWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="173dp"
+        android:text=""
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnConfirmBooking" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/choose_number_person"
+        app:layout_constraintBottom_toTopOf="@+id/btnDeletePersonBooking"
+        app:layout_constraintEnd_toEndOf="@+id/btnAddPersonBooking" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -88,5 +88,6 @@
     <string name="notNow">Not now</string>
     <string name="send">Send</string>
     <string name="enterReview">Enter a review</string>
+    <string name="choose_number_person">Select number of people</string>
 
 </resources>

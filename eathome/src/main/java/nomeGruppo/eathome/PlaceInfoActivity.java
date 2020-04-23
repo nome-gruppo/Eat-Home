@@ -309,15 +309,15 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         String day = openingTimeUtility.getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)-1);
         String openingTime = place.openingTime.get(day);
         Time localTime=new Time(System.currentTimeMillis());
-        if (openingTime.length()>10) {
+        if (openingTime.length()>8) {//se è stato impostato un orario di apertura e chiusura
             Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);
             Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);
-            //se localTime è maggiore di timeOpening restituisce un valore positivo e se  è minore di timeClosed restituisce un valore negativo
+            //se localTime si trova tra timeOpening e timeClosed
             if (localTime.after(timeOpening)&&localTime.before(timeClosed)) {
-                txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + timeClosed.getHours()+":"+timeClosed.toString());
+                txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + timeClosed.toString());
                 return;
             } else{
-                txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + timeOpening.getHours()+":"+timeOpening.toString());
+                txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + timeOpening.toString());
                 return;
             }
         } else {
