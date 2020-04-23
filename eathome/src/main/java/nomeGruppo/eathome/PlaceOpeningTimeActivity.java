@@ -68,6 +68,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.editFridayClosed=findViewById(R.id.editFridayClosed);
         this.editSaturdayClosed=findViewById(R.id.editSaturdayClosed);
         this.editSundayClosed=findViewById(R.id.editSundayClosed);
+
         this.switchMonday=findViewById(R.id.switchMonday);
         this.switchTuesday=findViewById(R.id.switchTuesday);
         this.switchWednesday=findViewById(R.id.switchWednesday);
@@ -75,6 +76,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.switchFriday=findViewById(R.id.switchFriday);
         this.switchSaturday=findViewById(R.id.switchSaturday);
         this.switchSunday=findViewById(R.id.switchSunday);
+
         this.btnSignin=findViewById(R.id.btnSigninPlace);
         this.openingTime=new HashMap<>(7);
         this.openingTimeUtility=new OpeningTime();
@@ -143,6 +145,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         editMonday.setOnClickListener(new View.OnClickListener() {
             @Override

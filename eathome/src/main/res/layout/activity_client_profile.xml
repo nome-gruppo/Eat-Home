@@ -105,20 +105,20 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="38dp"
         android:layout_marginEnd="42dp"
-        android:text="Password"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_et_password"
+        android:text="New password"
+        app:layout_constraintEnd_toStartOf="@id/activity_client_et_newPassword"
         app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_client_tw_oldPassword" />
 
     <EditText
-        android:id="@+id/activity_client_et_password"
+        android:id="@+id/activity_client_et_newPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="72dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="New password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_client_et_oldPassword" />
@@ -145,7 +145,7 @@
         android:hint="Confirm password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@id/activity_client_profile_imBtn_password_confirm"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_password" />
+        app:layout_constraintTop_toBottomOf="@id/activity_client_et_newPassword" />
 
     <ImageButton
         android:id="@+id/activity_client_profile_imBtn_password_confirm"
@@ -155,7 +155,7 @@
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_profile_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_password" />
+        app:layout_constraintTop_toBottomOf="@id/activity_client_et_newPassword" />
 
     <TextView
         android:id="@+id/activity_client_tw_phone"

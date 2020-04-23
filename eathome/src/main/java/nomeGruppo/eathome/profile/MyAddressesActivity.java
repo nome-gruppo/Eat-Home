@@ -51,7 +51,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
         Cursor c = mDB.query(DBOpenHelper.TABLE_NAME,DBOpenHelper.COLUMNS, null, null, null, null, null);
 
-        final int rows = c.getColumnCount();
+        final int rows = c.getCount();
 
         //recupero indirizzi dal database
         if(rows == 0){

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/editNamePlace"
@@ -10,8 +11,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/placeName"
-        android:inputType="textPersonName"
-        />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editCityPlace"
@@ -46,41 +46,52 @@
         android:inputType="phone" />
 
 
-
     <TextView
         android:id="@+id/txtCategories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:textSize="18dp"
-        android:text="@string/categories" />
+        android:text="@string/categories"
+        android:textSize="18dp" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <RadioButton android:id="@+id/radioPizzeria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pizzeria"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/radioItalianRestaurant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/italianRestaurant"
-            android:onClick="onRadioButtonClicked"/>
 
-        <RadioButton android:id="@+id/radioPizzeriaRestaurant"
+        <RadioButton
+            android:id="@+id/radioPizzeria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pizzeriaRestaurant"
-            android:onClick="onRadioButtonClicked"/>
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/pizzeria" />
 
-        <RadioButton android:id="@+id/radioSushi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sushi"
-        android:onClick="onRadioButtonClicked"/>
+        <RadioButton
+            android:id="@+id/radioItalianRestaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/italianRestaurant" />
+
+        <RadioButton
+            android:id="@+id/radioPizzeriaRestaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/pizzeriaRestaurant" />
+
+        <RadioButton
+            android:id="@+id/radioSushi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/sushi" />
+
+        <RadioButton android:id="@+id/radioOther"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Altro"
+            android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
 
 
@@ -89,28 +100,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:textSize="18dp"
-        android:text="@string/actions" />
+        android:text="@string/actions"
+        android:textSize="18dp" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <RadioButton android:id="@+id/radioOrders"
+
+        <RadioButton
+            android:id="@+id/radioOrders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/orders"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/radioBooking"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/orders" />
+
+        <RadioButton
+            android:id="@+id/radioBooking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bookings"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/radioEither"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/bookings" />
+
+        <RadioButton
+            android:id="@+id/radioEither"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/either"
-            android:onClick="onRadioButtonClicked"/>
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/either" />
 
     </RadioGroup>
 
@@ -119,18 +136,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:textSize="18dp"
+        android:inputType="numberDecimal"
         android:text="@string/deliveryCost"
-        android:inputType="numberDecimal" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/txtDeliveryCost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:textSize="18dp"
+        android:inputType="numberDecimal"
         android:text="0"
-        android:inputType="numberDecimal" />
+        android:textSize="18dp" />
 
     <SeekBar
         android:id="@+id/seekDeliveryCost"
@@ -174,8 +191,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="" />
-
-
 
 
 </LinearLayout>

@@ -158,16 +158,18 @@ public class HomepageActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
 
         Cursor c = mDB.query(DBOpenHelper.TABLE_NAME_INFO,DBOpenHelper.COLUMNS_INFO, null, null, null, null, null);
 
-        final int rows = c.getColumnCount();
+        final int rows = c.getCount();
         if(rows > 0) {
             String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
             openDialogReview(namePlace);
         }
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
+
 
 
         //se non è mai stata effettuata una ricerca prima
