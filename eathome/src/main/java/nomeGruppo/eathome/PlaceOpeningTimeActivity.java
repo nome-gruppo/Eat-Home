@@ -33,16 +33,18 @@ import nomeGruppo.eathome.utility.OpeningTime;
 public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
     private static final String TAG = "PlaceOpeningTime";
+    private static final String CLOSED="-";
+    private static final String SPLIT=":";
+    private static final int LENGTH=5;
     private Place place;
     private TimePickerDialog picker;
     private OpeningTime openingTimeUtility;
     private EditText editMonday,editTuesday,editWednesday,editThursday,editFriday,editSaturday,editSunday;
     private EditText editMondayClosed,editTuesdayClosed,editWednesdayClosed,editThursdayClosed,editFridayClosed,editSaturdayClosed,editSundayClosed;
     private Switch switchMonday, switchTuesday,switchWednesday,switchThursday,switchFriday,switchSaturday,switchSunday;
-    private Button btnSignin;
+    private Button btnSignin,btnEdit;
     private HashMap<String,String>openingTime;
-    private static final String SPLIT=":";
-    private static final int LENGTH=5;
+
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -78,10 +80,52 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.switchSunday=findViewById(R.id.switchSunday);
 
         this.btnSignin=findViewById(R.id.btnSigninPlace);
+        this.btnEdit=findViewById(R.id.btnEditOpeningTime);
         this.openingTime=new HashMap<>(7);
         this.openingTimeUtility=new OpeningTime();
 
         this.mAuth = FirebaseAuth.getInstance();
+
+        if(!place.openingTime.isEmpty()){
+            btnSignin.setVisibility(View.INVISIBLE);
+            btnEdit.setVisibility(View.VISIBLE);
+
+            if(place.openingTime.get(Days.MONDAY)==CLOSED){
+                switchMonday.setChecked(false);
+            }
+            if(place.openingTime.get(Days.TUESDAY)==CLOSED){
+                switchTuesday.setChecked(false);
+            }
+            if(place.openingTime.get(Days.WEDNESDAY)==CLOSED){
+                switchWednesday.setChecked(false);
+            }
+            if(place.openingTime.get(Days.THURSDAY)==CLOSED){
+                switchThursday.setChecked(false);
+            }
+            if(place.openingTime.get(Days.FRIDAY)==CLOSED){
+                switchFriday.setChecked(false);
+            }
+            if(place.openingTime.get(Days.SATURDAY)==CLOSED){
+                switchSaturday.setChecked(false);
+            }
+            if(place.openingTime.get(Days.SUNDAY)==CLOSED){
+                switchSunday.setChecked(false);
+            }
+            editMonday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.MONDAY)));
+            editMondayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.MONDAY)));
+            editTuesday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.TUESDAY)));
+            editTuesdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.TUESDAY)));
+            editWednesday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.WEDNESDAY)));
+            editWednesdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.WEDNESDAY)));
+            editThursday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.THURSDAY)));
+            editThursdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.THURSDAY)));
+            editFriday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.FRIDAY)));
+            editFridayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.FRIDAY)));
+            editSaturday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.SATURDAY)));
+            editSaturdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.SATURDAY)));
+            editSunday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.SUNDAY)));
+            editSundayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.SUNDAY)));
+        }
 
         switchMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -323,18 +367,22 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
       btnSignin.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              openingTime.put(Days.MONDAY.toString(),editMonday.getText().toString()+"-"+editMondayClosed.getText().toString());
-              openingTime.put(Days.TUESDAY.toString(),editTuesday.getText().toString()+"-"+editTuesdayClosed.getText().toString());
-              openingTime.put(Days.WEDNESDAY.toString(),editWednesday.getText().toString()+"-"+editWednesdayClosed.getText().toString());
-              openingTime.put(Days.THURSDAY.toString(),editThursday.getText().toString()+"-"+editThursdayClosed.getText().toString());
-              openingTime.put(Days.FRIDAY.toString(),editFriday.getText().toString()+"-"+editFridayClosed.getText().toString());
-              openingTime.put(Days.SATURDAY.toString(),editSaturday.getText().toString()+"-"+editSaturdayClosed.getText().toString());
-              openingTime.put(Days.SUNDAY.toString(),editSunday.getText().toString()+"-"+editSundayClosed.getText().toString());
 
-              place.setOpeningTime(openingTime);
+              place.setOpeningTime(putOpeningTime(openingTime));
 
               createAccount(place.emailPlace, getIntent().getStringExtra("password"));
 
+          }
+      });
+
+      btnEdit.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+
+              place.setOpeningTime(putOpeningTime(openingTime));
+
+              FirebaseConnection firebaseConnection=new FirebaseConnection();
+              firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("openingTime").setValue(openingTime);
           }
       });
 
@@ -359,6 +407,17 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
         db.write(FirebaseConnection.PLACE_TABLE,place.idPlace, place);
 
+    }
+
+    private HashMap<String,String> putOpeningTime(HashMap<String,String>openingTime){
+        openingTime.put(Days.MONDAY.toString(),editMonday.getText().toString()+"-"+editMondayClosed.getText().toString());
+        openingTime.put(Days.TUESDAY.toString(),editTuesday.getText().toString()+"-"+editTuesdayClosed.getText().toString());
+        openingTime.put(Days.WEDNESDAY.toString(),editWednesday.getText().toString()+"-"+editWednesdayClosed.getText().toString());
+        openingTime.put(Days.THURSDAY.toString(),editThursday.getText().toString()+"-"+editThursdayClosed.getText().toString());
+        openingTime.put(Days.FRIDAY.toString(),editFriday.getText().toString()+"-"+editFridayClosed.getText().toString());
+        openingTime.put(Days.SATURDAY.toString(),editSaturday.getText().toString()+"-"+editSaturdayClosed.getText().toString());
+        openingTime.put(Days.SUNDAY.toString(),editSunday.getText().toString()+"-"+editSundayClosed.getText().toString());
+        return openingTime;
     }
 
     private void createAccount(String email, String password){

@@ -127,12 +127,6 @@
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".DialogEnterPlaceReview"
-            android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
