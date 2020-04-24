@@ -27,6 +27,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     private String userId;
     private FirebaseUser mUser;
     private boolean deleted;
+    private FirebaseAuth mAuth;
 
     @NonNull
     @Override
@@ -36,7 +37,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
         final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
 
         final FirebaseConnection connection = new FirebaseConnection();
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         userId = mUser.getUid();
 
@@ -79,6 +80,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
         super.onStop();
 
         if(deleted) {
+            mAuth.signOut();
             FirebaseConnection connection = new FirebaseConnection();
             connection.deleteAccount(mUser, userId);
         }
