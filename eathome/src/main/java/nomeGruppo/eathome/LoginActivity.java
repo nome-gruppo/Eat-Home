@@ -52,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.activity_login_et_password);
         loginBtn = findViewById(R.id.activity_login_btn_login);
         progressBar = findViewById(R.id.activity_login_pb_loading);
-        txtPlaceRegistration=findViewById(R.id.fragment_login_tw_signInPlace);
-        txtClientRegistration=findViewById(R.id.fragment_login_tw_signIn);
+        txtPlaceRegistration = findViewById(R.id.fragment_login_tw_signInPlace);
+        txtClientRegistration = findViewById(R.id.fragment_login_tw_signIn);
 
         emailET.addTextChangedListener(afterTextChangedListener);
         passwordET.addTextChangedListener(afterTextChangedListener);
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         txtPlaceRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent placeRegistration=new Intent(LoginActivity.this,PlaceRegistrationActivity.class);
+                Intent placeRegistration = new Intent(LoginActivity.this, PlaceRegistrationActivity.class);
                 startActivity(placeRegistration);
             }
         });
@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         txtClientRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent clientRegistration=new Intent(LoginActivity.this,ClientRegistrationActivity.class);
+                Intent clientRegistration = new Intent(LoginActivity.this, ClientRegistrationActivity.class);
                 startActivity(clientRegistration);
             }
         });
@@ -97,32 +97,26 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signIn(final String email, final String password) {
 
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseConnection connection = new FirebaseConnection();
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            user = mAuth.getCurrentUser();
+                            connection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_TABLE, progressBar, LoginActivity.this);
+                        } else {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseConnection connection = new FirebaseConnection();
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInWithEmail:success");
-                                    user = mAuth.getCurrentUser();
-                                    connection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_TABLE, progressBar, LoginActivity.this);
-                                } else {
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
-                                }
+                    }
+                });
 
-                            }
-                        });
-
-            }
-        });
     }
 
     TextWatcher afterTextChangedListener = new TextWatcher() {
@@ -146,8 +140,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
-
-
 
 
 //    private void getCurrentUser(){

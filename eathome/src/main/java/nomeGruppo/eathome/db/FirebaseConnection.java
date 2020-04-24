@@ -35,7 +35,7 @@ import nomeGruppo.eathome.PlaceHomeActivity;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 
-public class FirebaseConnection {
+public class FirebaseConnection{
 
     private static final String TAG = "FirebaseConnection";
 
@@ -52,7 +52,7 @@ public class FirebaseConnection {
     public static final String CLIENT = "Client";
     public static final String ORDER="Order";
 
-    private DatabaseReference mDatabase;
+    private static DatabaseReference mDatabase;
     private Object objectFounded;
 
     private boolean operationSuccess = false;
@@ -254,33 +254,73 @@ public class FirebaseConnection {
                 });
     }
 
-    public void deleteAccount(FirebaseUser user, final String uID){
+    public static class DeleteAccount implements Runnable{
 
-        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User account deleted.");
+        private FirebaseUser user;
+        private String uID;
+        private String table;
 
-                            mDatabase.child(CLIENT_TABLE).child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if(dataSnapshot.exists()){
-                                        dataSnapshot.getRef().removeValue();
-                                    }else{
-                                        mDatabase.child(PLACE_TABLE).child(uID).removeValue();
-                                    }
+        public DeleteAccount(FirebaseUser user, String uID, String table) {
+            this.user = user;
+            this.uID = uID;
+            this.table = table;
+        }
+
+        @Override
+        public void run() {
+            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User account deleted.");
+
+                        mDatabase.child(table).child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    dataSnapshot.getRef().removeValue();
                                 }
+                            }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                }
-                            });
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    public static class DeleteClientInfo implements Runnable{
+
+        private String uID;
+        private String table;
+
+        public DeleteClientInfo(String uID, String table) {
+            this.uID = uID;
+            this.table = table;
+        }
+
+        @Override
+        public void run() {
+            mDatabase.child(table).orderByChild("idClientBooking").equalTo(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        //elimina ogni campo restituito
+                        for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                            snapshot.getRef().removeValue();
                         }
                     }
-                });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }
-
-

@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.HomepageActivity;
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class DialogDeleteAccount extends AppCompatDialogFragment {
@@ -81,8 +83,32 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
         if(deleted) {
             mAuth.signOut();
-            FirebaseConnection connection = new FirebaseConnection();
-            connection.deleteAccount(mUser, userId);
+            Client mClient = (Client)getActivity().getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+            Place mPlace = (Place)getActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+            //elimina ordinazioni e prenotazioni
+            if(mClient != null){
+
+                FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE);
+                FirebaseConnection.DeleteClientInfo deleteBooking = new FirebaseConnection.DeleteClientInfo(userId,FirebaseConnection.BOOKING_TABLE);
+                FirebaseConnection.DeleteClientInfo deleteOrder = new FirebaseConnection.DeleteClientInfo(userId, FirebaseConnection.ORDER_TABLE);
+
+                Thread accountThread = new Thread(deleteAccount);
+                Thread bookingThread = new Thread(deleteBooking);
+                Thread orderThread = new Thread(deleteOrder);
+
+                accountThread.start();
+                bookingThread.start();
+                orderThread.start();
+
+            }else if(mPlace != null){
+
+                FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE);
+                //TODO elimina le recensioni
+
+                Thread accountThread = new Thread(deleteAccount);
+
+                accountThread.start();
+            }
         }
     }
 }
