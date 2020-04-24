@@ -62,6 +62,13 @@ public class OpeningTime {
         editClosed.setText("");
     }
 
+    public void setSwitchChecked(final EditText editOpen,final EditText editClosed){
+        editOpen.setEnabled(true);
+        editClosed.setEnabled(true);
+        editOpen.setText("Da:");
+        editClosed.setText("A:");
+    }
+
     public String getDayOfWeek(int value) {//funzione per convertire DAY_OF_WEEK restituito da Calendar da formato numerico a String
         String day = "";
         switch (value) {
@@ -99,10 +106,12 @@ public class OpeningTime {
     }
 
     public String getOpening(String openingTime){
-        return openingTime.substring(0,5);
+        String[]result=openingTime.split("-");
+        return result[0];
     }
     public String getClosed(String openingTime){
-        return openingTime.substring(6);
+        String[]result=openingTime.split("-");
+        return result[1];
     }
 
 }

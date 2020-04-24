@@ -90,41 +90,41 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             btnSignin.setVisibility(View.INVISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
 
-            if(place.openingTime.get(Days.MONDAY)==CLOSED){
+            if(place.openingTime.get(Days.MONDAY.toString())==CLOSED){
                 switchMonday.setChecked(false);
             }
-            if(place.openingTime.get(Days.TUESDAY)==CLOSED){
+            if(place.openingTime.get(Days.TUESDAY.toString())==CLOSED){
                 switchTuesday.setChecked(false);
             }
-            if(place.openingTime.get(Days.WEDNESDAY)==CLOSED){
+            if(place.openingTime.get(Days.WEDNESDAY.toString())==CLOSED){
                 switchWednesday.setChecked(false);
             }
-            if(place.openingTime.get(Days.THURSDAY)==CLOSED){
+            if(place.openingTime.get(Days.THURSDAY.toString())==CLOSED){
                 switchThursday.setChecked(false);
             }
-            if(place.openingTime.get(Days.FRIDAY)==CLOSED){
+            if(place.openingTime.get(Days.FRIDAY.toString())==CLOSED){
                 switchFriday.setChecked(false);
             }
-            if(place.openingTime.get(Days.SATURDAY)==CLOSED){
+            if(place.openingTime.get(Days.SATURDAY.toString())==CLOSED){
                 switchSaturday.setChecked(false);
             }
-            if(place.openingTime.get(Days.SUNDAY)==CLOSED){
+            if(place.openingTime.get(Days.SUNDAY.toString())==CLOSED){
                 switchSunday.setChecked(false);
             }
-            editMonday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.MONDAY)));
-            editMondayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.MONDAY)));
-            editTuesday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.TUESDAY)));
-            editTuesdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.TUESDAY)));
-            editWednesday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.WEDNESDAY)));
-            editWednesdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.WEDNESDAY)));
-            editThursday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.THURSDAY)));
-            editThursdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.THURSDAY)));
-            editFriday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.FRIDAY)));
-            editFridayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.FRIDAY)));
-            editSaturday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.SATURDAY)));
-            editSaturdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.SATURDAY)));
-            editSunday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.SUNDAY)));
-            editSundayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.SUNDAY)));
+            editMonday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.MONDAY.toString())));
+            editMondayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.MONDAY.toString())));
+            editTuesday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.TUESDAY.toString())));
+            editTuesdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.TUESDAY.toString())));
+            editWednesday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.WEDNESDAY.toString())));
+            editWednesdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.WEDNESDAY.toString())));
+            editThursday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.THURSDAY.toString())));
+            editThursdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.THURSDAY.toString())));
+            editFriday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.FRIDAY.toString())));
+            editFridayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.FRIDAY.toString())));
+            editSaturday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.SATURDAY.toString())));
+            editSaturdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.SATURDAY.toString())));
+            editSunday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.SUNDAY.toString())));
+            editSundayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.SUNDAY.toString())));
         }
 
         switchMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -133,6 +133,9 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editMonday,editMondayClosed);
                 }
+                else{
+                    openingTimeUtility.setSwitchChecked(editMonday,editMondayClosed);
+                }
             }
         });
 
@@ -140,7 +143,9 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
-                   openingTimeUtility.setSwitch(editTuesday,editTuesday);
+                   openingTimeUtility.setSwitch(editTuesday,editTuesdayClosed);
+                }else{
+                    openingTimeUtility.setSwitchChecked(editTuesday,editTuesdayClosed);
                 }
             }
         });
@@ -150,6 +155,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editWednesday,editWednesdayClosed);
+                }else{
+                    openingTimeUtility.setSwitchChecked(editWednesday,editWednesdayClosed);
                 }
             }
         });
@@ -159,6 +166,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editThursday,editThursdayClosed);
+                }else{
+                    openingTimeUtility.setSwitchChecked(editThursday,editThursdayClosed);
                 }
             }
         });
@@ -168,6 +177,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editFriday,editFridayClosed);
+                }else{
+                    openingTimeUtility.setSwitchChecked(editFriday,editFridayClosed);
                 }
             }
         });
@@ -177,6 +188,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editSaturday,editSaturdayClosed);
+                }else{
+                    openingTimeUtility.setSwitchChecked(editSaturday,editSaturdayClosed);
                 }
             }
         });
@@ -186,6 +199,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editSunday,editSundayClosed);
+                }else{
+                    openingTimeUtility.setSwitchChecked(editSunday,editSundayClosed);
                 }
             }
         });
@@ -383,6 +398,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
               FirebaseConnection firebaseConnection=new FirebaseConnection();
               firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("openingTime").setValue(openingTime);
+
+              finish();
           }
       });
 

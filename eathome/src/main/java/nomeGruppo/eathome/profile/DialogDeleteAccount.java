@@ -24,7 +24,6 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class DialogDeleteAccount extends AppCompatDialogFragment {
 
-
     private String userId;
     private FirebaseUser mUser;
     private boolean deleted;
@@ -33,7 +32,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-         final LayoutInflater inflater = getActivity().getLayoutInflater();
+        final LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
 
         final FirebaseConnection connection = new FirebaseConnection();
@@ -41,12 +40,10 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
         mUser = mAuth.getCurrentUser();
         userId = mUser.getUid();
 
-        builder.setView(inflater.inflate(R.layout.layout_dialog_delete_account, null));
+        final EditText emailEt = dialogView.findViewById(R.id.dialog_delete_account_et_email);
+        final EditText passwordEt = dialogView.findViewById(R.id.dialog_delete_account_et_password);
 
-        final EditText emailEt = (EditText) dialogView.findViewById(R.id.dialog_delete_account_et_email);
-        final EditText passwordEt = (EditText) dialogView.findViewById(R.id.dialog_delete_account_et_password);
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setView(dialogView).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
