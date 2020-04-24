@@ -25,7 +25,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".BookingActivity"></activity>
         <activity android:name=".PlacesFilterActivity" />
         <activity android:name=".profile.MyAddressesActivity" />
         <activity android:name=".profile.PlaceProfileActivity" />
