@@ -171,7 +171,7 @@ public class HomepageActivity extends AppCompatActivity {
                 String idPlace=c.getString(c.getColumnIndexOrThrow(DBOpenHelper._ID));
                 String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
                 String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/mm/dd");//imposto il formato della data
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");//imposto il formato della data
                 Date date = null;
                 try {
                     date = simpleDateFormat.parse(dateInfo);//faccio il cast della stringa dateInfo in formato Date
