@@ -146,7 +146,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().setValue(order);
 
-        mDBHelper.addInfo(mDB,place.idPlace, place.namePlace,new SimpleDateFormat("yyyy-MM-dd").format(new Date())+" "+order.timeOrder);
+        //inserisco l'informazione dell'ordinazione nel db interno
+        mDBHelper.addInfo(mDB,place.idPlace, place.namePlace,new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
         return true;
     }
 

@@ -21,8 +21,8 @@
 
     <ListView
         android:id="@+id/listViewBookingInfo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="252dp"
         app:layout_constraintBottom_toTopOf="@+id/imgNoBookingClient"

@@ -54,6 +54,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -162,17 +163,30 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        /*
-        String query="SELECT "+DBOpenHelper._ID+","+DBOpenHelper.NAME_PLACE+" FROM "
-                +DBOpenHelper.TABLE_NAME_INFO+" WHERE "+DBOpenHelper.DATEDIFF+" >1";
-        //Cursor c = mDB.query(DBOpenHelper.TABLE_NAME_INFO,DBOpenHelper.COLUMNS_INFO,null,null,null,null,null);
-        Cursor c=mDB.rawQuery(query,null);
+        //leggo la tabella myInfo
+        Cursor c = mDB.query(DBOpenHelper.TABLE_NAME_INFO,DBOpenHelper.COLUMNS_INFO,null,null,null,null,null);
         final int rows = c.getCount();
         if(rows > 0) {
-            c.moveToFirst();
-            String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
-            openDialogReview(namePlace);
-        }*/
+            while (c.moveToNext()) {
+                String idPlace=c.getString(c.getColumnIndexOrThrow(DBOpenHelper._ID));
+                String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
+                String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/mm/dd");//imposto il formato della data
+                Date date = null;
+                try {
+                    date = simpleDateFormat.parse(dateInfo);//faccio il cast della stringa dateInfo in formato Date
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
+                Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
+                calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
+                curDate.getTime();//prendo la data odierna
+                if (curDate.after(calendar)) { //se la data odierna è successiva alla data di prenotazione/ordinazione
+                    openDialogReview(idPlace,namePlace,mDB,mDBHelper);//apre il dialog per la recensione
+                }
+            }
+        }
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -186,8 +200,8 @@ public class HomepageActivity extends AppCompatActivity {
         }//end if
     }//end onStart
 
-    private void openDialogReview(String namePlace){
-        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(namePlace);
+    private void openDialogReview(String idPlace,String namePlace,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
+        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(idPlace,namePlace,mDB,mDBHelper);
         dialogEnterPlaceReview.show(getSupportFragmentManager(),"Enter review");
     }
 

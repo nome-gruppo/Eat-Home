@@ -31,10 +31,10 @@ public class BookingInfoAdapter extends ArrayAdapter<Booking> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listitem_booking_info, null);
-        TextView title = (TextView)convertView.findViewById(R.id.txtNameBookingInfo);
-        TextView address=(TextView)convertView.findViewById(R.id.txtAddressBookingInfo);
-        TextView date=(TextView)convertView.findViewById(R.id.txtDateBookingInfo);
-        TextView number=(TextView)convertView.findViewById(R.id.txtNumberPersonBookingInfo);
+        TextView title = convertView.findViewById(R.id.txtNameBookingInfo);
+        TextView address=convertView.findViewById(R.id.txtAddressBookingInfo);
+        TextView date=convertView.findViewById(R.id.txtDateBookingInfo);
+        TextView number=convertView.findViewById(R.id.txtNumberPersonBookingInfo);
         final Booking booking = getItem(position);
         title.setText(booking.placeBooking.namePlace);
         address.setText(booking.placeBooking.cityPlace+" "+booking.placeBooking.addressPlace+" "+booking.placeBooking.addressNumPlace);

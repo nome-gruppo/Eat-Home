@@ -14,6 +14,7 @@ public class OpeningTime {
     private TimePickerDialog picker;
     private static final String SPLIT=":";
     private static final int LENGTH=5;
+    private static final String DASH="-";
 
     public OpeningTime(){
 
@@ -98,19 +99,21 @@ public class OpeningTime {
     }
 
     public Time getTimeOpening(String openingTime){
-        return Time.valueOf(openingTime.substring(0,5)+":"+00);
+        String[] result=openingTime.split(DASH);
+        return Time.valueOf(result[0]+SPLIT+00);
     }
 
     public Time getTimeClosed(String openingTime){
-        return Time.valueOf(openingTime.substring(6)+":"+00);
+        String[] result=openingTime.split(DASH);
+        return Time.valueOf(result[1]+SPLIT+00);
     }
 
     public String getOpening(String openingTime){
-        String[]result=openingTime.split("-");
+        String[]result=openingTime.split(DASH);
         return result[0];
     }
     public String getClosed(String openingTime){
-        String[]result=openingTime.split("-");
+        String[]result=openingTime.split(DASH);
         return result[1];
     }
 
