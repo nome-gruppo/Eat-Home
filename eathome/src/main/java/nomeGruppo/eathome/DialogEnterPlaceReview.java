@@ -31,9 +31,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         this.ratingBar = view.findViewById(R.id.ratingBar);
         this.txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
 
-        builder.setTitle(getActivity().getResources().getString(R.string.enterReview));
-
-        builder.setNegativeButton(getActivity().getResources().getString(R.string.notNow), new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle(getActivity().getResources().getString(R.string.enterReview)).setNegativeButton(getActivity().getResources().getString(R.string.notNow), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 

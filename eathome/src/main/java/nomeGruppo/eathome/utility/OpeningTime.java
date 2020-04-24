@@ -2,17 +2,12 @@ package nomeGruppo.eathome.utility;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.os.Build;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-
-import androidx.annotation.RequiresApi;
-
-import com.google.android.libraries.places.api.model.LocalTime;
-
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.logging.LoggingPermission;
 
 
 public class OpeningTime {
@@ -101,6 +96,13 @@ public class OpeningTime {
 
     public Time getTimeClosed(String openingTime){
         return Time.valueOf(openingTime.substring(6)+":"+00);
+    }
+
+    public String getOpening(String openingTime){
+        return openingTime.substring(0,5);
+    }
+    public String getClosed(String openingTime){
+        return openingTime.substring(6);
     }
 
 }

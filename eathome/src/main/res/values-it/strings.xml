@@ -78,4 +78,5 @@
     <string name="notNow">Non ora</string>
     <string name="send">Invia</string>
     <string name="enterReview">Inserisci una recensione</string>
+    <string name="choose_number_person">Seleziona numero di persone</string>
 </resources>

@@ -21,6 +21,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String DATE_TIME="date";
     public static final String[] COLUMNS = {_ID, CITY, ADDRESS, NUM_ADDRESS};
     public static final String[] COLUMNS_INFO={_ID,NAME_PLACE,DATE_TIME};
+    public static final String DATEDIFF="DATEDIFF(hour,"+DATE_TIME+",now())";
 
     private static final String CREATE_CMD = "CREATE TABLE " + TABLE_NAME + "("
             + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -29,7 +30,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             + NUM_ADDRESS + " VARCHAR(10) NOT NULL)";
 
     private static final String CREATE_INFO="CREATE TABLE " + TABLE_NAME_INFO + "("
-            + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + _ID + " VARCHAR(20) PRIMARY KEY , "
             + NAME_PLACE + " VARCHAR(50) NOT NULL,"
             + DATE_TIME + " SMALLDATETIME NOT NULL)";
 
@@ -65,9 +66,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME,null,values);
     }
 
-    public void addInfo(SQLiteDatabase db, String place, String date){
+    public void addInfo(SQLiteDatabase db, String idPlace, String place, String date){
         ContentValues values=new ContentValues();
 
+        values.put(_ID,idPlace);
         values.put(NAME_PLACE, place);
         values.put(DATE_TIME, date);
         db.insert(TABLE_NAME_INFO,null,values);

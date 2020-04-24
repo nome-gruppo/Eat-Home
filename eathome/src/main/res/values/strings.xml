@@ -6,7 +6,6 @@
     <string name="nav_header_title">Eat@Home</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-
     <string name="menu_login" translatable="false">Login</string>
     <string name="menu_logout" translatable="false">Logout</string>
     <string name="menu_home" translatable="false">Home</string>
@@ -88,5 +87,6 @@
     <string name="notNow">Not now</string>
     <string name="send">Send</string>
     <string name="enterReview">Enter a review</string>
+    <string name="choose_number_person">Select number of people</string>
 
 </resources>

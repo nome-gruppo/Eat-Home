@@ -159,7 +159,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/choose_time"
+            android:hint="@string/choose_time"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="409dp" />
 
