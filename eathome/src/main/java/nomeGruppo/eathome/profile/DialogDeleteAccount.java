@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -26,13 +27,14 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
     private String userId;
     private FirebaseUser mUser;
+    private boolean deleted;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
+         final LayoutInflater inflater = getActivity().getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
 
         final FirebaseConnection connection = new FirebaseConnection();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -58,6 +60,8 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
                 connection.reauthenticateUser(mUser, email, password);
 
+                deleted = true;
+
                 if (connection.getOperationSuccess()) {
                     mAuth.signOut();
                     Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
@@ -77,8 +81,9 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     public void onStop() {
         super.onStop();
 
-        FirebaseConnection connection = new FirebaseConnection();
-        connection.deleteAccount(mUser, userId);
-
+        if(deleted) {
+            FirebaseConnection connection = new FirebaseConnection();
+            connection.deleteAccount(mUser, userId);
+        }
     }
 }
