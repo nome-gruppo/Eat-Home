@@ -21,7 +21,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String DATE_TIME="date";
     public static final String[] COLUMNS = {_ID, CITY, ADDRESS, NUM_ADDRESS};
     public static final String[] COLUMNS_INFO={_ID,NAME_PLACE,DATE_TIME};
-    public static final String DATEDIFF="DATEDIFF(hour,"+DATE_TIME+",now())";
 
     private static final String CREATE_CMD = "CREATE TABLE " + TABLE_NAME + "("
             + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -30,9 +29,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             + NUM_ADDRESS + " VARCHAR(10) NOT NULL)";
 
     private static final String CREATE_INFO="CREATE TABLE " + TABLE_NAME_INFO + "("
-            + _ID + " VARCHAR(20) PRIMARY KEY , "
-            + NAME_PLACE + " VARCHAR(50) NOT NULL,"
-            + DATE_TIME + " SMALLDATETIME NOT NULL)";
+            + _ID + " VARCHAR(20) PRIMARY KEY, "
+            + NAME_PLACE + " VARCHAR(50),"
+            + DATE_TIME + " DATE)";
 
 //    public final static String[]columns_credenziali={USER_NAME,PASSWORD};
 //    final static String CREATE_CREDENZIALI="CREATE TABLE "+TABLE_NAME+"("+USER_NAME+" VARCHAR(10)PRIMARY KEY,"+PASSWORD+" VARCHAR(15)NOT NULL)";
@@ -73,5 +72,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         values.put(NAME_PLACE, place);
         values.put(DATE_TIME, date);
         db.insert(TABLE_NAME_INFO,null,values);
+    }
+
+    public void deleteInfo(SQLiteDatabase db,String id){
+        String sql = "DELETE FROM "+TABLE_NAME_INFO+" WHERE "+_ID +"= '"+id+"';";
+        db.execSQL(sql);
     }
 }

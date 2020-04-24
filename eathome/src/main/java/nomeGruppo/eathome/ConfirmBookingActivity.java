@@ -26,6 +26,7 @@ import com.google.android.libraries.places.api.model.LocalTime;
 
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
@@ -148,10 +149,11 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         Calendar dateBooking=Calendar.getInstance();
         dateBooking.set(year,month++,dayOfMonth);//moth++ perchè i mesi partono da 0 e non da 1
 
-        //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorn della settimana
+        //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorno della settimana
         String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK)-1);
         if(place.openingTime.get(dayOfWeek).length()>8){
-            txtDateBooking.setText(year+"/"+(month++)+"/"+dayOfMonth);//setto la data in base alla scelta dell'utente.
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd");
+            txtDateBooking.setText(simpleDateFormat.format(dateBooking.getTime()));//setto la data in base alla scelta dell'utente.
             openDialogChooseHour(dayOfWeek);//una volta selezionata la data apro il dialog per scegliere l'ora
         }else{
             Toast.makeText(ConfirmBookingActivity.this,"Il locale è chiuso nella data selezionata",Toast.LENGTH_SHORT).show();
@@ -210,7 +212,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     }
 
     private boolean addBookingFirebase(){
-        //assegno all'oogetto booking i valori
+        //assegno all'oggetto booking i valori
         booking.setDateBooking(txtDateBooking.getText().toString());
         booking.setTimeBooking(txtHourBooking.getText().toString());
         booking.setIdClientBooking(getIntent().getStringExtra("UserID"));
@@ -221,7 +223,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.writeObject(FirebaseConnection.BOOKING_TABLE,booking);//inserisco booking all'interno del Db
 
-        mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,booking.dateBooking+" "+booking.timeBooking+":"+"00");
+        mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,booking.dateBooking);//inserisco l'informazione della prenotazione del db interno
         return true;
     }
 

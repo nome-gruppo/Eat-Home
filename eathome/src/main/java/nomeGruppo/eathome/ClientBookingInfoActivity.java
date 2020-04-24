@@ -40,6 +40,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         listBooking.clear();
         firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild("idClientBooking").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
