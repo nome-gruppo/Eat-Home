@@ -21,7 +21,7 @@ import nomeGruppo.eathome.HomepageActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-public class DialogDeleteAccount extends DialogFragment {
+public class DialogDeleteAccount extends AppCompatDialogFragment {
 
 
     private String userId;
@@ -30,42 +30,45 @@ public class DialogDeleteAccount extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
 
         final FirebaseConnection connection = new FirebaseConnection();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.layout_dialog_delete_account, null);
-
-        final EditText emailEt = view.findViewById(R.id.dialog_delete_account_et_email);
-        final EditText passwordEt = view.findViewById(R.id.dialog_delete_account_et_password);
-
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         userId = mUser.getUid();
 
+        builder.setView(inflater.inflate(R.layout.layout_dialog_delete_account, null));
 
-        builder.setView(inflater.inflate(R.layout.layout_dialog_delete_account, null))
-                .setPositiveButton("Sì", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        final EditText emailEt = (EditText) dialogView.findViewById(R.id.dialog_delete_account_et_email);
+        final EditText passwordEt = (EditText) dialogView.findViewById(R.id.dialog_delete_account_et_password);
 
-                        final String email = emailEt.getText().toString().trim();
-                        final String password = passwordEt.getText().toString();
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
-                        connection.reauthenticateUser(mUser, email, password);
+            }
+        }).setPositiveButton("Sì", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
-                        if(connection.getOperationSuccess()){
-                            mAuth.signOut();
-                            Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
-                            homeIntent.putExtra(FirebaseConnection.LOGIN_FLAG, false);
-                            startActivity(homeIntent);
-                            getActivity().finish();
-                        }
+                final String email = emailEt.getText().toString().trim();
+                final String password = passwordEt.getText().toString();
 
-                    }
-                });
+                connection.reauthenticateUser(mUser, email, password);
+
+                if (connection.getOperationSuccess()) {
+                    mAuth.signOut();
+                    Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
+                    homeIntent.putExtra(FirebaseConnection.LOGIN_FLAG, false);
+                    startActivity(homeIntent);
+                    getActivity().finish();
+                }
+
+            }
+        });
+
 
         return builder.create();
     }

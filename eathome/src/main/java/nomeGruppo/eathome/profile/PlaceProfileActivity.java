@@ -89,6 +89,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
         nameBtn = findViewById(R.id.activity_place_profile_imBtn_name);
         emailBtn = findViewById(R.id.activity_place_profile_imBtn_email);
         passwordBtn = findViewById(R.id.activity_place_profile_imBtn_password);
+        addressBtn = findViewById(R.id.activity_place_profile_imBtn_address);
         cityBtn = findViewById(R.id.activity_place_profile_imBtn_city);
         phoneBtn = findViewById(R.id.activity_place_profile_imBtn_phone);
 
