@@ -84,7 +84,19 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(txtValuesRatingBar.getText().toString().trim().length()!=0){ //se è stata data una valutazione
-                    sendReview();
+                    sendReview();//inserisco la recensione in Firebase
+                    updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
+
+                    /*
+                    TODO attiva questa funzione
+                    |
+                    |
+                    |
+                    |
+                    |
+                    V
+                    mDBHelper.deleteInfo(mDB,idPlace);
+                    */
                 }
             }
         });
@@ -94,20 +106,19 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
     private void sendReview(){
         Feedback feedback=new Feedback();
-        feedback.setTextFeedback(editFeedback.getText().toString());
-        feedback.setVoteFeedback(Float.parseFloat(txtValuesRatingBar.getText().toString()));
+        feedback.setTextFeedback(editFeedback.getText().toString());//assegno il testo della recensione
+        feedback.setVoteFeedback(Float.parseFloat(txtValuesRatingBar.getText().toString()));//assegno la valutazione numerica del cliente
         feedback.setIdPlaceFeedback(idPlace);
         feedback.setIdClientFeedback(idClient);
         feedback.setClientNameFeedback(nameClient);
-        DateFormat formatData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-        String dateFeedback = formatData.format(date.getTime());
+        DateFormat formatData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);//creo il formato data 'gg/mm'yyyy'
+        String dateFeedback = formatData.format(date.getTime());//setto la data nel formato corretto
         feedback.setDateFeedback(dateFeedback);
+        //prelevo la chiave assegnata in automatico da Firebase
         String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).push().getKey();
         feedback.setIdFeedback(idFeedback);
 
-        firebaseConnection.writeObject(FirebaseConnection.FEEDBACK_TABLE,feedback);
-
-        updateValuationPlace();
+        firebaseConnection.writeObject(FirebaseConnection.FEEDBACK_TABLE,feedback);//inserisco Feedback all'interno di Firebase
     }
 
     private void updateValuationPlace(){
