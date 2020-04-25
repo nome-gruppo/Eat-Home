@@ -176,7 +176,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
             @Override
             public void onClick(View view) {
                 if(user != null) {
-                    Intent bookingActivity=new Intent(PlaceInfoActivity.this,ConfirmBookingActivity.class);
+                    Intent bookingActivity = new Intent(PlaceInfoActivity.this,ConfirmBookingActivity.class);
                     bookingActivity.putExtra(FirebaseConnection.PLACE,place);
                     bookingActivity.putExtra("UserID",user.getUid());
                     startActivity(bookingActivity);
