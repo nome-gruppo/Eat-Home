@@ -43,7 +43,6 @@ public class FirebaseConnection{
     public static final String CLIENT_TABLE = "Clients";
     public static final String ORDER_TABLE = "Orders";
     public static final String FOOD_TABLE="Foods";
-    public static final String FEEDBACK_TABLE = "Tables";
     public static final String BOOKING_TABLE="Bookings";
     public static final String FEEDBACK_TABLE="Feedbacks";
     public static final String LOGIN_FLAG = "Login from another activity"; //flag per controllare se l'activity login è stata chiamata da un'altra activity
@@ -324,5 +323,6 @@ public class FirebaseConnection{
                 }
             });
         }
+
     }
 }
