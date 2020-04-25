@@ -89,5 +89,6 @@
     <string name="enterReview">Enter a review</string>
     <string name="choose_number_person">Select number of people</string>
     <string name="assign_rating">Assign a rating</string>
+    <string name="enter_feedback">Enter feedback</string>
 
 </resources>

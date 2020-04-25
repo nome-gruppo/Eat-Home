@@ -24,4 +24,28 @@ public class Feedback {
         this.idClientFeedback = idClientFeedback;
         this.idPlaceFeedback = idPlaceFeedback;
     }
+
+    public void setIdFeedback(String idFeedback) {
+        this.idFeedback = idFeedback;
+    }
+
+    public void setVoteFeedback(int voteFeedback) {
+        this.voteFeedback = voteFeedback;
+    }
+
+    public void setTextFeedback(String textFeedback) {
+        this.textFeedback = textFeedback;
+    }
+
+    public void setDateFeedback(String dateFeedback) {
+        this.dateFeedback = dateFeedback;
+    }
+
+    public void setIdClientFeedback(String idClientFeedback) {
+        this.idClientFeedback = idClientFeedback;
+    }
+
+    public void setIdPlaceFeedback(String idPlaceFeedback) {
+        this.idPlaceFeedback = idPlaceFeedback;
+    }
 }
