@@ -86,8 +86,8 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
                 if(txtValuesRatingBar.getText().toString().trim().length()!=0){ //se è stata data una valutazione
                     sendReview();//inserisco la recensione in Firebase
                     updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
-                }
-                /*
+
+                    /*
                     TODO attiva questa funzione
                     |
                     |
@@ -95,10 +95,9 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
                     |
                     |
                     V
-
+                    mDBHelper.deleteInfo(mDB,idPlace);
                     */
-
-                //mDBHelper.deleteInfo(mDB,idPlace);
+                }
             }
         });
 
@@ -124,12 +123,31 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
     private void updateValuationPlace(){
 
-        /*
-        Place place=firebaseConnection.readPlace(idPlace);
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    //ritorna un iterable con un solo elemento
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        Place place = snapshot.getValue(Place.class);
+                        place.newValuation(ratingBar.getRating());
 
-        place.newValuation(Integer.parseInt(txtValuesRatingBar.getText().toString()));
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("valuation").setValue(place.valuation);
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("numberReview").setValue(place.numberReview);
-        */
+                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);
+
+//                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("valuation").setValue(place.valuation);
+//                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("numberReview").setValue(place.numberReview);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
     }
 }

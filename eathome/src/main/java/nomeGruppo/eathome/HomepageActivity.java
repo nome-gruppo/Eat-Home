@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -171,7 +172,7 @@ public class HomepageActivity extends AppCompatActivity {
                 String idPlace=c.getString(c.getColumnIndexOrThrow(DBOpenHelper._ID));
                 String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
                 String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/mm/dd");//imposto il formato della data
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/mm/dd");//imposto il formato della data TODO deve essere MM
                 Date date = null;
                 try {
                     date = simpleDateFormat.parse(dateInfo);//faccio il cast della stringa dateInfo in formato Date
@@ -354,21 +355,21 @@ public class HomepageActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-//                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-//                List<Address> list = null;
-//
-//                try {
-//                    list = geocoder.getFromLocationName(addressesBar.getText().toString(),1);
-//
-//                    userCity = list.get(0).getLocality();
-//
-//                    search(userCity);
-//                } catch (IOException e) {
-//
-//                    Toast.makeText(getApplicationContext(), "Località non trovata", Toast.LENGTH_LONG).show();
-//                    e.printStackTrace();
-//
-//                }
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                List<Address> list = null;
+
+                try {
+                    list = geocoder.getFromLocationName(addressesBar.getText().toString(),1);
+
+                    userCity = list.get(0).getLocality();
+
+                    search(userCity);
+                } catch (IOException e) {
+
+                    Toast.makeText(getApplicationContext(), "Località non trovata", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+
+                }
 
 
             }
