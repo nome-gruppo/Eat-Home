@@ -171,7 +171,7 @@ public class HomepageActivity extends AppCompatActivity {
                 String idPlace=c.getString(c.getColumnIndexOrThrow(DBOpenHelper._ID));
                 String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
                 String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/mm/dd");//imposto il formato della data
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");//imposto il formato della data
                 Date date = null;
                 try {
                     date = simpleDateFormat.parse(dateInfo);//faccio il cast della stringa dateInfo in formato Date
@@ -183,7 +183,7 @@ public class HomepageActivity extends AppCompatActivity {
                 calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
                 curDate.getTime();//prendo la data odierna
                 if (curDate.after(calendar)) { //se la data odierna è successiva alla data di prenotazione/ordinazione
-                    openDialogReview(idPlace,namePlace,client.idClient,curDate,mDB,mDBHelper);//apre il dialog per la recensione
+                    openDialogReview(idPlace,namePlace,client.idClient,client.nameClient,curDate,mDB,mDBHelper);//apre il dialog per la recensione
                 }
             }
         }
@@ -200,8 +200,8 @@ public class HomepageActivity extends AppCompatActivity {
         }//end if
     }//end onStart
 
-    private void openDialogReview(String idPlace,String namePlace,String idClient,Calendar curDate,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
-        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(idPlace,namePlace,idClient,curDate,mDB,mDBHelper);
+    private void openDialogReview(String idPlace,String namePlace,String idClient,String nameClient,Calendar curDate,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
+        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(idPlace,namePlace,idClient,nameClient,curDate,mDB,mDBHelper);
         dialogEnterPlaceReview.show(getSupportFragmentManager(),"Enter review");
     }
 

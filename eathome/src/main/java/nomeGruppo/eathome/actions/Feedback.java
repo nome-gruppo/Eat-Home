@@ -11,6 +11,7 @@ public class Feedback {
     public String dateFeedback;
     public String idClientFeedback;
     public String idPlaceFeedback;
+    public String clientNameFeedback;
 
 
     public Feedback() {
@@ -47,5 +48,9 @@ public class Feedback {
 
     public void setIdPlaceFeedback(String idPlaceFeedback) {
         this.idPlaceFeedback = idPlaceFeedback;
+    }
+
+    public void setClientNameFeedback(String clientNameFeedback) {
+        this.clientNameFeedback = clientNameFeedback;
     }
 }

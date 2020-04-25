@@ -34,7 +34,7 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private RatingBar ratingBar;
-    private String idPlace,namePlace,idClient;
+    private String idPlace,namePlace,idClient,nameClient;
     private TextView txtNamePlaceReview,txtValuesRatingBar;
     private SQLiteDatabase mDB;
     private DBOpenHelper mDBHelper;
@@ -43,10 +43,11 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private FirebaseConnection firebaseConnection;
 
 
-    public DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, Calendar date, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
+    public DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient,Calendar date, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
         this.idPlace=idPlace;
         this.namePlace=namePlace;
         this.idClient=idClient;
+        this.nameClient=nameClient;
         this.mDB=mDB;
         this.mDBHelper=mDBHelper;
         this.date=date;
@@ -97,6 +98,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         feedback.setVoteFeedback(Float.parseFloat(txtValuesRatingBar.getText().toString()));
         feedback.setIdPlaceFeedback(idPlace);
         feedback.setIdClientFeedback(idClient);
+        feedback.setClientNameFeedback(nameClient);
         DateFormat formatData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
         String dateFeedback = formatData.format(date.getTime());
         feedback.setDateFeedback(dateFeedback);
