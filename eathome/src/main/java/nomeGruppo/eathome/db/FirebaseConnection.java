@@ -325,4 +325,32 @@ public class FirebaseConnection{
         }
 
     }
+
+    public static class DeleteFeedbacks implements Runnable{
+
+        private String uID;
+
+        public DeleteFeedbacks (String uID){
+            this.uID = uID;
+        }
+        @Override
+        public void run() {
+            mDatabase.child(FEEDBACK_TABLE).orderByChild("idPlaceBooking").equalTo(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        //elimina ogni campo restituito
+                        for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                            snapshot.getRef().removeValue();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
 }
