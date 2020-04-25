@@ -79,18 +79,8 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
                 if(ratingBar.getRating() == 0.0){ //se è stata data una valutazione TODO controlla se funzione uguaglianza
                     sendReview();//inserisco la recensione in Firebase
                     updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
-
-                    /*
-                    TODO attiva questa funzione
-                    |
-                    |
-                    |
-                    |
-                    |
-                    V
-                    mDBHelper.deleteInfo(mDB,idPlace);
-                    */
                 }
+                mDBHelper.deleteInfo(mDB,idPlace);
             }
         });
 
@@ -127,8 +117,6 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
                         firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);
 
-//                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("valuation").setValue(place.valuation);
-//                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("numberReview").setValue(place.numberReview);
                     }
                 }
             }
