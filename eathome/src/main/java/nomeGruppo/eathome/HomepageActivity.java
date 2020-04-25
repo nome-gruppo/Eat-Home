@@ -183,7 +183,7 @@ public class HomepageActivity extends AppCompatActivity {
                 calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
                 curDate.getTime();//prendo la data odierna
                 if (curDate.after(calendar)) { //se la data odierna è successiva alla data di prenotazione/ordinazione
-                    openDialogReview(idPlace,namePlace,mDB,mDBHelper);//apre il dialog per la recensione
+                    openDialogReview(idPlace,namePlace,client.idClient,client.nameClient,curDate,mDB,mDBHelper);//apre il dialog per la recensione
                 }
             }
         }
@@ -200,8 +200,8 @@ public class HomepageActivity extends AppCompatActivity {
         }//end if
     }//end onStart
 
-    private void openDialogReview(String idPlace,String namePlace,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
-        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(idPlace,namePlace,mDB,mDBHelper);
+    private void openDialogReview(String idPlace,String namePlace,String idClient,String nameClient,Calendar curDate,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
+        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(idPlace,namePlace,idClient,nameClient,curDate,mDB,mDBHelper);
         dialogEnterPlaceReview.show(getSupportFragmentManager(),"Enter review");
     }
 

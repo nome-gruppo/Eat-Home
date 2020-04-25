@@ -80,5 +80,6 @@
     <string name="enterReview">Inserisci una recensione</string>
     <string name="choose_number_person">Seleziona numero di persone</string>
     <string name="assign_rating">Assegna prima una valutazione</string>
+    <string name="enter_feedback">Scrivi qui recensione</string>
 
 </resources>
