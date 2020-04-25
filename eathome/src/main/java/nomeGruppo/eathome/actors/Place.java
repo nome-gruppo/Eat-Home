@@ -87,7 +87,7 @@ public class Place implements Serializable{
         this.openingTime = openingTime;
     }
 
-    public void newValuation(int vote){
+    public void newValuation(float vote){
 
         this.valuation = ((this.numberReview * this.valuation) + vote) / (this.numberReview + 1);
 

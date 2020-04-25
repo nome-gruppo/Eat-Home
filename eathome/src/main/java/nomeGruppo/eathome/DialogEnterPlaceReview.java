@@ -122,13 +122,21 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     }
 
     private void updateValuationPlace(){
-        final Place[] place = {new Place()};
 
         firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    place[0] = dataSnapshot.getValue(Place.class);
+                    //ritorna un iterable con un solo elemento
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        Place place = snapshot.getValue(Place.class);
+                        place.newValuation(ratingBar.getRating());
+
+                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);
+
+//                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("valuation").setValue(place.valuation);
+//                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place.idPlace).child("numberReview").setValue(place.numberReview);
+                    }
                 }
             }
 
@@ -138,9 +146,8 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
             }
         });
 
-        place[0].newValuation(Integer.parseInt(txtValuesRatingBar.getText().toString()));
 
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place[0].idPlace).child("valuation").setValue(place[0].valuation);
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place[0].idPlace).child("numberReview").setValue(place[0].numberReview);
+
+
     }
 }
