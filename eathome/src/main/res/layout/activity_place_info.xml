@@ -12,13 +12,11 @@
         android:layout_width="200dp"
         android:layout_height="80dp"
         android:layout_marginTop="38dp"
-        android:layout_marginBottom="39dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ratingBarPlaceInfo"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtOpeningTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtNamePlaceInfo"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_menu_gallery" />
 
     <TextView
@@ -36,18 +34,17 @@
         android:id="@+id/txtCityPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="7dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginStart="34dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/ratingBarPlaceInfo"
-        app:layout_constraintEnd_toStartOf="@+id/ratingBarPlaceInfo" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtOpeningTime"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtAddressPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="160dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginEnd="11dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -101,11 +98,10 @@
 
     <ListView
         android:id="@+id/listViewFoodInfo"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="316dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -132,18 +128,11 @@
         android:id="@+id/txtOpeningTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="26dp"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/ratingBarPlaceInfo"
-        app:layout_constraintStart_toStartOf="@+id/txtNamePlaceInfo"
-        app:layout_constraintTop_toTopOf="@+id/ratingBarPlaceInfo" />
-
-    <RatingBar
-        android:id="@+id/ratingBarPlaceInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="13dp"
         app:layout_constraintBottom_toTopOf="@+id/txtDeliveryPlaceInfo"
-        app:layout_constraintEnd_toStartOf="@+id/txtAddressPlaceInfo" />
+        app:layout_constraintStart_toStartOf="@+id/imgPlaceInfo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
