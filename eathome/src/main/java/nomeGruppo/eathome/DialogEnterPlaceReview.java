@@ -40,6 +40,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private DBOpenHelper mDBHelper;
     private EditText editFeedback;
     private Calendar date;
+    private FirebaseConnection firebaseConnection;
 
 
     public DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, Calendar date, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
@@ -49,6 +50,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         this.mDB=mDB;
         this.mDBHelper=mDBHelper;
         this.date=date;
+        this.firebaseConnection=new FirebaseConnection();
     }
 
     @Override
@@ -62,6 +64,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         this.txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
         this.txtValuesRatingBar=view.findViewById(R.id.txtValuesRatingBar);
         this.editFeedback=view.findViewById(R.id.editTextFeedback);
+
         this.txtNamePlaceReview.setText(namePlace);
 
 
@@ -75,17 +78,12 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mDBHelper.deleteInfo(mDB,idPlace);//cancello la riga corrispondente all'interno del db
-                builder.setView(view).setCancelable(true);
             }
         }).setPositiveButton(getActivity().getResources().getString(R.string.send), new DialogInterface.OnClickListener() { //se il cliente clicca su 'invia'
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(txtValuesRatingBar.getText().toString().trim().length()==0){ //se non è stata data alcuna valutazione
-                    Toast.makeText(getContext(),getActivity().getResources().getString(R.string.assign_rating),Toast.LENGTH_SHORT).show();//stampo il Toast di avviso
-                    builder.setView(view).setCancelable(false);
-                }else {
+                if(txtValuesRatingBar.getText().toString().trim().length()!=0){ //se è stata data una valutazione
                     sendReview();
-                    builder.setView(view).setCancelable(true);
                 }
             }
         });
@@ -94,23 +92,26 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     }
 
     private void sendReview(){
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
         Feedback feedback=new Feedback();
         feedback.setTextFeedback(editFeedback.getText().toString());
-        feedback.setVoteFeedback(Integer.parseInt(txtValuesRatingBar.getText().toString()));
+        feedback.setVoteFeedback(Float.parseFloat(txtValuesRatingBar.getText().toString()));
         feedback.setIdPlaceFeedback(idPlace);
         feedback.setIdClientFeedback(idClient);
-        DateFormat formatoData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-        String dateFeedback = formatoData.format(date.getTime());
+        DateFormat formatData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+        String dateFeedback = formatData.format(date.getTime());
         feedback.setDateFeedback(dateFeedback);
         String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).push().getKey();
         feedback.setIdFeedback(idFeedback);
 
         firebaseConnection.writeObject(FirebaseConnection.FEEDBACK_TABLE,feedback);
 
+        updateValuationPlace();
+    }
+
+    private void updateValuationPlace(){
         final Place[] place = {new Place()};
 
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
@@ -124,5 +125,9 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
             }
         });
 
+        place[0].newValuation(Integer.parseInt(txtValuesRatingBar.getText().toString()));
+
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place[0].idPlace).child("valuation").setValue(place[0].valuation);
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(place[0].idPlace).child("numberReview").setValue(place[0].numberReview);
     }
 }

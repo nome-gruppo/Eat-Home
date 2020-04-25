@@ -6,7 +6,7 @@ import java.util.Date;
 public class Feedback {
 
     public String idFeedback;
-    public int voteFeedback;
+    public float voteFeedback;
     public String textFeedback;
     public String dateFeedback;
     public String idClientFeedback;
@@ -16,7 +16,7 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(String idFeedback, int voteFeedback, String textFeedback, String dateFeedback, String idClientFeedback, String idPlaceFeedback) {
+    public Feedback(String idFeedback, float voteFeedback, String textFeedback, String dateFeedback, String idClientFeedback, String idPlaceFeedback) {
         this.idFeedback = idFeedback;
         this.voteFeedback = voteFeedback;
         this.textFeedback = textFeedback;
@@ -29,7 +29,7 @@ public class Feedback {
         this.idFeedback = idFeedback;
     }
 
-    public void setVoteFeedback(int voteFeedback) {
+    public void setVoteFeedback(float voteFeedback) {
         this.voteFeedback = voteFeedback;
     }
 
