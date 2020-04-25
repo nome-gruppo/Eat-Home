@@ -35,7 +35,7 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private RatingBar ratingBar;
     private String idPlace,namePlace,idClient,nameClient;
-    private TextView txtNamePlaceReview,txtValuesRatingBar;
+    private TextView txtNamePlaceReview;
     private SQLiteDatabase mDB;
     private DBOpenHelper mDBHelper;
     private EditText editFeedback;
@@ -63,17 +63,10 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
         this.ratingBar = view.findViewById(R.id.ratingBar);
         this.txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
-        this.txtValuesRatingBar=view.findViewById(R.id.txtValuesRatingBar);
         this.editFeedback=view.findViewById(R.id.editTextFeedback);
 
         this.txtNamePlaceReview.setText(namePlace);
 
-
-        this.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                txtValuesRatingBar.setText(String.valueOf(rating));//assegno alla TextView il valore della RatingBar
-            }
-        });
 
         builder.setView(view).setTitle(getActivity().getResources().getString(R.string.enterReview)).setNegativeButton(getActivity().getResources().getString(R.string.notNow), new DialogInterface.OnClickListener() {//se il cliente clicca 'non ora'
             @Override
@@ -83,7 +76,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         }).setPositiveButton(getActivity().getResources().getString(R.string.send), new DialogInterface.OnClickListener() { //se il cliente clicca su 'invia'
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(txtValuesRatingBar.getText().toString().trim().length()!=0){ //se è stata data una valutazione
+                if(ratingBar.getRating() == 0.0){ //se è stata data una valutazione TODO controlla se funzione uguaglianza
                     sendReview();//inserisco la recensione in Firebase
                     updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
                 }
@@ -97,7 +90,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private void sendReview(){
         Feedback feedback=new Feedback();
         feedback.setTextFeedback(editFeedback.getText().toString());//assegno il testo della recensione
-        feedback.setVoteFeedback(Float.parseFloat(txtValuesRatingBar.getText().toString()));//assegno la valutazione numerica del cliente
+        feedback.setVoteFeedback(ratingBar.getRating());//assegno la valutazione numerica del cliente
         feedback.setIdPlaceFeedback(idPlace);
         feedback.setIdClientFeedback(idClient);
         feedback.setClientNameFeedback(nameClient);

@@ -39,15 +39,5 @@
         app:layout_constraintEnd_toEndOf="@+id/ratingBar"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
-    <TextView
-        android:id="@+id/txtValuesRatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:text=""
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/txtNamePlaceReview"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFeedback" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
