@@ -18,6 +18,7 @@ public class Place implements Serializable{
     public String namePlace;
     public String phonePlace;
     public float valuation;
+    public int numberReview;
     public boolean takesBookingPlace;
     public boolean takesOrderPlace;
     public HashMap<String,String>openingTime;
@@ -34,8 +35,8 @@ public class Place implements Serializable{
         this.deliveryCost = deliveryCost;
         this.namePlace = namePlace;
         this.phonePlace = phonePlace;
-        this.takesBookingPlace = false;
-        this.takesOrderPlace = false;
+        this.valuation = 0;
+        this.numberReview = 0;
     }
 
     public void setCategories(String categories) {
@@ -86,7 +87,10 @@ public class Place implements Serializable{
         this.openingTime = openingTime;
     }
 
-    public void setValuation(float valuation) {
-        this.valuation = valuation;
+    public void newValuation(int vote){
+
+        this.valuation = ((this.numberReview * this.valuation) + vote) / (this.numberReview + 1);
+
+        this.numberReview++;
     }
 }
