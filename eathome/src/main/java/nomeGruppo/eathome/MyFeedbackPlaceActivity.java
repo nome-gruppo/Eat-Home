@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -21,6 +23,9 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 public class MyFeedbackPlaceActivity extends AppCompatActivity {
 
     private Place mPlace;
+
+    private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,7 @@ public class MyFeedbackPlaceActivity extends AppCompatActivity {
         final RatingBar ratingBar = findViewById(R.id.feedback_ratingBar);
         final TextView averageTW = findViewById(R.id.feedback_tw_average);
         final TextView numFeedbackTW = findViewById(R.id.feedback_tw_numReview);
-        final ListView listView = findViewById(R.id.feedback_listview);
+        listView = findViewById(R.id.feedback_listview);
 
         mPlace = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
@@ -49,8 +54,6 @@ public class MyFeedbackPlaceActivity extends AppCompatActivity {
                 loadFeedback();
             }
 
-
-
         }
 
     }
@@ -60,16 +63,20 @@ public class MyFeedbackPlaceActivity extends AppCompatActivity {
         final FirebaseConnection connection = new FirebaseConnection();
         final DatabaseReference mDB = connection.getmDatabase();
 
+        final ArrayList<Feedback> feedbackList = new ArrayList<>();
+        final FeedbackAdapter mAdapter = new FeedbackAdapter(this, R.layout.listitem_feedback, feedbackList);
+
         mDB.child(FirebaseConnection.FEEDBACK_TABLE).orderByChild("idPlaceFeedback").equalTo(mPlace.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
 
-                        Feedback mFeedback = snapshot.getValue(Feedback.class);
-
+                        feedbackList.add(snapshot.getValue(Feedback.class));
 
                     }
+
+                    listView.setAdapter(mAdapter);
                 }
             }
 
