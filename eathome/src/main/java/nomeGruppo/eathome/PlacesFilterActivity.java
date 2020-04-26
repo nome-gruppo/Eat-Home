@@ -32,8 +32,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private RadioButton deliveryRB;
     private RadioButton bookingRB;
+    private RadioButton allRB;
 
-    private RadioButton valuationOrderRB;
+    private RadioButton orderByValuationRB;
 
     private Switch freeDeliverySwitch;
 
@@ -42,7 +43,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private boolean categoryChanged = false;
     private boolean typeChanged = false;
-    private boolean freeDeliverySetted = false;
+    private boolean freeDeliverySet = false;
     private boolean valuationChanged = false;
     private boolean orderChanged = false;
 
@@ -70,8 +71,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         deliveryRB = findViewById(R.id.activity_places_filter_rb_delivery);
         bookingRB = findViewById(R.id.activity_places_filter_rb_booking);
+        allRB = findViewById(R.id.activity_places_filter_rb_all);
 
-        valuationOrderRB = findViewById(R.id.activity_places_filter_rb_valuation_order);
+        orderByValuationRB = findViewById(R.id.activity_places_filter_rb_valuation_order);
 
         freeDeliverySwitch = findViewById(R.id.switch1activity_places_filter_switch_free_delivery);
 
@@ -108,9 +110,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    freeDeliverySetted = true;
+                    freeDeliverySet = true;
                 }else{
-                    freeDeliverySetted = false;
+                    freeDeliverySet = false;
                 }
             }
         });
@@ -148,22 +150,69 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("pizzeriaCB", pizzeriaCB.isChecked());
+        outState.putBoolean("restaurantCB", restaurantCB.isChecked());
+        outState.putBoolean("sushiCB", sushiCB.isChecked());
+        outState.putBoolean("restaurantPizzeriaCB", restaurantPizzeriaCB.isChecked());
+        outState.putBoolean("otherCB", otherCB.isChecked());
+
+        outState.putBoolean("deliveryRB", deliveryRB.isChecked());
+        outState.putBoolean("bookingRB", bookingRB.isChecked());
+
+        outState.putBoolean("orderByValuationRB", orderByValuationRB.isChecked());
+
+        outState.putBoolean("freeDeliverySwitch", freeDeliverySwitch.isChecked());
+
+        outState.putInt("valuationSB", valuationSB.getProgress());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        pizzeriaCB.setChecked(savedInstanceState.getBoolean("pizzeriaCB", true));
+        restaurantCB.setChecked(savedInstanceState.getBoolean("restaurantCB", true));
+        sushiCB.setChecked(savedInstanceState.getBoolean("sushiCB", true));
+        restaurantPizzeriaCB.setChecked(savedInstanceState.getBoolean("restaurantPizzeriaCB", true));
+        otherCB.setChecked(savedInstanceState.getBoolean("otherCB", true));
+
+        deliveryRB.setChecked(savedInstanceState.getBoolean("deliveryRB", false));
+        bookingRB.setChecked(savedInstanceState.getBoolean("bookingRB", false));
+
+//        if(!deliveryRB.isChecked() && !bookingRB.isChecked()){
+//            allRB.isChecked();
+//        }
+
+        orderByValuationRB.setChecked(savedInstanceState.getBoolean("orderByValuationRB", false));
+
+        freeDeliverySwitch.setChecked(savedInstanceState.getBoolean("freeDeliverySwitch", false));
+
+        valuationSB.setProgress(savedInstanceState.getInt("valuationSB"));
+
+
+    }
 
     private ArrayList<Place> applyFilters() {
         ArrayList<Place> result = null;
+
+        ArrayList<Place> toRemove = new ArrayList<>();
         //controllo cambio tipo
         if (typeChanged) {
 
             if (deliveryRB.isChecked()) {
+
                 for (Place item : places) {
                     if (!item.takesOrderPlace) {
-                        places.remove(item);
+                        toRemove.add(item);
                     }
                 }
             } else {
                 for (Place item : places) {
                     if (!item.takesBookingPlace) {
-                        places.remove(item);
+                        toRemove.add(item);
                     }
                 }
             }
@@ -175,7 +224,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
             if (!pizzeriaCB.isChecked()) {
                 for (Place item : places) {
                     if (item.categories.equals(PlaceCategories.PIZZERIA.toString())) {
-                        places.remove(item);
+                        toRemove.add(item);
                     }
                 }
             }
@@ -183,14 +232,14 @@ public class PlacesFilterActivity extends AppCompatActivity {
             if (!restaurantCB.isChecked()) {
                 for (Place item : places) {
                     if (item.categories.equals(PlaceCategories.RISTORANTE_ITALIANO.toString())) {
-                        places.remove(item);
+                        toRemove.add(item);
                     }
                 }
             }
             if (!sushiCB.isChecked()) {
                 for (Place item : places) {
                     if (item.categories.equals(PlaceCategories.SUSHI.toString())) {
-                        places.remove(item);
+                        toRemove.add(item);
                     }
                 }
             }
@@ -198,24 +247,24 @@ public class PlacesFilterActivity extends AppCompatActivity {
             if (!restaurantPizzeriaCB.isChecked()) {
                 for (Place item : places) {
                     if (item.categories.equals(PlaceCategories.PIZZERIA_RISTORANTE.toString())) {
-                        places.remove(item);
+                        toRemove.add(item);
                     }
                 }
             }
             if (!otherCB.isChecked()) {
                 for (Place item : places) {
                     if (item.categories.equals(PlaceCategories.ALTRO.toString())) {
-                        places.remove(item);
+                        toRemove.add(item);
                     }
                 }
             }
         }
 
         //controllo spedizione gratuita
-        if(freeDeliverySetted){
+        if(freeDeliverySet){
             for(Place item: places){
                 if(item.deliveryCost != 0){
-                    places.remove(item);
+                    toRemove.add(item);
                 }
             }
         }
@@ -226,13 +275,16 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
             for(Place item: places){
                 if(item.valuation < valuation){
-                    places.remove(item);
+                    toRemove.add(item);
                 }
             }
         }
 
+        places.removeAll(toRemove);
+
         if(orderChanged){
             TreeSet<Place> orderedPlaces = new TreeSet<>(new PlacesByValuation());
+
             orderedPlaces.addAll(places);
 
             result = new ArrayList<>(orderedPlaces);
@@ -275,7 +327,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
                 if (checked)
                     freeDeliverySwitch.setClickable(false);
                 freeDeliverySwitch.setChecked(false);
-                freeDeliverySetted = false;
+                freeDeliverySet = false;
 
                 typeChanged = true;
                 break;

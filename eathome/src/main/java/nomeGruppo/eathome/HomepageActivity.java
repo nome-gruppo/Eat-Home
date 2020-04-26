@@ -109,6 +109,8 @@ public class HomepageActivity extends AppCompatActivity {
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
 
+    private boolean backFromFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,7 +195,7 @@ public class HomepageActivity extends AppCompatActivity {
 
 
         //se non è mai stata effettuata una ricerca prima
-        if (userCity != null) {
+        if ((userCity != null) && !backFromFilter) {
 
             search(userCity);
 
@@ -234,6 +236,9 @@ public class HomepageActivity extends AppCompatActivity {
             listPlace =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
             placeAdapter.notifyDataSetChanged();
             listViewPlace.setAdapter(placeAdapter);
+
+            backFromFilter = true;
+
         }
     }
 
