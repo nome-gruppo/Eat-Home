@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +13,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 
 import com.google.android.material.chip.Chip;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.TreeSet;
@@ -36,7 +39,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private RadioButton valuationOrderRB;
 
-    private Chip freeDeliveryChip;
+    private Switch freeDeliverySwitch;
 
     private SeekBar valuationSB;
 
@@ -47,7 +50,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
     private boolean valuationChanged = false;
     private boolean orderChanged = false;
 
-    private HashSet<Place> places;
+    private LinkedList<Place> places;
     private Button showBtn;
 
 
@@ -74,13 +77,13 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         valuationOrderRB = findViewById(R.id.activity_places_filter_rb_valuation_order);
 
-        freeDeliveryChip = findViewById(R.id.activity_places_filter_chip_free_delivery);
+        freeDeliverySwitch = findViewById(R.id.switch1activity_places_filter_switch_free_delivery);
 
         valuationSB = findViewById(R.id.activity_places_filter_sb_valuation);
 
         showBtn = findViewById(R.id.activity_places_filter_btn_show);
 
-        places = new HashSet<>((LinkedList<Place>) savedInstanceState.getSerializable("listPlace"));
+        places = (LinkedList<Place>) getIntent().getSerializableExtra("listPlace");
 
         initCheckListener();
 
@@ -105,16 +108,17 @@ public class PlacesFilterActivity extends AppCompatActivity {
         restaurantPizzeriaCB.setOnCheckedChangeListener(changeListener);
         otherCB.setOnCheckedChangeListener(changeListener);
 
-        freeDeliveryChip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        freeDeliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
+                if(b){
                     freeDeliverySetted = true;
-                } else {
+                }else{
                     freeDeliverySetted = false;
                 }
             }
         });
+
 
         valuationSB.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -137,7 +141,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
         showBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("listPlace", applyFilters());
+                setResult(RESULT_OK,resultIntent);
                 finish();
 
 
@@ -145,12 +151,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
         });
 
     }
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
 
-        outState.putSerializable("placesList", applyFilters());
-    }
 
     private LinkedList<Place> applyFilters() {
         LinkedList<Place> result = null;
@@ -261,25 +262,27 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         // Check which radio button was clicked
         switch (view.getId()) {
+            case R.id.activity_places_filter_rb_all:
+                if(checked){
+                    freeDeliverySwitch.setClickable(true);
+
+                    typeChanged = false;
+                }
             case R.id.activity_places_filter_rb_delivery:
                 if (checked) {
-                    freeDeliveryChip.setCheckable(true);
+                    freeDeliverySwitch.setClickable(true);
 
                     typeChanged = true;
                 }
                 break;
             case R.id.activity_places_filter_rb_booking:
                 if (checked)
-                    freeDeliveryChip.setCheckable(false);
-                freeDeliveryChip.setChecked(false);
+                    freeDeliverySwitch.setClickable(false);
+                freeDeliverySwitch.setChecked(false);
                 freeDeliverySetted = false;
 
                 typeChanged = true;
                 break;
-            default:
-                freeDeliveryChip.setCheckable(true);
-
-                typeChanged = false;
         }
     }
 

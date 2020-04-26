@@ -144,6 +144,7 @@ public class HomepageActivity extends AppCompatActivity {
         if (userCity == null) {
             listViewPlace.setVisibility(View.GONE);
             findPlacesBtn.setVisibility(View.VISIBLE);
+            filterFab.setVisibility(View.GONE);
 
         } else {
             addressesBar.setText(mPreferences.getString("address", null));
@@ -230,6 +231,9 @@ public class HomepageActivity extends AppCompatActivity {
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
+        }else if(requestCode == SEARCH_FILTER_REQUEST_CODE){
+            listPlace =(LinkedList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+            placeAdapter.notifyDataSetChanged();
         }
     }
 
@@ -302,6 +306,7 @@ public class HomepageActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     noPlacesTw.setVisibility(View.GONE);
                     listViewPlace.setVisibility(View.VISIBLE);
+                    filterFab.setVisibility(View.VISIBLE);
                     listPlace.clear();
                     
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -333,7 +338,7 @@ public class HomepageActivity extends AppCompatActivity {
                 } else {
                     listViewPlace.setVisibility(View.GONE);
                     noPlacesTw.setVisibility(View.VISIBLE);
-                    filterFab.setClickable(false);
+                    filterFab.setVisibility(View.GONE);
 
                 }
                 //placeAdapter.notifyDataSetChanged();
@@ -533,6 +538,7 @@ public class HomepageActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent filtersIntent = new Intent(HomepageActivity.this, PlacesFilterActivity.class);
+                filtersIntent.putExtra("listPlace", listPlace);
                 startActivityForResult(filtersIntent,SEARCH_FILTER_REQUEST_CODE);
             }
         });
@@ -549,10 +555,5 @@ public class HomepageActivity extends AppCompatActivity {
     }//end initListeners
 
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
 
-        outState.putSerializable("placesList", listPlace);
-    }
 }
