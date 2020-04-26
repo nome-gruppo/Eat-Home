@@ -313,6 +313,7 @@ public class ClientProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myAddressesIntent = new Intent(ClientProfileActivity.this, MyAddressesActivity.class);
+                myAddressesIntent.putExtra(FirebaseConnection.CLIENT, client);
                 startActivity(myAddressesIntent);
             }
         });

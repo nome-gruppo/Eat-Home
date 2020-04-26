@@ -22,6 +22,7 @@ import nomeGruppo.eathome.HomepageActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class DialogDeleteAccount extends AppCompatDialogFragment {
@@ -87,6 +88,9 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
             Place mPlace = (Place)getActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
             //elimina ordinazioni e prenotazioni
             if(mClient != null){
+
+                DBOpenHelper helper = new DBOpenHelper(getContext());
+                helper.deleteDatabase();
 
                 FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE);
                 FirebaseConnection.DeleteClientInfo deleteBooking = new FirebaseConnection.DeleteClientInfo(userId,FirebaseConnection.BOOKING_TABLE);

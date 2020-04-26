@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +21,7 @@ import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-public class MyFeedbackPlaceActivity extends AppCompatActivity {
+public class FeedbackPlaceActivity extends AppCompatActivity {
 
     private Place mPlace;
 
@@ -38,6 +39,7 @@ public class MyFeedbackPlaceActivity extends AppCompatActivity {
         listView = findViewById(R.id.feedback_listview);
 
         mPlace = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+
 
         if(mPlace != null){
 

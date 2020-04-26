@@ -2,7 +2,6 @@ package nomeGruppo.eathome.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,7 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.DBOpenHelper;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener{
 
@@ -32,6 +33,8 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     private ListView addressesLW;
 
+    private Client client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,33 +50,36 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         mDBHelper = new DBOpenHelper(this);
         mDB = mDBHelper.getWritableDatabase();
 
+        client = (Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
+        if(client != null) {
 
-        Cursor c = mDB.query(DBOpenHelper.TABLE_NAME,DBOpenHelper.COLUMNS, null, null, null, null, null);
+            Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES, DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID, new String[]{client.idClient}, null, null, null);
 
-        final int rows = c.getCount();
+            final int rows = c.getCount();
 
-        //recupero indirizzi dal database
-        if(rows == 0){
-            TextView noAddressET = findViewById(R.id.activity_my_address_et_noAddresses);
-            noAddressET.setVisibility(View.VISIBLE);
-        }else{
-          while(c.moveToNext()){
+            //recupero indirizzi dal database
+            if (rows == 0) {
+                TextView noAddressET = findViewById(R.id.activity_my_address_et_noAddresses);
+                noAddressET.setVisibility(View.VISIBLE);
+            } else {
+                while (c.moveToNext()) {
 
-                String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;
-                address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS)) + SPLIT);
-                address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY)));
-                addressList.add(address);
+                    String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;
+                    address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS)) + SPLIT);
+                    address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY)));
+                    addressList.add(address);
+                }
+                addressesLW.setAdapter(mAdapter);
             }
-            addressesLW.setAdapter(mAdapter);
+
+            addAddressBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openDialog();
+                }
+            });
         }
-
-        addAddressBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog();
-            }
-        });
     }
 
     public void openDialog(){
@@ -85,7 +91,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     public void applyTexts(String address, String numberAddress, String city) {
         addressList.add(city+", "+address+", "+numberAddress);
         mAdapter.notifyDataSetChanged();
-        mDBHelper.addAddress(mDB, address, numberAddress, city);
+        mDBHelper.addAddress(mDB, address, numberAddress, city, client.idClient);
     }
 
     @Override
