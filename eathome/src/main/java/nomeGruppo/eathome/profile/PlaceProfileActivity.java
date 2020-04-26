@@ -58,7 +58,6 @@ public class PlaceProfileActivity extends AppCompatActivity {
 
     private Place mPlace;
 
-    private Button logoutBtn;
     private Button timesBtn;
     private Button saveBtn;
     private Button deleteAccountBtn;
@@ -97,7 +96,6 @@ public class PlaceProfileActivity extends AppCompatActivity {
         deliveryCb = findViewById(R.id.activity_place_profile_cb_delivery);
         bookingCb = findViewById(R.id.activity_place_profile_cb_booking);
 
-        logoutBtn = findViewById(R.id.activity_place_profile_btn_logout);
         timesBtn = findViewById(R.id.activity_place_profile_btn_time);
         saveBtn = findViewById(R.id.activity_place_profile_btn_save);
         deleteAccountBtn = findViewById(R.id.activity_client_btn_deleteAccount);
@@ -496,16 +494,6 @@ public class PlaceProfileActivity extends AppCompatActivity {
             }
         });
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                Intent homepageIntent = new Intent(PlaceProfileActivity.this, HomepageActivity.class);
-                homepageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, false);
-                startActivity(homepageIntent);
-                finish();
-            }
-        });
 
         timesBtn.setOnClickListener(new View.OnClickListener() {
             @Override

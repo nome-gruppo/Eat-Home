@@ -43,7 +43,6 @@ public class ClientProfileActivity extends AppCompatActivity {
     private ImageButton phoneBtn;
     private Button myAddressesBtn;
     private Button deleteAccountBtn;
-    private Button logoutBtn;
 
     private UtilitiesAndControls controls;
 
@@ -72,7 +71,6 @@ public class ClientProfileActivity extends AppCompatActivity {
         phoneBtn = findViewById(R.id.activity_client_profile_imBtn_phone);
         myAddressesBtn = findViewById(R.id.activity_client_btn_myAddresses);
         deleteAccountBtn = findViewById(R.id.activity_client_btn_deleteAccount);
-        logoutBtn = findViewById(R.id.activity_client_btn_logout);
 
         controls = new UtilitiesAndControls();
 
@@ -309,16 +307,6 @@ public class ClientProfileActivity extends AppCompatActivity {
 
 
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                Intent homepageIntent = new Intent(ClientProfileActivity.this, HomepageActivity.class);
-                homepageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, false);
-                startActivity(homepageIntent);
-                finish();
-            }
-        });
 
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
