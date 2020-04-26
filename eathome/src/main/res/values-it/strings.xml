@@ -81,5 +81,6 @@
     <string name="choose_number_person">Seleziona numero di persone</string>
     <string name="assign_rating">Assegna prima una valutazione</string>
     <string name="enter_feedback">Scrivi qui recensione</string>
+    <string name="no_feedback">Spiacenti! Non ci sono recensioni</string>
 
 </resources>

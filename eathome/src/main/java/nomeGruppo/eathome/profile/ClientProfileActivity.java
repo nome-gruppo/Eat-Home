@@ -47,9 +47,6 @@ public class ClientProfileActivity extends AppCompatActivity {
 
     private UtilitiesAndControls controls;
 
-    private MenuNavigationItemSelected menuNavigationItemSelected;
-    private BottomNavigationView bottomMenuClient;
-
     private DialogDeleteAccount dialog;
 
     private boolean edit = false; //flag per controllare se qualche campo è stato modificato
@@ -59,16 +56,8 @@ public class ClientProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_profile);
 
-        this.bottomMenuClient=findViewById(R.id.bottom_navigationClientProfile);
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
-        this.menuNavigationItemSelected=new MenuNavigationItemSelected();
 
-        bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                return menuNavigationItemSelected.menuNavigation(item,client, ClientProfileActivity.this);
-            }
-        });
 
         nameEt = findViewById(R.id.activity_client_et_name);
         emailEt = findViewById(R.id.activity_client_et_email);

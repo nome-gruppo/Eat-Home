@@ -480,7 +480,7 @@ public class HomepageActivity extends AppCompatActivity {
                         break;
                     case R.id.action_profile:
                         if (user != null) {
-                            Intent intent = new Intent(HomepageActivity.this, ClientProfileActivity.class);
+                            Intent intent = new Intent(HomepageActivity.this, OtherActivity.class);
                             intent.putExtra(FirebaseConnection.CLIENT, client);
                             startActivity(intent);
                         } else {

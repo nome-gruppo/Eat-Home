@@ -9,9 +9,9 @@
         android:id="@+id/activity_place_profile_tw_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
+        android:layout_marginStart="19dp"
         android:layout_marginTop="41dp"
-        android:layout_marginEnd="29dp"
+        android:layout_marginEnd="13dp"
         android:text="Name"
         app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_et_name"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,120 +22,127 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="14dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_imBtn_name"
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_tw_name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/activity_place_profile_imBtn_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/ic_profile_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_et_name"
+        app:layout_constraintTop_toTopOf="@+id/activity_place_profile_et_name" />
 
     <EditText
         android:id="@+id/activity_place_profile_et_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="31dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_imBtn_email"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_et_name" />
+        app:layout_constraintBottom_toBottomOf="@+id/activity_place_profile_btn_save"
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_btn_save" />
 
     <ImageButton
         android:id="@+id/activity_place_profile_imBtn_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/ic_profile_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_place_profile_et_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_imBtn_name" />
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_et_oldPassword" />
 
     <EditText
         android:id="@+id/activity_place_profile_et_oldPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="96dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="19dp"
         android:ems="10"
         android:hint="Vecchia password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_et_email" />
+        app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_imBtn_email"
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_btn_save"
+        app:layout_constraintTop_toTopOf="@+id/activity_place_profile_btn_save" />
 
     <EditText
         android:id="@+id/activity_place_profile_et_newPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="112dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="Nuova password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/activity_place_profile_et_oldPassword"
         app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_et_oldPassword" />
 
     <EditText
         android:id="@+id/activity_place_profile_et_confirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="9dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="2dp"
         android:ems="10"
         android:hint="Conferma password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_imBtn_password"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_et_newPassword" />
+        app:layout_constraintBottom_toBottomOf="@+id/activity_place_profile_imBtn_password"
+        app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_imBtn_password" />
 
     <ImageButton
         android:id="@+id/activity_place_profile_imBtn_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="145dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="18dp"
         android:src="@drawable/ic_profile_edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_imBtn_email" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_place_profile_imBtn_address"
+        app:layout_constraintEnd_toEndOf="@+id/activity_place_profile_imBtn_address" />
 
     <EditText
         android:id="@+id/activity_place_profile_et_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="14dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/activity_place_profile_et_numAddress"
         app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_et_numAddress"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_et_confirmPassword" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/activity_place_profile_et_numAddress"
-        android:layout_width="74dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="57dp"
         android:layout_marginEnd="9dp"
+        android:layout_marginBottom="60dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_place_profile_imBtn_city"
         app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_imBtn_address"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_et_confirmPassword" />
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_et_address"
+        app:layout_constraintTop_toTopOf="@+id/activity_place_profile_et_confirmPassword" />
 
     <ImageButton
         android:id="@+id/activity_place_profile_imBtn_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_profile_edit"
+        app:layout_constraintBottom_toTopOf="@+id/activity_place_profile_imBtn_city"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_imBtn_password" />
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_et_numAddress" />
 
     <EditText
         android:id="@+id/activity_place_profile_et_city"
@@ -153,71 +160,75 @@
         android:id="@+id/activity_place_profile_imBtn_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/ic_profile_edit"
-        app:layout_constraintEnd_toEndOf="@+id/activity_place_profile_imBtn_address"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_imBtn_address" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_place_profile_imBtn_phone"
+        app:layout_constraintEnd_toEndOf="@+id/activity_place_profile_et_numAddress"
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_et_numAddress" />
 
     <EditText
         android:id="@+id/activity_place_profile_et_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="62dp"
         android:ems="10"
         android:inputType="phone"
-        app:layout_constraintStart_toStartOf="@+id/activity_place_profile_sb_deliveryCost"
-        app:layout_constraintTop_toTopOf="@+id/activity_place_profile_imBtn_phone" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_place_profile_cb_booking"
+        app:layout_constraintStart_toStartOf="@+id/activity_place_profile_sb_deliveryCost" />
 
     <ImageButton
         android:id="@+id/activity_place_profile_imBtn_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/ic_profile_edit"
-        app:layout_constraintEnd_toEndOf="@+id/activity_place_profile_imBtn_city"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_imBtn_city" />
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_et_city"
+        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_et_city" />
 
     <SeekBar
         android:id="@+id/activity_place_profile_sb_deliveryCost"
-        android:layout_width="297dp"
+        android:layout_width="0dp"
         android:layout_height="33dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="57dp"
         android:layout_marginEnd="56dp"
+        android:layout_marginBottom="57dp"
         android:max="5"
-          app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_et_phone" />
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/activity_place_profile_et_phone" />
 
     <CheckBox
         android:id="@+id/activity_place_profile_cb_delivery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="165dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="5dp"
         android:text="Delivery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_sb_deliveryCost"
-        tools:layout_editor_absoluteY="560dp" />
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_cb_booking" />
 
     <CheckBox
         android:id="@+id/activity_place_profile_cb_booking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="49dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginBottom="8dp"
         android:text="Booking"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_sb_deliveryCost" />
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="4dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@+id/activity_place_profile_btn_logout"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_profile_cb_delivery">
+        app:layout_constraintBottom_toTopOf="@+id/activity_place_profile_btn_time"
+        app:layout_constraintStart_toStartOf="@+id/activity_place_profile_cb_booking">
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -274,41 +285,46 @@
         android:id="@+id/activity_place_profile_btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="18dp"
         android:text="logout"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_btn_time"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/activity_client_btn_deleteAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="5dp"
         android:text="Elimina account"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_btn_time"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <Button
         android:id="@+id/activity_place_profile_btn_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="18dp"
         android:text="Times"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/activity_client_btn_deleteAccount"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintStart_toEndOf="@+id/activity_place_profile_btn_logout" />
 
     <Button
         android:id="@+id/activity_place_profile_btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="114dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="115dp"
         android:text="Save"
+        app:layout_constraintBottom_toTopOf="@+id/activity_place_profile_imBtn_password"
         app:layout_constraintEnd_toStartOf="@+id/activity_place_profile_et_oldPassword"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/activity_place_profile_et_email" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
