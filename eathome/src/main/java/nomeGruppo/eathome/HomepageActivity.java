@@ -111,6 +111,8 @@ public class HomepageActivity extends AppCompatActivity {
 
     private boolean setFilter;
 
+    private Bundle filterBundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -240,6 +242,7 @@ public class HomepageActivity extends AppCompatActivity {
             setFilter=true;
             listPlace.clear();
             ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+            filterBundle = data.getBundleExtra("outState");
             for(nomeGruppo.eathome.actors.Place place :listPlaceFilter){
                 listPlace.add(place);
             }
@@ -549,6 +552,7 @@ public class HomepageActivity extends AppCompatActivity {
 
                 Intent filtersIntent = new Intent(HomepageActivity.this, PlacesFilterActivity.class);
                 filtersIntent.putExtra("listPlace", listPlace);
+                filtersIntent.putExtra("outState", filterBundle);
                 startActivityForResult(filtersIntent,SEARCH_FILTER_REQUEST_CODE);
             }
         });

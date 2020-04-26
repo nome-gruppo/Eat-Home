@@ -85,6 +85,33 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         initCheckListener();
 
+
+
+
+
+            Bundle bundle = getIntent().getBundleExtra("outState");
+
+        if(bundle != null) {
+            pizzeriaCB.setChecked(bundle.getBoolean("pizzeriaCB", true));
+            restaurantCB.setChecked(bundle.getBoolean("restaurantCB", true));
+            sushiCB.setChecked(bundle.getBoolean("sushiCB", true));
+            restaurantPizzeriaCB.setChecked(bundle.getBoolean("restaurantPizzeriaCB", true));
+            otherCB.setChecked(bundle.getBoolean("otherCB", true));
+
+            deliveryRB.setChecked(bundle.getBoolean("deliveryRB", false));
+            bookingRB.setChecked(bundle.getBoolean("bookingRB", false));
+
+//        if(!deliveryRB.isChecked() && !bookingRB.isChecked()){
+//            allRB.isChecked();
+//        }
+
+            orderByValuationRB.setChecked(bundle.getBoolean("orderByValuationRB", false));
+
+            freeDeliverySwitch.setChecked(bundle.getBoolean("freeDeliverySwitch", false));
+
+            valuationSB.setProgress(bundle.getInt("valuationSB"));
+
+        }
     }
 
     public void initCheckListener() {
@@ -139,8 +166,29 @@ public class PlacesFilterActivity extends AppCompatActivity {
         showBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Bundle outState = new Bundle();
+
+                outState.putBoolean("outBundleCreated", true);
+                outState.putBoolean("pizzeriaCB", pizzeriaCB.isChecked());
+                outState.putBoolean("restaurantCB", restaurantCB.isChecked());
+                outState.putBoolean("sushiCB", sushiCB.isChecked());
+                outState.putBoolean("restaurantPizzeriaCB", restaurantPizzeriaCB.isChecked());
+                outState.putBoolean("otherCB", otherCB.isChecked());
+
+                outState.putBoolean("deliveryRB", deliveryRB.isChecked());
+                outState.putBoolean("bookingRB", bookingRB.isChecked());
+
+                outState.putBoolean("orderByValuationRB", orderByValuationRB.isChecked());
+
+                outState.putBoolean("freeDeliverySwitch", freeDeliverySwitch.isChecked());
+
+                outState.putInt("valuationSB", valuationSB.getProgress());
+
+
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("listPlace", applyFilters());
+                resultIntent.putExtra("outState", outState);
                 setResult(RESULT_OK,resultIntent);
                 finish();
 
@@ -150,24 +198,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("pizzeriaCB", pizzeriaCB.isChecked());
-        outState.putBoolean("restaurantCB", restaurantCB.isChecked());
-        outState.putBoolean("sushiCB", sushiCB.isChecked());
-        outState.putBoolean("restaurantPizzeriaCB", restaurantPizzeriaCB.isChecked());
-        outState.putBoolean("otherCB", otherCB.isChecked());
-
-        outState.putBoolean("deliveryRB", deliveryRB.isChecked());
-        outState.putBoolean("bookingRB", bookingRB.isChecked());
-
-        outState.putBoolean("orderByValuationRB", orderByValuationRB.isChecked());
-
-        outState.putBoolean("freeDeliverySwitch", freeDeliverySwitch.isChecked());
-
-        outState.putInt("valuationSB", valuationSB.getProgress());
-    }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
