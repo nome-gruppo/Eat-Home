@@ -150,7 +150,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         dateBooking.set(year,month++,dayOfMonth);//moth++ perchè i mesi partono da 0 e non da 1
 
         //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorno della settimana
-        String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK)-1);
+        String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
         if(place.openingTime.get(dayOfWeek).length()>8){
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd");
             txtDateBooking.setText(simpleDateFormat.format(dateBooking.getTime()));//setto la data in base alla scelta dell'utente.
