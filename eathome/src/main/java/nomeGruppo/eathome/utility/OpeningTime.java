@@ -74,25 +74,25 @@ public class OpeningTime {
         String day = "";
         switch (value) {
             case 1:
-                day = "MONDAY";
+                day = "SUNDAY";
                 break;
             case 2:
-                day = "TUESDAY";
+                day = "MONDAY";
                 break;
             case 3:
-                day = "WEDNESDAY";
+                day = "TUESDAY";
                 break;
             case 4:
-                day = "THURSDAY";
+                day = "WEDNESDAY";
                 break;
             case 5:
-                day = "FRIDAY";
+                day = "THURSDAY";
                 break;
             case 6:
-                day = "SATURDAY";
+                day = "FRIDAY";
                 break;
             case 7:
-                day = "SUNDAY";
+                day = "SATURDAY";
                 break;
         }
         return day;

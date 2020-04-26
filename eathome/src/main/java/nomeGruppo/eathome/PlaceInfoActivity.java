@@ -317,7 +317,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
 
     public void openingTime() {
         final Calendar calendar = Calendar.getInstance();
-        String day = openingTimeUtility.getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)-1);
+        String day = openingTimeUtility.getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
         String openingTime = place.openingTime.get(day);
         Time localTime=new Time(System.currentTimeMillis());
         if (openingTime.length()>8) {//se è stato impostato un orario di apertura e chiusura
