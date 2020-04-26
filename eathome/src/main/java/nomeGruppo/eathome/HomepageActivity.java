@@ -59,7 +59,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -67,7 +67,6 @@ import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.profile.ClientProfileActivity;
 import nomeGruppo.eathome.utility.PlaceAdapter;
 
 public class HomepageActivity extends AppCompatActivity {
@@ -83,7 +82,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     private Client client;
 
-    private LinkedList<nomeGruppo.eathome.actors.Place> listPlace;
+    private ArrayList<nomeGruppo.eathome.actors.Place> listPlace;
     private PlaceAdapter placeAdapter;
 
     private AutoCompleteTextView addressesBar;
@@ -131,7 +130,7 @@ public class HomepageActivity extends AppCompatActivity {
         addressesBarAdapter = new AddressesBarAdapter(getApplicationContext(), R.layout.dropdown_list_layout);
 
         //lista dei locali mostrati
-        listPlace = new LinkedList<>();
+        listPlace = new ArrayList<>();
         placeAdapter = new PlaceAdapter(this, R.layout.fragment_place_info_homepage_activity, listPlace);
 
         mPreferences = getSharedPreferences("AddressesPref", Context.MODE_PRIVATE);
@@ -232,8 +231,9 @@ public class HomepageActivity extends AppCompatActivity {
                 // The user canceled the operation.
             }
         }else if(requestCode == SEARCH_FILTER_REQUEST_CODE){
-            listPlace =(LinkedList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+            listPlace =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
             placeAdapter.notifyDataSetChanged();
+            listViewPlace.setAdapter(placeAdapter);
         }
     }
 

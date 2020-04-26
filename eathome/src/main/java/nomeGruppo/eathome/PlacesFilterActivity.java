@@ -15,11 +15,7 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
-import com.google.android.material.chip.Chip;
-
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.TreeSet;
 
 import nomeGruppo.eathome.actors.Place;
@@ -50,7 +46,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
     private boolean valuationChanged = false;
     private boolean orderChanged = false;
 
-    private LinkedList<Place> places;
+    private ArrayList<Place> places;
     private Button showBtn;
 
 
@@ -83,7 +79,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         showBtn = findViewById(R.id.activity_places_filter_btn_show);
 
-        places = (LinkedList<Place>) getIntent().getSerializableExtra("listPlace");
+        places = (ArrayList<Place>) getIntent().getSerializableExtra("listPlace");
 
         initCheckListener();
 
@@ -153,8 +149,8 @@ public class PlacesFilterActivity extends AppCompatActivity {
     }
 
 
-    private LinkedList<Place> applyFilters() {
-        LinkedList<Place> result = null;
+    private ArrayList<Place> applyFilters() {
+        ArrayList<Place> result = null;
         //controllo cambio tipo
         if (typeChanged) {
 
@@ -239,9 +235,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
             TreeSet<Place> orderedPlaces = new TreeSet<>(new PlacesByValuation());
             orderedPlaces.addAll(places);
 
-            result = new LinkedList<>(orderedPlaces);
+            result = new ArrayList<>(orderedPlaces);
         }else{
-            result = new LinkedList<>(places);
+            result = new ArrayList<>(places);
         }
 
         return result;
