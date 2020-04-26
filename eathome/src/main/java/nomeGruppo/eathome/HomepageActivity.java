@@ -109,6 +109,8 @@ public class HomepageActivity extends AppCompatActivity {
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
 
+    private boolean setFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +118,8 @@ public class HomepageActivity extends AppCompatActivity {
 
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+
+        this.setFilter=false;
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getReadableDatabase();
@@ -129,9 +133,11 @@ public class HomepageActivity extends AppCompatActivity {
         findPlacesBtn = findViewById(R.id.activity_homepage_btn_find_places);
         addressesBarAdapter = new AddressesBarAdapter(getApplicationContext(), R.layout.dropdown_list_layout);
 
+
         //lista dei locali mostrati
         listPlace = new ArrayList<>();
         placeAdapter = new PlaceAdapter(this, R.layout.fragment_place_info_homepage_activity, listPlace);
+        listViewPlace.setAdapter(placeAdapter);
 
         mPreferences = getSharedPreferences("AddressesPref", Context.MODE_PRIVATE);
         userCity = mPreferences.getString("city", null);
@@ -193,7 +199,7 @@ public class HomepageActivity extends AppCompatActivity {
 
 
         //se non è mai stata effettuata una ricerca prima
-        if (userCity != null) {
+        if (userCity != null&&setFilter==false) {
 
             search(userCity);
 
@@ -231,9 +237,13 @@ public class HomepageActivity extends AppCompatActivity {
                 // The user canceled the operation.
             }
         }else if(requestCode == SEARCH_FILTER_REQUEST_CODE){
-            listPlace =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+            setFilter=true;
+            listPlace.clear();
+            ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+            for(nomeGruppo.eathome.actors.Place place :listPlaceFilter){
+                listPlace.add(place);
+            }
             placeAdapter.notifyDataSetChanged();
-            listViewPlace.setAdapter(placeAdapter);
         }
     }
 
