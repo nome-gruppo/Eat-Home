@@ -109,7 +109,7 @@ public class HomepageActivity extends AppCompatActivity {
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
 
-    private boolean setFilter;
+    private boolean setFilter;//variabile per controllare se l'utente ha filtrato la ricerca o no
 
     private Bundle filterBundle;
 
@@ -200,7 +200,7 @@ public class HomepageActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
 
-        //se non è mai stata effettuata una ricerca prima
+        //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
         if (userCity != null&&setFilter==false) {
 
             search(userCity);
@@ -239,10 +239,15 @@ public class HomepageActivity extends AppCompatActivity {
                 // The user canceled the operation.
             }
         }else if(requestCode == SEARCH_FILTER_REQUEST_CODE){
-            setFilter=true;
-            listPlace.clear();
-            ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+            setFilter=true;//setto la variabile filtri a true
+            listPlace.clear();//svuoto la listPlace
+            //prendo l'arrayList restiuita da PlaceFilterActivity
+
             filterBundle = data.getBundleExtra("outState");
+
+
+            ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+
             for(nomeGruppo.eathome.actors.Place place :listPlaceFilter){
                 listPlace.add(place);
             }
