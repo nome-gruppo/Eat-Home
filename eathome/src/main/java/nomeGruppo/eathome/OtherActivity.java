@@ -64,7 +64,7 @@ public class OtherActivity extends AppCompatActivity {
             this.btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this,MyFeedbackPlaceActivity.class);
+                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this,FeedbackPlaceActivity.class);
                     feedbackPlaceIntent.putExtra(FirebaseConnection.PLACE,place);
                     startActivity(feedbackPlaceIntent);
                 }
