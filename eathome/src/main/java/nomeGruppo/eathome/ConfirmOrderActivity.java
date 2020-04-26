@@ -37,9 +37,6 @@ import nomeGruppo.eathome.utility.TimePickerFragment;
 public class ConfirmOrderActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private Order order;
-    private Place place;
-    private ArrayList<String> listFoodOrder;
-    private float totOrder;
     private TextView txtTotOrder;
     private TextView txtTotDelivery;
     private TextView txtTotal;
@@ -53,7 +50,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     private SQLiteDatabase mDB;
     private DBOpenHelper mDBHelper;
-    private String addressOrder;
 
 
     @Override
@@ -61,11 +57,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
 
-        this.order=new Order();
-        this.place=(Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        this.totOrder=(Float) getIntent().getExtras().getFloat("Tot");
-        this.listFoodOrder= (ArrayList<String>)getIntent().getSerializableExtra("NameFood");
-        this.addressOrder=(String) getIntent().getExtras().getString("AddressOrder");
+        this.order=(Order)getIntent().getSerializableExtra(FirebaseConnection.ORDER);
         this.openingTimeUtility=new OpeningTime();
 
         this.mDBHelper = new DBOpenHelper(this);
@@ -75,10 +67,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.txtTotDelivery=findViewById(R.id.txtDeliveryCostOrder);
         this.txtTotal=findViewById(R.id.txtTotal);
         this.txtAddressOrder=findViewById(R.id.txtAddressOrder);
-        this.txtTotOrder.setText(Float.toString(totOrder));
-        this.txtTotDelivery.setText(Float.toString(place.deliveryCost));
-        this.txtTotal.setText(Float.toString(totOrder+place.deliveryCost));
-        this.txtAddressOrder.setText(addressOrder);
+        this.txtTotOrder.setText(Float.toString(order.totalOrder));
+        this.txtTotDelivery.setText(Float.toString(order.placeOrder.deliveryCost));
+        this.txtTotal.setText(Float.toString(order.totalOrder+order.placeOrder.deliveryCost));
+        this.txtAddressOrder.setText(order.addressOrder);
         this.btnConfirm=findViewById(R.id.btnConfirmOrder);
         this.editName=findViewById(R.id.editNameClientOrder);
         this.editPhone=findViewById(R.id.editPhoneClientOrder);
@@ -133,28 +125,23 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
     }
 
     private boolean addOrderFirebase(){
-        order.setAddressOrder(addressOrder);
         order.setNameClientOrder(editName.getText().toString());
-        order.setFoodsOrder(listFoodOrder);
-        order.setIdClientOrder(getIntent().getStringExtra("UserID"));
-        order.setPlaceOrder(place);
         order.setPhoneClientOrder(editPhone.getText().toString());
         order.setTimeOrder(chooseTime.getText().toString());
         order.setDateOrder(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-        order.setTotalOrder(totOrder);
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().setValue(order);
 
         //inserisco l'informazione dell'ordinazione nel db interno
-        mDBHelper.addInfo(mDB,place.idPlace, place.namePlace,new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+        mDBHelper.addInfo(mDB,order.placeOrder.idPlace, order.placeOrder.namePlace,new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
         return true;
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
         Time timeOrder=Time.valueOf(hourOfDay+":"+minutes+":"+00);
-        String openingTime=place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
+        String openingTime=order.placeOrder.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
         Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);
         Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);
 

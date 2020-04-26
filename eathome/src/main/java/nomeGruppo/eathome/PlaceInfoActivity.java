@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.textclassifier.TextClassifierEvent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -89,6 +90,9 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private List<String>listAddress;
     private OpeningTime openingTimeUtility;
 
+    private ArrayList<String>nameFood;
+    private float finalTot;
+
     private FirebaseUser user;
     private FirebaseAuth mAuth;
 
@@ -101,8 +105,11 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         setContentView(R.layout.activity_place_info);
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        this.listFoodOrder=new HashMap<>();
         this.order=new Order();
+        this.listFoodOrder=new HashMap<>();
+        this.nameFood=new ArrayList<>();
+        this.finalTot=0;
+
         this.openingTimeUtility=new OpeningTime();
 
         this.mDBHelper = new DBOpenHelper(this);
@@ -207,7 +214,6 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         builder.setTitle(this.getResources().getString(R.string.order_summary));
         float tot=0;
         String message="";
-        final ArrayList<String>nameFood=new ArrayList<>();
         for(Map.Entry<Food,Integer>entry:listFoodOrder.entrySet()){//scorro l'hashMap per prendere il nome dei cibi e la quantità
             Food key=entry.getKey();
             nameFood.add("X " +entry.getValue()+ " "+ key.nameFood);
@@ -218,7 +224,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         }
         message+="Tot" +tot+" €";
         builder.setMessage(message);
-        final float finalTot = tot;
+        finalTot = tot;
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -246,6 +252,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         listViewAddress.setAdapter(addressAdapter);
         ImageButton btnAddAddress=view.findViewById(R.id.btnAddAddress);
 
+        listAddress.clear();
         //leggo in SQLite gli indirizzi presenti e li assegno alla listView
         final Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES,DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID, new String[]{user.getUid()}, null, null, null);
 
@@ -274,11 +281,8 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String addressOrder =(String)adapterView.getItemAtPosition(i);
                 Intent orderActivity=new Intent(PlaceInfoActivity.this,ConfirmOrderActivity.class);
-                orderActivity.putExtra("UserID", user.getUid());
-                orderActivity.putExtra(FirebaseConnection.PLACE,place);
-                orderActivity.putExtra("NameFood", nameFood);
-                orderActivity.putExtra("Tot", finalTot);
-                orderActivity.putExtra("AddressOrder",addressOrder);
+                order=setOrder(addressOrder);
+                orderActivity.putExtra(FirebaseConnection.ORDER,order);
                 startActivity(orderActivity);
             }
         });
@@ -329,6 +333,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
                 return;
             } else{
                 txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + timeOpening.toString());
+                btnOrder.setEnabled(false);
                 return;
             }
         } else {
@@ -392,6 +397,21 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     public void applyTexts(String city, String address, String numberAddress) {
         addressAdapter.notifyDataSetChanged();
         mDBHelper.addAddress(mDB, address, numberAddress, city,user.getUid());
+
+        Intent orderActivity=new Intent(PlaceInfoActivity.this,ConfirmOrderActivity.class);
+        final String addressOrder=address+","+numberAddress+","+city;
+        order=setOrder(addressOrder);
+        orderActivity.putExtra(FirebaseConnection.ORDER,order);
+        startActivity(orderActivity);
+    }
+
+    private Order setOrder(String addressOrder){
+        order.setIdClientOrder(user.getUid());
+        order.setPlaceOrder(place);
+        order.setFoodsOrder(nameFood);
+        order.setTotalOrder(finalTot);
+        order.setAddressOrder(addressOrder);
+        return order;
     }
 
     private class AddressAdapter extends ArrayAdapter<String> {
