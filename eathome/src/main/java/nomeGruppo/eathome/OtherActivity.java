@@ -28,7 +28,6 @@ public class OtherActivity extends AppCompatActivity {
     private Place place;
     private Client client;
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,11 +45,11 @@ public class OtherActivity extends AppCompatActivity {
         this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
-        if(place!=null){
+        if(place!=null){ //se l'activity corrente è stata raggiunta da un Place
             this.bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    return menuNavigationItemSelected.menuNavigationPlace(item,place,OtherActivity.this);
+                    return menuNavigationItemSelected.menuNavigationPlace(item,place,OtherActivity.this);//carico il menu dei Place
                 }
             });
             this.btnProfile.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +57,7 @@ public class OtherActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent profilePlaceIntent=new Intent(OtherActivity.this, PlaceProfileActivity.class);
                     profilePlaceIntent.putExtra(FirebaseConnection.PLACE,place);
-                    startActivity(profilePlaceIntent);
+                    startActivity(profilePlaceIntent);//apro l'activity del profilo di Place
                 }
             });
             this.btnFeedback.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +65,7 @@ public class OtherActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent feedbackPlaceIntent=new Intent(OtherActivity.this,FeedbackPlaceActivity.class);
                     feedbackPlaceIntent.putExtra(FirebaseConnection.PLACE,place);
-                    startActivity(feedbackPlaceIntent);
+                    startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
             });
             this.btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -75,17 +74,17 @@ public class OtherActivity extends AppCompatActivity {
                     mAuth.signOut();
                     Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
                     homepageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, false);
-                    startActivity(homepageIntent);
+                    startActivity(homepageIntent);//faccio il logout e ritorna alla Home
                     finish();
                 }
             });
         }
 
-        else{
+        else{ //se l'activity corrente è stata raggiunta da un Client
             this.bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    return menuNavigationItemSelected.menuNavigation(item,client,OtherActivity.this);
+                    return menuNavigationItemSelected.menuNavigation(item,client,OtherActivity.this);//carico il menu dei CLient
                 }
             });
             this.btnProfile.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +92,7 @@ public class OtherActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent profileClientIntent=new Intent(OtherActivity.this, ClientProfileActivity.class);
                     profileClientIntent.putExtra(FirebaseConnection.CLIENT,client);
-                    startActivity(profileClientIntent);
+                    startActivity(profileClientIntent);//apro l'activity profilo di Cliente
                 }
             });
             this.btnFeedback.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +100,7 @@ public class OtherActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent feedbackClientIntent=new Intent(OtherActivity.this,MyFeedbackClientActivity.class);
                     feedbackClientIntent.putExtra(FirebaseConnection.CLIENT,client);
-                    startActivity(feedbackClientIntent);
+                    startActivity(feedbackClientIntent);//apro l'activity dei feedback di Client
 
                 }
             });
@@ -111,7 +110,7 @@ public class OtherActivity extends AppCompatActivity {
                     mAuth.signOut();
                     Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
                     homepageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, false);
-                    startActivity(homepageIntent);
+                    startActivity(homepageIntent);//faccio il logout e torno alla Home
                     finish();
                 }
             });
