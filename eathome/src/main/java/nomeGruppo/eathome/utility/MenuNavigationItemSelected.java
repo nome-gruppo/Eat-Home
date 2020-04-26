@@ -8,6 +8,7 @@ import nomeGruppo.eathome.ClientBookingInfoActivity;
 import nomeGruppo.eathome.ClientOrderInfoActivity;
 import nomeGruppo.eathome.HomepageActivity;
 import nomeGruppo.eathome.LoginActivity;
+import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.PlaceBookingInfoActivity;
 import nomeGruppo.eathome.PlaceHomeActivity;
 import nomeGruppo.eathome.PlaceOrderInfoActivity;
@@ -50,7 +51,7 @@ public class MenuNavigationItemSelected {
                 break;
             case R.id.action_profile:
 
-                intent = new Intent(context, ClientProfileActivity.class);
+                intent = new Intent(context, OtherActivity.class);
                 intent.putExtra(FirebaseConnection.CLIENT, client);
                 context.startActivity(intent);
 
@@ -79,7 +80,7 @@ public class MenuNavigationItemSelected {
                 context.startActivity(intent);
                 break;
             case R.id.action_profile:
-                intent = new Intent(context, PlaceProfileActivity.class);
+                intent = new Intent(context, OtherActivity.class);
                 intent.putExtra(FirebaseConnection.PLACE, place);
                 context.startActivity(intent);
                 break;

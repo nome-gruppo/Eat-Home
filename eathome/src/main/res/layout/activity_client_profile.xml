@@ -11,33 +11,28 @@
         android:id="@+id/activity_client_tw_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="43dp"
+        android:layout_marginStart="29dp"
         android:text="Name"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_et_email"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_et_name"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/activity_client_et_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="2dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_profile_imBtn_name"
-        app:layout_constraintHorizontal_bias="0.981"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/activity_client_profile_imBtn_name"
+        app:layout_constraintEnd_toStartOf="@+id/activity_client_profile_imBtn_name" />
 
     <ImageButton
         android:id="@+id/activity_client_profile_imBtn_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="38dp"
         android:src="@drawable/ic_profile_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,201 +41,155 @@
         android:id="@+id/activity_client_tw_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="43dp"
+        android:layout_marginStart="30dp"
         android:text="Email"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_et_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_tw_name" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_et_email"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/activity_client_et_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_profile_imBtn_email"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_name" />
+        app:layout_constraintBottom_toBottomOf="@+id/activity_client_profile_imBtn_email"
+        app:layout_constraintEnd_toStartOf="@+id/activity_client_profile_imBtn_email" />
 
     <ImageButton
         android:id="@+id/activity_client_profile_imBtn_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="40dp"
         android:src="@drawable/ic_profile_edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_profile_imBtn_name" />
+        app:layout_constraintStart_toStartOf="@+id/activity_client_profile_imBtn_name"
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_profile_imBtn_name" />
 
     <TextView
         android:id="@+id/activity_client_tw_oldPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="10dp"
         android:text="Vecchia password"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_et_oldPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_tw_email" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_et_oldPassword"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/activity_client_et_oldPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="14dp"
         android:ems="10"
         android:hint="Vecchia password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_email" />
+        app:layout_constraintStart_toEndOf="@+id/activity_client_tw_oldPassword"
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_profile_imBtn_email" />
 
     <TextView
         android:id="@+id/activity_client_tw_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="42dp"
+        android:layout_marginStart="18dp"
         android:text="New password"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_et_newPassword"
-        app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_tw_oldPassword" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_et_newPassword"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/activity_client_et_newPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="12dp"
         android:ems="10"
         android:hint="New password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_oldPassword" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_client_et_password_confirm"
+        app:layout_constraintEnd_toEndOf="@+id/activity_client_et_password_confirm" />
 
     <TextView
         android:id="@+id/activity_client_tw_password_confirm"
-        android:layout_width="88dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="43dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="4dp"
         android:text="Conferma password"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_et_password_confirm"
-        app:layout_constraintHorizontal_bias="0.275"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_tw_password" />
+        app:layout_constraintBottom_toBottomOf="@+id/activity_client_et_password_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/activity_client_et_email"
+        app:layout_constraintStart_toStartOf="@+id/activity_client_tw_password"
+        app:layout_constraintTop_toTopOf="@+id/activity_client_et_password_confirm" />
 
     <EditText
         android:id="@+id/activity_client_et_password_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="2dp"
         android:ems="10"
         android:hint="Confirm password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_profile_imBtn_password_confirm"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_newPassword" />
+        app:layout_constraintEnd_toStartOf="@+id/activity_client_profile_imBtn_password_confirm"
+        app:layout_constraintTop_toTopOf="@+id/activity_client_profile_imBtn_password_confirm" />
 
     <ImageButton
         android:id="@+id/activity_client_profile_imBtn_password_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="18dp"
         android:src="@drawable/ic_profile_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_newPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_oldPassword" />
 
     <TextView
         android:id="@+id/activity_client_tw_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="41dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="30dp"
         android:text="Phone"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_et_phone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_tw_password_confirm" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_tw_password_confirm" />
 
     <EditText
         android:id="@+id/activity_client_et_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
+        android:layout_marginEnd="1dp"
         android:ems="10"
         android:inputType="phone"
-        app:layout_constraintEnd_toStartOf="@id/activity_client_profile_imBtn_phone"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_password_confirm" />
+        app:layout_constraintEnd_toStartOf="@+id/activity_client_profile_imBtn_phone"
+        app:layout_constraintTop_toTopOf="@+id/activity_client_profile_imBtn_phone" />
 
     <ImageButton
         android:id="@+id/activity_client_profile_imBtn_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="21dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="19dp"
         android:src="@drawable/ic_profile_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_profile_imBtn_password_confirm" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_password_confirm" />
 
     <Button
         android:id="@+id/activity_client_btn_myAddresses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="234dp"
+        android:layout_marginStart="30dp"
         android:text="My addresses"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_et_phone" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_btn_deleteAccount"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/activity_client_btn_deleteAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="236dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="38dp"
         android:text="Elimina account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_btn_myAddresses" />
-
-    <Button
-        android:id="@+id/activity_client_btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="236dp"
-        android:text="Logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_client_btn_deleteAccount" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigationClientProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@android:color/black"
-        app:itemTextColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_phone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
