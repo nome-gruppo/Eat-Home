@@ -15,12 +15,19 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.TreeSet;
 
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.actors.PlacesByValuation;
 import nomeGruppo.eathome.actors.PlaceCategories;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class PlacesFilterActivity extends AppCompatActivity {
 
@@ -32,7 +39,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private RadioButton deliveryRB;
     private RadioButton bookingRB;
-    private RadioButton allRB;
 
     private RadioButton orderByValuationRB;
 
@@ -71,7 +77,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         deliveryRB = findViewById(R.id.activity_places_filter_rb_delivery);
         bookingRB = findViewById(R.id.activity_places_filter_rb_booking);
-        allRB = findViewById(R.id.activity_places_filter_rb_all);
 
         orderByValuationRB = findViewById(R.id.activity_places_filter_rb_valuation_order);
 
@@ -81,17 +86,14 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         showBtn = findViewById(R.id.activity_places_filter_btn_show);
 
-        places = (ArrayList<Place>) getIntent().getSerializableExtra("listPlace");
-
         initCheckListener();
 
+        places = new ArrayList<>();
 
 
+        Bundle bundle = getIntent().getBundleExtra("outState");
 
-
-            Bundle bundle = getIntent().getBundleExtra("outState");
-
-        if(bundle != null) {
+        if (bundle != null) {
             pizzeriaCB.setChecked(bundle.getBoolean("pizzeriaCB", true));
             restaurantCB.setChecked(bundle.getBoolean("restaurantCB", true));
             sushiCB.setChecked(bundle.getBoolean("sushiCB", true));
@@ -114,16 +116,49 @@ public class PlacesFilterActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final String userCity = getIntent().getStringExtra("userCity");
+
+        showBtn.setClickable(false);
+        if (userCity != null) {
+            search(userCity);
+        }
+
+    }
+
+    private void search(String userCity) {
+        final FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+        //cerca nel database i locali nella città dell'utente
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByChild("cityPlace").equalTo(userCity).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        places.add(snapshot.getValue(Place.class));
+                    }
+                }
+
+                showBtn.setClickable(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void initCheckListener() {
 
         CompoundButton.OnCheckedChangeListener changeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!b) {
-                    categoryChanged = true;
-                } else {
-                    allCheckTrue();
-                }
+                categoryChanged = true;
             }
         };
 
@@ -136,11 +171,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
         freeDeliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    freeDeliverySet = true;
-                }else{
-                    freeDeliverySet = false;
-                }
+
+                freeDeliverySet = true;
+
             }
         });
 
@@ -158,7 +191,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                    valuationChanged = true;
+                valuationChanged = true;
 
             }
         });
@@ -189,39 +222,12 @@ public class PlacesFilterActivity extends AppCompatActivity {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("listPlace", applyFilters());
                 resultIntent.putExtra("outState", outState);
-                setResult(RESULT_OK,resultIntent);
+                setResult(RESULT_OK, resultIntent);
                 finish();
 
 
             }
         });
-
-    }
-
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        pizzeriaCB.setChecked(savedInstanceState.getBoolean("pizzeriaCB", true));
-        restaurantCB.setChecked(savedInstanceState.getBoolean("restaurantCB", true));
-        sushiCB.setChecked(savedInstanceState.getBoolean("sushiCB", true));
-        restaurantPizzeriaCB.setChecked(savedInstanceState.getBoolean("restaurantPizzeriaCB", true));
-        otherCB.setChecked(savedInstanceState.getBoolean("otherCB", true));
-
-        deliveryRB.setChecked(savedInstanceState.getBoolean("deliveryRB", false));
-        bookingRB.setChecked(savedInstanceState.getBoolean("bookingRB", false));
-
-//        if(!deliveryRB.isChecked() && !bookingRB.isChecked()){
-//            allRB.isChecked();
-//        }
-
-        orderByValuationRB.setChecked(savedInstanceState.getBoolean("orderByValuationRB", false));
-
-        freeDeliverySwitch.setChecked(savedInstanceState.getBoolean("freeDeliverySwitch", false));
-
-        valuationSB.setProgress(savedInstanceState.getInt("valuationSB"));
-
 
     }
 
@@ -233,7 +239,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
         if (typeChanged) {
 
             if (deliveryRB.isChecked()) {
-
                 for (Place item : places) {
                     if (!item.takesOrderPlace) {
                         toRemove.add(item);
@@ -246,11 +251,11 @@ public class PlacesFilterActivity extends AppCompatActivity {
                     }
                 }
             }
+            //se rimane su all non eliminare nulla
         }
 
         //controllo categoria
         if (categoryChanged) {
-
             if (!pizzeriaCB.isChecked()) {
                 for (Place item : places) {
                     if (item.categories.equals(PlaceCategories.PIZZERIA.toString())) {
@@ -291,20 +296,20 @@ public class PlacesFilterActivity extends AppCompatActivity {
         }
 
         //controllo spedizione gratuita
-        if(freeDeliverySet){
-            for(Place item: places){
-                if(item.deliveryCost != 0){
+        if (freeDeliverySet) {
+            for (Place item : places) {
+                if (item.deliveryCost != 0) {
                     toRemove.add(item);
                 }
             }
         }
 
         //controllo valutazione minima
-        if(valuationChanged){
+        if (valuationChanged) {
             int valuation = valuationSB.getProgress();
 
-            for(Place item: places){
-                if(item.valuation < valuation){
+            for (Place item : places) {
+                if (item.valuation < valuation) {
                     toRemove.add(item);
                 }
             }
@@ -312,27 +317,23 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         places.removeAll(toRemove);
 
-        if(orderChanged){
-            TreeSet<Place> orderedPlaces = new TreeSet<>(new PlacesByValuation());
+        if (orderChanged) {
 
-            orderedPlaces.addAll(places);
+            TreeSet<Place> treeSet;
+            if (orderByValuationRB.isChecked()) {
+                treeSet = new TreeSet<>(new PlacesByValuation());
 
-            result = new ArrayList<>(orderedPlaces);
-        }else{
+            } else {
+                treeSet = new TreeSet<>(new PlacesByName());
+
+            }
+
+            treeSet.addAll(places);
             result = new ArrayList<>(places);
         }
 
         return result;
     }// end applyFilters
-
-    private void allCheckTrue() {
-        if (pizzeriaCB.isChecked() && restaurantCB.isChecked() &&
-                sushiCB.isChecked() && restaurantPizzeriaCB.isChecked() && otherCB.isChecked()) {
-            categoryChanged = false;
-        } else {
-            categoryChanged = true;
-        }
-    }
 
     public void filtersOnRadioButtonClicked(View view) {
         // Is the button now checked?
@@ -341,16 +342,14 @@ public class PlacesFilterActivity extends AppCompatActivity {
         // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.activity_places_filter_rb_all:
-                if(checked){
+                if (checked) {
                     freeDeliverySwitch.setClickable(true);
 
-                    typeChanged = false;
                 }
             case R.id.activity_places_filter_rb_delivery:
                 if (checked) {
                     freeDeliverySwitch.setClickable(true);
 
-                    typeChanged = true;
                 }
                 break;
             case R.id.activity_places_filter_rb_booking:
@@ -359,25 +358,26 @@ public class PlacesFilterActivity extends AppCompatActivity {
                 freeDeliverySwitch.setChecked(false);
                 freeDeliverySet = false;
 
-                typeChanged = true;
                 break;
         }
+        typeChanged = true;
     }
 
     public void orderByOnRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 
-        // Check which radio button was clicked
-        if (view.getId() == R.id.activity_places_filter_rb_valuation_order) {
-            if (checked) {
-                orderChanged = true;
-            }
-        } else {
-            if (checked) {
-                orderChanged = false;
-            }
-        }
+//        // Check which radio button was clicked
+//        if (view.getId() == R.id.activity_places_filter_rb_valuation_order) {
+//            if (checked) {
+//                orderChanged = true;
+//            }
+//        } else {
+//            if (checked) {
+//                orderChanged = false;
+//            }
+//        }
+        orderChanged = true;
     }
 
     @Override

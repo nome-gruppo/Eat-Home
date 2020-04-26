@@ -328,7 +328,6 @@ public class HomepageActivity extends AppCompatActivity {
                     listPlace.clear();
                     
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        nomeGruppo.eathome.actors.Place temp = snapshot.getValue(nomeGruppo.eathome.actors.Place.class);
                         String  mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
                         boolean mFound = false;
 
@@ -558,6 +557,7 @@ public class HomepageActivity extends AppCompatActivity {
                 Intent filtersIntent = new Intent(HomepageActivity.this, PlacesFilterActivity.class);
                 filtersIntent.putExtra("listPlace", listPlace);
                 filtersIntent.putExtra("outState", filterBundle);
+                filtersIntent.putExtra("userCity", userCity);
                 startActivityForResult(filtersIntent,SEARCH_FILTER_REQUEST_CODE);
             }
         });
