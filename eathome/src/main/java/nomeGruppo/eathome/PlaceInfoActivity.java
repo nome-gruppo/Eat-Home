@@ -1,8 +1,6 @@
 package nomeGruppo.eathome;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,7 +27,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,7 +37,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.libraries.places.api.Places;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +46,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.sql.Time;
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -94,7 +89,6 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private List<String>listAddress;
     private OpeningTime openingTimeUtility;
 
-
     private FirebaseUser user;
     private FirebaseAuth mAuth;
 
@@ -133,6 +127,22 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         this.txtCityPlaceInfo.setText(this.place.cityPlace);
 
         this.firstTime = true;
+
+        final RatingBar ratingBar = findViewById(R.id.activity_place_info_ratingBar);
+        final TextView numFeedbackTW = findViewById(R.id.activity_place_info_numFeedback);
+
+        ratingBar.setRating(place.valuation);
+
+        numFeedbackTW.setText(place.numberReview + " recensioni");
+
+        numFeedbackTW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PlaceInfoActivity.this, FeedbackPlaceActivity.class);
+                intent.putExtra(FirebaseConnection.PLACE, place);
+                startActivity(intent);
+            }
+        });
 
 //        MapFragment mMapFragment = MapFragment.newInstance();
 //        FragmentTransaction fragmentTransaction =
@@ -237,7 +247,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         ImageButton btnAddAddress=view.findViewById(R.id.btnAddAddress);
 
         //leggo in SQLite gli indirizzi presenti e li assegno alla listView
-        final Cursor c = mDB.query(DBOpenHelper.TABLE_NAME,DBOpenHelper.COLUMNS, null, null, null, null, null);
+        final Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES,DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID, new String[]{user.getUid()}, null, null, null);
 
         while(c.moveToNext()){
             String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;
@@ -381,7 +391,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     @Override
     public void applyTexts(String city, String address, String numberAddress) {
         addressAdapter.notifyDataSetChanged();
-        mDBHelper.addAddress(mDB, address, numberAddress, city);
+        mDBHelper.addAddress(mDB, address, numberAddress, city,user.getUid());
     }
 
     private class AddressAdapter extends ArrayAdapter<String> {

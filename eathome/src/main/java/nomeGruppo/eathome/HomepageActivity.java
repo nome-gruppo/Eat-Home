@@ -54,7 +54,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -165,11 +164,11 @@ public class HomepageActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //leggo la tabella myInfo
-        Cursor c = mDB.query(DBOpenHelper.TABLE_NAME_INFO,DBOpenHelper.COLUMNS_INFO,null,null,null,null,null);
+        Cursor c = mDB.query(DBOpenHelper.TABLE_INFO,DBOpenHelper.COLUMNS_INFO,null,null,null,null,null);
         final int rows = c.getCount();
         if(rows > 0) {
             while (c.moveToNext()) {
-                String idPlace=c.getString(c.getColumnIndexOrThrow(DBOpenHelper._ID));
+                String idPlace=c.getString(c.getColumnIndexOrThrow(DBOpenHelper._ID_INFO));
                 String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
                 String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");//imposto il formato della data
