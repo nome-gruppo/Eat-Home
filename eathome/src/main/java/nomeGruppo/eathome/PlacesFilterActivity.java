@@ -342,10 +342,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
         // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.activity_places_filter_rb_all:
-                if (checked) {
-                    freeDeliverySwitch.setClickable(true);
-
-                }
             case R.id.activity_places_filter_rb_delivery:
                 if (checked) {
                     freeDeliverySwitch.setClickable(true);
