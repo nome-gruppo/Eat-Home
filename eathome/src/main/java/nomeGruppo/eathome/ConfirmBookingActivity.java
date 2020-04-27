@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,18 +17,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.libraries.places.api.model.LocalTime;
-
-
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
@@ -39,6 +32,9 @@ import nomeGruppo.eathome.utility.DatePickerFragment;
 import nomeGruppo.eathome.utility.OpeningTime;
 import nomeGruppo.eathome.utility.TimePickerFragment;
 
+/*
+activity per completare e confermare la prenotazione
+ */
 public class ConfirmBookingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private Booking booking;
@@ -77,56 +73,66 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getWritableDatabase();
 
-
+        //se l'utente clicca sul bottone per aggiungere persone al tavolo della prenotazione
         btnAddPersonBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int i=Integer.parseInt(txtNumberPersonBooking.getText().toString());
-                i++;
-                txtNumberPersonBooking.setText(Integer.toString(i));
+                int i=Integer.parseInt(txtNumberPersonBooking.getText().toString());//trasformo in intero il numero letto dalla TextView
+                i++;//aggiungo un posto
+                txtNumberPersonBooking.setText(Integer.toString(i));//imposto il numero aggiornato nella TextView
             }
         });
 
+        //se l'utente clicca sul bottone per sottrare persone al tavolo della prenotazione
         btnDeletePersonBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int i=Integer.parseInt(txtNumberPersonBooking.getText().toString());
-                if(i>1){
-                    i--;
-                    txtNumberPersonBooking.setText(Integer.toString(i));
+                int i=Integer.parseInt(txtNumberPersonBooking.getText().toString());//trasformo in intero il numero letto dalla TextView
+                if(i>1){//se il numero letto è maggiore di 1
+                    i--;//sottraggo di un posto
+                    txtNumberPersonBooking.setText(Integer.toString(i));//imposto il numero aggiornato nella TextView
                 }
             }
         });
 
+        //se l'utente clicca su conferma
         btnConfirmBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //se non sono stati compilati tutti i campi
                 if(editNameBooking.getText().toString().trim().length()==0||txtDateBooking.getText().toString().trim().length()==0||
                         txtHourBooking.getText().toString().trim().length()==0){
-                    Toast.makeText(ConfirmBookingActivity.this,"Completa tutti i campi",Toast.LENGTH_SHORT).show();
-                }else {
-                    openDialogConfirm();
+                    //mostra il messaggio completa tutti i campi
+                    Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.fill_all_fields),Toast.LENGTH_SHORT).show();
+                }else {//se tutti i campi sono stati compilati
+                    openDialogConfirm();//apri il dialogo di conferma
                 }
             }
         });
 
+        //se l'utente clicca sul testo dell'orario della prenotazione
         txtHourBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //se non è stata ancora impostata una data
                 if(txtDateBooking.toString().trim().length()==0){
-                    Toast.makeText(ConfirmBookingActivity.this, "Devi selezionare prima una data", Toast.LENGTH_SHORT).show();
-                }else {
-                    openDialogChooseHour(txtDayOfWeek.getText().toString());
+                    //mostra messaggio
+                    Toast.makeText(ConfirmBookingActivity.this, ConfirmBookingActivity.this.getResources().getString(R.string.need_data), Toast.LENGTH_SHORT).show();
+                }else {//se è stata impostata una data
+                    openDialogChooseHour(txtDayOfWeek.getText().toString());//apri il dialog per scegliere l'ora
                 }
             }
         });
 
+        //se l'utente clicca sul testo della data
         txtDateBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openCalendar();
             }
-        });
+        });//apre il dialog per impostare la data
 
 
     }
@@ -151,13 +157,16 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
         //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorno della settimana
         String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
+
+        //se nel giorno selezioanto è stato impostato in orario quindi il locale non è chiuso
         if(place.openingTime.get(dayOfWeek).length()>8){
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd");
             txtDateBooking.setText(simpleDateFormat.format(dateBooking.getTime()));//setto la data in base alla scelta dell'utente.
             openDialogChooseHour(dayOfWeek);//una volta selezionata la data apro il dialog per scegliere l'ora
-        }else{
-            Toast.makeText(ConfirmBookingActivity.this,"Il locale è chiuso nella data selezionata",Toast.LENGTH_SHORT).show();
-            openCalendar();
+        }else{//se il locale è chiuso nel giorno selezionato
+            //mostra messaggio
+            Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_date),Toast.LENGTH_SHORT).show();
+            openCalendar();//riapri il dialog per scegliere la data
         }
     }
 
@@ -176,12 +185,14 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         Time hourOpening=openingTimeUtility.getTimeOpening(openingTime);
         Time hourClosed=openingTimeUtility.getTimeClosed(openingTime);
         Time hourBooking=Time.valueOf(hour+":"+minutes+":"+00);//Time richiede anche i secondi
-        //se hourBooking è maggiore di hourOpening restituisce un valore positivo e se è minore di hourClosed restituisce un valore negativo
+
+        //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
         if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
             txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
-        }else{
-         Toast.makeText(ConfirmBookingActivity.this,"Ora non valida",Toast.LENGTH_SHORT).show();
-         openDialogChooseHour(day);
+        }else{//se il locale è chiuso nell'ora selezionata
+         //mostra messaggio
+         Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
+         openDialogChooseHour(day);//riapri il dialog per scegliere il giorno
         }
     }
 
@@ -192,11 +203,11 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(addBookingFirebase()){
-                    //una volta inserito l'oggetto nel Db torno alla homePage
-                    Toast.makeText(ConfirmBookingActivity.this,"Prenotazione confermata",Toast.LENGTH_SHORT).show();
+                if(addBookingFirebase()){//se la prenotazione è stata inserita correttamente nel database
+                    //mostra messaggio
+                    Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.reservetion_confirmed),Toast.LENGTH_SHORT).show();
                     Intent homePage=new Intent(ConfirmBookingActivity.this,HomepageActivity.class);
-                    startActivity(homePage);
+                    startActivity(homePage);//apro la homepage
                     finish();
                 }
             }

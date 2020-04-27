@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.textclassifier.TextClassifierEvent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -65,6 +64,9 @@ import nomeGruppo.eathome.profile.DialogAddAddress;
 import nomeGruppo.eathome.utility.MenuAdapterForClient;
 import nomeGruppo.eathome.utility.OpeningTime;
 
+/*
+activity che visualizza le informazioni per il locale selezionato dall'utente
+ */
 public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddress.DialogAddAddressListener, OnMapReadyCallback {
 
     private static final String SPLIT = ", ";
@@ -164,44 +166,47 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood,listFoodOrder);
         listViewFoodInfo.setAdapter(mAdapter);
 
+        //se il locale accetta prenotazioni
         if(this.place.takesBookingPlace){
-            this.txtBookingPlaceInfo.setVisibility(View.VISIBLE);
-            this.btnBook.setEnabled(true);
+            this.txtBookingPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta prenotazioni'
+            this.btnBook.setEnabled(true);//rendo il bottone prenota cliccabile
         }
 
+        //se il locale accetta ordinazioni
         if(this.place.takesOrderPlace){
-            this.txtDeliveryPlaceInfo.setVisibility(View.VISIBLE);
-            this.txtDeliveryCostInfo.setText(Integer.toString(this.place.deliveryCost));
-            this.txtDeliveryCostInfo.setVisibility(View.VISIBLE);
-            this.btnOrder.setEnabled(true);
+            this.txtDeliveryPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta ordinazioni'
+            this.txtDeliveryCostInfo.setText(Integer.toString(this.place.deliveryCost));//imposto la TExtView con il costo della spedizione
+            this.txtDeliveryCostInfo.setVisibility(View.VISIBLE);//mostro il costo della spedizione
+            this.btnOrder.setEnabled(true);//rendo cliccabile il bottone ordina
         }
 
-
+        //se clicca su ordina
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null) {
-                    openDialogOrder(listFoodOrder, place);
-                }else{
+                if(user != null) {//se l'utente è loggato
+                    openDialogOrder(listFoodOrder, place);//apri dialog di riepilogo ordine
+                }else{//se l'utente non è loggato
                     Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
                     loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);
-                    startActivity(loginIntent);
+                    startActivity(loginIntent);//apri login
                 }
             }
         });
 
+        //se clicca su ordina
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null) {
+                if(user != null) {//se l'utente è loggato
                     Intent bookingActivity = new Intent(PlaceInfoActivity.this,ConfirmBookingActivity.class);
                     bookingActivity.putExtra(FirebaseConnection.PLACE,place);
                     bookingActivity.putExtra("UserID",user.getUid());
-                    startActivity(bookingActivity);
-                }else{
+                    startActivity(bookingActivity);//apri activity di conferma ordinazione
+                }else{//se l'utente non è loggato
                     Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
                     loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);
-                    startActivity(loginIntent);
+                    startActivity(loginIntent);//apri login
                 }
             }
         });
@@ -216,14 +221,14 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         String message="";
         for(Map.Entry<Food,Integer>entry:listFoodOrder.entrySet()){//scorro l'hashMap per prendere il nome dei cibi e la quantità
             Food key=entry.getKey();
-            nameFood.add("X " +entry.getValue()+ " "+ key.nameFood);
-            int number=entry.getValue();
-            float totParz=key.priceFood*number;
-            tot+=totParz;
-            message+=(number +"X "+key.nameFood+" "+ totParz+" €"+"\n");
+            nameFood.add("X " +entry.getValue()+ " "+ key.nameFood);//aggiungo alla lista dei cibi il nome con la relativa quantità
+            int number=entry.getValue();//prendo la quantità
+            float totParz=key.priceFood*number;//moltiplico il prezzo per la quantità per avere il costo di un cibo ordinato
+            tot+=totParz;//sommo il costo del cibo con il totale finale
+            message+=(number +"X "+key.nameFood+" "+ totParz+" €"+"\n");//imposto il messaggio con il riepilogo della quantità del nome e del costo parziale del cibo
         }
-        message+="Tot" +tot+" €";
-        builder.setMessage(message);
+        message+="Tot" +tot+" €";//imposto nel messaggio il totale finale
+        builder.setMessage(message);//mostro il messaggio
         finalTot = tot;
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
@@ -256,11 +261,11 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         //leggo in SQLite gli indirizzi presenti e li assegno alla listView
         final Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES,DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID, new String[]{user.getUid()}, null, null, null);
 
-        while(c.moveToNext()){
+        while(c.moveToNext()){//se sono presenti indirizzi
             String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;
             address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS)) + SPLIT);
             address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY)));
-            listAddress.add(address);
+            listAddress.add(address);//aggiungo l'indirizzo totale alla lista a cui è collegato l'adapter
         }
         addressAdapter.notifyDataSetChanged();
         AlertDialog alert = builder.create();
@@ -325,20 +330,20 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         String openingTime = place.openingTime.get(day);
         Time localTime=new Time(System.currentTimeMillis());
         if (openingTime.length()>8) {//se è stato impostato un orario di apertura e chiusura
-            Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);
-            Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);
+            Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'ora di apertura
+            Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'ora di chiusura
             //se localTime si trova tra timeOpening e timeClosed
             if (localTime.after(timeOpening)&&localTime.before(timeClosed)) {
                 txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + timeClosed.toString());
                 return;
-            } else{
+            } else{//se l'ora corrente non è tra l'ora di apertura e l'ora di chiusura
                 txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + timeOpening.toString());
-                btnOrder.setEnabled(false);
+                btnOrder.setEnabled(false);//non è possibile ordinare
                 return;
             }
-        } else {
+        } else {//se non è stato impostato alcun orario per il giorno corrente
             txtOpeningTime.setText(getResources().getString(R.string.closed_place));
-            btnOrder.setEnabled(false);
+            btnOrder.setEnabled(false);//non è possibile ordinare
             return;
         }
     }
@@ -396,16 +401,16 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     @Override
     public void applyTexts(String city, String address, String numberAddress) {
         addressAdapter.notifyDataSetChanged();
-        mDBHelper.addAddress(mDB, address, numberAddress, city,user.getUid());
+        mDBHelper.addAddress(mDB, address, numberAddress, city,user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
 
         Intent orderActivity=new Intent(PlaceInfoActivity.this,ConfirmOrderActivity.class);
         final String addressOrder=address+","+numberAddress+","+city;
-        order=setOrder(addressOrder);
+        order=setOrder(addressOrder);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
         orderActivity.putExtra(FirebaseConnection.ORDER,order);
-        startActivity(orderActivity);
+        startActivity(orderActivity);//apro l'activity per confermare l'ordine
     }
 
-    private Order setOrder(String addressOrder){
+    private Order setOrder(String addressOrder){//funzione per settare i valore di order
         order.setIdClientOrder(user.getUid());
         order.setPlaceOrder(place);
         order.setFoodsOrder(nameFood);

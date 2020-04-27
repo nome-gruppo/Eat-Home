@@ -82,5 +82,12 @@
     <string name="assign_rating">Assegna prima una valutazione</string>
     <string name="enter_feedback">Scrivi qui recensione</string>
     <string name="no_feedback">Spiacenti! Non ci sono recensioni</string>
+    <string name="fill_all_fields">Compila tutti i campi</string>
+    <string name="need_data">Bisogna impostare prima una data</string>
+    <string name="invalid_date">Il locale è chiuso nella data selezionata</string>
+    <string name="invalid_time">Il locale è chiuso nell\'ora selezionata</string>
+    <string name="reservetion_confirmed">Prenotazione confermata</string>
+    <string name="order_confirm">Order confirm</string>
+
 
 </resources>

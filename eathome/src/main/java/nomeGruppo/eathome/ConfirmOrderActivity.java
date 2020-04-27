@@ -17,23 +17,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-
-import com.google.android.libraries.places.api.model.LocalTime;
-
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
 
 import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.OpeningTime;
 import nomeGruppo.eathome.utility.TimePickerFragment;
 
+/*
+activity per completare e confermare un ordine
+ */
 public class ConfirmOrderActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private Order order;
@@ -76,21 +73,26 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.editPhone=findViewById(R.id.editPhoneClientOrder);
         this.chooseTime=findViewById(R.id.editChooseTime);
 
+
+        //se l'utenten clicca sulla editText per scegliere l'ora
         this.chooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment timePicker=new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(),"Time picker");
+                timePicker.show(getSupportFragmentManager(),"Time picker");//apro il TimePicker
             }
         });
 
+        //se l'utente clicca su conferma
         this.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(editName.getText().toString().trim().length()==0||chooseTime.getText().toString().trim().length()==0){
-                    Toast.makeText(ConfirmOrderActivity.this, "Inserisci nome destinatario o orario di consegna", Toast.LENGTH_SHORT).show();
-                }else{
-                    openDialogConfirm();
+                //se non sono stati completati tutti i campi
+                if(editName.getText().toString().trim().length()==0||chooseTime.getText().toString().trim().length()==0||editPhone.getText().toString().trim().length()==0){
+                    //mostra messaggio
+                    Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
+                }else{//se sono stati completati tutti i campi
+                    openDialogConfirm();//apri il dialog di conferma
                 }
 
             }
@@ -105,10 +107,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(addOrderFirebase()){
-                    Toast.makeText(ConfirmOrderActivity.this,"Ordine confermato",Toast.LENGTH_SHORT).show();
+                if(addOrderFirebase()){//se l'ordine è stato inserito correttamente all'interno del database
+                    //mostra messaggio
+                    Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.order_confirm),Toast.LENGTH_SHORT).show();
                     Intent homePage=new Intent(ConfirmOrderActivity.this,HomepageActivity.class);
-                    startActivity(homePage);
+                    startActivity(homePage);//apri homepage
                     finish();
                 }
             }
@@ -140,16 +143,19 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-        Time timeOrder=Time.valueOf(hourOfDay+":"+minutes+":"+00);
+        Time timeOrder=Time.valueOf(hourOfDay+":"+minutes+":"+00);//la classe Time vuole anche i secondi
+        //leggo l'orario di apertura chiusura del locale
         String openingTime=order.placeOrder.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
-        Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);
-        Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);
+        Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'orario di apertura
+        Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'orario di chiusura
 
+        //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
         if(timeOrder.after(timeOpening)&&timeOrder.before(timeClosed)){
             EditText editChooseTime=findViewById(R.id.editChooseTime);
-            editChooseTime.setText(timeOrder.toString());
-        }else{
-            Toast.makeText(ConfirmOrderActivity.this,"Orario non valido",Toast.LENGTH_SHORT).show();
+            editChooseTime.setText(timeOrder.toString());//imposta l'ora nella EditText
+        }else{//se il locale è chiuso nell'ora selezionata
+            //mostra messaggio
+            Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
         }
 
 

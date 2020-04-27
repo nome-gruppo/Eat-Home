@@ -25,6 +25,9 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.BookingInfoAdapter;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 
+/*
+activity per far visualizzare al cliente il riepilogo delle sue prenotazioni
+ */
 public class ClientBookingInfoActivity extends AppCompatActivity {
 
     private MenuNavigationItemSelected menuNavigationItemSelected;
@@ -42,17 +45,18 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
         super.onStart();
 
         listBooking.clear();
+        //leggo in firebase le prenotazioni del cliente in base al suo id
         firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild("idClientBooking").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {//se esiste almeno una prenotazione
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Booking booking = snapshot.getValue(Booking.class);
-                        listBooking.add(booking);
+                        listBooking.add(booking);//aggiungo la prenotazione alla lista collegata all'adapter
                     }
-                }else{
-                    txtNoBooking.setVisibility(View.VISIBLE);
-                    imgNoBooking.setVisibility(View.VISIBLE);
+                }else{//se non ci sono prenotazioni
+                    txtNoBooking.setVisibility(View.VISIBLE);//mostro messaggio 'siamo spiacenti'
+                    imgNoBooking.setVisibility(View.VISIBLE);//mostro la smile triste
                 }
                 bookingInfoAdapter.notifyDataSetChanged();
             }
@@ -80,6 +84,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
         this.txtNoBooking=findViewById(R.id.txtNoBookingClient);
         this.imgNoBooking=findViewById(R.id.imgNoBookingClient);
 
+        //menu sottostante l'activity
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {

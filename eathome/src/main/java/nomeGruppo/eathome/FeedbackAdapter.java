@@ -14,6 +14,10 @@ import java.util.List;
 
 import nomeGruppo.eathome.actions.Feedback;
 
+/*
+adapter per le recensioni
+ */
+
 public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
 
 

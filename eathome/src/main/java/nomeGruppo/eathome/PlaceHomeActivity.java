@@ -44,6 +44,9 @@ import nomeGruppo.eathome.utility.DialogAddMenu;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.MyMenuAdapter;
 
+/*
+activity homepage per Place
+ */
 public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
 
     static final String NAME_TABLE_FOODS="Foods";
@@ -89,6 +92,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         btnDeleteFood=(ImageButton)findViewById(R.id.btnDeleteFood);
         this.menuNavigationItemSelected=new MenuNavigationItemSelected();
 
+        //mostro il menu sottostante
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -96,14 +100,15 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             }
         });
 
+        //se place clicca sull'immagine
         imgPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGallery();
             }
-        });
+        });//apre la galleria per far scegliere l'immagine del ristorante
 
-
+        //se clicca sul pulsante per aggiungere una nuova voce al menu
         btnAddMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +117,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             }
         });
 
+        //se clicca su una voce nella lista del menu
         listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -159,16 +165,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             }
         });
 
-    }
-
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-        storage.uploadImage(txtPath.getText().toString(),place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
     }
 
     @Override

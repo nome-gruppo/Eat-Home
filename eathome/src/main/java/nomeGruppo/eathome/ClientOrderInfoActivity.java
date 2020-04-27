@@ -21,10 +21,13 @@ import java.util.List;
 
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.OrderInfoAdapter;
+
+/*
+activity per far visualizzare al cliente il riepilogo dei suoi ordini
+ */
 
 public class ClientOrderInfoActivity extends AppCompatActivity {
     private MenuNavigationItemSelected menuNavigationItemSelected;
@@ -60,6 +63,7 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
         this.txtNoOrder=findViewById(R.id.txtNoOrderClient);
         this.imgNoOrder=findViewById(R.id.imgNoOrderClient);
 
+        //menu sottostante l'activity
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -71,17 +75,19 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
 
     private void readOrder(){
         listOrder.clear();
+
+        //leggo in firebase gli ordini in base all'id del cliente
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("idClientOrder").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
+                if(dataSnapshot.exists()) {//se esiste almeno un ordine
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Order order = snapshot.getValue(Order.class);
-                        listOrder.add(order);
+                        listOrder.add(order);//aggiungo l'ordine alla lista collegata all'adapter
                     }
-                }else{
-                    txtNoOrder.setVisibility(View.VISIBLE);
-                    imgNoOrder.setVisibility(View.VISIBLE);
+                }else{//se non c'è nemmeno un ordine
+                    txtNoOrder.setVisibility(View.VISIBLE);//mostro messaggio 'siamo spiacenti'
+                    imgNoOrder.setVisibility(View.VISIBLE);//mostro la smile triste
                 }
                 orderInfoAdapter.notifyDataSetChanged();
             }
