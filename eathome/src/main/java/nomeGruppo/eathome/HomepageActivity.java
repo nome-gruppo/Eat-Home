@@ -69,6 +69,9 @@ import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.PlaceAdapter;
 
+/*
+activity homepage dei clienti
+ */
 public class HomepageActivity extends AppCompatActivity {
 
     private static final String TAG = "HomepageActivity";
@@ -171,10 +174,10 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //leggo la tabella myInfo
+        //leggo la tabella myInfo per verificare se ci sono locali da recensire
         Cursor c = mDB.query(DBOpenHelper.TABLE_INFO,DBOpenHelper.COLUMNS_INFO,null,null,null,null,null);
         final int rows = c.getCount();
-        if(rows > 0) {
+        if(rows > 0) {//se ci sono locali per cui l'utente ha prenotato/ordinato
             while (c.moveToNext()) {
                 String idPlace=c.getString(c.getColumnIndexOrThrow(DBOpenHelper._ID_INFO));
                 String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));

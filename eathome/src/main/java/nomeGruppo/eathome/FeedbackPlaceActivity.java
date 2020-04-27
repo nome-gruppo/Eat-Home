@@ -21,6 +21,9 @@ import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
+/*
+activity per far visualizzare a Place le proprie recensioni
+ */
 public class FeedbackPlaceActivity extends AppCompatActivity {
 
     private Place mPlace;
@@ -68,13 +71,14 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
         final ArrayList<Feedback> feedbackList = new ArrayList<>();
         final FeedbackAdapter mAdapter = new FeedbackAdapter(this, R.layout.listitem_feedback, feedbackList);
 
+        //leggo in firebase i feedback corrispondenti all'id diPlace
         mDB.child(FirebaseConnection.FEEDBACK_TABLE).orderByChild("idPlaceFeedback").equalTo(mPlace.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if(dataSnapshot.exists()){//se esiste almeno un feedback
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
 
-                        feedbackList.add(snapshot.getValue(Feedback.class));
+                        feedbackList.add(snapshot.getValue(Feedback.class));//aggiungo il feedback trovato alla lista collegata all'adapter
 
                     }
 

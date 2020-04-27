@@ -91,5 +91,11 @@
     <string name="assign_rating">Assign a rating</string>
     <string name="enter_feedback">Enter feedback</string>
     <string name="no_feedback">Sorry! There are no feedback</string>
+    <string name="fill_all_fields">Fill in all fields</string>
+    <string name="need_data">You need to set a date first</string>
+    <string name="invalid_date">The place is closed on the selected date</string>
+    <string name="invalid_time">The place is closed on the selected time</string>
+    <string name="reservetion_confirmed">Reservetion confirmed</string>
+    <string name="order_confirm">Order confirm</string>
 
 </resources>

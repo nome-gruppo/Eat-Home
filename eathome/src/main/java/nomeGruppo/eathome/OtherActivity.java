@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
@@ -21,6 +20,9 @@ import nomeGruppo.eathome.profile.ClientProfileActivity;
 import nomeGruppo.eathome.profile.PlaceProfileActivity;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 
+/*
+activity dove sono presenti il mio profilo le mie recensioni e il logout
+ */
 public class OtherActivity extends AppCompatActivity {
     private MenuNavigationItemSelected menuNavigationItemSelected=new MenuNavigationItemSelected();
     private ImageButton btnProfile,btnFeedback,btnLogout;
@@ -46,12 +48,16 @@ public class OtherActivity extends AppCompatActivity {
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
         if(place!=null){ //se l'activity corrente è stata raggiunta da un Place
+
+            //mostro il menu sottostante
             this.bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     return menuNavigationItemSelected.menuNavigationPlace(item,place,OtherActivity.this);//carico il menu dei Place
                 }
             });
+
+            //se il Place clicca su il mio profilo
             this.btnProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -60,6 +66,8 @@ public class OtherActivity extends AppCompatActivity {
                     startActivity(profilePlaceIntent);//apro l'activity del profilo di Place
                 }
             });
+
+            //se place clicca su le mie recensioni
             this.btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -68,6 +76,8 @@ public class OtherActivity extends AppCompatActivity {
                     startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
             });
+
+            //se place clicca su logout
             this.btnLogout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -81,12 +91,16 @@ public class OtherActivity extends AppCompatActivity {
         }
 
         else{ //se l'activity corrente è stata raggiunta da un Client
+
+            //mostro il menu sottostante
             this.bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     return menuNavigationItemSelected.menuNavigation(item,client,OtherActivity.this);//carico il menu dei CLient
                 }
             });
+
+            //se cliente clicca su il mio profilo
             this.btnProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -95,6 +109,8 @@ public class OtherActivity extends AppCompatActivity {
                     startActivity(profileClientIntent);//apro l'activity profilo di Cliente
                 }
             });
+
+            //se cliente clicca su le mie recensioni
             this.btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -104,6 +120,8 @@ public class OtherActivity extends AppCompatActivity {
 
                 }
             });
+
+            //se cliente clicca su logout
             this.btnLogout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

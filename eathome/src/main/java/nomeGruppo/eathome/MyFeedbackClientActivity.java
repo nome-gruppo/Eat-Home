@@ -21,6 +21,10 @@ import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
+/*
+activity per far visualizzare al cliente le recensioni scritte
+ */
+
 public class MyFeedbackClientActivity extends AppCompatActivity {
 
     private ListView listViewFeedbackClient;
@@ -52,21 +56,22 @@ public class MyFeedbackClientActivity extends AppCompatActivity {
         final ArrayList<Feedback> feedbackList = new ArrayList<>();
         final FeedbackAdapter mAdapter = new FeedbackAdapter(this, R.layout.listitem_feedback, feedbackList);
 
+        //leggo in firebase i feedback con idCliente corrispondente
         mDB.child(FirebaseConnection.FEEDBACK_TABLE).orderByChild("idClientFeedback").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if(dataSnapshot.exists()){//se esiste almeno un feedback
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
 
-                        feedbackList.add(snapshot.getValue(Feedback.class));
+                        feedbackList.add(snapshot.getValue(Feedback.class));//aggiungo il feedback trovato alla lista a cui ho impostato l'adapter
 
                     }
 
                     listViewFeedbackClient.setAdapter(mAdapter);
                 }
-                if(feedbackList.isEmpty()){
-                    imgNoFeedback.setVisibility(View.VISIBLE);
-                    txtNoFeedback.setVisibility(View.VISIBLE);
+                if(feedbackList.isEmpty()){//se non è stato trovato alcun feedback
+                    imgNoFeedback.setVisibility(View.VISIBLE);//mostro la smile triste
+                    txtNoFeedback.setVisibility(View.VISIBLE);//mostro il messaggio 'siamo spiacenti'
                 }
             }
 

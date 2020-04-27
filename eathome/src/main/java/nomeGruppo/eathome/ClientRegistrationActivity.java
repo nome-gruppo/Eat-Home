@@ -23,6 +23,10 @@ import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
+/*
+activity per la registrazione del cliente
+ */
+
 public class ClientRegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "ClientRegistration";
@@ -54,29 +58,32 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         client = new Client();
         control = new UtilitiesAndControls();
 
-        nameClient = (EditText) findViewById(R.id.editNameClient);
+        nameClient =  findViewById(R.id.editNameClient);
         nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        emailClient = (EditText) findViewById(R.id.editMailClient);
+        emailClient =  findViewById(R.id.editMailClient);
         emailClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        passwordClient = (EditText) findViewById(R.id.editPasswordClient);
+        passwordClient =  findViewById(R.id.editPasswordClient);
         passwordClient.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        btnSignin = (Button) findViewById(R.id.btnSigninClient);
-        statusTV = (TextView) findViewById(R.id.activity_client_registration_tw_status);
+        btnSignin =  findViewById(R.id.btnSigninClient);
+        statusTV =  findViewById(R.id.activity_client_registration_tw_status);
 
-
+        //se l'utente clicca sul bottone registrati
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //se non sono stati compilati tutti i campi
                 if (nameClient.getText().toString().trim().length() == 0 || emailClient.getText().toString().trim().length() == 0 || passwordClient.getText().toString().trim().length() == 0) {
 
-                    Toast.makeText(ClientRegistrationActivity.this, "Compila tutti i campi", duration).show();
+                    //mostra 'compila tutti i campi'
+                    Toast.makeText(ClientRegistrationActivity.this, ClientRegistrationActivity.this.getResources().getString(R.string.fill_all_fields), duration).show();
 
-                } else {
+                } else {//se tutti i campi sono stati compilati
 
-                    String emailTemp = emailClient.getText().toString().trim();
-                    String passwordTemp = passwordClient.getText().toString();
+                    String emailTemp = emailClient.getText().toString().trim();//leggi mail
+                    String passwordTemp = passwordClient.getText().toString();//leggi password
 
-                    if (control.isEmailValid(emailTemp) && control.isPasswordValid(passwordTemp)) {
+                    if (control.isEmailValid(emailTemp) && control.isPasswordValid(passwordTemp)) {//apri la fuznione di controllo se mail o password sono valide
                         createAccount(emailTemp, passwordTemp);
                     }
                 }

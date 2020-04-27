@@ -10,13 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -26,12 +24,13 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import nomeGruppo.eathome.actions.Feedback;
-import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-
+/*
+dialog per l'inserimento delle recensioni da parte del cliente
+ */
 public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private RatingBar ratingBar;
     private String idPlace,namePlace,idClient,nameClient;
@@ -106,16 +105,17 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
     private void updateValuationPlace(){
 
+        //leggo il Place corrispondente all'id all'interno di firebase
         firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
+                if(dataSnapshot.exists()) {//se è stato trovato Place
                     //ritorna un iterable con un solo elemento
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                         Place place = snapshot.getValue(Place.class);
-                        place.newValuation(ratingBar.getRating());
+                        place.newValuation(ratingBar.getRating());//assegno la valutazione data dal cliente al Place corrispondente
 
-                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);
+                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);//aggiorno il valore in firebase
 
                     }
                 }

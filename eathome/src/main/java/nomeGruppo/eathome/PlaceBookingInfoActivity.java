@@ -25,6 +25,9 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.PlaceBookingAdapter;
 
+/*
+activity per far visualizzare a Place il riepilogo delle sue prenotazioni
+ */
 public class PlaceBookingInfoActivity extends AppCompatActivity {
 
     private Place place;
@@ -51,6 +54,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         this.imgNoBookin=findViewById(R.id.imgNoBookingPlace);
         this.placeBookingAdapter=new PlaceBookingAdapter(this,R.layout.listitem_booking_info,listBooking);
 
+        //mostro il menu sottostante
         this.bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -66,17 +70,19 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         listBooking.clear();
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
+
+        //leggo in firebase le prenotazioni con id place corrispondente
         firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild("idPlaceBooking").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {//se esiste almeno una prenotazione
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Booking booking = snapshot.getValue(Booking.class);
-                        listBooking.add(booking);
+                        listBooking.add(booking);//aggiungo la prenotazione alla lista a cui è stato impostato l'adapter
                     }
-                }else{
-                    txtNoBooking.setVisibility(View.VISIBLE);
-                    imgNoBookin.setVisibility(View.VISIBLE);
+                }else{//se non c'è alcuna prenotazione
+                    txtNoBooking.setVisibility(View.VISIBLE);//mostro il messaggio 'siamo spiacenti'
+                    imgNoBookin.setVisibility(View.VISIBLE);//mostro la smile triste
                 }
                 placeBookingAdapter.notifyDataSetChanged();
             }
