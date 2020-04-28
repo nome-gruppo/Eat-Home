@@ -9,19 +9,19 @@
         android:id="@+id/btnAddAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_button_add_menu"/>
+        app:srcCompat="@drawable/ic_button_add_menu" />
 
     <ListView
         android:id="@+id/listViewChooseAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="155dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddAddress" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

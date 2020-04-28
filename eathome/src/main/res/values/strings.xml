@@ -29,7 +29,7 @@
     <string name="txt_registration">Registration</string>
     <string name="placeName">Enter name activity</string>
     <string name="placeAdress">Enter address</string>
-    <string name="placePhone">Enter phone number activity</string>
+    <string name="placePhone">Enter phone number</string>
     <string name="placeMail">Enter mail address</string>
     <string name="placePassword">Enter password</string>
     <string name="placeCity">Enter city</string>

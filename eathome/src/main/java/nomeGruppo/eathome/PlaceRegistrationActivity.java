@@ -19,12 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
 import nomeGruppo.eathome.actors.PlaceCategories;
@@ -44,7 +40,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private EditText passwordPlaceET;
     private EditText numberAddressPlaceET;
     private SeekBar deliveryCostSB;
-    private Button signinBtn;
+    private Button signInBtn;
     private TextView deliveryCostTV;
     private TextView statusTV;
     private Place place;
@@ -65,27 +61,27 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         place = new Place();
         control = new UtilitiesAndControls();
 
-        namePlaceET = (EditText) findViewById(R.id.editNamePlace);
+        namePlaceET =findViewById(R.id.editNamePlace);
         namePlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamente nella EditText successiva appena l'utente preme invio sulla tastiera
-        cityPlaceET = (EditText) findViewById(R.id.editCityPlace);
+        cityPlaceET = findViewById(R.id.editCityPlace);
         cityPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        addressPlaceET = (EditText) findViewById(R.id.editAddressPlace);
+        addressPlaceET = findViewById(R.id.editAddressPlace);
         addressPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        numberAddressPlaceET = (EditText) findViewById(R.id.editNumberAddressPlace);
+        numberAddressPlaceET = findViewById(R.id.editNumberAddressPlace);
         numberAddressPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        phonePlaceET = (EditText) findViewById(R.id.editPhonePlace);
+        phonePlaceET = findViewById(R.id.editPhonePlace);
         phonePlaceET.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        deliveryCostSB = (SeekBar) findViewById(R.id.seekDeliveryCost);
+        deliveryCostSB = findViewById(R.id.seekDeliveryCost);
         deliveryCostSB.setEnabled(false);
         deliveryCostSB.setOnSeekBarChangeListener(customSeekBarDelivery);
-        emailPlaceET = (EditText) findViewById(R.id.editMailPlace);
+        emailPlaceET = findViewById(R.id.editMailPlace);
         emailPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        passwordPlaceET = (EditText) findViewById(R.id.editPasswordPlace);
-        signinBtn = (Button) findViewById(R.id.btnSignin);
-        deliveryCostTV = (TextView) findViewById(R.id.txtDeliveryCost);
-        statusTV = (TextView) findViewById(R.id.activity_place_registration_tw_status);
+        passwordPlaceET = findViewById(R.id.editPasswordPlace);
+        signInBtn = findViewById(R.id.btnSignin);
+        deliveryCostTV = findViewById(R.id.txtDeliveryCost);
+        statusTV = findViewById(R.id.activity_place_registration_tw_status);
 
-        signinBtn.setOnClickListener(new View.OnClickListener() {
+        signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 statusTV.setVisibility(View.GONE);
