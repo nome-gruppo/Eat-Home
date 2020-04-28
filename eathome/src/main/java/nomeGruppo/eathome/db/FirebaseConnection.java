@@ -59,11 +59,7 @@ public class FirebaseConnection{
     private boolean operationSuccess = false;
 
     public FirebaseConnection() {
-        this.mDatabase = FirebaseDatabase.getInstance("https://eathome-bc890.firebaseio.com/").getReference();
-    }
-
-    public void write(String table, String column, String value) {
-        mDatabase.child(table).child(column).setValue(value);
+        mDatabase = FirebaseDatabase.getInstance("https://eathome-bc890.firebaseio.com/").getReference();
     }
 
     public void write(String table, String column, Object value) {
@@ -74,53 +70,10 @@ public class FirebaseConnection{
         mDatabase.child(table).push().setValue(obj);
     }
 
-    public boolean searchUser(String table, String userId) {
-
-        mDatabase.child(table).child(userId).addListenerForSingleValueEvent(searchEventListener());
-
-        if (this.objectFounded == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public Object getObjectFounded() {
-        return this.objectFounded;
-    }
-
-    public String getKey(String table) {
-        return mDatabase.child(table).push().getKey();
-    }
-
-    private ValueEventListener searchEventListener() {
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            List<Object> objList = null;
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    objectFounded = dataSnapshot.getValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        return valueEventListener;
-    }
-
     public DatabaseReference getmDatabase() {
         return mDatabase;
     }
 
-    public Query queryEqualTo(String table, String column, String value) {
-        return mDatabase.child(table).orderByChild(column).equalTo(value);
-    }
 
     /**
      * metodo per ricerca utente nel database Firebase nei nodi Clients e Places
@@ -130,7 +83,6 @@ public class FirebaseConnection{
      * @param node        nodo FirebaseConnection.CLIENT_NODE
      * @param progressBar progressbar presente nell'activity chiamante. null se non presente
      * @param activity    activity chiamante
-     * @throws Resources.NotFoundException
      */
     public void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
 
@@ -145,7 +97,7 @@ public class FirebaseConnection{
                     }
                     //ricerca nel nodo clienti
                     if (node.equals(FirebaseConnection.CLIENT_TABLE)) {
-                        Client client = dataSnapshot.getValue(Client.class);
+                        final Client client = dataSnapshot.getValue(Client.class);
                         Intent intent = new Intent(activity, HomepageActivity.class);
                         intent.putExtra(CLIENT, client);
                         intent.putExtra(LOGGED_FLAG, true);
@@ -178,13 +130,18 @@ public class FirebaseConnection{
         });
     }// end searchUserInDb
 
-    public<T> void updateDate(String table, String key, T object){
-
-    }
     public boolean getOperationSuccess(){
         return operationSuccess;
     }
 
+    /**
+     *metodo che serve per riautenticare l'utente in Firebase.
+     * Questa operazione è necessaria per poter eseguire correttamente proceure di modifica e eliminazione dell'account
+     *
+     * @param user variabile contenente l'account  dell'utente che deve essere riautenticato
+     * @param email email dell'utente user che deve essere riautenticato
+     * @param password password dell'utente user che deve essere riautenticato
+     */
     public void reauthenticateUser(FirebaseUser user, String email, String password) {
         AuthCredential credential = EmailAuthProvider
                 .getCredential(email, password);
@@ -200,15 +157,25 @@ public class FirebaseConnection{
                             Log.d(TAG, "User re-authenticated.");
                             operationSuccess = true;
                         }else {
+                            Log.d(TAG, "User not re-authenticated.");
                             operationSuccess = false;
                         }
                     }
                 });
     }
 
+    /**
+     * metodo per la modifica della mail di un utente.
+     * Controlla che non ci siano mail uguali già esistenti
+     *
+     * @param firebaseAuth variabile FirebaseAuth usata nell'activity
+     * @param user variabile contenente l'account dell'utente che deve essere riautenticato
+     * @param email email dell'utente user che deve essere riautenticato
+     * @param activity activity chiamante il metodo
+     */
     public void updateEmail(FirebaseAuth firebaseAuth, final FirebaseUser user, final String email, final Activity activity) {
 
-        //controllo chr la mail non sia già presente
+        //controllo che la mail non sia già presente
         firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
@@ -250,6 +217,18 @@ public class FirebaseConnection{
                             Toast.makeText(activity, "Password modificata correttamente", Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(activity, "Non è stato possibile cambiare la password", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    public void resetPassword(FirebaseAuth auth, String emailAddress, final Activity activity){
+        auth.sendPasswordResetEmail(emailAddress)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(activity, "Email inviata", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
