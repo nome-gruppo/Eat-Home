@@ -17,7 +17,6 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 public class LauncherActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private FirebaseAuth mAuth;
     private FirebaseUser user;
     public TextView errorTv;
 
@@ -28,16 +27,10 @@ public class LauncherActivity extends AppCompatActivity {
 
         progressBar =findViewById(R.id.activity_launcher_progressBar);
         errorTv = findViewById(R.id.activity_launcher_tv_error);
-        mAuth = FirebaseAuth.getInstance();
-
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -45,7 +38,7 @@ public class LauncherActivity extends AppCompatActivity {
         super.onResume();
 
         if (user == null) {
-            //utente non h effettuato il login
+            //utente non ha effettuato il login
             Intent homePageIntent = new Intent(this, HomepageActivity.class);
             startActivity(homePageIntent);
             finish();

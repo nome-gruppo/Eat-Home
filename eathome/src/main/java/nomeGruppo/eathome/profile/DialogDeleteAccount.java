@@ -1,10 +1,11 @@
 package nomeGruppo.eathome.profile;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -13,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -92,9 +92,13 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                 DBOpenHelper helper = new DBOpenHelper(getContext());
                 helper.deleteDatabase();
 
-                FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE);
-                FirebaseConnection.DeleteClientInfo deleteBooking = new FirebaseConnection.DeleteClientInfo(userId,FirebaseConnection.BOOKING_TABLE);
-                FirebaseConnection.DeleteClientInfo deleteOrder = new FirebaseConnection.DeleteClientInfo(userId, FirebaseConnection.ORDER_TABLE);
+                SharedPreferences.Editor mEditor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+                mEditor.clear();
+                mEditor.apply();
+
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE);
+                final FirebaseConnection.DeleteClientInfo deleteBooking = new FirebaseConnection.DeleteClientInfo(userId,FirebaseConnection.BOOKING_TABLE);
+                final FirebaseConnection.DeleteClientInfo deleteOrder = new FirebaseConnection.DeleteClientInfo(userId, FirebaseConnection.ORDER_TABLE);
 
                 Thread accountThread = new Thread(deleteAccount);
                 Thread bookingThread = new Thread(deleteBooking);
@@ -106,8 +110,8 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
             }else if(mPlace != null){
 
-                FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE);
-                FirebaseConnection.DeleteFeedbacks deleteFeedbacks = new FirebaseConnection.DeleteFeedbacks(userId);
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE);
+                final FirebaseConnection.DeleteFeedbacks deleteFeedbacks = new FirebaseConnection.DeleteFeedbacks(userId);
                 //TODO elimina le recensioni
 
                 Thread accountThread = new Thread(deleteAccount);

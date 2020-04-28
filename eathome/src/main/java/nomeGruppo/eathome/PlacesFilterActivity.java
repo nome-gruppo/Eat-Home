@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.TreeSet;
 
 import nomeGruppo.eathome.actors.Place;
@@ -30,6 +29,16 @@ import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class PlacesFilterActivity extends AppCompatActivity {
+
+    //costanti usate per il bundle
+    private static final String PIZZERIA_CB = "pizzeriaCB";
+    private static final String RESTAURANT_CB  = "restaurantCB";
+    private static final String SUSHI_CB = "sushiCB";
+    private static final String RESTAURANT_PIZZERIA_CB = "restaurantPizzeriaCB";
+    private static final String OTHER_CB  = "otherCB";
+    private static final String DELIVERY_RB = "deliveryRB";
+    private static final String BOOKING_RB = "bookingRB";
+
 
     private CheckBox pizzeriaCB;
     private CheckBox restaurantCB;
@@ -55,6 +64,8 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private ArrayList<Place> places;
     private Button showBtn;
+
+    private Bundle outState;
 
 
     @Override
@@ -86,6 +97,8 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         showBtn = findViewById(R.id.activity_places_filter_btn_show);
 
+        outState = new Bundle();
+
         initCheckListener();
 
         places = new ArrayList<>();
@@ -94,14 +107,14 @@ public class PlacesFilterActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getBundleExtra("outState");
 
         if (bundle != null) {
-            pizzeriaCB.setChecked(bundle.getBoolean("pizzeriaCB", true));
-            restaurantCB.setChecked(bundle.getBoolean("restaurantCB", true));
-            sushiCB.setChecked(bundle.getBoolean("sushiCB", true));
-            restaurantPizzeriaCB.setChecked(bundle.getBoolean("restaurantPizzeriaCB", true));
-            otherCB.setChecked(bundle.getBoolean("otherCB", true));
+            pizzeriaCB.setChecked(bundle.getBoolean(PIZZERIA_CB, true));
+            restaurantCB.setChecked(bundle.getBoolean(RESTAURANT_CB, true));
+            sushiCB.setChecked(bundle.getBoolean(SUSHI_CB, true));
+            restaurantPizzeriaCB.setChecked(bundle.getBoolean(RESTAURANT_PIZZERIA_CB, true));
+            otherCB.setChecked(bundle.getBoolean(OTHER_CB, true));
 
-            deliveryRB.setChecked(bundle.getBoolean("deliveryRB", false));
-            bookingRB.setChecked(bundle.getBoolean("bookingRB", false));
+            deliveryRB.setChecked(bundle.getBoolean(DELIVERY_RB, false));
+            bookingRB.setChecked(bundle.getBoolean(BOOKING_RB, false));
 
 //        if(!deliveryRB.isChecked() && !bookingRB.isChecked()){
 //            allRB.isChecked();
@@ -200,17 +213,14 @@ public class PlacesFilterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Bundle outState = new Bundle();
+                outState.putBoolean(PIZZERIA_CB, pizzeriaCB.isChecked());
+                outState.putBoolean(RESTAURANT_CB, restaurantCB.isChecked());
+                outState.putBoolean(SUSHI_CB, sushiCB.isChecked());
+                outState.putBoolean(RESTAURANT_PIZZERIA_CB, restaurantPizzeriaCB.isChecked());
+                outState.putBoolean(OTHER_CB, otherCB.isChecked());
 
-                outState.putBoolean("outBundleCreated", true);
-                outState.putBoolean("pizzeriaCB", pizzeriaCB.isChecked());
-                outState.putBoolean("restaurantCB", restaurantCB.isChecked());
-                outState.putBoolean("sushiCB", sushiCB.isChecked());
-                outState.putBoolean("restaurantPizzeriaCB", restaurantPizzeriaCB.isChecked());
-                outState.putBoolean("otherCB", otherCB.isChecked());
-
-                outState.putBoolean("deliveryRB", deliveryRB.isChecked());
-                outState.putBoolean("bookingRB", bookingRB.isChecked());
+                outState.putBoolean(DELIVERY_RB, deliveryRB.isChecked());
+                outState.putBoolean(BOOKING_RB, bookingRB.isChecked());
 
                 outState.putBoolean("orderByValuationRB", orderByValuationRB.isChecked());
 
