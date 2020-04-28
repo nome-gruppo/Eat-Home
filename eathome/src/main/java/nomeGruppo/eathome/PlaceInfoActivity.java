@@ -259,7 +259,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
 
         listAddress.clear();
         //leggo in SQLite gli indirizzi presenti e li assegno alla listView
-        final Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES,DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID, new String[]{user.getUid()}, null, null, null);
+        final Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES,DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID_ADDRESS, new String[]{user.getUid()}, null, null, null);
 
         while(c.moveToNext()){//se sono presenti indirizzi
             String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;

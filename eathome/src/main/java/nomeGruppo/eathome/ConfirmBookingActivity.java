@@ -20,6 +20,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -51,6 +54,8 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
+
+    private FirebaseUser mUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,6 +145,9 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     @Override
     protected void onStart() {
         super.onStart();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
 
         openCalendar();
     }
@@ -234,7 +242,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.writeObject(FirebaseConnection.BOOKING_TABLE,booking);//inserisco booking all'interno del Db
 
-        mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,booking.dateBooking);//inserisco l'informazione della prenotazione del db interno
+        mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,booking.dateBooking, mUser.getUid());//inserisco l'informazione della prenotazione del db interno
         return true;
     }
 

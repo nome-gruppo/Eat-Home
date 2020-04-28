@@ -326,11 +326,11 @@ public class FirebaseConnection{
 
     }
 
-    public static class DeleteFeedbacks implements Runnable{
+    public static class DeleteFeedback implements Runnable{
 
         private String uID;
 
-        public DeleteFeedbacks (String uID){
+        public DeleteFeedback (String uID){
             this.uID = uID;
         }
         @Override

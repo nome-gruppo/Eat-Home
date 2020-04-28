@@ -54,7 +54,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
         if(client != null) {
 
-            Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES, DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID, new String[]{client.idClient}, null, null, null);
+            Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES, DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID_ADDRESS, new String[]{client.idClient}, null, null, null);
 
             final int rows = c.getCount();
 

@@ -124,10 +124,10 @@ public class HomepageActivity extends AppCompatActivity {
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
-        this.setFilter=false;
+        setFilter=false;
 
-        this.mDBHelper = new DBOpenHelper(this);
-        this.mDB = mDBHelper.getReadableDatabase();
+        mDBHelper = new DBOpenHelper(this);
+        mDB = mDBHelper.getReadableDatabase();
 
         filterFab = findViewById(R.id.activity_homepage_fab_filter);
         noPlacesTw = findViewById(R.id.activity_homepage_tw_no_places);
@@ -144,7 +144,7 @@ public class HomepageActivity extends AppCompatActivity {
         placeAdapter = new PlaceAdapter(this, R.layout.fragment_place_info_homepage_activity, listPlace);
         listViewPlace.setAdapter(placeAdapter);
 
-        mPreferences = getSharedPreferences("AddressesPref", Context.MODE_PRIVATE);
+        mPreferences = getPreferences(Context.MODE_PRIVATE);
         userCity = mPreferences.getString("city", null);
 
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -174,41 +174,45 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //leggo la tabella myInfo per verificare se ci sono locali da recensire
-        Cursor c = mDB.query(DBOpenHelper.TABLE_INFO,DBOpenHelper.COLUMNS_INFO,null,null,null,null,null);
-        final int rows = c.getCount();
-        if(rows > 0) {//se ci sono locali per cui l'utente ha prenotato/ordinato
-            while (c.moveToNext()) {
-                String idPlace=c.getString(c.getColumnIndexOrThrow(DBOpenHelper._ID_INFO));
-                String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
-                String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");//imposto il formato della data
-                Date date = null;
-                try {
-                    date = simpleDateFormat.parse(dateInfo);//faccio il cast della stringa dateInfo in formato Date
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
-                Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
-                calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
-                curDate.getTime();//prendo la data odierna
-                if (curDate.after(calendar)) { //se la data odierna è successiva alla data di prenotazione/ordinazione
-                    openDialogReview(idPlace,namePlace,client.idClient,client.nameClient,curDate,mDB,mDBHelper);//apre il dialog per la recensione
-                }
-            }
-        }
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+        if(user != null) {
 
-        //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
-        if (userCity != null&&setFilter==false) {
+            //leggo la tabella myInfo per verificare se ci sono locali da recensire
+            Cursor c = mDB.query(DBOpenHelper.TABLE_INFO, DBOpenHelper.COLUMNS_INFO, DBOpenHelper.SELECTION_BY_USER_ID_INFO, new String[]{user.getUid()}, null, null, null);
+            final int rows = c.getCount();
 
-            search(userCity);
+            if (rows > 0) {//se ci sono locali per cui l'utente ha prenotato/ordinato
+                while (c.moveToNext()) {
+                    String idPlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ID_INFO));
+                    String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
+                    String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");//imposto il formato della data
+                    Date date = null;
+                    try {
+                        date = simpleDateFormat.parse(dateInfo);//faccio il cast della stringa dateInfo in formato Date
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
+                    Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
+                    calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
+                    curDate.getTime();//prendo la data odierna
+                    if (curDate.after(calendar)) { //se la data odierna è successiva alla data di prenotazione/ordinazione
+                        openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, curDate, mDB, mDBHelper);//apre il dialog per la recensione
+                    }
+                }
+                c.close();
+            }
 
-        }//end if
+            //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
+            if(!setFilter){
+                search(userCity);
+            }
+        }
+
     }//end onStart
 
     private void openDialogReview(String idPlace,String namePlace,String idClient,String nameClient,Calendar curDate,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
