@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 import nomeGruppo.eathome.R;
@@ -27,12 +29,6 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
 
-    private DialogAddAddress dialogAddAddress;
-
-    private ArrayList<String> newAddresses;
-
-    private ListView addressesLW;
-
     private Client client;
 
     @Override
@@ -40,12 +36,11 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_addresses);
 
-        ImageButton addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
-        addressesLW = findViewById(R.id.activity_my_addresses_listView);
+       final FloatingActionButton addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
+       final ListView addressesLW = findViewById(R.id.activity_my_addresses_listView);
 
         addressList = new ArrayList<>();
-        newAddresses = new ArrayList<>();
-        mAdapter = new AddressAdapter(this, R.layout.fragment_my_place_autocomplete, addressList);
+        mAdapter = new AddressAdapter(this, R.layout.listitem_my_address, addressList);
 
         mDBHelper = new DBOpenHelper(this);
         mDB = mDBHelper.getWritableDatabase();
@@ -83,7 +78,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     }
 
     public void openDialog(){
-        dialogAddAddress=new DialogAddAddress();
+        DialogAddAddress dialogAddAddress = new DialogAddAddress();
         dialogAddAddress.show(getSupportFragmentManager(),"Dialog add address");
     }
 

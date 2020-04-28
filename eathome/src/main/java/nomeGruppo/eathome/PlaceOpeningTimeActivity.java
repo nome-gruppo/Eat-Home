@@ -42,7 +42,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     private EditText editMonday,editTuesday,editWednesday,editThursday,editFriday,editSaturday,editSunday;
     private EditText editMondayClosed,editTuesdayClosed,editWednesdayClosed,editThursdayClosed,editFridayClosed,editSaturdayClosed,editSundayClosed;
     private Switch switchMonday, switchTuesday,switchWednesday,switchThursday,switchFriday,switchSaturday,switchSunday;
-    private Button btnSignin,btnEdit;
+    private Button btnSignIn,btnEdit;
     private HashMap<String,String>openingTime;
 
 
@@ -79,7 +79,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.switchSaturday=findViewById(R.id.switchSaturday);
         this.switchSunday=findViewById(R.id.switchSunday);
 
-        this.btnSignin=findViewById(R.id.btnSigninPlace);
+        this.btnSignIn =findViewById(R.id.btnSigninPlace);
         this.btnEdit=findViewById(R.id.btnEditOpeningTime);
         this.openingTime=new HashMap<>(7);
         this.openingTimeUtility=new OpeningTime();
@@ -87,7 +87,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.mAuth = FirebaseAuth.getInstance();
 
         if(!place.openingTime.isEmpty()){
-            btnSignin.setVisibility(View.INVISIBLE);
+            btnSignIn.setVisibility(View.INVISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
 
             if(place.openingTime.get(Days.MONDAY.toString())==CLOSED){
@@ -379,7 +379,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
           }
       });
 
-      btnSignin.setOnClickListener(new View.OnClickListener() {
+      btnSignIn.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
 

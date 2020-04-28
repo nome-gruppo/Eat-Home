@@ -19,11 +19,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
 
     private static final String SPLIT = ", ";
 
-    private EditText editCity;
-    private EditText editAddress;
-    private EditText editNumberAddress;
     private DialogAddAddress.DialogAddAddressListener listener;
-    private String fullAddress;
 
     @NonNull
     @Override
@@ -33,9 +29,9 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_insert_address,null);
 
-        editAddress=(EditText)view.findViewById(R.id.editAddressClient);
-        editCity=(EditText)view.findViewById(R.id.editCityClient);
-        editNumberAddress=(EditText)view.findViewById(R.id.editNumberAddressClient);
+        final EditText editAddress=view.findViewById(R.id.editAddressClient);
+        final EditText editCity=view.findViewById(R.id.editCityClient);
+        final EditText editNumberAddress=view.findViewById(R.id.editNumberAddressClient);
 
         builder.setView(view).setTitle("Insert address").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -49,8 +45,6 @@ public class DialogAddAddress extends AppCompatDialogFragment {
                 String addressClient=editAddress.getText().toString();
                 String numberAddressClient=editNumberAddress.getText().toString();
 
-                fullAddress = addressClient + SPLIT + numberAddressClient + SPLIT + cityClient;
-
                 listener.applyTexts(addressClient,numberAddressClient, cityClient);
 
             }
@@ -58,10 +52,6 @@ public class DialogAddAddress extends AppCompatDialogFragment {
 
         return builder.create();
 
-    }
-
-    public String getFullAddress(){
-        return fullAddress;
     }
 
     @Override

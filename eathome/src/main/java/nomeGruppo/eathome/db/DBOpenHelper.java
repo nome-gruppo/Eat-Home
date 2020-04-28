@@ -19,7 +19,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String USER_ID_ADDRESS ="userId";
     public static final String[] COLUMNS_ADDRESSES = {ID_ADDRESS, CITY, ADDRESS, NUM_ADDRESS, USER_ID_ADDRESS};
 
-    public static final String SELECTION_BY_USER_ID_ADDRESS = USER_ID_ADDRESS + "=?";
+    public static final String SELECTION_BY_USER_ID_ADDRESS = USER_ID_ADDRESS + "= ?";
 
     public static final String TABLE_INFO ="myInfo";
     public static final String ID_INFO = "_id";
@@ -28,7 +28,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String USER_ID_INFO="userId";
     public static final String[] COLUMNS_INFO={ID_INFO,NAME_PLACE,DATE_TIME,USER_ID_INFO};
 
-    public static final String SELECTION_BY_USER_ID_INFO = USER_ID_INFO + "=?";
+    public static final String SELECTION_BY_USER_ID_INFO = USER_ID_INFO + "= ?";
 
     private static final String CREATE_ADDRESSES = "CREATE TABLE " + TABLE_ADDRESSES + "("
             + ID_ADDRESS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -74,6 +74,21 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         values.put(CITY, city);
         values.put(USER_ID_ADDRESS, userId);
         db.insert(TABLE_ADDRESSES,null,values);
+    }
+
+    public void updateAddress(SQLiteDatabase db, int key, String address, String numAddress, String city){
+        ContentValues values = new ContentValues();
+
+        values.put(ADDRESS, address);
+        values.put(NUM_ADDRESS, numAddress);
+        values.put(CITY, city);
+
+        db.update(TABLE_ADDRESSES, values, SELECTION_BY_USER_ID_ADDRESS,new String[]{String.valueOf(key + 1)});
+    }
+
+    public void deleteAddress(SQLiteDatabase db, int key){
+        db.delete(TABLE_ADDRESSES, SELECTION_BY_USER_ID_ADDRESS, new String[]{String.valueOf(key + 1)});
+
     }
 
     public void addInfo(SQLiteDatabase db, String idPlace, String place, String date, String userId){
