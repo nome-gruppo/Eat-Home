@@ -15,8 +15,10 @@
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_email"
+        android:textAlignment="center"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
+        android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,10 +31,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_password"
+        android:textAlignment="center"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
+        android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_et_email" />
@@ -46,13 +50,15 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="64dp"
+        android:background="@drawable/button_border"
         android:enabled="false"
         android:text="@string/action_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_et_password"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.125" />
 
     <ProgressBar
         android:id="@+id/activity_login_pb_loading"
@@ -75,11 +81,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="163dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="174dp"
-        android:text="@string/tw_signUp"
         android:clickable="true"
+        android:text="@string/tw_signUp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.678"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_btn_login"
         tools:ignore="OnClick" />
@@ -96,20 +103,5 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signIn" />
-
-    <TextView
-        android:id="@+id/fragment_login_tw_prova"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="160dp"
-        android:text="Prova"
-        android:clickable="true"
-        android:onClick="onClickProva"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signInPlace"
-        tools:ignore="OnClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,11 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/name"
+        android:background="@drawable/edit_text_border"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textAlignment="center"
         android:inputType="textPersonName" />
 
     <EditText
@@ -19,6 +24,11 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/placeMail"
+        android:background="@drawable/edit_text_border"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textAlignment="center"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -27,13 +37,21 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/placePassword"
+        android:background="@drawable/edit_text_border"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textAlignment="center"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnSigninClient"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_signin" />
+        android:text="@string/btn_signin"
+        android:background="@drawable/button_border"
+        android:layout_marginVertical="10dp"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/activity_client_registration_tw_status"
