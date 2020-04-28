@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_home"
         android:title="@string/menu_home"
-        android:icon="@drawable/ic_menu_camera" />
+        android:icon="@drawable/ic_menu_camera"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
 
     <item android:id="@+id/action_orders"
         android:title="@string/orders"
-        android:icon="@drawable/ic_menu_scooter" />
+        android:icon="@drawable/ic_menu_scooter"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
 
     <item android:id="@+id/action_bookings"
         android:title="@string/bookings"
-        android:icon="@drawable/ic_menu_booking" />
+        android:icon="@drawable/ic_menu_booking"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
 
     <item android:id="@+id/action_profile"
         android:title="@string/my_account"
-        android:icon="@drawable/ic_other" />
-
-    <item
-        android:id="@+id/nav_logout"
-        android:icon="@drawable/ic_menu_logout"
-        android:title="@string/menu_logout"
-        android:visible="false"/>
+        android:icon="@drawable/ic_other"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
 
 </menu>
