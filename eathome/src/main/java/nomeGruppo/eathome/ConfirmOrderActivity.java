@@ -17,6 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,6 +50,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     private SQLiteDatabase mDB;
     private DBOpenHelper mDBHelper;
+
+    private FirebaseUser mUser;
 
 
     @Override
@@ -100,6 +105,15 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+
+    }
+
     private void openDialogConfirm(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle(this.getResources().getString(R.string.confirm_order));
@@ -137,7 +151,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().setValue(order);
 
         //inserisco l'informazione dell'ordinazione nel db interno
-        mDBHelper.addInfo(mDB,order.placeOrder.idPlace, order.placeOrder.namePlace,new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+        mDBHelper.addInfo(mDB,order.placeOrder.idPlace, order.placeOrder.namePlace,new SimpleDateFormat("yyyy/MM/dd").format(new Date()), mUser.getUid());
         return true;
     }
 

@@ -43,11 +43,11 @@ public class LauncherActivity extends AppCompatActivity {
             startActivity(homePageIntent);
             finish();
         } else {
+
             final FirebaseConnection firebaseConnection = new FirebaseConnection();
-            final String userId = user.getUid();
 
             try {
-                firebaseConnection.searchUserInDb(userId, FirebaseConnection.CLIENT_TABLE, progressBar, this);
+                firebaseConnection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_TABLE, progressBar, this);
             } catch (Resources.NotFoundException e) {
                 errorTv.setVisibility(View.VISIBLE);
                 e.printStackTrace();

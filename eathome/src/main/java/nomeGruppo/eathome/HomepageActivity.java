@@ -124,10 +124,10 @@ public class HomepageActivity extends AppCompatActivity {
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
-        this.setFilter=false;
+        setFilter=false;
 
-        this.mDBHelper = new DBOpenHelper(this);
-        this.mDB = mDBHelper.getReadableDatabase();
+        mDBHelper = new DBOpenHelper(this);
+        mDB = mDBHelper.getReadableDatabase();
 
         filterFab = findViewById(R.id.activity_homepage_fab_filter);
         noPlacesTw = findViewById(R.id.activity_homepage_tw_no_places);
