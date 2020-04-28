@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants">
@@ -8,13 +9,13 @@
 
     <ImageView
         android:id="@+id/imgPlaceFragment"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="27dp"
         android:src="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtTypePlaceFragment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,56 +23,46 @@
         android:id="@+id/txtNamePlaceFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="132dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="5dp"
         android:text="TextView"
         android:textSize="18dp"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.833"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtTypePlaceFragment"
+        app:layout_constraintEnd_toStartOf="@+id/list_places_booking_icon"
         app:layout_constraintStart_toEndOf="@+id/imgPlaceFragment"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="77dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="44dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <TextView
         android:id="@+id/txtAddressPlaceFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgPlaceFragment"
-        app:layout_constraintTop_toBottomOf="@+id/txtNamePlaceFragment"
-        app:layout_constraintVertical_bias="0.948" />
+        app:layout_constraintStart_toStartOf="@+id/txtTypePlaceFragment"
+        app:layout_constraintTop_toBottomOf="@+id/txtTypePlaceFragment" />
 
     <TextView
         android:id="@+id/txtTypePlaceFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="256dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/txtNamePlaceFragment"
+        app:layout_constraintBottom_toTopOf="@+id/txtAddressPlaceFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPlaceFragment"
         app:layout_constraintTop_toBottomOf="@+id/txtNamePlaceFragment" />
 
     <ImageView
         android:id="@+id/list_places_booking_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="41dp"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintStart_toEndOf="@+id/txtTypePlaceFragment"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/list_places_delivery_icon"
+        app:layout_constraintStart_toEndOf="@+id/txtNamePlaceFragment"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_menu_booking" />
 
@@ -79,13 +70,11 @@
         android:id="@+id/list_places_delivery_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="134dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/txtAddressPlaceFragment"
-        app:layout_constraintTop_toBottomOf="@+id/list_places_booking_icon"
+        app:layout_constraintStart_toEndOf="@+id/list_places_booking_icon"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_menu_scooter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
