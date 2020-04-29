@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.profile.ClientProfileActivity;
-import nomeGruppo.eathome.profile.PlaceProfileActivity;
-import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
+import nomegruppo.eathome.actors.Client;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.clientSide.HomepageActivity;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.profile.ClientProfileActivity;
+import nomegruppo.eathome.profile.PlaceProfileActivity;
+import nomegruppo.eathome.utility.MenuNavigationItemSelected;
 
 /*
 activity dove sono presenti il mio profilo le mie recensioni e il logout

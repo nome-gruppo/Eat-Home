@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomegruppo.eathome.utility;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
-import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.foods.Food;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actions.Order;
+import nomegruppo.eathome.foods.Food;
 
 public class MenuAdapterForClient extends ArrayAdapter<Food> {
     private HashMap<Food,Integer>order;

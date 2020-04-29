@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome.placeSide;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,6 @@ import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,22 +26,20 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.db.StorageConnection;
-import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.profile.PlaceProfileActivity;
-import nomeGruppo.eathome.utility.DialogAddMenu;
-import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
-import nomeGruppo.eathome.utility.MyMenuAdapter;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.db.StorageConnection;
+import nomegruppo.eathome.foods.Food;
+import nomegruppo.eathome.utility.DialogAddMenu;
+import nomegruppo.eathome.utility.MenuNavigationItemSelected;
+import nomegruppo.eathome.utility.MyMenuAdapter;
 
 /*
 activity homepage per Place

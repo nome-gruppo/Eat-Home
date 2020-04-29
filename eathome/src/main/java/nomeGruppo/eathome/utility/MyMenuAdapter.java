@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomegruppo.eathome.utility;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,10 +17,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
-import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.foods.Food;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.foods.Food;
 
 
 public class MyMenuAdapter extends ArrayAdapter<Food> {

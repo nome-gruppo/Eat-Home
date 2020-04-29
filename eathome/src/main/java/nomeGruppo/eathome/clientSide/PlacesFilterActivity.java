@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome.clientSide;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,11 +22,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.actors.PlacesByName;
-import nomeGruppo.eathome.actors.PlacesByValuation;
-import nomeGruppo.eathome.actors.PlaceCategories;
-import nomeGruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.actors.PlacesByName;
+import nomegruppo.eathome.actors.PlacesByValuation;
+import nomegruppo.eathome.actors.PlaceCategories;
+import nomegruppo.eathome.db.FirebaseConnection;
 
 public class PlacesFilterActivity extends AppCompatActivity {
 

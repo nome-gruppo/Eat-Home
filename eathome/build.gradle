@@ -7,7 +7,7 @@ android {
 
 
     defaultConfig {
-        applicationId "nomeGruppo.eathome"
+        applicationId "nomegruppo.eathome"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1

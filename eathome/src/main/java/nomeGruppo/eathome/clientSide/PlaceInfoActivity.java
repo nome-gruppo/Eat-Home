@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome.clientSide;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -54,15 +54,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.DBOpenHelper;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.db.StorageConnection;
-import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.profile.DialogAddAddress;
-import nomeGruppo.eathome.utility.MenuAdapterForClient;
-import nomeGruppo.eathome.utility.OpeningTime;
+import nomegruppo.eathome.ConfirmBookingActivity;
+import nomegruppo.eathome.ConfirmOrderActivity;
+import nomegruppo.eathome.FeedbackPlaceActivity;
+import nomegruppo.eathome.LoginActivity;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actions.Order;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.db.DBOpenHelper;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.db.StorageConnection;
+import nomegruppo.eathome.foods.Food;
+import nomegruppo.eathome.profile.DialogAddAddress;
+import nomegruppo.eathome.utility.MenuAdapterForClient;
+import nomegruppo.eathome.utility.OpeningTime;
 
 /*
 activity che visualizza le informazioni per il locale selezionato dall'utente
@@ -199,7 +204,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
             @Override
             public void onClick(View view) {
                 if(user != null) {//se l'utente è loggato
-                    Intent bookingActivity = new Intent(PlaceInfoActivity.this,ConfirmBookingActivity.class);
+                    Intent bookingActivity = new Intent(PlaceInfoActivity.this, ConfirmBookingActivity.class);
                     bookingActivity.putExtra(FirebaseConnection.PLACE,place);
                     bookingActivity.putExtra("UserID",user.getUid());
                     startActivity(bookingActivity);//apri activity di conferma ordinazione
@@ -285,7 +290,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String addressOrder =(String)adapterView.getItemAtPosition(i);
-                Intent orderActivity=new Intent(PlaceInfoActivity.this,ConfirmOrderActivity.class);
+                Intent orderActivity=new Intent(PlaceInfoActivity.this, ConfirmOrderActivity.class);
                 order=setOrder(addressOrder);
                 orderActivity.putExtra(FirebaseConnection.ORDER,order);
                 startActivity(orderActivity);

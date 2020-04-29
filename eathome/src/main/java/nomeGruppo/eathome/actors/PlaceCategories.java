@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.actors;
+package nomegruppo.eathome.actors;
 
 public enum PlaceCategories {
     PIZZERIA,

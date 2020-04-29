@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.profile;
+package nomegruppo.eathome.profile;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import nomeGruppo.eathome.R;
+import nomegruppo.eathome.R;
 
 public class DialogAddAddress extends AppCompatDialogFragment {
 

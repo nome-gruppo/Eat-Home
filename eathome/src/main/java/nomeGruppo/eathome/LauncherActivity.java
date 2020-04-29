@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomeGruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.clientSide.HomepageActivity;
+import nomegruppo.eathome.db.FirebaseConnection;
 
 public class LauncherActivity extends AppCompatActivity {
 

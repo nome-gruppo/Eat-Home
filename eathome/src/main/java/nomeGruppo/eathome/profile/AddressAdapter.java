@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.profile;
+package nomegruppo.eathome.profile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,10 +19,10 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actions.Address;
-import nomeGruppo.eathome.db.DBOpenHelper;
-import nomeGruppo.eathome.foods.Food;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actions.Address;
+import nomegruppo.eathome.db.DBOpenHelper;
+import nomegruppo.eathome.foods.Food;
 
 
 public class AddressAdapter extends ArrayAdapter<Address> {

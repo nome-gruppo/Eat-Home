@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -25,10 +25,11 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.Days;
-import nomeGruppo.eathome.utility.OpeningTime;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.placeSide.PlaceHomeActivity;
+import nomegruppo.eathome.utility.Days;
+import nomegruppo.eathome.utility.OpeningTime;
 
 public class PlaceOpeningTimeActivity extends AppCompatActivity {
 

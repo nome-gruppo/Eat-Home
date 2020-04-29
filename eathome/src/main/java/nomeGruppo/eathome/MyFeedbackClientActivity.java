@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.os.Bundle;
 import android.view.View;
@@ -17,9 +17,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import nomeGruppo.eathome.actions.Feedback;
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.actions.Feedback;
+import nomegruppo.eathome.actors.Client;
+import nomegruppo.eathome.db.FirebaseConnection;
 
 /*
 activity per far visualizzare al cliente le recensioni scritte

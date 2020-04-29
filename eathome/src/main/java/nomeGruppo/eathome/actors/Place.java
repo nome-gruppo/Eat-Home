@@ -1,10 +1,10 @@
-package nomeGruppo.eathome.actors;
+package nomegruppo.eathome.actors;
 
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import nomeGruppo.eathome.utility.Days;
+import nomegruppo.eathome.utility.Days;
 
 public class Place implements Serializable{
     //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
