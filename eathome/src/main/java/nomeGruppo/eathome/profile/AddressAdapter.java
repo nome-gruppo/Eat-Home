@@ -150,10 +150,6 @@ public class AddressAdapter extends ArrayAdapter<Address> {
                 //se clicca su no non succede nulla e l'alert di chiude
             }
         });
-
-
-
-
         AlertDialog alert = builder.create();
         alert.show();
     }

@@ -5,10 +5,10 @@
     <solid android:color="@color/cardview_light_background" />
 
     <!-- Border Color -->
-    <stroke android:width="2dp" android:color="@color/colorPrimary" />
+    <stroke android:width="2dp" android:color="@color/colorPrimaryDark" />
 
     <!-- Round Corners -->
     <corners android:radius="6dp" />
 
-    <padding android:bottom="6dp"/>
+    <padding android:bottom="8dp"/>
 </shape>
