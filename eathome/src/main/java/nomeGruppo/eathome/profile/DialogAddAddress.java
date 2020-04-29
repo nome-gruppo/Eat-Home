@@ -17,8 +17,6 @@ import nomeGruppo.eathome.R;
 
 public class DialogAddAddress extends AppCompatDialogFragment {
 
-    private static final String SPLIT = ", ";
-
     private DialogAddAddress.DialogAddAddressListener listener;
 
     @NonNull

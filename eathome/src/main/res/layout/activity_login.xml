@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".LoginActivity">
     <!-- TODO l'id precedente era container-->
 
@@ -18,6 +19,7 @@
         android:textAlignment="center"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
         android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +39,7 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         android:background="@drawable/edit_text_border"
+        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_et_email" />

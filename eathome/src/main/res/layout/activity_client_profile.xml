@@ -12,36 +12,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
+        android:layout_marginTop="12dp"
         android:text="Name"
-        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_et_name"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/activity_client_et_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/activity_client_profile_imBtn_name"
-        app:layout_constraintEnd_toStartOf="@+id/activity_client_profile_imBtn_name" />
+        app:layout_constraintStart_toStartOf="@+id/activity_client_et_email"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/activity_client_profile_imBtn_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="1dp"
         android:src="@drawable/ic_profile_edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/activity_client_et_name"
+        app:layout_constraintTop_toTopOf="@+id/activity_client_et_name" />
 
     <TextView
         android:id="@+id/activity_client_tw_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="71dp"
         android:text="Email"
-        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_et_email"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/activity_client_et_email"
@@ -58,10 +61,11 @@
         android:id="@+id/activity_client_profile_imBtn_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="15dp"
         android:src="@drawable/ic_profile_edit"
-        app:layout_constraintStart_toStartOf="@+id/activity_client_profile_imBtn_name"
-        app:layout_constraintTop_toBottomOf="@+id/activity_client_profile_imBtn_name" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_name" />
 
     <TextView
         android:id="@+id/activity_client_tw_oldPassword"
@@ -76,7 +80,7 @@
         android:id="@+id/activity_client_et_oldPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="7dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Vecchia password"
@@ -97,12 +101,13 @@
         android:id="@+id/activity_client_et_newPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="3dp"
         android:ems="10"
         android:hint="New password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/activity_client_et_password_confirm"
-        app:layout_constraintEnd_toEndOf="@+id/activity_client_et_password_confirm" />
+        app:layout_constraintEnd_toEndOf="@+id/activity_client_et_oldPassword"
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_oldPassword" />
 
     <TextView
         android:id="@+id/activity_client_tw_password_confirm"
@@ -110,11 +115,11 @@
         android:layout_height="0dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="4dp"
         android:text="Conferma password"
         app:layout_constraintBottom_toBottomOf="@+id/activity_client_et_password_confirm"
-        app:layout_constraintEnd_toStartOf="@+id/activity_client_et_email"
+        app:layout_constraintEnd_toEndOf="@+id/activity_client_tw_oldPassword"
         app:layout_constraintStart_toStartOf="@+id/activity_client_tw_password"
         app:layout_constraintTop_toTopOf="@+id/activity_client_et_password_confirm" />
 
@@ -133,11 +138,11 @@
         android:id="@+id/activity_client_profile_imBtn_password_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="17dp"
         android:src="@drawable/ic_profile_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_oldPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_newPassword" />
 
     <TextView
         android:id="@+id/activity_client_tw_phone"
@@ -154,6 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="1dp"
         android:ems="10"
         android:inputType="phone"
         app:layout_constraintEnd_toStartOf="@+id/activity_client_profile_imBtn_phone"
@@ -164,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
-        android:layout_marginEnd="19dp"
+        android:layout_marginEnd="18dp"
         android:src="@drawable/ic_profile_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_client_et_password_confirm" />
@@ -174,19 +180,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="236dp"
+        android:layout_marginBottom="234dp"
         android:text="My addresses"
-        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_btn_deleteAccount"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_newPassword" />
 
     <Button
         android:id="@+id/activity_client_btn_deleteAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="276dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="27dp"
         android:text="Elimina account"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_client_et_phone" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/activity_client_btn_myAddresses"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
