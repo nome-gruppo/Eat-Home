@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.db.DBOpenHelper;
+import nomeGruppo.eathome.foods.Food;
 
 
-public class AddressAdapter extends ArrayAdapter<String> {
+public class AddressAdapter extends ArrayAdapter<Address> {
+
+    private static final String SPLIT=", ";
 
     private EditText addressET;
     private ImageButton editBtn;
@@ -30,11 +35,14 @@ public class AddressAdapter extends ArrayAdapter<String> {
     private DBOpenHelper helper;
     private SQLiteDatabase mDB;
 
-    private ArrayList<String> list;
+    private String idClient;
 
-    public AddressAdapter(@NonNull Context context, int resource, ArrayList<String> list) {
+    private ArrayList<Address> list;
+
+    public AddressAdapter(@NonNull Context context, int resource, ArrayList<Address> list, String idClient) {
         super(context, resource, list);
-        this.list = list;
+        this.idClient=idClient;
+        this.list=list;
     }
 
 
@@ -54,17 +62,15 @@ public class AddressAdapter extends ArrayAdapter<String> {
         helper = new DBOpenHelper(getContext());
         mDB = helper.getWritableDatabase();
 
-        addressET.setText(getItem(position));
-
-        editBtn.setTag(position);
-        deleteBtn.setTag(position);
+        final Address addressObj= getItem(position);
+        final String address=addressObj.getCity()+SPLIT+addressObj.getAddress()+SPLIT+addressObj.getNumberAddress()+SPLIT;
+        addressET.setText(address);
 
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-               openDialog(getItem(position), position);
-
+               openDialog(addressObj,position);
 
             }
         });
@@ -72,24 +78,16 @@ public class AddressAdapter extends ArrayAdapter<String> {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                removeItem((int) view.getTag());
-                helper.deleteAddress(mDB,position);
-                notifyDataSetChanged();
+                list.remove(addressObj);
+
+                helper.deleteAdd(mDB,addressObj.getIdAddress(),idClient);
             }
         });
 
         return convertView;
     }
 
-    private void removeItem(int position){
-        ArrayList<String> mList = new ArrayList<>(list);
-        mList.remove(position);
-        list.clear();
-        list.addAll(mList);
-        notifyDataSetChanged();
-    }
-
-    private void openDialog(String address, final int position){ //creo un alert dialogo
+    private void openDialog(final Address addressObj, final int position){ //creo un alert dialogo
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
 
         Activity activity = (Activity) getContext();
@@ -100,14 +98,17 @@ public class AddressAdapter extends ArrayAdapter<String> {
         final EditText editCity=view.findViewById(R.id.editCityClient);
         final EditText editNumberAddress=view.findViewById(R.id.editNumberAddressClient);
 
-        final String[] split=address.split(", ");
+        editCity.setText(addressObj.getCity());
+        editAddress.setText(addressObj.getAddress());
+        editNumberAddress.setText(addressObj.getNumberAddress());
 
         builder.setView(view).setTitle(getContext().getResources().getString(R.string.placeAdress)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                list.set(position, getItem(position));
-                helper.updateAddress(mDB, position, split[0], split[1], split[2]);
-                addressET.setText(split[0] + ", " + split[1] + ", " + split[2]);
+                Address newAddress=new Address(addressObj.getIdAddress(),editAddress.getText().toString(),editNumberAddress.getText().toString(),editCity.getText().toString());
+                list.remove(addressObj);
+                list.add(newAddress);
+                helper.updateAdd(mDB, newAddress.getIdAddress(),newAddress.getAddress(),newAddress.getNumberAddress(),newAddress.getCity(),idClient);
                 notifyDataSetChanged();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -117,9 +118,7 @@ public class AddressAdapter extends ArrayAdapter<String> {
             }
         });
 
-        editCity.setText(split[0]);
-        editAddress.setText(split[1]);
-        editNumberAddress.setText(split[2]);
+
 
 
         AlertDialog alert = builder.create();

@@ -86,9 +86,19 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.update(TABLE_ADDRESSES, values, SELECTION_BY_USER_ID_ADDRESS,new String[]{String.valueOf(key + 1)});
     }
 
+    public void updateAdd(SQLiteDatabase db, int idAddress, String address, String numAddress, String city,String idClient){
+        String sql="UPDATE "+TABLE_ADDRESSES+" SET "+ADDRESS+ "= '"+address+"', "+NUM_ADDRESS+ "= '"+numAddress+"', "+CITY+"= '"+city+"' "+" WHERE "+ ID_ADDRESS +"= '"+idAddress+"' AND "+USER_ID_ADDRESS +"= '"+idClient+"';";
+        db.execSQL(sql);
+    }
+
     public void deleteAddress(SQLiteDatabase db, int key){
         db.delete(TABLE_ADDRESSES, SELECTION_BY_USER_ID_ADDRESS, new String[]{String.valueOf(key + 1)});
 
+    }
+
+    public void deleteAdd(SQLiteDatabase db,int idAddress,String idClient){
+        String sql = "DELETE FROM "+ TABLE_ADDRESSES +" WHERE "+ ID_ADDRESS +"= '"+idAddress+"' AND "+USER_ID_ADDRESS +"= '"+idClient+"';";
+        db.execSQL(sql);
     }
 
     public void addInfo(SQLiteDatabase db, String idPlace, String place, String date, String userId){
@@ -102,7 +112,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     public void deleteInfo(SQLiteDatabase db,String id){
-        String sql = "DELETE FROM "+ TABLE_INFO +" WHERE "+ ID_INFO +"= '"+id+"';";
+        String sql = "DELETE FROM "+ TABLE_INFO +" WHERE "+ ID_INFO +"= '"+id+"' ;";
         db.execSQL(sql);
     }
 }
