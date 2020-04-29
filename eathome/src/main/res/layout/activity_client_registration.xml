@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
 
     <EditText
@@ -12,9 +13,11 @@
         android:ems="10"
         android:hint="@string/name"
         android:background="@drawable/edit_text_border"
-        android:layout_marginVertical="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:drawableLeft="@drawable/ic_menu_login"
         android:textAlignment="center"
         android:inputType="textPersonName" />
 
@@ -28,6 +31,7 @@
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
         android:textAlignment="center"
         android:inputType="textEmailAddress" />
 
@@ -41,6 +45,7 @@
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
         android:textAlignment="center"
         android:inputType="textPassword" />
 

@@ -79,7 +79,6 @@ public class AddressAdapter extends ArrayAdapter<Address> {
             @Override
             public void onClick(View view) {
                 list.remove(addressObj);
-
                 helper.deleteAdd(mDB,addressObj.getIdAddress(),idClient);
             }
         });
@@ -117,10 +116,6 @@ public class AddressAdapter extends ArrayAdapter<Address> {
                 //se clicca su no non succede nulla e l'alert di chiude
             }
         });
-
-
-
-
         AlertDialog alert = builder.create();
         alert.show();
     }
