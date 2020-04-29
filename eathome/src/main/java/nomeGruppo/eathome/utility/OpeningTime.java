@@ -6,7 +6,10 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.LoggingPermission;
 
 
@@ -98,14 +101,16 @@ public class OpeningTime {
         return day;
     }
 
-    public Time getTimeOpening(String openingTime){
+    public Date getTimeOpening(String openingTime) throws ParseException {
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
         String[] result=openingTime.split(DASH);
-        return Time.valueOf(result[0]+SPLIT+"00");
+        return parser.parse(result[0]);
     }
 
-    public Time getTimeClosed(String openingTime){
+    public Date getTimeClosed(String openingTime) throws ParseException {
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
         String[] result=openingTime.split(DASH);
-        return Time.valueOf(result[1]+SPLIT+"00");
+        return parser.parse(result[1]);
     }
 
     public String getOpening(String openingTime){

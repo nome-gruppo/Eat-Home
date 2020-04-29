@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -157,16 +158,23 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-        Time timeOrder=Time.valueOf(hourOfDay+":"+minutes+":"+00);//la classe Time vuole anche i secondi
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
         //leggo l'orario di apertura chiusura del locale
         String openingTime=order.placeOrder.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
-        Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'orario di apertura
-        Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'orario di chiusura
-
+        Date  timeOpening=null;
+        Date timeClosed= null;
+        Date timeOrder=null;
+        try {
+            timeOrder=parser.parse(hourOfDay+":"+minutes);
+            timeClosed = openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'orario di chiusura
+            timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'orario di apertura
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
         if(timeOrder.after(timeOpening)&&timeOrder.before(timeClosed)){
             EditText editChooseTime=findViewById(R.id.editChooseTime);
-            editChooseTime.setText(timeOrder.toString());//imposta l'ora nella EditText
+            editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
         }else{//se il locale è chiuso nell'ora selezionata
             //mostra messaggio
             Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();

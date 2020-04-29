@@ -46,8 +46,12 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -207,24 +211,28 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
                     }
                 });
 
-        openingTime();
-
+        try {
+            openingTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void openingTime() {
+    public void openingTime() throws ParseException {
         final Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
         String day = openingTimeUtility.getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
         String openingTime = place.openingTime.get(day);
-        Time localTime=new Time(System.currentTimeMillis());
+        Date localTime=parser.parse(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
         if (openingTime.length()>8) {//se è stato impostato un orario di apertura e chiusura
-            Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'ora di apertura
-            Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'ora di chiusura
+            Date timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'ora di apertura
+            Date timeClosed=openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'ora di chiusura
             //se localTime si trova tra timeOpening e timeClosed
             if (localTime.after(timeOpening)&&localTime.before(timeClosed)){
-                txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + timeClosed.toString());
+                txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + parser.format(timeClosed));
                 return;
             } else{//se l'ora corrente non è tra l'ora di apertura e l'ora di chiusura
-                txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + timeOpening.toString());
+                txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + parser.format(timeOpening));
                 btnOrder.setEnabled(false);//non è possibile ordinare
                 return;
             }

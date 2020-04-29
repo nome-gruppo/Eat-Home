@@ -24,8 +24,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
@@ -190,10 +192,17 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
         String day=txtDayOfWeek.getText().toString();//prendo il giorno della settimana corrispondente alla data della prenotazione
         String openingTime=place.openingTime.get(day);
-        Time hourOpening=openingTimeUtility.getTimeOpening(openingTime);
-        Time hourClosed=openingTimeUtility.getTimeClosed(openingTime);
-        Time hourBooking=Time.valueOf(hour+":"+minutes+":"+00);//Time richiede anche i secondi
-
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+        Date hourOpening=null;
+        Date hourClosed=null;
+        Date hourBooking=null;
+        try {
+            hourOpening = openingTimeUtility.getTimeOpening(openingTime);
+            hourClosed=openingTimeUtility.getTimeClosed(openingTime);
+            hourBooking=parser.parse(hour+":"+minutes);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
         if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
             txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
