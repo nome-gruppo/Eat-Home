@@ -56,11 +56,15 @@ public class AddressAdapter extends ArrayAdapter<String> {
 
         addressET.setText(getItem(position));
 
+        editBtn.setTag(position);
+        deleteBtn.setTag(position);
+
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                openDialog(getItem(position), position);
+
 
             }
         });
@@ -68,13 +72,21 @@ public class AddressAdapter extends ArrayAdapter<String> {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                list.remove(position);
+                removeItem((int) view.getTag());
                 helper.deleteAddress(mDB,position);
                 notifyDataSetChanged();
             }
         });
 
         return convertView;
+    }
+
+    private void removeItem(int position){
+        ArrayList<String> mList = new ArrayList<>(list);
+        mList.remove(position);
+        list.clear();
+        list.addAll(mList);
+        notifyDataSetChanged();
     }
 
     private void openDialog(String address, final int position){ //creo un alert dialogo
@@ -95,6 +107,7 @@ public class AddressAdapter extends ArrayAdapter<String> {
             public void onClick(DialogInterface dialogInterface, int i) {
                 list.set(position, getItem(position));
                 helper.updateAddress(mDB, position, split[0], split[1], split[2]);
+                addressET.setText(split[0] + ", " + split[1] + ", " + split[2]);
                 notifyDataSetChanged();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
