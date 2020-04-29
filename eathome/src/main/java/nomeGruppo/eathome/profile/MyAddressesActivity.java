@@ -2,6 +2,7 @@ package nomeGruppo.eathome.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -91,6 +92,10 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     @Override
     public void applyTexts(String address, String numberAddress, String city) {
         mDBHelper.addAddress(mDB, address, numberAddress, city, client.idClient);
+        Intent update=new Intent(MyAddressesActivity.this,MyAddressesActivity.class);
+        update.putExtra(FirebaseConnection.CLIENT,client);
+        startActivity(update);
+        finish();
     }
 
     @Override
