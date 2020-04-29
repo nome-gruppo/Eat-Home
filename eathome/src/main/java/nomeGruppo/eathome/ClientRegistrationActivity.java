@@ -96,10 +96,11 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // TODO Check if user is signed in (non-null) and update UI accordingly.
+
         user = mAuth.getCurrentUser();
     }
 
+    //TODO in onStop
     @Override
     protected void onPause() {
         super.onPause();

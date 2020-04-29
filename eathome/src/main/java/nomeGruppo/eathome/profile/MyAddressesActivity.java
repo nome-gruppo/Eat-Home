@@ -33,6 +33,8 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     private Client client;
 
+    private ListView addressesLW;
+    private TextView noAddressesTW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,17 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         setContentView(R.layout.activity_my_addresses);
 
        final FloatingActionButton addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
-       final ListView addressesLW = findViewById(R.id.activity_my_addresses_listView);
+
+       addressesLW = findViewById(R.id.activity_my_addresses_listView);
 
         client = (Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
         addressList = new ArrayList<>();
-        mAdapter = new AddressAdapter(this, R.layout.listitem_my_address, addressList, client.idClient);
+        mAdapter = new AddressAdapter(this, R.layout.listitem_my_address, addressList, client.idClient, MyAddressesActivity.this);
 
         mDBHelper = new DBOpenHelper(this);
         mDB = mDBHelper.getWritableDatabase();
+        noAddressesTW = findViewById(R.id.activity_my_address_et_noAddresses);
 
 
 
@@ -60,8 +64,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
             //recupero indirizzi dal database
             if (rows == 0) {
-                TextView noAddressET = findViewById(R.id.activity_my_address_et_noAddresses);
-                noAddressET.setVisibility(View.VISIBLE);
+                noAddressesTW.setVisibility(View.VISIBLE);
             } else {
                 while (c.moveToNext()) {
 
@@ -69,6 +72,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
                     String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS));
                     String numAddress = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS));
                     String city=c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY));
+
                     Address addressObj=new Address(idAddress,address,numAddress,city);
                     addressList.add(addressObj);
                 }
@@ -89,13 +93,18 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         dialogAddAddress.show(getSupportFragmentManager(),"Dialog add address");
     }
 
+    public TextView getNoAddressTW(){
+        return noAddressesTW;
+    }
     @Override
     public void applyTexts(String address, String numberAddress, String city) {
         mDBHelper.addAddress(mDB, address, numberAddress, city, client.idClient);
-        Intent update=new Intent(MyAddressesActivity.this,MyAddressesActivity.class);
-        update.putExtra(FirebaseConnection.CLIENT,client);
-        startActivity(update);
-        finish();
+        Address temp = new Address(mDBHelper.getLastIdAddresses(mDB), address, numberAddress,city);
+        mAdapter.add(temp);
+        mAdapter.notifyDataSetChanged();
+        noAddressesTW.setVisibility(View.GONE);
+        addressesLW.setAdapter(mAdapter);
+
     }
 
     @Override

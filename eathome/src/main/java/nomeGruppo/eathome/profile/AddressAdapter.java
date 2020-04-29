@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,35 +29,42 @@ public class AddressAdapter extends ArrayAdapter<Address> {
 
     private static final String SPLIT=", ";
 
-    private EditText addressET;
-    private ImageButton editBtn;
-    private ImageButton deleteBtn;
-
     private DBOpenHelper helper;
     private SQLiteDatabase mDB;
 
     private String idClient;
 
     private ArrayList<Address> list;
+    private MyAddressesActivity callingActivity;
 
-    public AddressAdapter(@NonNull Context context, int resource, ArrayList<Address> list, String idClient) {
+
+    public AddressAdapter(@NonNull Context context, int resource, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
         super(context, resource, list);
         this.idClient=idClient;
         this.list=list;
+        this.callingActivity = callingActivity;
     }
-
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
+        Holder holder = null;
 
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listitem_my_address, null);
 
-            addressET = convertView.findViewById(R.id.fragment_address_et);
-            editBtn = convertView.findViewById(R.id.fragment_address_btn_edit);
-            deleteBtn = convertView.findViewById(R.id.fragment_address_btn_delete);
+            holder = new Holder();
+
+            holder.addressET = convertView.findViewById(R.id.fragment_address_et);
+            holder.editBtn = convertView.findViewById(R.id.fragment_address_btn_edit);
+            holder.deleteBtn = convertView.findViewById(R.id.fragment_address_btn_delete);
+
+            convertView.setTag(holder);
+
+        }else{
+            holder = (Holder) convertView.getTag();
         }
 
         helper = new DBOpenHelper(getContext());
@@ -64,9 +72,9 @@ public class AddressAdapter extends ArrayAdapter<Address> {
 
         final Address addressObj= getItem(position);
         final String address=addressObj.getCity()+SPLIT+addressObj.getAddress()+SPLIT+addressObj.getNumberAddress()+SPLIT;
-        addressET.setText(address);
+        holder.addressET.setText(address);
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
+        holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -75,17 +83,43 @@ public class AddressAdapter extends ArrayAdapter<Address> {
             }
         });
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 list.remove(addressObj);
+                notifyDataSetChanged();
                 helper.deleteAdd(mDB,addressObj.getIdAddress(),idClient);
+
+                if(list.isEmpty()){
+                    callingActivity.getNoAddressTW().setVisibility(View.VISIBLE);
+                }
             }
         });
 
         return convertView;
     }
 
+    @Override
+    public int getCount() {
+        return list.size();
+    }
+
+    @Nullable
+    @Override
+    public Address getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return list.indexOf(getItem(position));
+    }
+
+    private class Holder{
+        EditText addressET;
+        ImageButton editBtn;
+        ImageButton deleteBtn;
+    }
     private void openDialog(final Address addressObj, final int position){ //creo un alert dialogo
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
 
