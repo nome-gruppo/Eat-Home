@@ -67,14 +67,11 @@ import nomeGruppo.eathome.utility.OpeningTime;
 /*
 activity che visualizza le informazioni per il locale selezionato dall'utente
  */
-public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddress.DialogAddAddressListener, OnMapReadyCallback {
+public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String SPLIT = ", ";
     private Place place;
-    private Order order;
-    private HashMap<Food,Integer> listFoodOrder;
     private ImageView imgPlaceInfo;
-    private ListView listViewFoodInfo;
     private TextView txtDeliveryPlaceInfo;
     private TextView txtBookingPlaceInfo;
     private TextView txtNamePlaceInfo;
@@ -84,22 +81,11 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
     private TextView txtOpeningTime;
     private Button btnOrder;
     private Button btnBook;
-    private List<Food> listFood;
-    private MenuAdapterForClient mAdapter;
-    private DBOpenHelper mDBHelper;
-    private SQLiteDatabase mDB;
-    private AddressAdapter addressAdapter;
-    private List<String>listAddress;
-    private OpeningTime openingTimeUtility;
 
-    private ArrayList<String>nameFood;
-    private float finalTot;
+    private OpeningTime openingTimeUtility;
 
     private FirebaseUser user;
     private FirebaseAuth mAuth;
-
-    private boolean firstTime;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,20 +93,14 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         setContentView(R.layout.activity_place_info);
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        this.order=new Order();
-        this.listFoodOrder=new HashMap<>();
-        this.nameFood=new ArrayList<>();
-        this.finalTot=0;
+
+
 
         this.openingTimeUtility=new OpeningTime();
 
-        this.mDBHelper = new DBOpenHelper(this);
-        this.mDB = mDBHelper.getReadableDatabase();
-        this.listAddress=new LinkedList<>();
-        this.addressAdapter=new AddressAdapter(PlaceInfoActivity.this,R.layout.listitem_address,listAddress);
+
 
         this.imgPlaceInfo=(ImageView) findViewById(R.id.imgPlaceInfo);
-        this.listViewFoodInfo=(ListView)findViewById(R.id.listViewFoodInfo);
         this.txtDeliveryPlaceInfo=(TextView)findViewById(R.id.txtDeliveryPlaceInfo);
         this.txtBookingPlaceInfo=(TextView)findViewById(R.id.txtBookingPlaceInfo);
         this.txtNamePlaceInfo=(TextView)findViewById(R.id.txtNamePlaceInfo);
@@ -135,7 +115,6 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         this.txtAddressPlaceInfo.setText(this.place.addressPlace+" "+this.place.addressNumPlace);
         this.txtCityPlaceInfo.setText(this.place.cityPlace);
 
-        this.firstTime = true;
 
         final RatingBar ratingBar = findViewById(R.id.activity_place_info_ratingBar);
         final TextView numFeedbackTW = findViewById(R.id.activity_place_info_numFeedback);
@@ -162,9 +141,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         MapFragment mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
 
-        listFood=new LinkedList<>();
-        mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood,listFoodOrder);
-        listViewFoodInfo.setAdapter(mAdapter);
+
 
         //se il locale accetta prenotazioni
         if(this.place.takesBookingPlace){
@@ -184,13 +161,9 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null) {//se l'utente è loggato
-                    openDialogOrder(listFoodOrder, place);//apri dialog di riepilogo ordine
-                }else{//se l'utente non è loggato
-                    Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
-                    loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);
-                    startActivity(loginIntent);//apri login
-                }
+                Intent orderActivity=new Intent(PlaceInfoActivity.this,PlaceListFoodOrderActivity.class);
+                orderActivity.putExtra(FirebaseConnection.PLACE,place);
+                startActivity(orderActivity);
             }
         });
 
@@ -211,86 +184,6 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
             }
         });
 
-    }
-
-    //dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
-    public void openDialogOrder(final HashMap<Food,Integer>listFoodOrder, final Place place){
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle(this.getResources().getString(R.string.order_summary));
-        float tot=0;
-        String message="";
-        for(Map.Entry<Food,Integer>entry:listFoodOrder.entrySet()){//scorro l'hashMap per prendere il nome dei cibi e la quantità
-            Food key=entry.getKey();
-            nameFood.add("X " +entry.getValue()+ " "+ key.nameFood);//aggiungo alla lista dei cibi il nome con la relativa quantità
-            int number=entry.getValue();//prendo la quantità
-            float totParz=key.priceFood*number;//moltiplico il prezzo per la quantità per avere il costo di un cibo ordinato
-            tot+=totParz;//sommo il costo del cibo con il totale finale
-            message+=(number +"X "+key.nameFood+" "+ totParz+" €"+"\n");//imposto il messaggio con il riepilogo della quantità del nome e del costo parziale del cibo
-        }
-        message+="Tot" +tot+" €";//imposto nel messaggio il totale finale
-        builder.setMessage(message);//mostro il messaggio
-        finalTot = tot;
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                openDialogChooseAddress(nameFood,finalTot,place);//se clicca su ok va avanti al successivo dialogo
-
-            }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //se clicca su no non succede nulla e l'alert di chiude
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    //dialog per selezionare l'indirizzo di spedizione
-    private void openDialogChooseAddress(final ArrayList<String>nameFood, final float finalTot, final Place place){
-        final AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        LayoutInflater inflater=PlaceInfoActivity.this.getLayoutInflater();
-        View view=inflater.inflate(R.layout.dialog_choose_address,null);
-        builder.setView(view).setTitle(this.getResources().getString(R.string.choose_address));
-
-        ListView listViewAddress=(ListView)view.findViewById(R.id.listViewChooseAddress);
-        listViewAddress.setAdapter(addressAdapter);
-        ImageButton btnAddAddress=view.findViewById(R.id.btnAddAddress);
-
-        listAddress.clear();
-        //leggo in SQLite gli indirizzi presenti e li assegno alla listView
-        final Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES,DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID_ADDRESS, new String[]{user.getUid()}, null, null, null);
-
-        while(c.moveToNext()){//se sono presenti indirizzi
-            String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;
-            address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS)) + SPLIT);
-            address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY)));
-            listAddress.add(address);//aggiungo l'indirizzo totale alla lista a cui è collegato l'adapter
-        }
-        addressAdapter.notifyDataSetChanged();
-        AlertDialog alert = builder.create();
-        alert.show();
-
-        //bottone che mi permette l'aggiunta di un nuovo indirizzo
-        btnAddAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogAddAddress dialogAddAddress = new DialogAddAddress();
-                dialogAddAddress.show(getSupportFragmentManager(), "Dialog add address");
-            }
-        });
-
-        //una volta che l'utente seleziona l'indirizzo si passa alla successiva Activity per la conferma dell'ordine
-        listViewAddress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String addressOrder =(String)adapterView.getItemAtPosition(i);
-                Intent orderActivity=new Intent(PlaceInfoActivity.this,ConfirmOrderActivity.class);
-                order=setOrder(addressOrder);
-                orderActivity.putExtra(FirebaseConnection.ORDER,order);
-                startActivity(orderActivity);
-            }
-        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -316,12 +209,6 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
 
         openingTime();
 
-        if(firstTime) {
-            loadFood();
-        }
-        firstTime = false;
-
-
     }
 
     public void openingTime() {
@@ -333,7 +220,7 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
             Time timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'ora di apertura
             Time timeClosed=openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'ora di chiusura
             //se localTime si trova tra timeOpening e timeClosed
-            if (localTime.after(timeOpening)&&localTime.before(timeClosed)) {
+            if (localTime.after(timeOpening)&&localTime.before(timeClosed)){
                 txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + timeClosed.toString());
                 return;
             } else{//se l'ora corrente non è tra l'ora di apertura e l'ora di chiusura
@@ -377,76 +264,4 @@ public class PlaceInfoActivity extends FragmentActivity implements DialogAddAddr
 
         // Add a marker in Sydney and move the camera
     }
-
-    private void loadFood(){
-        final FirebaseConnection firebaseConnection=new FirebaseConnection();
-
-        //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
-        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        listFood.add(snapshot.getValue(Food.class));
-                    }
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-    @Override
-    public void applyTexts(String city, String address, String numberAddress) {
-        addressAdapter.notifyDataSetChanged();
-        mDBHelper.addAddress(mDB, address, numberAddress, city,user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
-
-        Intent orderActivity=new Intent(PlaceInfoActivity.this,ConfirmOrderActivity.class);
-        final String addressOrder=address+","+numberAddress+","+city;
-        order=setOrder(addressOrder);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
-        orderActivity.putExtra(FirebaseConnection.ORDER,order);
-        startActivity(orderActivity);//apro l'activity per confermare l'ordine
-    }
-
-    private Order setOrder(String addressOrder){//funzione per settare i valore di order
-        order.setIdClientOrder(user.getUid());
-        order.setPlaceOrder(place);
-        order.setFoodsOrder(nameFood);
-        order.setTotalOrder(finalTot);
-        order.setAddressOrder(addressOrder);
-        return order;
-    }
-
-    private class AddressAdapter extends ArrayAdapter<String> {
-        private TextView txtAddress;
-
-        public AddressAdapter(@NonNull Context context, int resource, List<String> list) {
-            super(context, resource, list);
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            if(convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) getContext()
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.listitem_address, null);
-
-            }
-            txtAddress = convertView.findViewById(R.id.radioBtnAddress);
-
-            String address = getItem(position);
-
-            txtAddress.setText(address);
-
-            return convertView;
-        }
-    }
-
-
-
-
-
-
 }

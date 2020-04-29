@@ -100,12 +100,12 @@ public class OpeningTime {
 
     public Time getTimeOpening(String openingTime){
         String[] result=openingTime.split(DASH);
-        return Time.valueOf(result[0]+SPLIT+00);
+        return Time.valueOf(result[0]+SPLIT+"00");
     }
 
     public Time getTimeClosed(String openingTime){
         String[] result=openingTime.split(DASH);
-        return Time.valueOf(result[1]+SPLIT+00);
+        return Time.valueOf(result[1]+SPLIT+"00");
     }
 
     public String getOpening(String openingTime){
