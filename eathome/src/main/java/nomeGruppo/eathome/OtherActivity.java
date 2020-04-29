@@ -17,8 +17,8 @@ import nomegruppo.eathome.actors.Client;
 import nomegruppo.eathome.actors.Place;
 import nomegruppo.eathome.clientSide.HomepageActivity;
 import nomegruppo.eathome.db.FirebaseConnection;
-import nomegruppo.eathome.profile.ClientProfileActivity;
-import nomegruppo.eathome.profile.PlaceProfileActivity;
+import nomegruppo.eathome.clientSide.profile.ClientProfileActivity;
+import nomegruppo.eathome.placeSide.profile.PlaceProfileActivity;
 import nomegruppo.eathome.utility.MenuNavigationItemSelected;
 
 /*

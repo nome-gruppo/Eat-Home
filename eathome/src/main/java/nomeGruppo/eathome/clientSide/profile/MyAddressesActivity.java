@@ -1,13 +1,11 @@
-package nomegruppo.eathome.profile;
+package nomegruppo.eathome.clientSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,7 +20,7 @@ import nomegruppo.eathome.actors.Client;
 import nomegruppo.eathome.db.DBOpenHelper;
 import nomegruppo.eathome.db.FirebaseConnection;
 
-public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener{
+public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
 
     private static final String SPLIT = ", ";
     private AddressAdapter mAdapter;

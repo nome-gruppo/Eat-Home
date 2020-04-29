@@ -1,4 +1,4 @@
-package nomegruppo.eathome.profile;
+package nomegruppo.eathome.placeSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +25,7 @@ import nomegruppo.eathome.R;
 import nomegruppo.eathome.actors.Place;
 import nomegruppo.eathome.actors.PlaceCategories;
 import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.DialogDeleteAccount;
 import nomegruppo.eathome.utility.UtilitiesAndControls;
 
 public class PlaceProfileActivity extends AppCompatActivity {

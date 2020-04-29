@@ -1,4 +1,4 @@
-package nomegruppo.eathome.profile;
+package nomegruppo.eathome.clientSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import nomegruppo.eathome.R;
 import nomegruppo.eathome.actors.Client;
 import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.DialogDeleteAccount;
 import nomegruppo.eathome.utility.UtilitiesAndControls;
 
 public class ClientProfileActivity extends AppCompatActivity {

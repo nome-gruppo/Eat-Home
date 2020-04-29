@@ -1,4 +1,4 @@
-package nomegruppo.eathome.profile;
+package nomegruppo.eathome.clientSide.profile;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

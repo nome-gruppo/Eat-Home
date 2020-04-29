@@ -65,7 +65,7 @@ import nomegruppo.eathome.db.DBOpenHelper;
 import nomegruppo.eathome.db.FirebaseConnection;
 import nomegruppo.eathome.db.StorageConnection;
 import nomegruppo.eathome.foods.Food;
-import nomegruppo.eathome.profile.DialogAddAddress;
+import nomegruppo.eathome.clientSide.profile.DialogAddAddress;
 import nomegruppo.eathome.utility.MenuAdapterForClient;
 import nomegruppo.eathome.utility.OpeningTime;
 

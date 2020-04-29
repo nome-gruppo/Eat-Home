@@ -1,4 +1,4 @@
-package nomegruppo.eathome.profile;
+package nomegruppo.eathome;
 
 import android.app.Dialog;
 import android.content.Context;

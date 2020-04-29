@@ -27,9 +27,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".FeedbackPlaceActivity"></activity>
         <activity android:name=".clientSide.PlacesFilterActivity" />
-        <activity android:name=".profile.MyAddressesActivity" />
-        <activity android:name=".profile.PlaceProfileActivity" />
-        <activity android:name=".profile.ClientProfileActivity" />
+        <activity android:name=".clientSide.profile.MyAddressesActivity" />
+        <activity android:name=".placeSide.profile.PlaceProfileActivity" />
+        <activity android:name=".clientSide.profile.ClientProfileActivity" />
         <activity android:name=".LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
