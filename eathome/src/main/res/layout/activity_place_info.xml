@@ -36,7 +36,7 @@
         android:layout_marginTop="80dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.946"
+        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="156dp"
+        android:layout_marginStart="136dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNamePlaceInfo" />
@@ -77,9 +77,10 @@
 
     <TextView
         android:id="@+id/txtBookingPlaceInfo"
-        android:layout_width="343dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="@string/booking_expected"
         android:visibility="invisible"
@@ -136,12 +137,13 @@
         android:id="@+id/txtOpeningTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="56dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.264" />
+        app:layout_constraintVertical_bias="0.257" />
 
     <RatingBar
         android:id="@+id/activity_place_info_ratingBar"

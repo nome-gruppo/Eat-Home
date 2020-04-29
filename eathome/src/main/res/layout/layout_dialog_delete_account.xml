@@ -8,6 +8,7 @@
         android:id="@+id/dialog_delete_account_tw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:text="Sicuro di voler eliminare l'account" />
 
     <EditText
@@ -19,7 +20,8 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Email" />
+        android:hint="Email"
+        android:textColorHint="?attr/colorPrimary"/>
     <EditText
         android:id="@+id/dialog_delete_account_et_password"
         android:inputType="textPassword"
@@ -30,6 +32,8 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="Password"/>
+        android:hint="Password"
+        android:textColorHint="?attr/colorPrimary"/>
+
 
 </LinearLayout>
