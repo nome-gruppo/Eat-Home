@@ -16,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -24,12 +25,13 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     private static final String SPLIT = ", ";
     private AddressAdapter mAdapter;
-    private ArrayList<String> addressList;
+    private ArrayList<Address> addressList;
 
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
 
     private Client client;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +41,15 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
        final FloatingActionButton addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
        final ListView addressesLW = findViewById(R.id.activity_my_addresses_listView);
 
+        client = (Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+
         addressList = new ArrayList<>();
-        mAdapter = new AddressAdapter(this, R.layout.listitem_my_address, addressList);
+        mAdapter = new AddressAdapter(this, R.layout.listitem_my_address, addressList, client.idClient);
 
         mDBHelper = new DBOpenHelper(this);
         mDB = mDBHelper.getWritableDatabase();
 
-        client = (Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+
 
         if(client != null) {
 
@@ -60,10 +64,12 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
             } else {
                 while (c.moveToNext()) {
 
-                    String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS)) + SPLIT;
-                    address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS)) + SPLIT);
-                    address = address.concat(c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY)));
-                    addressList.add(address);
+                    int idAddress=c.getInt(c.getColumnIndexOrThrow(DBOpenHelper.ID_ADDRESS));
+                    String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS));
+                    String numAddress = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS));
+                    String city=c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY));
+                    Address addressObj=new Address(idAddress,address,numAddress,city);
+                    addressList.add(addressObj);
                 }
                 addressesLW.setAdapter(mAdapter);
             }
@@ -84,8 +90,6 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     @Override
     public void applyTexts(String address, String numberAddress, String city) {
-        addressList.add(city+", "+address+", "+numberAddress);
-        mAdapter.notifyDataSetChanged();
         mDBHelper.addAddress(mDB, address, numberAddress, city, client.idClient);
     }
 
