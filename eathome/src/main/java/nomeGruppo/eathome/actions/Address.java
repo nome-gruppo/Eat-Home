@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.actions;
+package nomegruppo.eathome.actions;
 
 public class Address {
     private int idAddress;

@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome.clientSide;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,11 +19,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import nomeGruppo.eathome.actions.Booking;
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.BookingInfoAdapter;
-import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actions.Booking;
+import nomegruppo.eathome.actors.Client;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.utility.BookingInfoAdapter;
+import nomegruppo.eathome.utility.MenuNavigationItemSelected;
 
 /*
 activity per far visualizzare al cliente il riepilogo delle sue prenotazioni

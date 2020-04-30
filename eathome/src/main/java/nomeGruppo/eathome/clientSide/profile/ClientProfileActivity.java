@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.profile;
+package nomegruppo.eathome.clientSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,23 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomeGruppo.eathome.HomepageActivity;
-import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
-import nomeGruppo.eathome.utility.UtilitiesAndControls;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actors.Client;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.DialogDeleteAccount;
+import nomegruppo.eathome.utility.UtilitiesAndControls;
 
 public class ClientProfileActivity extends AppCompatActivity {
 

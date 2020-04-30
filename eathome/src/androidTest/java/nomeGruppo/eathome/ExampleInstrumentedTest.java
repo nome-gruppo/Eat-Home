@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("nomeGruppo.eathome", appContext.getPackageName());
+        assertEquals("nomegruppo.eathome", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomegruppo.eathome.utility;
 
 import android.util.Patterns;
 /*Classe contenente tutti i controlli utili in più activities

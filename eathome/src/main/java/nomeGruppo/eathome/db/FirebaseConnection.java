@@ -1,8 +1,7 @@
-package nomeGruppo.eathome.db;
+package nomegruppo.eathome.db;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,28 +11,22 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.List;
-
-import nomeGruppo.eathome.HomepageActivity;
-import nomeGruppo.eathome.PlaceHomeActivity;
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.actors.Place;
+import nomegruppo.eathome.clientSide.HomepageActivity;
+import nomegruppo.eathome.placeSide.PlaceHomeActivity;
+import nomegruppo.eathome.actors.Client;
+import nomegruppo.eathome.actors.Place;
 
 public class FirebaseConnection{
 

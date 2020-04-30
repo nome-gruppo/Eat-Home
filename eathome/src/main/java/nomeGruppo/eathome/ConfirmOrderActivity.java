@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -26,11 +26,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.db.DBOpenHelper;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.OpeningTime;
-import nomeGruppo.eathome.utility.TimePickerFragment;
+import nomegruppo.eathome.actions.Order;
+import nomegruppo.eathome.clientSide.HomepageActivity;
+import nomegruppo.eathome.db.DBOpenHelper;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.utility.OpeningTime;
+import nomegruppo.eathome.utility.TimePickerFragment;
 
 /*
 activity per completare e confermare un ordine
@@ -125,7 +126,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
                 if(addOrderFirebase()){//se l'ordine è stato inserito correttamente all'interno del database
                     //mostra messaggio
                     Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.order_confirm),Toast.LENGTH_SHORT).show();
-                    Intent homePage=new Intent(ConfirmOrderActivity.this,HomepageActivity.class);
+                    Intent homePage=new Intent(ConfirmOrderActivity.this, HomepageActivity.class);
                     startActivity(homePage);//apri homepage
                     finish();
                 }

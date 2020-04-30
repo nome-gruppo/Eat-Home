@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="nomeGruppo.eathome">
+    package="nomegruppo.eathome">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -26,10 +26,10 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".FeedbackPlaceActivity"></activity>
-        <activity android:name=".PlacesFilterActivity" />
-        <activity android:name=".profile.MyAddressesActivity" />
-        <activity android:name=".profile.PlaceProfileActivity" />
-        <activity android:name=".profile.ClientProfileActivity" />
+        <activity android:name=".clientSide.PlacesFilterActivity" />
+        <activity android:name=".clientSide.profile.MyAddressesActivity" />
+        <activity android:name=".placeSide.profile.PlaceProfileActivity" />
+        <activity android:name=".clientSide.profile.ClientProfileActivity" />
         <activity android:name=".LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,25 +50,25 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".PlaceRegistrationActivity"
+            android:name=".placeSide.PlaceRegistrationActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ClientRegistrationActivity"
+            android:name="nomegruppo.eathome.clientSide.ClientRegistrationActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PlaceHomeActivity"
+            android:name=".placeSide.PlaceHomeActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HomepageActivity"
+            android:name=".clientSide.HomepageActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
@@ -80,7 +80,7 @@
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PlaceInfoActivity"
+            android:name=".clientSide.PlaceInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
@@ -98,13 +98,13 @@
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ClientBookingInfoActivity"
+            android:name="nomegruppo.eathome.clientSide.ClientBookingInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ClientOrderInfoActivity"
+            android:name="nomegruppo.eathome.clientSide.ClientOrderInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
@@ -116,7 +116,7 @@
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PlaceBookingInfoActivity"
+            android:name=".placeSide.PlaceBookingInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"

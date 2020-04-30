@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome.clientSide;
 
 import android.Manifest;
 import android.content.Context;
@@ -63,11 +63,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.actors.PlacesByName;
-import nomeGruppo.eathome.db.DBOpenHelper;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.PlaceAdapter;
+import nomegruppo.eathome.AddressesBarAdapter;
+import nomegruppo.eathome.DialogEnterPlaceReview;
+import nomegruppo.eathome.LoginActivity;
+import nomegruppo.eathome.OtherActivity;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actors.Client;
+import nomegruppo.eathome.actors.PlacesByName;
+import nomegruppo.eathome.db.DBOpenHelper;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.utility.PlaceAdapter;
 
 /*
 activity homepage dei clienti
@@ -85,7 +90,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     private Client client;
 
-    private ArrayList<nomeGruppo.eathome.actors.Place> listPlace;
+    private ArrayList<nomegruppo.eathome.actors.Place> listPlace;
     private PlaceAdapter placeAdapter;
 
     private AutoCompleteTextView addressesBar;
@@ -253,9 +258,9 @@ public class HomepageActivity extends AppCompatActivity {
             filterBundle = data.getBundleExtra("outState");
 
 
-            ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+            ArrayList<nomegruppo.eathome.actors.Place> listPlaceFilter =(ArrayList<nomegruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
-            for(nomeGruppo.eathome.actors.Place place :listPlaceFilter){
+            for(nomegruppo.eathome.actors.Place place :listPlaceFilter){
                 listPlace.add(place);
             }
             placeAdapter.notifyDataSetChanged();
@@ -335,18 +340,18 @@ public class HomepageActivity extends AppCompatActivity {
                     listPlace.clear();
                     
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String  mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
+                        String  mPlaceId = snapshot.getValue(nomegruppo.eathome.actors.Place.class).idPlace;
                         boolean mFound = false;
 
                         //controlla locale non sia già mostrato
-                        for(nomeGruppo.eathome.actors.Place item: listPlace){
+                        for(nomegruppo.eathome.actors.Place item: listPlace){
                             if (item.idPlace.equals(mPlaceId)) {
                                 mFound = true;
                                 break;
                             }
                         }
                         if(!mFound) {
-                            listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
+                            listPlace.add(snapshot.getValue(nomegruppo.eathome.actors.Place.class));
                         }
                     }
 
@@ -572,7 +577,7 @@ public class HomepageActivity extends AppCompatActivity {
         listViewPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nomeGruppo.eathome.actors.Place place = (nomeGruppo.eathome.actors.Place) adapterView.getItemAtPosition(i);
+                nomegruppo.eathome.actors.Place place = (nomegruppo.eathome.actors.Place) adapterView.getItemAtPosition(i);
                 Intent placeInfoIntent = new Intent(HomepageActivity.this, PlaceInfoActivity.class);
                 placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
                 startActivity(placeInfoIntent);

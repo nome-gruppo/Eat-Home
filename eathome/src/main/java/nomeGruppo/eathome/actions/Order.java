@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.actions;
+package nomegruppo.eathome.actions;
 
 import android.annotation.SuppressLint;
 
@@ -11,8 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.foods.Food;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.foods.Food;
 
 public class Order implements Serializable {
 

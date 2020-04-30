@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -22,12 +22,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.DialogListFoodOrder;
-import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
-import nomeGruppo.eathome.utility.PlaceOrderAdapter;
+import nomegruppo.eathome.actions.Order;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.utility.DialogListFoodOrder;
+import nomegruppo.eathome.utility.MenuNavigationItemSelected;
+import nomegruppo.eathome.utility.PlaceOrderAdapter;
 
 public class PlaceOrderInfoActivity extends AppCompatActivity {
 

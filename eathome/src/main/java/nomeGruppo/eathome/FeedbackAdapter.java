@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-import nomeGruppo.eathome.actions.Feedback;
+import nomegruppo.eathome.actions.Feedback;
 
 /*
 adapter per le recensioni

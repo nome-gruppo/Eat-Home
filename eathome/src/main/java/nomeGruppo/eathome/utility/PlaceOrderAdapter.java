@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomegruppo.eathome.utility;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.actors.Place;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actions.Order;
+import nomegruppo.eathome.actors.Place;
 
 public class PlaceOrderAdapter extends ArrayAdapter <Order>{
 

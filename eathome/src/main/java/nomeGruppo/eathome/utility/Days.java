@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomegruppo.eathome.utility;
 
 public enum Days {
     FRIDAY,

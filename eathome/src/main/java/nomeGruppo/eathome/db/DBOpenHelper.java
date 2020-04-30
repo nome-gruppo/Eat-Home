@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.db;
+package nomegruppo.eathome.db;
 
 import android.content.ContentValues;
 import android.content.Context;

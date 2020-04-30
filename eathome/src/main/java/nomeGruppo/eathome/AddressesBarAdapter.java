@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,10 +1,10 @@
-package nomeGruppo.eathome.actions;
+package nomegruppo.eathome.actions;
 
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 
-import nomeGruppo.eathome.actors.Place;
+import nomegruppo.eathome.actors.Place;
 
 public class Booking {
 

@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -29,13 +29,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import nomeGruppo.eathome.actions.Booking;
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.DBOpenHelper;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.DatePickerFragment;
-import nomeGruppo.eathome.utility.OpeningTime;
-import nomeGruppo.eathome.utility.TimePickerFragment;
+import nomegruppo.eathome.actions.Booking;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.clientSide.HomepageActivity;
+import nomegruppo.eathome.db.DBOpenHelper;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.utility.DatePickerFragment;
+import nomegruppo.eathome.utility.OpeningTime;
+import nomegruppo.eathome.utility.TimePickerFragment;
 
 /*
 activity per completare e confermare la prenotazione
@@ -223,7 +224,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
                 if(addBookingFirebase()){//se la prenotazione è stata inserita correttamente nel database
                     //mostra messaggio
                     Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.reservetion_confirmed),Toast.LENGTH_SHORT).show();
-                    Intent homePage=new Intent(ConfirmBookingActivity.this,HomepageActivity.class);
+                    Intent homePage=new Intent(ConfirmBookingActivity.this, HomepageActivity.class);
                     startActivity(homePage);//apro la homepage
                     finish();
                 }

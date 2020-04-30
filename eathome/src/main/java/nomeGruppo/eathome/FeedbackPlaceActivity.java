@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +17,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import nomeGruppo.eathome.actions.Feedback;
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.actions.Feedback;
+import nomegruppo.eathome.actors.Place;
+import nomegruppo.eathome.db.FirebaseConnection;
 
 /*
 activity per far visualizzare a Place le proprie recensioni

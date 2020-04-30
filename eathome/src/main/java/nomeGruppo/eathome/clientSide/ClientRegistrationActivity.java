@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomegruppo.eathome.clientSide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +19,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.UtilitiesAndControls;
+import nomegruppo.eathome.R;
+import nomegruppo.eathome.actors.Client;
+import nomegruppo.eathome.db.FirebaseConnection;
+import nomegruppo.eathome.utility.UtilitiesAndControls;
 
 /*
 activity per la registrazione del cliente
@@ -35,7 +36,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     private EditText nameClient;
     private EditText emailClient;
     private EditText passwordClient;
-    private Button btnSignin;
+    private Button btnSignIn;
     private TextView statusTV;
     private Client client;
 
@@ -64,11 +65,11 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         emailClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         passwordClient =  findViewById(R.id.editPasswordClient);
         passwordClient.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        btnSignin =  findViewById(R.id.btnSigninClient);
+        btnSignIn =  findViewById(R.id.btnSigninClient);
         statusTV =  findViewById(R.id.activity_client_registration_tw_status);
 
         //se l'utente clicca sul bottone registrati
-        btnSignin.setOnClickListener(new View.OnClickListener() {
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
