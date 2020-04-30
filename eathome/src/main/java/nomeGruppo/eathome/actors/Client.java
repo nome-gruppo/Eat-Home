@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import nomeGruppo.eathome.actions.Booking;
-import nomeGruppo.eathome.actions.Order;
+
 
 public class Client implements Serializable {
 
