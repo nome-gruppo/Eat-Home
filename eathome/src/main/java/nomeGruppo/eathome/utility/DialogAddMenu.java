@@ -45,9 +45,9 @@ public class DialogAddMenu extends AppCompatDialogFragment {
             }
         });
 
-        editNameFood=(EditText)view.findViewById(R.id.editNameFood);
-        editIngredientsFood=(EditText)view.findViewById(R.id.editIngredientsFood);
-        editPriceFood=(EditText)view.findViewById(R.id.editPriceFood);
+        editNameFood = view.findViewById(R.id.editNameFood);
+        editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
+        editPriceFood = view.findViewById(R.id.editPriceFood);
 
         return builder.create();
 
@@ -57,7 +57,7 @@ public class DialogAddMenu extends AppCompatDialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener=(DialogAddMenuListener)context;
+            listener = (DialogAddMenuListener)context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()+"Error");
         }

@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginFragment";
 
-
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private Button loginBtn;
@@ -153,84 +152,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
-
-
-//    private void getCurrentUser(){
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            // Name, email address, and profile photo Url
-//            String name = user.getDisplayName();
-//            String email = user.getEmail();
-//           // Uri photoUrl = user.getPhotoUrl();
-//
-//            // Check if user's email is verified
-//            boolean emailVerified = user.isEmailVerified();
-//
-//            // The user's ID, unique to the Firebase project. Do NOT use this value to
-//            // authenticate with your backend server, if you have one. Use
-//            // FirebaseUser.getIdToken() instead.
-//            String uid = user.getUid();
-//        }
-//    }
-
-//    private void updateUI(FirebaseUser user) {
-//
-//        hideProgressBar();
-//
-//        if (user != null) {
-//
-//            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
-//
-//                    user.getEmail(), user.isEmailVerified()));
-//
-//            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-//
-//
-//
-//            findViewById(R.id.emailPasswordButtons).setVisibility(View.GONE);
-//
-//            findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
-//
-//            findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
-//
-//
-//
-//            if (user.isEmailVerified()) {
-//
-//                findViewById(R.id.verifyEmailButton).setVisibility(View.GONE);
-//
-//            } else {
-//
-//                findViewById(R.id.verifyEmailButton).setVisibility(View.VISIBLE);
-//
-//            }
-//
-//        } else {
-//
-//            mStatusTextView.setText(R.string.signed_out);
-//
-//            mDetailTextView.setText(null);
-//
-//
-//
-//            findViewById(R.id.emailPasswordButtons).setVisibility(View.VISIBLE);
-//
-//            findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);
-//
-//            findViewById(R.id.signedInButtons).setVisibility(View.GONE);
-//
-//        }
-//
-//    }
-
-//    private void updateUiWithUser(LoggedInUserView model) {
-//        String welcome = getString(R.string.welcome) + model.getDisplayName();
-//        // TODO : initiate successful logged in experience
-//        Toast.makeText(getActivity().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-//    }
-//
-//    private void showLoginFailed(@StringRes Integer errorString) {
-//        Toast.makeText(getActivity().getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
-//    }
 
 }
