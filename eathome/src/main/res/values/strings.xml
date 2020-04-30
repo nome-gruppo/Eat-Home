@@ -98,5 +98,6 @@
     <string name="reservetion_confirmed">Reservetion confirmed</string>
     <string name="order_confirm">Order confirm</string>
     <string name="invalid_order">The cart is empty</string>
+    <string name="show_cart">Show shopping cart</string>
 
 </resources>

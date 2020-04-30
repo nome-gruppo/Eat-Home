@@ -89,6 +89,7 @@
     <string name="reservetion_confirmed">Prenotazione confermata</string>
     <string name="order_confirm">Order confirm</string>
     <string name="invalid_order">Il carello è vuoto</string>
+    <string name="show_cart">Mostra carello</string>
 
 
 </resources>
