@@ -1,10 +1,9 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.placeSide;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.LinkedList;
 import java.util.List;
 
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;

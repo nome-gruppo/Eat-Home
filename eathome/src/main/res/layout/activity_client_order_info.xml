@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClientOrder"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:itemBackground="@color/colorPrimary"
@@ -16,35 +17,55 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtNoOrderClient"
+        app:menu="@menu/bottom_navigation_menu" />
 
-    <ListView
-        android:id="@+id/listViewOrderInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="parent"
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listViewOrderInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <TextView
         android:id="@+id/txtNoOrderClient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="300dp"
         android:text="@string/no_order"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClientOrder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgNoOrderClient" />
 
     <ImageView
         android:id="@+id/imgNoOrderClient"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="276dp"
+        android:layout_marginTop="255dp"
+        android:layout_marginBottom="41dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/txtNoOrderClient"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_emoticon_sad" />

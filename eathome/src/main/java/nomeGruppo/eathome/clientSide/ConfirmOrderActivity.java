@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.clientSide;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -20,14 +20,13 @@ import androidx.fragment.app.DialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.OpeningTime;
@@ -123,14 +122,12 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(addOrderFirebase()){//se l'ordine è stato inserito correttamente all'interno del database
-                    //mostra messaggio
-                    Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.order_confirm),Toast.LENGTH_SHORT).show();
+                    addOrderFirebase();//dopo che l'ordine è stato inserito correttamente all'interno del database
+                    Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.order_confirm),Toast.LENGTH_SHORT).show();//mostra messaggio
                     Intent homePage=new Intent(ConfirmOrderActivity.this, HomepageActivity.class);
                     startActivity(homePage);//apri homepage
                     finish();
                 }
-            }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -143,7 +140,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     }
 
-    private boolean addOrderFirebase(){
+    private void addOrderFirebase(){
         order.setNameClientOrder(editName.getText().toString());
         order.setPhoneClientOrder(editPhone.getText().toString());
         order.setTimeOrder(chooseTime.getText().toString());
@@ -154,7 +151,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
         //inserisco l'informazione dell'ordinazione nel db interno
         mDBHelper.addInfo(mDB,order.placeOrder.idPlace, order.placeOrder.namePlace,new SimpleDateFormat("yyyy/MM/dd").format(new Date()), mUser.getUid());
-        return true;
     }
 
     @Override

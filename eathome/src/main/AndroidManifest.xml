@@ -86,13 +86,13 @@
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ConfirmOrderActivity"
+            android:name=".clientSide.ConfirmOrderActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ConfirmBookingActivity"
+            android:name=".clientSide.ConfirmBookingActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
@@ -110,7 +110,7 @@
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PlaceOrderInfoActivity"
+            android:name=".placeSide.PlaceOrderInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"

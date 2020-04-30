@@ -1,8 +1,12 @@
 package nomeGruppo.eathome.clientSide;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -10,12 +14,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.internal.$Gson$Preconditions;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,6 +34,7 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.DialogListFoodOrder;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.OrderInfoAdapter;
 
@@ -72,6 +84,19 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
             }
         });
 
+        listViewOrderInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Order order=(Order)adapterView.getItemAtPosition(i);
+                opendDialogOrderSummary(order);
+            }
+        });
+
+    }
+
+    private void opendDialogOrderSummary(Order order){
+        DialogListFoodOrder dialogListFoodOrder=new DialogListFoodOrder(order);
+        dialogListFoodOrder.show(getSupportFragmentManager(),"Dialog list food");
     }
 
     private void readOrder(){
@@ -86,11 +111,12 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
                         Order order = snapshot.getValue(Order.class);
                         listOrder.add(order);//aggiungo l'ordine alla lista collegata all'adapter
                     }
+                    Collections.reverse(listOrder);//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
+                    orderInfoAdapter.notifyDataSetChanged();
                 }else{//se non c'è nemmeno un ordine
                     txtNoOrder.setVisibility(View.VISIBLE);//mostro messaggio 'siamo spiacenti'
                     imgNoOrder.setVisibility(View.VISIBLE);//mostro la smile triste
                 }
-                orderInfoAdapter.notifyDataSetChanged();
             }
 
             @Override

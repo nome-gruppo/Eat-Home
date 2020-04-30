@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.clientSide;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -23,15 +23,14 @@ import androidx.fragment.app.DialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.DatePickerFragment;

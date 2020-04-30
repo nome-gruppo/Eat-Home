@@ -37,7 +37,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nomeGruppo.eathome.ConfirmBookingActivity;
 import nomeGruppo.eathome.FeedbackPlaceActivity;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;

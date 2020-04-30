@@ -34,7 +34,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import nomeGruppo.eathome.ConfirmOrderActivity;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;

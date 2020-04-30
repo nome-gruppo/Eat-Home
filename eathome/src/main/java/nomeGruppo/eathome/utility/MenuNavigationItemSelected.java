@@ -10,7 +10,7 @@ import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.placeSide.PlaceBookingInfoActivity;
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
-import nomeGruppo.eathome.PlaceOrderInfoActivity;
+import nomeGruppo.eathome.placeSide.PlaceOrderInfoActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;

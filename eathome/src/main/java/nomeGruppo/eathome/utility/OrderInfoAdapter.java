@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
         TextView address=(TextView)convertView.findViewById(R.id.txtAddressOrderInfo);
         TextView date=(TextView)convertView.findViewById(R.id.txtDateOrderInfo);
         TextView phone=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
+        ImageButton btnDeleteOrder=convertView.findViewById(R.id.btnDeleteOrder);
         final Order order = getItem(position);
         title.setText(order.placeOrder.namePlace);
         total.setText(Float.toString(order.totalOrder)+" €");
@@ -46,5 +48,4 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
         phone.setText(order.placeOrder.phonePlace);
         return convertView;
     }
-
 }
