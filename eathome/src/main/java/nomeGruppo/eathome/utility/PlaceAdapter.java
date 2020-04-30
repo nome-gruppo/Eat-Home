@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,10 +38,13 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         TextView type = (TextView)convertView.findViewById(R.id.txtTypePlaceFragment);
         TextView address=(TextView)convertView.findViewById(R.id.txtAddressPlaceFragment);
         ImageView imgPlace=(ImageView)convertView.findViewById(R.id.imgPlaceFragment);
+        RatingBar ratingBar=convertView.findViewById(R.id.ratingBarPlaceFragment);
         Place place = getItem(position);
         title.setText(place.namePlace);
         type.setText(place.categories);
         address.setText(place.cityPlace+" "+place.addressPlace+", "+place.addressNumPlace);
+
+        ratingBar.setRating(place.valuation);
 
         if(!place.takesBookingPlace){
             ImageView mImageView = convertView.findViewById(R.id.list_places_booking_icon);

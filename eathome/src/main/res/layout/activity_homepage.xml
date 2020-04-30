@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/colorPrimary">
 
     <include
         android:id="@+id/activity_homepage_addressesBar"
         layout="@layout/layout_addresses_bar"
         android:layout_width="347dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="32dp"
+        android:layout_height="0dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/activity_homepage_tw_no_places"
+        app:layout_constraintEnd_toStartOf="@+id/activity_homepage_tw_no_places"
+        app:layout_constraintStart_toStartOf="@+id/activity_homepage_tw_no_places"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ListView
-        android:id="@+id/listViewPlace"
+    <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_homepage_addressesBar" />
+        app:layout_constraintTop_toTopOf="@id/activity_homepage_addressesBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <ListView
+                android:id="@+id/listViewPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/activity_homepage_btn_find_places"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="268dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="287dp"
+        android:layout_marginBottom="229dp"
         android:text="Trova i tuoi locali preferiti"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClient"
+        app:layout_constraintBottom_toTopOf="@+id/activity_homepage_fab_filter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_homepage_addressesBar" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_homepage_tw_no_places" />
 
     <TextView
         android:id="@+id/activity_homepage_tw_no_places"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="164dp"
-        android:layout_marginEnd="313dp"
+        android:layout_marginBottom="302dp"
         android:text="Non sono stati trovati locali per la tua ricerca"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/activity_homepage_btn_find_places"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_homepage_addressesBar" />
@@ -61,16 +70,16 @@
         android:id="@+id/activity_homepage_fab_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigationClient"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClient"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_homepage_btn_find_places"
         app:srcCompat="@drawable/ic_filter_list" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClient"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="@color/colorPrimary"
@@ -78,8 +87,8 @@
         app:itemTextColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_homepage_fab_filter"
         app:menu="@menu/bottom_navigation_menu" />
 
 
