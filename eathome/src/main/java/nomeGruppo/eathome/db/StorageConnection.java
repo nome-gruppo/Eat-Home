@@ -1,4 +1,4 @@
-package nomegruppo.eathome.db;
+package nomeGruppo.eathome.db;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

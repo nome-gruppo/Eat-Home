@@ -1,4 +1,4 @@
-package nomegruppo.eathome.utility;
+package nomeGruppo.eathome.utility;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.foods.Food;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.foods.Food;
 
 public class DialogAddMenu extends AppCompatDialogFragment {
     private EditText editNameFood;

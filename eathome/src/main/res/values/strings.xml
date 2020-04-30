@@ -97,5 +97,6 @@
     <string name="invalid_time">The place is closed on the selected time</string>
     <string name="reservetion_confirmed">Reservetion confirmed</string>
     <string name="order_confirm">Order confirm</string>
+    <string name="invalid_order">The cart is empty</string>
 
 </resources>

@@ -1,30 +1,18 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.clientSide;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
@@ -39,35 +27,24 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-import nomeGruppo.eathome.actions.Order;
+import nomeGruppo.eathome.ConfirmBookingActivity;
+import nomeGruppo.eathome.FeedbackPlaceActivity;
+import nomeGruppo.eathome.LoginActivity;
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
-import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.profile.DialogAddAddress;
-import nomeGruppo.eathome.utility.MenuAdapterForClient;
 import nomeGruppo.eathome.utility.OpeningTime;
-
 /*
 activity che visualizza le informazioni per il locale selezionato dall'utente
  */
@@ -165,7 +142,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent orderActivity=new Intent(PlaceInfoActivity.this,PlaceListFoodOrderActivity.class);
+                Intent orderActivity=new Intent(PlaceInfoActivity.this, PlaceListFoodOrderActivity.class);
                 orderActivity.putExtra(FirebaseConnection.PLACE,place);
                 startActivity(orderActivity);
             }

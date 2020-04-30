@@ -1,4 +1,4 @@
-package nomegruppo.eathome;
+package nomeGruppo.eathome;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -29,14 +29,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import nomegruppo.eathome.actions.Booking;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.clientSide.HomepageActivity;
-import nomegruppo.eathome.db.DBOpenHelper;
-import nomegruppo.eathome.db.FirebaseConnection;
-import nomegruppo.eathome.utility.DatePickerFragment;
-import nomegruppo.eathome.utility.OpeningTime;
-import nomegruppo.eathome.utility.TimePickerFragment;
+import nomeGruppo.eathome.actions.Booking;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.clientSide.HomepageActivity;
+import nomeGruppo.eathome.db.DBOpenHelper;
+import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.DatePickerFragment;
+import nomeGruppo.eathome.utility.OpeningTime;
+import nomeGruppo.eathome.utility.TimePickerFragment;
 
 /*
 activity per completare e confermare la prenotazione

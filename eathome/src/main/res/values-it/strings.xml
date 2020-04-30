@@ -88,6 +88,7 @@
     <string name="invalid_time">Il locale è chiuso nell\'ora selezionata</string>
     <string name="reservetion_confirmed">Prenotazione confermata</string>
     <string name="order_confirm">Order confirm</string>
+    <string name="invalid_order">Il carello è vuoto</string>
 
 
 </resources>

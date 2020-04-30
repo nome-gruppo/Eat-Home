@@ -1,4 +1,4 @@
-package nomegruppo.eathome.clientSide;
+package nomeGruppo.eathome.clientSide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +19,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actors.Client;
-import nomegruppo.eathome.db.FirebaseConnection;
-import nomegruppo.eathome.utility.UtilitiesAndControls;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 /*
 activity per la registrazione del cliente

@@ -1,4 +1,4 @@
-package nomegruppo.eathome.placeSide;
+package nomeGruppo.eathome.placeSide;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,14 +32,14 @@ import com.google.firebase.storage.StorageReference;
 import java.util.LinkedList;
 import java.util.List;
 
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.db.FirebaseConnection;
-import nomegruppo.eathome.db.StorageConnection;
-import nomegruppo.eathome.foods.Food;
-import nomegruppo.eathome.utility.DialogAddMenu;
-import nomegruppo.eathome.utility.MenuNavigationItemSelected;
-import nomegruppo.eathome.utility.MyMenuAdapter;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.db.StorageConnection;
+import nomeGruppo.eathome.foods.Food;
+import nomeGruppo.eathome.utility.DialogAddMenu;
+import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
+import nomeGruppo.eathome.utility.MyMenuAdapter;
 
 /*
 activity homepage per Place

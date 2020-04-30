@@ -1,4 +1,4 @@
-package nomegruppo.eathome.actors;
+package nomeGruppo.eathome.actors;
 
 import java.util.Comparator;
 

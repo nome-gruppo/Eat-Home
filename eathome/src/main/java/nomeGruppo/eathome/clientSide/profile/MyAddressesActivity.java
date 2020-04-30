@@ -1,4 +1,4 @@
-package nomegruppo.eathome.clientSide.profile;
+package nomeGruppo.eathome.clientSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +14,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actions.Address;
-import nomegruppo.eathome.actors.Client;
-import nomegruppo.eathome.db.DBOpenHelper;
-import nomegruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Address;
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.clientSide.DialogAddAddress;
+import nomeGruppo.eathome.db.DBOpenHelper;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
 

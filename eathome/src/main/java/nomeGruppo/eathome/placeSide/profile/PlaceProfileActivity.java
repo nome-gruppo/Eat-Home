@@ -1,4 +1,4 @@
-package nomegruppo.eathome.placeSide.profile;
+package nomeGruppo.eathome.placeSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,14 +19,14 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomegruppo.eathome.placeSide.PlaceHomeActivity;
-import nomegruppo.eathome.PlaceOpeningTimeActivity;
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.actors.PlaceCategories;
-import nomegruppo.eathome.db.FirebaseConnection;
-import nomegruppo.eathome.DialogDeleteAccount;
-import nomegruppo.eathome.utility.UtilitiesAndControls;
+import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
+import nomeGruppo.eathome.PlaceOpeningTimeActivity;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.actors.PlaceCategories;
+import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.DialogDeleteAccount;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class PlaceProfileActivity extends AppCompatActivity {
 

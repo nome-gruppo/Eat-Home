@@ -1,4 +1,4 @@
-package nomegruppo.eathome.utility;
+package nomeGruppo.eathome.utility;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,10 +17,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actions.Order;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Order;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class OrderInfoAdapter extends ArrayAdapter<Order> {
 

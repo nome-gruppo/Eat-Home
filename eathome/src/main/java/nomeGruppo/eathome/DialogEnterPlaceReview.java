@@ -1,4 +1,4 @@
-package nomegruppo.eathome;
+package nomeGruppo.eathome;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -23,10 +23,10 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import nomegruppo.eathome.actions.Feedback;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.db.DBOpenHelper;
-import nomegruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.actions.Feedback;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.DBOpenHelper;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 /*
 dialog per l'inserimento delle recensioni da parte del cliente

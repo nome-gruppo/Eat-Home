@@ -1,4 +1,4 @@
-package nomegruppo.eathome.utility;
+package nomeGruppo.eathome.utility;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,9 +15,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.db.StorageConnection;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.StorageConnection;
 
 public class PlaceAdapter extends ArrayAdapter<Place> {
 

@@ -1,4 +1,4 @@
-package nomegruppo.eathome;
+package nomeGruppo.eathome;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -18,12 +18,12 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomegruppo.eathome.clientSide.HomepageActivity;
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actors.Client;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.db.DBOpenHelper;
-import nomegruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.clientSide.HomepageActivity;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.DBOpenHelper;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class DialogDeleteAccount extends AppCompatDialogFragment {
 

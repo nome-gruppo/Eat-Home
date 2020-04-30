@@ -1,4 +1,4 @@
-package nomegruppo.eathome.utility;
+package nomeGruppo.eathome.utility;
 
 import android.app.TimePickerDialog;
 import android.content.Context;

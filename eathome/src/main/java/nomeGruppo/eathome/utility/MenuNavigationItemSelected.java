@@ -1,20 +1,20 @@
-package nomegruppo.eathome.utility;
+package nomeGruppo.eathome.utility;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
 
-import nomegruppo.eathome.clientSide.ClientBookingInfoActivity;
-import nomegruppo.eathome.clientSide.ClientOrderInfoActivity;
-import nomegruppo.eathome.clientSide.HomepageActivity;
-import nomegruppo.eathome.OtherActivity;
-import nomegruppo.eathome.placeSide.PlaceBookingInfoActivity;
-import nomegruppo.eathome.placeSide.PlaceHomeActivity;
-import nomegruppo.eathome.PlaceOrderInfoActivity;
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actors.Client;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.clientSide.ClientBookingInfoActivity;
+import nomeGruppo.eathome.clientSide.ClientOrderInfoActivity;
+import nomeGruppo.eathome.clientSide.HomepageActivity;
+import nomeGruppo.eathome.OtherActivity;
+import nomeGruppo.eathome.placeSide.PlaceBookingInfoActivity;
+import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
+import nomeGruppo.eathome.PlaceOrderInfoActivity;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class MenuNavigationItemSelected {
 

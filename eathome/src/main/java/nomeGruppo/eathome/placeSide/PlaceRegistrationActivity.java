@@ -1,9 +1,9 @@
-package nomegruppo.eathome.placeSide;
+package nomeGruppo.eathome.placeSide;
 
-import nomegruppo.eathome.PlaceOpeningTimeActivity;
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actors.Place;
-import nomegruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.PlaceOpeningTimeActivity;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +25,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
-import nomegruppo.eathome.actors.PlaceCategories;
-import nomegruppo.eathome.utility.UtilitiesAndControls;
+import nomeGruppo.eathome.actors.PlaceCategories;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 
 public class PlaceRegistrationActivity extends AppCompatActivity {

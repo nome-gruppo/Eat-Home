@@ -1,4 +1,4 @@
-package nomegruppo.eathome.actions;
+package nomeGruppo.eathome.actions;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package nomegruppo.eathome.db;
+package nomeGruppo.eathome.db;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,10 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import nomegruppo.eathome.clientSide.HomepageActivity;
-import nomegruppo.eathome.placeSide.PlaceHomeActivity;
-import nomegruppo.eathome.actors.Client;
-import nomegruppo.eathome.actors.Place;
+import nomeGruppo.eathome.clientSide.HomepageActivity;
+import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
+import nomeGruppo.eathome.actors.Client;
+import nomeGruppo.eathome.actors.Place;
 
 public class FirebaseConnection{
 

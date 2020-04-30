@@ -1,10 +1,10 @@
-package nomegruppo.eathome.actors;
+package nomeGruppo.eathome.actors;
 
 import java.io.Serializable;
 import java.util.List;
 
-import nomegruppo.eathome.actions.Booking;
-import nomegruppo.eathome.actions.Order;
+import nomeGruppo.eathome.actions.Booking;
+import nomeGruppo.eathome.actions.Order;
 
 public class Client implements Serializable {
 

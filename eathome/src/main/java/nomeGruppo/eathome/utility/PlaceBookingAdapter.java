@@ -1,4 +1,4 @@
-package nomegruppo.eathome.utility;
+package nomeGruppo.eathome.utility;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-import nomegruppo.eathome.R;
-import nomegruppo.eathome.actions.Booking;
+import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Booking;
 
 
 public class PlaceBookingAdapter extends ArrayAdapter<Booking> {

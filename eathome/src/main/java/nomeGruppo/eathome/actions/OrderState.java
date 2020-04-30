@@ -1,4 +1,4 @@
-package nomegruppo.eathome.actions;
+package nomeGruppo.eathome.actions;
 
 /*Contiene i possibili stati di un ordinazione.
 In ordine:

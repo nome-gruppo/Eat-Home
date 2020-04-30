@@ -1,4 +1,4 @@
-package nomegruppo.eathome;
+package nomeGruppo.eathome;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +24,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomegruppo.eathome.clientSide.ClientRegistrationActivity;
-import nomegruppo.eathome.db.FirebaseConnection;
-import nomegruppo.eathome.placeSide.PlaceRegistrationActivity;
+import nomeGruppo.eathome.clientSide.ClientRegistrationActivity;
+import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.placeSide.PlaceRegistrationActivity;
 
 
 public class LoginActivity extends AppCompatActivity {

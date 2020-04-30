@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.clientSide;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,15 +34,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import nomeGruppo.eathome.ConfirmOrderActivity;
+import nomeGruppo.eathome.LoginActivity;
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.profile.DialogAddAddress;
 import nomeGruppo.eathome.utility.MenuAdapterForClient;
 
-public class PlaceListFoodOrderActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
+public class PlaceListFoodOrderActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener  {
     private static final String SPLIT = ", ";
 
     private Place place;
@@ -65,12 +68,14 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_list_food_order);
+
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.order=new Order();
         this.listFoodOrder=new HashMap<>();
         this.nameFood=new ArrayList<>();
         this.finalTot=0;
-        this.listViewFoodInfo=(ListView)findViewById(R.id.listViewFoodInfo);
+        this.listViewFoodInfo=findViewById(R.id.listViewFoodInfo);
         this.btnOrder=findViewById(R.id.btnOrderFood);
 
         this.mDBHelper = new DBOpenHelper(this);
@@ -79,14 +84,18 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         this.addressAdapter=new PlaceListFoodOrderActivity.AddressAdapter(PlaceListFoodOrderActivity.this,R.layout.listitem_address,listAddress);
 
         listFood=new LinkedList<>();
-        mAdapter=new MenuAdapterForClient(this,R.layout.listitem_menu_client,listFood,listFoodOrder);
+        this.mAdapter=new MenuAdapterForClient(PlaceListFoodOrderActivity.this,R.layout.listitem_menu_client,listFood,listFoodOrder);
         listViewFoodInfo.setAdapter(mAdapter);
 
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(user != null) {//se l'utente è loggato
-                    openDialogOrder(listFoodOrder, place);//apri dialog di riepilogo ordine
+                    if(listFoodOrder.isEmpty()){//se la lista degli ordini è vuota
+                        Toast.makeText(PlaceListFoodOrderActivity.this,getResources().getString(R.string.invalid_order),Toast.LENGTH_SHORT).show();
+                    }else {//se la lista ordine contiene almeno un ordine
+                        openDialogOrder(listFoodOrder, place);//apri dialog di riepilogo ordine
+                    }
                 }else{//se l'utente non è loggato
                     Intent loginIntent = new Intent(PlaceListFoodOrderActivity.this, LoginActivity.class);
                     loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);
@@ -200,7 +209,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String addressOrder =(String)adapterView.getItemAtPosition(i);
-                Intent orderActivity=new Intent(PlaceListFoodOrderActivity.this,ConfirmOrderActivity.class);
+                Intent orderActivity=new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
                 order=setOrder(addressOrder);
                 orderActivity.putExtra(FirebaseConnection.ORDER,order);
                 startActivity(orderActivity);

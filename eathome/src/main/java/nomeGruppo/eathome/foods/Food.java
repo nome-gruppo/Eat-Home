@@ -1,4 +1,4 @@
-package nomegruppo.eathome.foods;
+package nomeGruppo.eathome.foods;
 
 import java.util.HashSet;
 
