@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -56,7 +57,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private ListView listViewMenu;
     private List<Food> listFood;
     private MyMenuAdapter mAdapter;
-    private ImageButton btnAddMenu;
+    private FloatingActionButton btnAddMenu;
     private TextView txtPath;
     private BottomNavigationView bottomMenuPlace;
     private Food food;
@@ -82,7 +83,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         listViewMenu= findViewById(R.id.listMenu);
         bottomMenuPlace=  findViewById(R.id.bottom_navigationPlace);
         imgPlace= findViewById(R.id.placeImg);
-        btnAddMenu= findViewById(R.id.btnAddMenu);
         listFood=new LinkedList<>();
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
         listViewMenu.setAdapter(mAdapter);
