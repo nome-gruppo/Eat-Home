@@ -41,6 +41,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
         TextView date=(TextView)convertView.findViewById(R.id.txtDateOrderInfo);
         TextView phone=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
         final CheckBox stateOrder=convertView.findViewById(R.id.checkBoxStateOrder);
+        stateOrder.setEnabled(false);
         final Order order = getItem(position);
         title.setText(order.namePlaceOrder);
         total.setText(Float.toString(order.totalOrder)+" €");
@@ -55,33 +56,8 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
             stateOrder.setChecked(false);
             stateOrder.setText(getContext().getResources().getString(R.string.not_done));
         }
-        stateOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean checked = ((CheckBox) view).isChecked();
-                // Check which checkbox was clicked
-                switch(view.getId()) {
-                    case R.id.checkBoxStateOrder:
-                        if (checked){
-                            order.setStateOrder(true);
-                            stateOrder.setText(getContext().getResources().getString(R.string.done));
-                            updateStateOrder(order);
-                        }
-                        else {
-                            order.setStateOrder(false);
-                            stateOrder.setText(getContext().getResources().getString(R.string.not_done));
-                            updateStateOrder(order);
-                        }break;
-                }
-            }
-
-
-        });
         return convertView;
     }
 
-    private void updateStateOrder(Order order){
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).child(order.idOrder).child("stateOrder").setValue(order.stateOrder);
-    }
+
 }

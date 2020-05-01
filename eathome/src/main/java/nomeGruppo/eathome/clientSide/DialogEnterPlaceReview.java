@@ -100,7 +100,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).push().getKey();
         feedback.setIdFeedback(idFeedback);
 
-        firebaseConnection.writeObject(FirebaseConnection.FEEDBACK_TABLE,feedback);//inserisco Feedback all'interno di Firebase
+        firebaseConnection.write(FirebaseConnection.FEEDBACK_TABLE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
     }
 
     private void updateValuationPlace(){

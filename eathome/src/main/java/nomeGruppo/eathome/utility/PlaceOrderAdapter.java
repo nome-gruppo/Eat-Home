@@ -15,6 +15,7 @@ import java.util.List;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class PlaceOrderAdapter extends ArrayAdapter <Order>{
 
@@ -54,13 +55,15 @@ public class PlaceOrderAdapter extends ArrayAdapter <Order>{
                 // Check which checkbox was clicked
                 switch(view.getId()) {
                     case R.id.checkBoxStateOrder:
-                        if (checked){
-                            order.setStateOrder(true);
-                            stateOrder.setText(getContext().getResources().getString(R.string.done));
+                        if (checked){ //se place conferma l'avvenuta esecuzione dell'ordine
+                            order.setStateOrder(true);//metto la checkBox su check
+                            stateOrder.setText(getContext().getResources().getString(R.string.done));//cambio il testo in 'eseguito'
+                            updateStateOrder(order);//aggiorno lo stato dell'ordine in firebase
                         }
-                        else {
-                            order.setStateOrder(false);
-                            stateOrder.setText(getContext().getResources().getString(R.string.not_done));
+                        else { //se place non conferma l'avvenuta esecuzione dell'ordine
+                            order.setStateOrder(false);//metto la checkBox su uncheck
+                            stateOrder.setText(getContext().getResources().getString(R.string.not_done));//cambio il testo in 'non eseguito'
+                            updateStateOrder(order);//aggiorno lo stato dell'ordine in firebase
                         }break;
                 }
             }
@@ -68,5 +71,9 @@ public class PlaceOrderAdapter extends ArrayAdapter <Order>{
 
         });
         return convertView;
+    }
+    private void updateStateOrder(Order order){
+        FirebaseConnection firebaseConnection=new FirebaseConnection();
+        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).child(order.idOrder).child("stateOrder").setValue(order.stateOrder);
     }
 }

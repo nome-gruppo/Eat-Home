@@ -122,7 +122,7 @@
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PlaceOpeningTimeActivity"
+            android:name=".placeSide.PlaceOpeningTimeActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
