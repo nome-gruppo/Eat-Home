@@ -19,7 +19,7 @@ public class LauncherActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private FirebaseUser user;
-    public TextView errorTv;
+    private TextView errorTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -165,17 +165,19 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
             timeOrder=parser.parse(hourOfDay+":"+minutes);
             timeClosed = openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'orario di chiusura
             timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'orario di apertura
-        } catch (ParseException e) {
+
+            //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
+            if(timeOrder.after(timeOpening)&&timeOrder.before(timeClosed)){
+                EditText editChooseTime=findViewById(R.id.editChooseTime);
+                editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
+            }else{//se il locale è chiuso nell'ora selezionata
+                //mostra messaggio
+                Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
+            }
+        } catch (NullPointerException | ParseException e) {
             e.printStackTrace();
         }
-        //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
-        if(timeOrder.after(timeOpening)&&timeOrder.before(timeClosed)){
-            EditText editChooseTime=findViewById(R.id.editChooseTime);
-            editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
-        }else{//se il locale è chiuso nell'ora selezionata
-            //mostra messaggio
-            Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
-        }
+
 
 
     }

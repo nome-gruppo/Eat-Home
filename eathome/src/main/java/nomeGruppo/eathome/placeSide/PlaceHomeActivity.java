@@ -74,19 +74,19 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         food=new Food();
 
-        txtNamePlace=(TextView)findViewById(R.id.txtNamePlace);
+        txtNamePlace= findViewById(R.id.txtNamePlace);
         txtNamePlace.setText(place.namePlace);
-        btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
-        txtPath=(TextView)findViewById(R.id.txtPath);
+        btnAddMenu= findViewById(R.id.btnAddMenu);
+        txtPath= findViewById(R.id.txtPath);
         txtPath.setVisibility(View.INVISIBLE);
-        listViewMenu=(ListView)findViewById(R.id.listMenu);
-        bottomMenuPlace=(BottomNavigationView) findViewById(R.id.bottom_navigationPlace);
-        imgPlace= (ImageView)findViewById(R.id.placeImg);
-        btnAddMenu=(ImageButton)findViewById(R.id.btnAddMenu);
+        listViewMenu= findViewById(R.id.listMenu);
+        bottomMenuPlace=  findViewById(R.id.bottom_navigationPlace);
+        imgPlace= findViewById(R.id.placeImg);
+        btnAddMenu= findViewById(R.id.btnAddMenu);
         listFood=new LinkedList<>();
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
         listViewMenu.setAdapter(mAdapter);
-        btnDeleteFood=(ImageButton)findViewById(R.id.btnDeleteFood);
+        btnDeleteFood= findViewById(R.id.btnDeleteFood);
         this.menuNavigationItemSelected=new MenuNavigationItemSelected();
 
         //mostro il menu sottostante
@@ -217,6 +217,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         return resizedBitmap;
     }
 
+    //TODO a che serve?
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
