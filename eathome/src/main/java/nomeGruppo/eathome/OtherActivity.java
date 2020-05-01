@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ activity dove sono presenti il mio profilo le mie recensioni e il logout
  */
 public class OtherActivity extends AppCompatActivity {
     private MenuNavigationItemSelected menuNavigationItemSelected=new MenuNavigationItemSelected();
-    private ImageButton btnProfile,btnFeedback,btnLogout;
+    private Button btnProfile,btnFeedback,btnLogout;
     private BottomNavigationView bottomNavigationMenu;
     private Place place;
     private Client client;

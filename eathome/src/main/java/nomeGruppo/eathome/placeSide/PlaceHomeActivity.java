@@ -58,7 +58,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private List<Food> listFood;
     private MyMenuAdapter mAdapter;
     private FloatingActionButton btnAddMenu;
-    private TextView txtPath;
+    private String imgPath;
     private BottomNavigationView bottomMenuPlace;
     private Food food;
     private boolean logged;
@@ -78,8 +78,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         txtNamePlace= findViewById(R.id.txtNamePlace);
         txtNamePlace.setText(place.namePlace);
         btnAddMenu= findViewById(R.id.btnAddMenu);
-        txtPath= findViewById(R.id.txtPath);
-        txtPath.setVisibility(View.INVISIBLE);
         listViewMenu= findViewById(R.id.listMenu);
         bottomMenuPlace=  findViewById(R.id.bottom_navigationPlace);
         imgPlace= findViewById(R.id.placeImg);
@@ -169,7 +167,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onPause();
 
         StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-        storage.uploadImage(txtPath.getText().toString(),place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
+        storage.uploadImage(imgPath,place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
     }
 
     private void openDialog(){
@@ -197,7 +195,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
             cursor.close();;
 
-            txtPath.setText(absoluteFilePath);//assegno il valore del path dell'immagine a txtPath
+            imgPath=absoluteFilePath;//assegno il valore del path dell'immagine a txtPath
             imgPlace.setImageURI(imageUri);//assegno l'immagine come copertina della home
         }
     }

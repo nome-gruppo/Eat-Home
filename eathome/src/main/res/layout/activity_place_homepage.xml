@@ -1,77 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtNamePlace"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="19dp"
         android:background="@drawable/edit_text_border"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/placeImg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <ImageView
         android:id="@+id/placeImg"
         android:layout_width="200dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="17dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtMenu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNamePlace"
-        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
-
-    <TextView
-        android:id="@+id/txtMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
-        android:text="Menu"
-        android:textAlignment="center"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddMenu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placeImg" />
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="66dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="326dp"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/txtPath"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMenu"
-        app:srcCompat="@drawable/ic_button_add_menu" />
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_button_add_menu"
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="194dp" />
 
     <ScrollView
         android:id="@+id/scrollView4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="69dp"
-        android:layout_marginBottom="70dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMenu">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,39 +54,20 @@
 
             <ListView
                 android:id="@+id/listMenu"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:divider="#005b00"
-                android:dividerHeight="1dp"
-                tools:layout_editor_absoluteY="235dp">
-
+                android:dividerHeight="1dp">
 
             </ListView>
         </LinearLayout>
     </ScrollView>
 
-
-    <TextView
-        android:id="@+id/txtPath"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginBottom="50dp"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlace"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddMenu" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlace"
         style="@style/BottomNavigation"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPath"
         app:menu="@menu/bottom_navigation_menu" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
