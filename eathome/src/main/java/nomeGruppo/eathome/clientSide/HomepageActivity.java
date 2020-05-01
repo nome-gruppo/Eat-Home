@@ -215,7 +215,7 @@ public class HomepageActivity extends AppCompatActivity {
             }
 
             //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
-            if (!setFilter) {
+            if (!setFilter && userCity != null) {
                 search(userCity);
             }
         }
