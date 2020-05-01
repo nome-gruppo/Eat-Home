@@ -1,6 +1,8 @@
 package nomeGruppo.eathome;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,6 +85,11 @@ public class OtherActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     mAuth.signOut();
+
+                    SharedPreferences.Editor mEditor = getPreferences(Context.MODE_PRIVATE).edit();
+                    mEditor.clear();
+                    mEditor.apply();
+
                     Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
                     homepageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, false);
                     startActivity(homepageIntent);//faccio il logout e ritorna alla Home
