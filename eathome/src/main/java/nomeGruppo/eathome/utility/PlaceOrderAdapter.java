@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import java.util.List;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class PlaceOrderAdapter extends ArrayAdapter <Order>{
 
@@ -31,12 +33,47 @@ public class PlaceOrderAdapter extends ArrayAdapter <Order>{
         TextView address=(TextView)convertView.findViewById(R.id.txtAddressOrderInfo);
         TextView date=(TextView)convertView.findViewById(R.id.txtDateOrderInfo);
         TextView phone=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
+        final CheckBox stateOrder=convertView.findViewById(R.id.checkBoxStateOrder);
         final Order order = getItem(position);
         title.setText(order.nameClientOrder);
-        total.setText(Float.toString(order.totalOrder)+" €");
+        total.setText(order.totalOrder+" €");
         address.setText(order.addressOrder);
         date.setText(order.dateOrder+" "+order.timeOrder);
         phone.setText(order.phoneClientOrder);
+        if(order.stateOrder){
+            stateOrder.setChecked(true);
+            stateOrder.setText(getContext().getResources().getString(R.string.done));
+        }else{
+            stateOrder.setChecked(false);
+            stateOrder.setText(getContext().getResources().getString(R.string.not_done));
+        }
+
+        stateOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked = ((CheckBox) view).isChecked();
+                // Check which checkbox was clicked
+                switch(view.getId()) {
+                    case R.id.checkBoxStateOrder:
+                        if (checked){ //se place conferma l'avvenuta esecuzione dell'ordine
+                            order.setStateOrder(true);//metto la checkBox su check
+                            stateOrder.setText(getContext().getResources().getString(R.string.done));//cambio il testo in 'eseguito'
+                            updateStateOrder(order);//aggiorno lo stato dell'ordine in firebase
+                        }
+                        else { //se place non conferma l'avvenuta esecuzione dell'ordine
+                            order.setStateOrder(false);//metto la checkBox su uncheck
+                            stateOrder.setText(getContext().getResources().getString(R.string.not_done));//cambio il testo in 'non eseguito'
+                            updateStateOrder(order);//aggiorno lo stato dell'ordine in firebase
+                        }break;
+                }
+            }
+
+
+        });
         return convertView;
+    }
+    private void updateStateOrder(Order order){
+        FirebaseConnection firebaseConnection=new FirebaseConnection();
+        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).child(order.idOrder).child("stateOrder").setValue(order.stateOrder);
     }
 }

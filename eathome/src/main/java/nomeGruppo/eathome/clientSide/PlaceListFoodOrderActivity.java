@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -178,7 +179,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
         ListView listViewAddress=(ListView)view.findViewById(R.id.listViewChooseAddress);
         listViewAddress.setAdapter(addressAdapter);
-        ImageButton btnAddAddress=view.findViewById(R.id.btnAddAddress);
+        FloatingActionButton btnAddAddress=view.findViewById(R.id.btnAddAddress);
 
         listAddress.clear();
         //leggo in SQLite gli indirizzi presenti e li assegno alla listView
@@ -211,6 +212,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
                 Intent orderActivity=new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
                 order=setOrder(addressOrder);
                 orderActivity.putExtra(FirebaseConnection.ORDER,order);
+                orderActivity.putExtra(FirebaseConnection.PLACE,place);
                 startActivity(orderActivity);
             }
         });
@@ -218,7 +220,12 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
     private Order setOrder(String addressOrder){//funzione per settare i valore di order
         order.setIdClientOrder(user.getUid());
-        order.setPlaceOrder(place);
+        order.setIdPlaceOrder(place.idPlace);
+        order.setNamePlaceOrder(place.namePlace);
+        order.setAddressPlaceOrder(place.cityPlace+", "+place.addressPlace+", "+place.addressNumPlace);
+        order.setPhonePlaceOrder(place.phonePlace);
+        order.setStateOrder(false);
+        order.setDeliveryCost(place.deliveryCost);
         order.setFoodsOrder(nameFood);
         order.setTotalOrder(finalTot);
         order.setAddressOrder(addressOrder);

@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.clientSide;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
@@ -42,14 +43,13 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private FirebaseConnection firebaseConnection;
 
 
-    public DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient,Calendar date, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
+    public DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
         this.idPlace=idPlace;
         this.namePlace=namePlace;
         this.idClient=idClient;
         this.nameClient=nameClient;
         this.mDB=mDB;
         this.mDBHelper=mDBHelper;
-        this.date=date;
         this.firebaseConnection=new FirebaseConnection();
     }
 
@@ -100,7 +100,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).push().getKey();
         feedback.setIdFeedback(idFeedback);
 
-        firebaseConnection.writeObject(FirebaseConnection.FEEDBACK_TABLE,feedback);//inserisco Feedback all'interno di Firebase
+        firebaseConnection.write(FirebaseConnection.FEEDBACK_TABLE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
     }
 
     private void updateValuationPlace(){

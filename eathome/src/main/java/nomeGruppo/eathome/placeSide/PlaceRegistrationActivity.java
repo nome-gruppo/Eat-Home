@@ -1,6 +1,5 @@
 package nomeGruppo.eathome.placeSide;
 
-import nomeGruppo.eathome.PlaceOpeningTimeActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;

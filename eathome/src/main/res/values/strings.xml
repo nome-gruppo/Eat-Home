@@ -99,5 +99,7 @@
     <string name="order_confirm">Order confirm</string>
     <string name="invalid_order">The cart is empty</string>
     <string name="show_cart">Show shopping cart</string>
+    <string name="not_done">Not done</string>
+    <string name="done">Done</string>
 
 </resources>

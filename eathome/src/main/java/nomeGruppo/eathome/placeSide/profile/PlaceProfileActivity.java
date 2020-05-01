@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
-import nomeGruppo.eathome.PlaceOpeningTimeActivity;
+import nomeGruppo.eathome.placeSide.PlaceOpeningTimeActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.actors.PlaceCategories;
