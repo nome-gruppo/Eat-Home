@@ -47,7 +47,6 @@ public class FirebaseConnection{
     public static final String ORDER="Order";
 
     private static DatabaseReference mDatabase;
-    private Object objectFounded;
 
     private boolean operationSuccess = false;
 
@@ -91,7 +90,7 @@ public class FirebaseConnection{
                     //ricerca nel nodo clienti
                     if (node.equals(FirebaseConnection.CLIENT_TABLE)) {
                         final Client client = dataSnapshot.getValue(Client.class);
-                        Intent intent = new Intent(activity, HomepageActivity.class);
+                        final Intent intent = new Intent(activity, HomepageActivity.class);
                         intent.putExtra(CLIENT, client);
                         intent.putExtra(LOGGED_FLAG, true);
 
@@ -103,8 +102,8 @@ public class FirebaseConnection{
                         }
 
                     } else { //ricerca nel nodo places
-                        Place place = dataSnapshot.getValue(Place.class);
-                        Intent intent = new Intent(activity, PlaceHomeActivity.class);
+                        final Place place = dataSnapshot.getValue(Place.class);
+                        final Intent intent = new Intent(activity, PlaceHomeActivity.class);
                         intent.putExtra(PLACE, place);
                         intent.putExtra(LOGGED_FLAG, true);
                         activity.startActivity(intent);

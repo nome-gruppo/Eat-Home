@@ -11,6 +11,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Rating;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +66,7 @@ import java.util.List;
 import java.util.Locale;
 
 import nomeGruppo.eathome.AddressesBarAdapter;
+import nomeGruppo.eathome.DialogEnterPlaceReview;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
@@ -128,7 +131,7 @@ public class HomepageActivity extends AppCompatActivity {
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
-        setFilter=false;
+        setFilter = false;
 
         mDBHelper = new DBOpenHelper(this);
         mDB = mDBHelper.getReadableDatabase();
@@ -182,7 +185,7 @@ public class HomepageActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if(user != null) {
+        if (user != null) {
 
             //leggo la tabella myInfo per verificare se ci sono locali da recensire
             Cursor c = mDB.query(DBOpenHelper.TABLE_INFO, DBOpenHelper.COLUMNS_INFO, DBOpenHelper.SELECTION_BY_USER_ID_INFO, new String[]{user.getUid()}, null, null, null);
@@ -201,26 +204,27 @@ public class HomepageActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
+                    Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
                     calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
-                    Date curDate = java.util.GregorianCalendar.getInstance().getTime();//accoglierà la data di odierna
-                    if (curDate.compareTo(calendar.getTime())>1) { //se la data odierna è successiva alla data di prenotazione/ordinazione
-                        openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, mDB, mDBHelper);//apre il dialog per la recensione
+                    curDate.getTime();//prendo la data odierna
+                    if (curDate.after(calendar)) { //se la data odierna è successiva alla data di prenotazione/ordinazione
+                        openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, curDate, mDB, mDBHelper);//apre il dialog per la recensione
                     }
                 }
                 c.close();
             }
 
             //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
-            if(!setFilter){
+            if (!setFilter) {
                 search(userCity);
             }
         }
 
     }//end onStart
 
-    private void openDialogReview(String idPlace,String namePlace,String idClient,String nameClient,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
-        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(idPlace,namePlace,idClient,nameClient,mDB,mDBHelper);
-        dialogEnterPlaceReview.show(getSupportFragmentManager(),"Enter review");
+    private void openDialogReview(String idPlace, String namePlace, String idClient, String nameClient, Calendar curDate, SQLiteDatabase mDB, DBOpenHelper mDBHelper) {
+        DialogEnterPlaceReview dialogEnterPlaceReview = new DialogEnterPlaceReview(idPlace, namePlace, idClient, nameClient, curDate, mDB, mDBHelper);
+        dialogEnterPlaceReview.show(getSupportFragmentManager(), "Enter review");
     }
 
     @Override
@@ -248,17 +252,17 @@ public class HomepageActivity extends AppCompatActivity {
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
-        }else if(requestCode == SEARCH_FILTER_REQUEST_CODE){
-            setFilter=true;//setto la variabile filtri a true
+        } else if (requestCode == SEARCH_FILTER_REQUEST_CODE) {
+            setFilter = true;//setto la variabile filtri a true
             listPlace.clear();//svuoto la listPlace
             //prendo l'arrayList restiuita da PlaceFilterActivity
 
             filterBundle = data.getBundleExtra("outState");
 
 
-            ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter =(ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+            ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
-            for(nomeGruppo.eathome.actors.Place place :listPlaceFilter){
+            for (nomeGruppo.eathome.actors.Place place : listPlaceFilter) {
                 listPlace.add(place);
             }
             placeAdapter.notifyDataSetChanged();
@@ -269,10 +273,12 @@ public class HomepageActivity extends AppCompatActivity {
 
         // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
         // and once again when the user makes a selection (for example when calling fetchPlace()).
-        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+        final AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
 
-        PlacesClient placesClient = Places.createClient(getApplicationContext());
+        final PlacesClient placesClient = Places.createClient(getApplicationContext());
 
+
+        // Call either setLocationBias() OR setLocationRestriction().
         // Use the builder to create a FindAutocompletePredictionsRequest.
         FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
                 // Call either setLocationBias() OR setLocationRestriction().
@@ -281,18 +287,13 @@ public class HomepageActivity extends AppCompatActivity {
                 .setQuery(query)
                 .build();
 
+
         placesClient.findAutocompletePredictions(request).addOnSuccessListener(new OnSuccessListener<FindAutocompletePredictionsResponse>() {
             @Override
             public void onSuccess(FindAutocompletePredictionsResponse response) {
                 for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
 
                     addressesBarAdapter.add(prediction);
-                    //TODO elimina i commenti sotto
-////                mResult.append(" " + prediction.getFullText(null) + "\n");
-////                    item.setText(prediction.getFullText(null));
-//                    Log.i(TAG, prediction.getPlaceId());
-//                    Log.i(TAG, prediction.getPrimaryText(null).toString());
-////                    Toast.makeText(getApplicationContext(), prediction.getPrimaryText(null) + "-" + prediction.getSecondaryText(null), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -307,6 +308,7 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
     }//end loadAddresses
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -336,19 +338,19 @@ public class HomepageActivity extends AppCompatActivity {
                     listViewPlace.setVisibility(View.VISIBLE);
                     filterFab.setVisibility(View.VISIBLE);
                     listPlace.clear();
-                    
+
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String  mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
+                        String mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
                         boolean mFound = false;
 
                         //controlla locale non sia già mostrato
-                        for(nomeGruppo.eathome.actors.Place item: listPlace){
+                        for (nomeGruppo.eathome.actors.Place item : listPlace) {
                             if (item.idPlace.equals(mPlaceId)) {
                                 mFound = true;
                                 break;
                             }
                         }
-                        if(!mFound) {
+                        if (!mFound) {
                             listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
                         }
                     }
@@ -390,7 +392,7 @@ public class HomepageActivity extends AppCompatActivity {
                 List<Address> list = null;
 
                 try {
-                    list = geocoder.getFromLocationName(addressesBar.getText().toString(),1);
+                    list = geocoder.getFromLocationName(addressesBar.getText().toString(), 1);
 
                     userCity = list.get(0).getLocality();
 
@@ -416,9 +418,8 @@ public class HomepageActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 loadAddresses(addressesBar.getText().toString());
-                addressesBarAdapter.notifyDataSetChanged(); //TODO controlla quale notifyDataSetChanged si può eliminare
+                addressesBarAdapter.notifyDataSetChanged();
                 addressesBar.setAdapter(addressesBarAdapter);
-                addressesBarAdapter.notifyDataSetChanged(); //TODO controlla quale notifyDataSetChanged si può eliminare
             }
 
             @Override
@@ -530,29 +531,14 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-//                String placeID = addressesBarAdapter.getItem(position).getPlaceId();
-//                String url = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+ placeID + "key=" + getString(R.string.api_key);
-//
-//                try {
-//                    JSONObject jsonObject = new JSONObject(url);
-//                    JSONObject jsonCoordinates = jsonObject.getJSONObject("geometry").getJSONObject("location");
-//                    latitude = jsonCoordinates.getDouble("lat");
-//                    longitude = jsonCoordinates.getDouble("lng");
-//
-//                    Location mLocation = new Location("");
-//                    mLocation.setLatitude(latitude);
-//                    mLocation.setLongitude(longitude);
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+
                 String mAddress = addressesBarAdapter.getItem(position).getFullText(null).toString();
                 addressesBar.setText(mAddress);
 
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
                 try {
-                    userCity = geocoder.getFromLocationName(mAddress,1).get(0).getLocality();
+                    userCity = geocoder.getFromLocationName(mAddress, 1).get(0).getLocality();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -568,7 +554,7 @@ public class HomepageActivity extends AppCompatActivity {
                 filtersIntent.putExtra("listPlace", listPlace);
                 filtersIntent.putExtra("outState", filterBundle);
                 filtersIntent.putExtra("userCity", userCity);
-                startActivityForResult(filtersIntent,SEARCH_FILTER_REQUEST_CODE);
+                startActivityForResult(filtersIntent, SEARCH_FILTER_REQUEST_CODE);
             }
         });
 
@@ -582,7 +568,6 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
     }//end initListeners
-
 
 
 }

@@ -50,7 +50,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
         builder.setView(dialogView).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                //onClick return back
             }
         }).setPositiveButton("Sì", new DialogInterface.OnClickListener() {
             @Override
@@ -89,8 +89,12 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
             //elimina ordinazioni e prenotazioni
             if(mClient != null){
 
-                DBOpenHelper helper = new DBOpenHelper(getContext());
-                helper.deleteDatabase();
+                try(DBOpenHelper helper = new DBOpenHelper(getContext())) {
+
+                    helper.deleteDatabase();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
 
                 SharedPreferences.Editor mEditor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
                 mEditor.clear();

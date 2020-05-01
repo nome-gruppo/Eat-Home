@@ -200,17 +200,20 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
             hourOpening = openingTimeUtility.getTimeOpening(openingTime);
             hourClosed=openingTimeUtility.getTimeClosed(openingTime);
             hourBooking=parser.parse(hour+":"+minutes);
-        } catch (ParseException e) {
+
+            //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
+            if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
+                txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
+            }else{//se il locale è chiuso nell'ora selezionata
+                //mostra messaggio
+                Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
+                openDialogChooseHour(day);//riapri il dialog per scegliere il giorno
+            }
+
+        } catch (NullPointerException | ParseException e) {
             e.printStackTrace();
         }
-        //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
-        if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
-            txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
-        }else{//se il locale è chiuso nell'ora selezionata
-         //mostra messaggio
-         Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
-         openDialogChooseHour(day);//riapri il dialog per scegliere il giorno
-        }
+
     }
 
     private void openDialogConfirm(){//dialog  di conferma
