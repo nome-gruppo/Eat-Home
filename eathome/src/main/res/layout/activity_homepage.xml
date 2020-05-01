@@ -9,10 +9,11 @@
         android:id="@+id/activity_homepage_addressesBar"
         layout="@layout/layout_addresses_bar"
         android:layout_width="347dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/activity_homepage_tw_no_places"
         app:layout_constraintEnd_toStartOf="@+id/activity_homepage_tw_no_places"
+        app:layout_constraintHorizontal_bias="0.573"
         app:layout_constraintStart_toStartOf="@+id/activity_homepage_tw_no_places"
         app:layout_constraintTop_toTopOf="parent" />
 
