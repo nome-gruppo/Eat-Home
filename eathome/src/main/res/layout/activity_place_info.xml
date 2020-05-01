@@ -6,155 +6,133 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/imgPlaceInfo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtDeliveryPlaceInfo"
-        app:layout_constraintEnd_toStartOf="@+id/txtAddressPlaceInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_menu_gallery" />
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="20dp"
+        app:srcCompat="@drawable/ic_menu_gallery"
+        tools:layout_editor_absoluteX="1dp" />
 
 
     <TextView
         android:id="@+id/txtNamePlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
         android:text="TextView"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgPlaceInfo"
-        app:layout_constraintStart_toStartOf="@+id/txtAddressPlaceInfo" />
-
-    <TextView
-        android:id="@+id/txtCityPlaceInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="2dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/txtDeliveryPlaceInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/activity_place_info_ratingBar" />
+        android:textSize="20dp"
+        android:layout_marginVertical="20dp"
+        android:layout_gravity="center"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtAddressPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginEnd="100dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/activity_place_info_ratingBar"
-        app:layout_constraintStart_toEndOf="@+id/imgPlaceInfo"
-        app:layout_constraintTop_toBottomOf="@+id/txtNamePlaceInfo" />
+        android:layout_gravity="center"
+        android:layout_marginVertical="10dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RatingBar
+                    android:id="@+id/activity_place_info_ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="9dp"
+                    android:numStars="5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/activity_place_info_numFeedback"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/activity_place_info_numFeedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="11dp"
+                    android:text="TextView"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/activity_place_info_ratingBar"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txtOpeningTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginVertical="20dp"
+                android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/txtDeliveryPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="11dp"
         android:text="@string/delivery_expected"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/txtBookingPlaceInfo"
-        app:layout_constraintEnd_toStartOf="@+id/txtDeliveryCostInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgPlaceInfo" />
-
-    <TextView
-        android:id="@+id/txtDeliveryCostInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="0"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtDeliveryPlaceInfo"
-        app:layout_constraintTop_toBottomOf="@+id/txtCityPlaceInfo" />
+        android:layout_gravity="center"
+        android:textColor="@color/quantum_vanillagreenA400" />
 
     <TextView
         android:id="@+id/txtBookingPlaceInfo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="47dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/booking_expected"
+        android:textColor="@color/quantum_vanillagreenA400"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/map"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txtDeliveryPlaceInfo"
-        app:layout_constraintTop_toBottomOf="@+id/txtDeliveryPlaceInfo" />
+        android:layout_marginVertical="10dp"/>
+
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginBottom="387dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/txtBookingPlaceInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtBookingPlaceInfo" />
+        android:layout_width="275dp"
+        android:layout_height="83dp"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="261dp" />
 
     <Button
         android:id="@+id/btnOrder"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/action_order"
-        app:layout_constraintStart_toStartOf="@+id/btnBook"
-        app:layout_constraintTop_toBottomOf="@+id/btnBook" />
+        android:text="@string/show_menu"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/button_border" />
 
     <Button
         android:id="@+id/btnBook"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:enabled="false"
         android:text="@string/action_book"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map" />
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/button_border" />
 
-    <TextView
-        android:id="@+id/txtOpeningTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="9dp"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/map"
-        app:layout_constraintStart_toStartOf="@+id/map" />
 
-    <RatingBar
-        android:id="@+id/activity_place_info_ratingBar"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:numStars="5"
-        app:layout_constraintEnd_toStartOf="@+id/txtCityPlaceInfo"
-        app:layout_constraintStart_toEndOf="@+id/txtAddressPlaceInfo"
-        app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/activity_place_info_numFeedback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="3dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/activity_place_info_ratingBar"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_info_ratingBar" />
+
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

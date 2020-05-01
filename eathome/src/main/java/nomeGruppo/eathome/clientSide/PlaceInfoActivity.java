@@ -56,8 +56,6 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
     private TextView txtBookingPlaceInfo;
     private TextView txtNamePlaceInfo;
     private TextView txtAddressPlaceInfo;
-    private TextView txtCityPlaceInfo;
-    private TextView txtDeliveryCostInfo;
     private TextView txtOpeningTime;
     private Button btnOrder;
     private Button btnBook;
@@ -85,15 +83,12 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         this.txtBookingPlaceInfo=(TextView)findViewById(R.id.txtBookingPlaceInfo);
         this.txtNamePlaceInfo=(TextView)findViewById(R.id.txtNamePlaceInfo);
         this.txtAddressPlaceInfo=(TextView)findViewById(R.id.txtAddressPlaceInfo);
-        this.txtCityPlaceInfo=(TextView)findViewById(R.id.txtCityPlaceInfo);
-        this.txtDeliveryCostInfo=(TextView)findViewById(R.id.txtDeliveryCostInfo);
         this.txtOpeningTime=findViewById(R.id.txtOpeningTime);
         this.btnBook=(Button)findViewById(R.id.btnBook);
         this.btnOrder=(Button)findViewById(R.id.btnOrder);
 
         this.txtNamePlaceInfo.setText(this.place.namePlace);
-        this.txtAddressPlaceInfo.setText(this.place.addressPlace+" "+this.place.addressNumPlace);
-        this.txtCityPlaceInfo.setText(this.place.cityPlace);
+        this.txtAddressPlaceInfo.setText(this.place.cityPlace+", "+this.place.addressPlace+", "+this.place.addressNumPlace);
 
 
         final RatingBar ratingBar = findViewById(R.id.activity_place_info_ratingBar);
@@ -131,9 +126,8 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         //se il locale accetta ordinazioni
         if(this.place.takesOrderPlace){
+            this.txtDeliveryPlaceInfo.setText(getResources().getString(R.string.delivery_expected)+ " "+this.place.deliveryCost+" €");
             this.txtDeliveryPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta ordinazioni'
-            this.txtDeliveryCostInfo.setText(Integer.toString(this.place.deliveryCost));//imposto la TExtView con il costo della spedizione
-            this.txtDeliveryCostInfo.setVisibility(View.VISIBLE);//mostro il costo della spedizione
             this.btnOrder.setEnabled(true);//rendo cliccabile il bottone ordina
         }
 
@@ -206,14 +200,17 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
             //se localTime si trova tra timeOpening e timeClosed
             if (localTime.after(timeOpening)&&localTime.before(timeClosed)){
                 txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + parser.format(timeClosed));
+                txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillagreenA400));
                 return;
             } else{//se l'ora corrente non è tra l'ora di apertura e l'ora di chiusura
                 txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + parser.format(timeOpening));
+                txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillaredA700));
                 btnOrder.setEnabled(false);//non è possibile ordinare
                 return;
             }
         } else {//se non è stato impostato alcun orario per il giorno corrente
             txtOpeningTime.setText(getResources().getString(R.string.closed_place));
+            txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillaredA700));
             btnOrder.setEnabled(false);//non è possibile ordinare
             return;
         }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
@@ -8,11 +9,9 @@
     <ScrollView
         android:id="@+id/scrollView5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="14dp"
+        android:layout_height="wrap_content"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlaceOrderInfo"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,34 +26,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/txtNoOrderPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_order"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="146dp"
+                tools:layout_editor_absoluteY="356dp" />
+
+            <ImageView
+                android:id="@+id/imgNoOrderPlace"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_emoticon_sad"
+                tools:layout_editor_absoluteX="195dp"
+                tools:layout_editor_absoluteY="267dp" />
+
         </LinearLayout>
 
     </ScrollView>
-
-    <TextView
-        android:id="@+id/txtNoOrderPlace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="300dp"
-        android:text="@string/no_order"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlaceOrderInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgNoOrderPlace" />
-
-    <ImageView
-        android:id="@+id/imgNoOrderPlace"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="267dp"
-        android:layout_marginBottom="29dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/txtNoOrderPlace"
-        app:layout_constraintEnd_toEndOf="@+id/txtNoOrderPlace"
-        app:layout_constraintStart_toStartOf="@+id/txtNoOrderPlace"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_emoticon_sad" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlaceOrderInfo"
@@ -62,10 +54,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNoOrderPlace"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
