@@ -27,6 +27,7 @@ import java.util.Date;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
+import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.OpeningTime;
@@ -38,6 +39,7 @@ activity per completare e confermare un ordine
 public class ConfirmOrderActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private Order order;
+    private Place place;
     private TextView txtTotOrder;
     private TextView txtTotDelivery;
     private TextView txtTotal;
@@ -61,6 +63,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         setContentView(R.layout.activity_confirm_order);
 
         this.order=(Order)getIntent().getSerializableExtra(FirebaseConnection.ORDER);
+        this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.openingTimeUtility=new OpeningTime();
 
         this.mDBHelper = new DBOpenHelper(this);
@@ -71,8 +74,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.txtTotal=findViewById(R.id.txtTotal);
         this.txtAddressOrder=findViewById(R.id.txtAddressOrder);
         this.txtTotOrder.setText(Float.toString(order.totalOrder));
-        this.txtTotDelivery.setText(Float.toString(order.placeOrder.deliveryCost));
-        this.txtTotal.setText(Float.toString(order.totalOrder+order.placeOrder.deliveryCost));
+        this.txtTotDelivery.setText(Float.toString(order.deliveryCost));
+        this.txtTotal.setText(Float.toString(order.totalOrder+order.deliveryCost));
         this.txtAddressOrder.setText(order.addressOrder);
         this.btnConfirm=findViewById(R.id.btnConfirmOrder);
         this.editName=findViewById(R.id.editNameClientOrder);
@@ -145,19 +148,22 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         order.setPhoneClientOrder(editPhone.getText().toString());
         order.setTimeOrder(chooseTime.getText().toString());
         order.setDateOrder(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-
         FirebaseConnection firebaseConnection=new FirebaseConnection();
+
+        //prelevo la chiave assegnata in automatico da Firebase
+        String idOrder = firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().getKey();
+        order.setIdOrder(idOrder);
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().setValue(order);
 
         //inserisco l'informazione dell'ordinazione nel db interno
-        mDBHelper.addInfo(mDB,order.placeOrder.idPlace, order.placeOrder.namePlace,new SimpleDateFormat("yyyy/MM/dd").format(new Date()), mUser.getUid());
+        mDBHelper.addInfo(mDB,order.idPlaceOrder, order.namePlaceOrder,new SimpleDateFormat("yyyy/MM/dd").format(new Date()), mUser.getUid());
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
         SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
         //leggo l'orario di apertura chiusura del locale
-        String openingTime=order.placeOrder.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
+        String openingTime=place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
         Date  timeOpening=null;
         Date timeClosed= null;
         Date timeOrder=null;

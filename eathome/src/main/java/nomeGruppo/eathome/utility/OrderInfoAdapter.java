@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -39,13 +40,48 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
         TextView address=(TextView)convertView.findViewById(R.id.txtAddressOrderInfo);
         TextView date=(TextView)convertView.findViewById(R.id.txtDateOrderInfo);
         TextView phone=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
-        ImageButton btnDeleteOrder=convertView.findViewById(R.id.btnDeleteOrder);
+        final CheckBox stateOrder=convertView.findViewById(R.id.checkBoxStateOrder);
         final Order order = getItem(position);
-        title.setText(order.placeOrder.namePlace);
+        title.setText(order.namePlaceOrder);
         total.setText(Float.toString(order.totalOrder)+" €");
-        address.setText(order.placeOrder.cityPlace+" "+order.placeOrder.addressPlace+" "+order.placeOrder.addressNumPlace);
+        address.setText(order.addressPlaceOrder);
         date.setText(order.dateOrder+" "+order.timeOrder);
-        phone.setText(order.placeOrder.phonePlace);
+        phone.setText(order.phonePlaceOrder);
+
+        if(order.stateOrder){
+            stateOrder.setChecked(true);
+            stateOrder.setText(getContext().getResources().getString(R.string.done));
+        }else{
+            stateOrder.setChecked(false);
+            stateOrder.setText(getContext().getResources().getString(R.string.not_done));
+        }
+        stateOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked = ((CheckBox) view).isChecked();
+                // Check which checkbox was clicked
+                switch(view.getId()) {
+                    case R.id.checkBoxStateOrder:
+                        if (checked){
+                            order.setStateOrder(true);
+                            stateOrder.setText(getContext().getResources().getString(R.string.done));
+                            updateStateOrder(order);
+                        }
+                        else {
+                            order.setStateOrder(false);
+                            stateOrder.setText(getContext().getResources().getString(R.string.not_done));
+                            updateStateOrder(order);
+                        }break;
+                }
+            }
+
+
+        });
         return convertView;
+    }
+
+    private void updateStateOrder(Order order){
+        FirebaseConnection firebaseConnection=new FirebaseConnection();
+        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).child(order.idOrder).child("stateOrder").setValue(order.stateOrder);
     }
 }

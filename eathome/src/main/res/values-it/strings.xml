@@ -90,6 +90,8 @@
     <string name="order_confirm">Order confirm</string>
     <string name="invalid_order">Il carello è vuoto</string>
     <string name="show_cart">Mostra carello</string>
+    <string name="not_done">Non eseguito</string>
+    <string name="done">Eseguito</string>
 
 
 </resources>

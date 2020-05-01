@@ -74,6 +74,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         listOrder.clear();
+
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("idPlaceOrder").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -83,11 +84,11 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
                         Order order = snapshot.getValue(Order.class);
                         listOrder.add(order);
                     }
+                    placeOrderAdapter.notifyDataSetChanged();
                 }else{
                     txtNoOrder.setVisibility(View.VISIBLE);
                     imgNoOrder.setVisibility(View.VISIBLE);
                 }
-                placeOrderAdapter.notifyDataSetChanged();
             }
 
             @Override

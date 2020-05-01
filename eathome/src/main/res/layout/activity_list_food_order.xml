@@ -9,10 +9,11 @@
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:fillViewport="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintEnd_toEndOf="@id/btnOrderFood"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -23,8 +24,8 @@
 
             <ListView
                 android:id="@+id/listViewFoodInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp" />
 
         </LinearLayout>
@@ -39,6 +40,8 @@
         android:background="@drawable/button_border"
         android:drawableLeft="@drawable/ic_shopping_cart_black_24dp"
         android:text="@string/show_cart"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

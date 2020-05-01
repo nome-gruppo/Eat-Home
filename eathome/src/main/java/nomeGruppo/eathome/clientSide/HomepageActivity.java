@@ -11,7 +11,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.Rating;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
@@ -24,7 +23,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +64,6 @@ import java.util.List;
 import java.util.Locale;
 
 import nomeGruppo.eathome.AddressesBarAdapter;
-import nomeGruppo.eathome.DialogEnterPlaceReview;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
@@ -204,11 +201,10 @@ public class HomepageActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
-                    Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
                     calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
-                    curDate.getTime();//prendo la data odierna
-                    if (curDate.after(calendar)) { //se la data odierna è successiva alla data di prenotazione/ordinazione
-                        openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, curDate, mDB, mDBHelper);//apre il dialog per la recensione
+                    Date curDate = java.util.GregorianCalendar.getInstance().getTime();//accoglierà la data di odierna
+                    if (curDate.compareTo(calendar.getTime())>1) { //se la data odierna è successiva alla data di prenotazione/ordinazione
+                        openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, mDB, mDBHelper);//apre il dialog per la recensione
                     }
                 }
                 c.close();
@@ -222,8 +218,8 @@ public class HomepageActivity extends AppCompatActivity {
 
     }//end onStart
 
-    private void openDialogReview(String idPlace,String namePlace,String idClient,String nameClient,Calendar curDate,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
-        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(idPlace,namePlace,idClient,nameClient,curDate,mDB,mDBHelper);
+    private void openDialogReview(String idPlace,String namePlace,String idClient,String nameClient,SQLiteDatabase mDB,DBOpenHelper mDBHelper){
+        DialogEnterPlaceReview dialogEnterPlaceReview=new DialogEnterPlaceReview(idPlace,namePlace,idClient,nameClient,mDB,mDBHelper);
         dialogEnterPlaceReview.show(getSupportFragmentManager(),"Enter review");
     }
 
