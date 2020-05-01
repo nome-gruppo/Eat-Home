@@ -31,23 +31,18 @@ activity per la registrazione del cliente
 public class ClientRegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "ClientRegistration";
-    static final String NAME_TABLE = "Clients";
+    private static final int DURATION = Toast.LENGTH_SHORT;
 
-    private EditText nameClient;
-    private EditText emailClient;
-    private EditText passwordClient;
-    private Button btnSignIn;
+    private EditText nameClientET;
+    private EditText emailClientET;
+    private EditText passwordClientET;
     private TextView statusTV;
     private Client client;
 
-    private int duration = Toast.LENGTH_SHORT;
-
-
-    private UtilitiesAndControls control;
-
-
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
+    private boolean accountCreated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,35 +52,36 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         client = new Client();
-        control = new UtilitiesAndControls();
+        final UtilitiesAndControls control = new UtilitiesAndControls();
 
-        nameClient =  findViewById(R.id.editNameClient);
-        nameClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        emailClient =  findViewById(R.id.editMailClient);
-        emailClient.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        passwordClient =  findViewById(R.id.editPasswordClient);
-        passwordClient.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        btnSignIn =  findViewById(R.id.btnSigninClient);
+        nameClientET =  findViewById(R.id.editNameClient);
+        nameClientET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        emailClientET =  findViewById(R.id.editMailClient);
+        emailClientET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        passwordClientET =  findViewById(R.id.editPasswordClient);
+        passwordClientET.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        final Button signInBtn = findViewById(R.id.btnSigninClient);
         statusTV =  findViewById(R.id.activity_client_registration_tw_status);
 
         //se l'utente clicca sul bottone registrati
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //se non sono stati compilati tutti i campi
-                if (nameClient.getText().toString().trim().length() == 0 || emailClient.getText().toString().trim().length() == 0 || passwordClient.getText().toString().trim().length() == 0) {
+                if (nameClientET.getText().toString().trim().length() == 0 || emailClientET.getText().toString().trim().length() == 0 || passwordClientET.getText().toString().trim().length() == 0) {
 
                     //mostra 'compila tutti i campi'
-                    Toast.makeText(ClientRegistrationActivity.this, ClientRegistrationActivity.this.getResources().getString(R.string.fill_all_fields), duration).show();
+                    Toast.makeText(ClientRegistrationActivity.this, ClientRegistrationActivity.this.getResources().getString(R.string.fill_all_fields), DURATION).show();
 
                 } else {//se tutti i campi sono stati compilati
 
-                    String emailTemp = emailClient.getText().toString().trim();//leggi mail
-                    String passwordTemp = passwordClient.getText().toString();//leggi password
+                    String emailTemp = emailClientET.getText().toString().trim();//leggi mail
+                    String passwordTemp = passwordClientET.getText().toString();//leggi password
 
                     if (control.isEmailValid(emailTemp) && control.isPasswordValid(passwordTemp)) {//apri la fuznione di controllo se mail o password sono valide
                         createAccount(emailTemp, passwordTemp);
+
                     }
                 }
             }
@@ -94,28 +90,15 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     }//fine onCreate
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onStop() {
+        super.onStop();
 
+        if(accountCreated) {
+            FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
-        user = mAuth.getCurrentUser();
-    }
-
-    //TODO in onStop
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
-
-        client.setNameClient(nameClient.getText().toString().trim());
-        client.setEmailClient(emailClient.getText().toString().trim());
-        client.setPhoneClient(null);
-
-        client.setIdClient(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
-
-        //assegno come chiave del db l'user id generato da Firebase Authentication
-        db.write(NAME_TABLE, user.getUid(), client);
+            //assegno come chiave del db l'user id generato da Firebase Authentication
+            db.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
+        }
     }
 
     public void createAccount(String email, String password) {
@@ -126,11 +109,18 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
+
+                            accountCreated = true;
+
                             user = mAuth.getCurrentUser();
 
+                            client.nameClient = nameClientET.getText().toString().trim();
+                            client.emailClient = emailClientET.getText().toString().trim();
+                            client.setIdClient(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
+
                             Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, HomepageActivity.class);
-                            clientHomeIntent.putExtra(FirebaseConnection.CLIENT, user);
-                            Toast.makeText(ClientRegistrationActivity.this, "Registrazione effettuata con successo", duration).show();
+                            clientHomeIntent.putExtra(FirebaseConnection.CLIENT, client);
+                            Toast.makeText(ClientRegistrationActivity.this, "Registrazione effettuata con successo", DURATION).show();
                             startActivity(clientHomeIntent);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -141,8 +131,8 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                             statusTV.setText("Email già presente");
                             statusTV.setVisibility(View.VISIBLE);
 
-                            emailClient.setText("");
-                            passwordClient.setText("");
+                            emailClientET.setText("");
+                            passwordClientET.setText("");
                         }
 
                     }

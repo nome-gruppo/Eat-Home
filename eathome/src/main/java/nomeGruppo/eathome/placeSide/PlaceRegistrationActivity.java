@@ -31,7 +31,7 @@ import nomeGruppo.eathome.utility.UtilitiesAndControls;
 public class PlaceRegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "PlaceRegistration";
-
+    private static final int DURATION = Toast.LENGTH_SHORT;
 
     private EditText namePlaceET;
     private EditText cityPlaceET;
@@ -41,12 +41,10 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private EditText passwordPlaceET;
     private EditText numberAddressPlaceET;
     private SeekBar deliveryCostSB;
-    private Button signInBtn;
     private TextView deliveryCostTV;
     private TextView statusTV;
     private Place place;
     private int currentDeliveryCost = 0;
-    private int duration = Toast.LENGTH_SHORT;
 
     private UtilitiesAndControls control;
 
@@ -78,7 +76,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         emailPlaceET = findViewById(R.id.editMailPlace);
         emailPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         passwordPlaceET = findViewById(R.id.editPasswordPlace);
-        signInBtn = findViewById(R.id.btnSignin);
+        final Button signInBtn = findViewById(R.id.btnSignin);
         deliveryCostTV = findViewById(R.id.txtDeliveryCost);
         statusTV = findViewById(R.id.activity_place_registration_tw_status);
 
@@ -90,7 +88,7 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                         namePlaceET.getText().toString().trim().length() == 0 || passwordPlaceET.getText().toString().trim().length() == 0 || emailPlaceET.getText().toString().trim().length() == 0 ||
                         phonePlaceET.getText().toString().trim().length() == 0 || place.categories.trim().length() == 0) {
 
-                    Toast.makeText(PlaceRegistrationActivity.this, "Compila tutti i campi", duration).show();
+                    Toast.makeText(PlaceRegistrationActivity.this, R.string.fill_all_fields, DURATION).show();
 
                 } else {
 
@@ -98,14 +96,14 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                     String passwordTemp = passwordPlaceET.getText().toString();
 
                     if (control.isEmailValid(emailTemp) && control.isPasswordValid(passwordTemp)) {
-                        checkAccount(emailTemp, passwordTemp);
+                        createAccount(emailTemp, passwordTemp);
                     }
                 }
             }
         });
     }// fine onCreate
 
-    public void checkAccount(String email, final String password) {
+    public void createAccount(String email, final String password) {
 
         mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(this, new OnCompleteListener<SignInMethodQueryResult>() {
             @Override

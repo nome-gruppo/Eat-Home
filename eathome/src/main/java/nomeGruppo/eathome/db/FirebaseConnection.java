@@ -265,37 +265,6 @@ public class FirebaseConnection{
         }
     }
 
-    public static class DeleteClientInfo implements Runnable{
-
-        private String uID;
-        private String table;
-
-        public DeleteClientInfo(String uID, String table) {
-            this.uID = uID;
-            this.table = table;
-        }
-
-        @Override
-        public void run() {
-            mDatabase.child(table).orderByChild("idClientBooking").equalTo(uID).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        //elimina ogni campo restituito
-                        for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                            snapshot.getRef().removeValue();
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-
-    }
 
     public static class DeleteFeedback implements Runnable{
 

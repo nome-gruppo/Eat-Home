@@ -101,16 +101,9 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                 mEditor.apply();
 
                 final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE);
-                final FirebaseConnection.DeleteClientInfo deleteBooking = new FirebaseConnection.DeleteClientInfo(userId,FirebaseConnection.BOOKING_TABLE);
-                final FirebaseConnection.DeleteClientInfo deleteOrder = new FirebaseConnection.DeleteClientInfo(userId, FirebaseConnection.ORDER_TABLE);
 
                 Thread accountThread = new Thread(deleteAccount);
-                Thread bookingThread = new Thread(deleteBooking);
-                Thread orderThread = new Thread(deleteOrder);
-
                 accountThread.start();
-                bookingThread.start();
-                orderThread.start();
 
             }else if(mPlace != null){
 
