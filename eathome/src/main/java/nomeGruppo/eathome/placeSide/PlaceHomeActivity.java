@@ -47,9 +47,9 @@ activity homepage per Place
  */
 public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
 
-    static final String NAME_TABLE_FOODS="Foods";
-    static final int PICK_IMAGE=100;
-    static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
+    private static final int PICK_IMAGE=100;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
+    private static final int PICT_SIZE_MAX = 3840;
 
     private ImageView imgPlace;
     private Place place;
@@ -134,7 +134,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
 
         //metodo di lettura immagine tramite byte
-        storageReference.getBytes(3840*3840)
+        storageReference.getBytes(PICT_SIZE_MAX * PICT_SIZE_MAX)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {
@@ -194,6 +194,9 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
             String absoluteFilePath = cursor.getString(idx);
+
+            cursor.close();;
+
             txtPath.setText(absoluteFilePath);//assegno il valore del path dell'immagine a txtPath
             imgPlace.setImageURI(imageUri);//assegno l'immagine come copertina della home
         }
@@ -242,7 +245,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         food.setPrice(priceFood);
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(NAME_TABLE_FOODS).child(place.idPlace).push().setValue(food);//aggiungo il nuovo 'cibo' al databse
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).push().setValue(food);//aggiungo il nuovo 'cibo' al databse
 
         listFood.add(food);//aggiungo food alla lista
         mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi
