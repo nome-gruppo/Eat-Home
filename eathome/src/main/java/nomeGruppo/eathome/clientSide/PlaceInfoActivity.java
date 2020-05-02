@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -37,6 +39,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
@@ -70,15 +73,9 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_info);
 
-
-
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
-
-
         this.openingTimeUtility=new OpeningTime();
-
-
 
         this.imgPlaceInfo=(ImageView) findViewById(R.id.imgPlaceInfo);
         this.txtDeliveryPlaceInfo=(TextView)findViewById(R.id.txtDeliveryPlaceInfo);

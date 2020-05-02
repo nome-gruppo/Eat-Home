@@ -28,7 +28,9 @@
         <activity android:name=".placeSide.FeedbackPlaceActivity"
             android:label="@string/my_feedback"/>
 
-        <activity android:name=".clientSide.PlacesFilterActivity" />
+        <activity android:name=".clientSide.PlacesFilterActivity"
+            android:label="@string/title_activity_main"/>
+
         <activity android:name=".clientSide.profile.MyAddressesActivity"
             android:label="@string/my_address"/>
 
@@ -93,8 +95,7 @@
             android:name=".clientSide.PlaceInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:largeHeap="true" />
         <activity
             android:name=".clientSide.ConfirmOrderActivity"
             android:hardwareAccelerated="false"
