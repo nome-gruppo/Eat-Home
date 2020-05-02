@@ -94,6 +94,7 @@ public class FirebaseConnection {
                         final Intent intent = new Intent(activity, HomepageActivity.class);
                         intent.putExtra(CLIENT, client);
                         intent.putExtra(LOGGED_FLAG, true);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                         if (activity.getIntent().getBooleanExtra(FirebaseConnection.LOGIN_FLAG, false)) {
                             activity.finish();
@@ -107,6 +108,7 @@ public class FirebaseConnection {
                         final Intent intent = new Intent(activity, PlaceHomeActivity.class);
                         intent.putExtra(PLACE, place);
                         intent.putExtra(LOGGED_FLAG, true);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         activity.startActivity(intent);
                         activity.finish();
                     }
