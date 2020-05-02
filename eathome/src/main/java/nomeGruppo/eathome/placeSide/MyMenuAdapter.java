@@ -50,7 +50,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         ImageButton btnEdit=convertView.findViewById(R.id.btnEditFood);
         final Food food = getItem(position);
         title.setText(food.nameFood);
-        price.setText(Float.toString(food.priceFood));
+        price.setText(getContext().getResources().getString(R.string.euro, food.priceFood));
         ingredients.setText(food.ingredientsFood);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override

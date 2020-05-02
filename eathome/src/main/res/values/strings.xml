@@ -115,5 +115,6 @@
     <string name="success_save">Information changed successfully</string>
     <string name="no_change">No change</string>
     <string name="edit">Edit</string>
+    <string name="euro" translatable="false">€ %.02f</string>
 
 </resources>
