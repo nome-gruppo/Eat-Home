@@ -3,6 +3,7 @@ package nomeGruppo.eathome.utility;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
+import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 
 
 public class MyMenuAdapter extends ArrayAdapter<Food> {
@@ -59,7 +61,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         builder.setTitle("Confirmation");
         builder.setMessage(getContext().getResources().getString(R.string.confirmation)+" "
                 +food.nameFood);//prelevo la stringa di richiesta conferma da values.strings
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 deleteFoodFirebase(food,place);//se clicca su ok allora cancello il cibo dalla tabella foods del database
@@ -90,8 +92,9 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
 
             }
         });
-
-
+        Intent homePage=new Intent(getContext(), PlaceHomeActivity.class);
+        homePage.putExtra(FirebaseConnection.PLACE,place);
+        getContext().startActivity(homePage);
     }
 
 }
