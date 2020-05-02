@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +20,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import nomeGruppo.eathome.R;
 
 public class DialogAddMenu extends AppCompatDialogFragment {
+
+    private static final String EURO = "€ ";
+
     private EditText editNameFood;
     private EditText editIngredientsFood;
     private EditText editPriceFood;
@@ -54,6 +60,29 @@ public class DialogAddMenu extends AppCompatDialogFragment {
         editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
         editPriceFood = view.findViewById(R.id.editPriceFood);
 
+        editPriceFood.setText(EURO);
+        Selection.setSelection(editPriceFood.getText(), editPriceFood.getText().length());
+
+        editPriceFood.addTextChangedListener(new TextWatcher(){
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().startsWith(EURO)){
+                    editPriceFood.setText(EURO);
+                    Selection.setSelection(editPriceFood.getText(), editPriceFood.getText().length());
+                }
+            }
+        });
         return builder.create();
 
     }
