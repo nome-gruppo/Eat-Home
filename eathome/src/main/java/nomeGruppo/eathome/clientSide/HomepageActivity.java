@@ -126,8 +126,6 @@ public class HomepageActivity extends AppCompatActivity {
 
     private Bundle filterBundle;
 
-    private TextView listItem;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,9 +154,6 @@ public class HomepageActivity extends AppCompatActivity {
         listPlace = new ArrayList<>();
         placeAdapter = new PlaceAdapter(this, R.layout.fragment_place_info_homepage_activity, listPlace);
         listViewPlace.setAdapter(placeAdapter);
-
-        listItem = findViewById(R.id.list_item);
-
 
         mPreferences = getPreferences(Context.MODE_PRIVATE);
         userCity = mPreferences.getString("city", null);
@@ -271,9 +266,11 @@ public class HomepageActivity extends AppCompatActivity {
 
             ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
-            //TODO se null?
-            listPlace.addAll(listPlaceFilter);
-            placeAdapter.notifyDataSetChanged();
+            //TODO se nul
+            if(listPlaceFilter != null) {
+                listPlace.addAll(listPlaceFilter);
+                placeAdapter.notifyDataSetChanged();
+            }
         }
     }
 
