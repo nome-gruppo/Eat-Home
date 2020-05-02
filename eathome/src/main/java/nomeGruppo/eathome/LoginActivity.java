@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signIn(final String email, final String password) {
 
+        //ricerca in Firebase Authentication
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
