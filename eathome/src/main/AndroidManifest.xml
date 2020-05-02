@@ -25,26 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-
-
-        <activity android:name=".placeSide.FeedbackPlaceActivity"
-            android:label="@string/my_feedback" />
-
-
-        <activity android:name=".clientSide.PlacesFilterActivity"
-            android:parentActivityName=".clientSide.HomepageActivity"
-            />
-
-        <activity android:name=".clientSide.profile.MyAddressesActivity"
-            android:label="@string/my_address"/>
-
-        <activity android:name=".placeSide.profile.PlaceProfileActivity"
-            android:label="@string/my_account"/>
-
-        <activity android:name=".clientSide.profile.ClientProfileActivity"
-            android:label="@string/my_account"
-            />
-
+        <activity android:name=".FeedbackPlaceActivity"></activity>
+        <activity android:name=".clientSide.PlacesFilterActivity" />
+        <activity android:name=".clientSide.profile.MyAddressesActivity" />
+        <activity android:name=".placeSide.profile.PlaceProfileActivity" />
+        <activity android:name=".clientSide.profile.ClientProfileActivity" />
         <activity android:name=".LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,7 +56,7 @@
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="nomeGruppo.eathome.clientSide.ClientRegistrationActivity"
+            android:name=".clientSide.ClientRegistrationActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
@@ -81,13 +66,15 @@
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".clientSide.HomepageActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"
             android:hardwareAccelerated="false"
@@ -98,7 +85,8 @@
             android:name=".clientSide.PlaceInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true" />
+            android:largeHeap="true"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".clientSide.ConfirmOrderActivity"
             android:hardwareAccelerated="false"
@@ -112,29 +100,34 @@
             android:largeHeap="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="nomeGruppo.eathome.clientSide.ClientBookingInfoActivity"
+            android:name=".clientSide.ClientBookingInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="nomeGruppo.eathome.clientSide.ClientOrderInfoActivity"
+            android:name=".clientSide.ClientOrderInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".placeSide.PlaceOrderInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".placeSide.PlaceBookingInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".placeSide.PlaceOpeningTimeActivity"
             android:hardwareAccelerated="false"
@@ -146,12 +139,16 @@
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+
         <activity
-            android:name=".clientSide.MyFeedbackClientActivity"
+            android:name=".MyFeedbackClientActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/my_feedback"
-            android:largeHeap="true" />
+            android:label="@string/title_activity_main"
+            android:largeHeap="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".clientSide.PlaceListFoodOrderActivity"
             android:hardwareAccelerated="false"

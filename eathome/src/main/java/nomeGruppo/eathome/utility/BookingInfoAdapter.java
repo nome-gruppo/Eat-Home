@@ -36,10 +36,12 @@ public class BookingInfoAdapter extends ArrayAdapter<Booking> {
         TextView date=convertView.findViewById(R.id.txtDateBookingInfo);
         TextView number=convertView.findViewById(R.id.txtNumberPersonBookingInfo);
         final Booking booking = getItem(position);
-        title.setText(booking.placeBooking.namePlace);
-        address.setText(booking.placeBooking.cityPlace+" "+booking.placeBooking.addressPlace+" "+booking.placeBooking.addressNumPlace);
-        date.setText(booking.dateBooking+" "+booking.timeBooking);
-        number.setText(booking.personNumBooking);
+        if(booking != null) {
+            title.setText(booking.placeBooking.namePlace);
+            address.setText(booking.placeBooking.cityPlace + " " + booking.placeBooking.addressPlace + " " + booking.placeBooking.addressNumPlace);
+            date.setText(booking.dateBooking + " " + booking.timeBooking);
+            number.setText(String.valueOf(booking.personNumBooking));
+        }
         return convertView;
     }
 }

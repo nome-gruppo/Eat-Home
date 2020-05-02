@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -15,8 +16,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.R;
@@ -61,14 +67,9 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
                 connection.reauthenticateUser(mUser, email, password);
 
-                deleted = true;
-
                 if (connection.getOperationSuccess()) {
-                    mAuth.signOut();
-                    Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
-                    homeIntent.putExtra(FirebaseConnection.LOGIN_FLAG, false);
-                    startActivity(homeIntent);
-                    getActivity().finish();
+                    deleted = true;
+
                 }
 
             }
@@ -83,7 +84,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
         super.onStop();
 
         if(deleted) {
-            mAuth.signOut();
+
             Client mClient = (Client)getActivity().getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
             Place mPlace = (Place)getActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
             //elimina ordinazioni e prenotazioni
@@ -100,14 +101,18 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                 mEditor.clear();
                 mEditor.apply();
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE);
+
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE, getActivity());
 
                 Thread accountThread = new Thread(deleteAccount);
+                Log.e("diaolg", "a");
                 accountThread.start();
+                Log.e("diaolg", "b");
+
 
             }else if(mPlace != null){
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE);
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE, getActivity());
                 final FirebaseConnection.DeleteFeedback deleteFeedbacks = new FirebaseConnection.DeleteFeedback(userId);
                 //TODO elimina le recensioni
 

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -28,23 +29,23 @@ import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 
-public class FirebaseConnection{
+public class FirebaseConnection {
 
     private static final String TAG = "FirebaseConnection";
 
     public static final String PLACE_TABLE = "Places"; //todo rinomina tutti i table in node
     public static final String CLIENT_TABLE = "Clients";
     public static final String ORDER_TABLE = "Orders";
-    public static final String FOOD_TABLE="Foods";
-    public static final String BOOKING_TABLE="Bookings";
-    public static final String FEEDBACK_TABLE="Feedbacks";
+    public static final String FOOD_TABLE = "Foods";
+    public static final String BOOKING_TABLE = "Bookings";
+    public static final String FEEDBACK_TABLE = "Feedbacks";
     public static final String LOGIN_FLAG = "Login from another activity"; //flag per controllare se l'activity login è stata chiamata da un'altra activity
 
     //stringhe utilizzate negli intent
     public static final String LOGGED_FLAG = "Logged";
     public static final String PLACE = "Place";
     public static final String CLIENT = "Client";
-    public static final String ORDER="Order";
+    public static final String ORDER = "Order";
 
     private static DatabaseReference mDatabase;
 
@@ -94,9 +95,9 @@ public class FirebaseConnection{
                         intent.putExtra(CLIENT, client);
                         intent.putExtra(LOGGED_FLAG, true);
 
-                        if (activity.getIntent().getBooleanExtra(FirebaseConnection.LOGIN_FLAG, false)){
+                        if (activity.getIntent().getBooleanExtra(FirebaseConnection.LOGIN_FLAG, false)) {
                             activity.finish();
-                        }else {
+                        } else {
                             activity.startActivity(intent);
                             activity.finish();
                         }
@@ -122,38 +123,40 @@ public class FirebaseConnection{
         });
     }// end searchUserInDb
 
-    public boolean getOperationSuccess(){
+    public boolean getOperationSuccess() {
         return operationSuccess;
     }
 
     /**
-     *metodo che serve per riautenticare l'utente in Firebase.
+     * metodo che serve per riautenticare l'utente in Firebase.
      * Questa operazione è necessaria per poter eseguire correttamente proceure di modifica e eliminazione dell'account
      *
-     * @param user variabile contenente l'account  dell'utente che deve essere riautenticato
-     * @param email email dell'utente user che deve essere riautenticato
+     * @param user     variabile contenente l'account  dell'utente che deve essere riautenticato
+     * @param email    email dell'utente user che deve essere riautenticato
      * @param password password dell'utente user che deve essere riautenticato
      */
     public void reauthenticateUser(FirebaseUser user, String email, String password) {
         AuthCredential credential = EmailAuthProvider
                 .getCredential(email, password);
 
-        operationSuccess = false;
 
-        // Prompt the user to re-provide their sign-in credentials
-        user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()) {
-                            Log.d(TAG, "User re-authenticated.");
-                            operationSuccess = true;
-                        }else {
-                            Log.d(TAG, "User not re-authenticated.");
-                            operationSuccess = false;
-                        }
-                    }
-                });
+        operationSuccess = true;
+
+        // il listener è innescato solo quando l'utente non è più autenticato
+        // questo capita quando l'utente non inserisce le sue credenziali da molto tempo
+        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "User re-authenticated.");
+
+                } else {
+                    Log.d(TAG, "User not re-authenticated.");
+                    operationSuccess = false;
+                }
+            }
+        });
     }
 
     /**
@@ -161,9 +164,9 @@ public class FirebaseConnection{
      * Controlla che non ci siano mail uguali già esistenti
      *
      * @param firebaseAuth variabile FirebaseAuth usata nell'activity
-     * @param user variabile contenente l'account dell'utente che deve essere riautenticato
-     * @param email email dell'utente user che deve essere riautenticato
-     * @param activity activity chiamante il metodo
+     * @param user         variabile contenente l'account dell'utente che deve essere riautenticato
+     * @param email        email dell'utente user che deve essere riautenticato
+     * @param activity     activity chiamante il metodo
      */
     public void updateEmail(FirebaseAuth firebaseAuth, final FirebaseUser user, final String email, final Activity activity) {
 
@@ -180,12 +183,12 @@ public class FirebaseConnection{
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(activity, "Email modificata correttamente", Toast.LENGTH_LONG).show();
-                            }else{
+                            } else {
                                 Toast.makeText(activity, "Non è stato possibile cambiare la mail", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
-                }else{
+                } else {
                     Toast.makeText(activity, "Email già presente", Toast.LENGTH_LONG).show();
                 }
             }
@@ -199,7 +202,7 @@ public class FirebaseConnection{
 
     }//fine updateEmail
 
-    public void updatePassword(final FirebaseUser user, final String newPassword, final Activity activity){
+    public void updatePassword(final FirebaseUser user, final String newPassword, final Activity activity) {
         operationSuccess = false;
         user.updatePassword(newPassword)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -207,14 +210,14 @@ public class FirebaseConnection{
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(activity, "Password modificata correttamente", Toast.LENGTH_LONG).show();
-                        }else{
+                        } else {
                             Toast.makeText(activity, "Non è stato possibile cambiare la password", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
     }
 
-    public void resetPassword(FirebaseAuth auth, String emailAddress, final Activity activity){
+    public void resetPassword(FirebaseAuth auth, String emailAddress, final Activity activity) {
         auth.sendPasswordResetEmail(emailAddress)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -226,31 +229,40 @@ public class FirebaseConnection{
                 });
     }
 
-    public static class DeleteAccount implements Runnable{
+    public static class DeleteAccount implements Runnable {
 
         private FirebaseUser user;
         private String uID;
         private String table;
+        private Activity activity;
 
-        public DeleteAccount(FirebaseUser user, String uID, String table) {
+        public DeleteAccount(FirebaseUser user, String uID, String table, Activity callingActivity) {
             this.user = user;
             this.uID = uID;
             this.table = table;
+            this.activity = callingActivity;
         }
 
         @Override
         public void run() {
+
             user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
+
                     if (task.isSuccessful()) {
-                        Log.d(TAG, "User account deleted.");
+
 
                         mDatabase.child(table).child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
+                                if (dataSnapshot.exists()) {
                                     dataSnapshot.getRef().removeValue();
+
+                                    Intent homeIntent = new Intent(activity, HomepageActivity.class);
+                                    homeIntent.putExtra(FirebaseConnection.LOGIN_FLAG, false);
+                                    activity.startActivity(homeIntent);
+                                    activity.finish();
                                 }
                             }
 
@@ -266,21 +278,22 @@ public class FirebaseConnection{
     }
 
 
-    public static class DeleteFeedback implements Runnable{
+    public static class DeleteFeedback implements Runnable {
 
         private String uID;
 
-        public DeleteFeedback (String uID){
+        public DeleteFeedback(String uID) {
             this.uID = uID;
         }
+
         @Override
         public void run() {
             mDatabase.child(FEEDBACK_TABLE).orderByChild("idPlaceBooking").equalTo(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
+                    if (dataSnapshot.exists()) {
                         //elimina ogni campo restituito
-                        for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshot.getRef().removeValue();
                         }
                     }
