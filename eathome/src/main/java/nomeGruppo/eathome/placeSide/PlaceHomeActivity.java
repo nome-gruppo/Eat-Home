@@ -45,9 +45,9 @@ import nomeGruppo.eathome.utility.MyMenuAdapter;
 /*
 activity homepage per Place
  */
-public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
+public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener{
 
-    private static final int PICK_IMAGE=100;
+    private static final int GET_FROM_GALLERY = 3;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
     private static final int PICT_SIZE_MAX = 3840;
 
@@ -106,7 +106,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             @Override
             public void onClick(View view) {
                 openDialog();//apro una finestra di dialogo per permettere all'utente inserire una nuova voce nel menu in maniera interattiva
-
             }
         });
 
@@ -157,19 +156,16 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     }
 
     private void openGallery(){
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);//intent per accedere alla galleria
-        startActivityForResult(gallery,PICK_IMAGE);
-
-
+        //intent per accedere alla galleria
+        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode==PICK_IMAGE) {
+        if (resultCode == GET_FROM_GALLERY && requestCode== Activity.RESULT_OK) {
             Uri imageUri = data.getData();//restituisce l'uri dell'immagine
             //trasforma l'Uri in Path
-            Context context = getBaseContext();
             Cursor cursor = getContentResolver().query(imageUri,null, null, null, null);
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
@@ -223,12 +219,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
     @Override
     public void applyTexts(String nameFood, String ingredientsFood,float priceFood) {
+        FirebaseConnection firebaseConnection=new FirebaseConnection();
         food.setName(nameFood);
         food.setIngredients(ingredientsFood);
         food.setPrice(priceFood);
-
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).push().setValue(food);//aggiungo il nuovo 'cibo' al databse
+        food.setIdFood(firebaseConnection.getmDatabase().push().getKey());
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
 
         listFood.add(food);//aggiungo food alla lista
         mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi

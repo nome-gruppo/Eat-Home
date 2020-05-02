@@ -105,6 +105,7 @@
     <string name="add">Aggiungi</string>
     <string name="success_save">Informazioni modificate con successo</string>
     <string name="no_change">Nessuna modifica effettuata</string>
+    <string name="edit">Modifica</string>
 
 
 </resources>

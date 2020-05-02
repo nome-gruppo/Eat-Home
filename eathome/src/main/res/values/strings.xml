@@ -114,7 +114,6 @@
     <string name="add">Add</string>
     <string name="success_save">Information changed successfully</string>
     <string name="no_change">No change</string>
-    <string name="euro" translatable="false">€ %.2f</string>
-
+    <string name="edit">Edit</string>
 
 </resources>

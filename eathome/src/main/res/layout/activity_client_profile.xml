@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".clientSide.profile.ClientProfileActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginHorizontal="5dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbClientProfile"

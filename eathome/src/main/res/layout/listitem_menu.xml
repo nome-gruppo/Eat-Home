@@ -11,9 +11,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="120dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,7 +73,21 @@
                 android:background="@color/cardview_light_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnEditFood"
                 app:srcCompat="@drawable/ic_delete" />
+
+            <ImageButton
+                android:id="@+id/btnEditFood"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="273dp"
+                android:layout_marginEnd="23dp"
+                android:background="@color/cardview_light_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnDeleteFood"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnDeleteFood"
+                app:srcCompat="@drawable/ic_menu_orders" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

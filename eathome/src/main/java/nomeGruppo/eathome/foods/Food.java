@@ -3,7 +3,7 @@ package nomeGruppo.eathome.foods;
 import java.util.HashSet;
 
 public class Food {
-
+    public String idFood;
     public String nameFood;
     public float priceFood;
     public String ingredientsFood;
@@ -12,6 +12,9 @@ public class Food {
 
     }
 
+    public void setIdFood(String idFood) {
+        this.idFood = idFood;
+    }
     public void setName(String name) {
         this.nameFood = name;
     }
