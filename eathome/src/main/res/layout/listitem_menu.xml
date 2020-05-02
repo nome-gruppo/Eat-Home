@@ -14,8 +14,6 @@
         android:layout_height="130dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,60 +27,51 @@
 
             <TextView
                 android:id="@+id/txtNameFood"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="33dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="89dp"
-                android:text=""
+                android:text="TextView"
                 android:textColor="#040404"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:typeface="sans"
-                app:layout_constraintEnd_toStartOf="@+id/txtPriceFood"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txtPriceFood"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="19dp"
-                android:text=""
+                android:layout_marginEnd="28dp"
+                android:text="Price"
                 android:textColor="#343434"
                 android:textSize="15dp"
-                app:layout_constraintBottom_toTopOf="@+id/txtIngredientsFood"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtNameFood"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txtIngredientsFood"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="23dp"
-                android:text=""
+                android:text="TextView"
                 android:textColor="#343434"
                 android:textSize="12dip"
-                app:layout_constraintBottom_toTopOf="@+id/btnDeleteFood"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtPriceFood" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtNameFood"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btnDeleteFood"
                 android:layout_width="40dp"
-                android:layout_height="0dp"
+                android:layout_height="40dp"
                 android:layout_gravity="right"
+                android:layout_marginEnd="16dp"
                 android:background="@color/cardview_light_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtIngredientsFood"
                 app:srcCompat="@drawable/ic_delete" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

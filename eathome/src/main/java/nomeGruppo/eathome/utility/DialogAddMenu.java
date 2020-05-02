@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,14 +35,19 @@ public class DialogAddMenu extends AppCompatDialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
 
             }
-        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(getActivity().getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String nameFood=editNameFood.getText().toString();
-                String ingredientsFood=editIngredientsFood.getText().toString();
-                float priceFood=Float.parseFloat(editPriceFood.getText().toString());
-                listener.applyTexts(nameFood,ingredientsFood,priceFood);
-
+                if(editNameFood.getText().toString().trim().length()==0||editIngredientsFood.getText().toString().trim().length()==0||editPriceFood.getText().toString().trim().length()==0){
+                    Toast.makeText(getContext(),getActivity().getResources().getString(R.string.fill_all_fields),Toast.LENGTH_SHORT).show();
+                    DialogAddMenu dialogAddMenu=new DialogAddMenu();
+                    dialogAddMenu.show(getActivity().getSupportFragmentManager(),"Dialog add menu");
+                }else {
+                    String nameFood = editNameFood.getText().toString();
+                    String ingredientsFood = editIngredientsFood.getText().toString();
+                    float priceFood = Float.parseFloat(editPriceFood.getText().toString());
+                    listener.applyTexts(nameFood, ingredientsFood, priceFood);
+                }
             }
         });
 

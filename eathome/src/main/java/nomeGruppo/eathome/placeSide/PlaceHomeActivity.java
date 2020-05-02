@@ -62,7 +62,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private BottomNavigationView bottomMenuPlace;
     private Food food;
     private boolean logged;
-    private ImageButton btnDeleteFood;
     private MenuNavigationItemSelected menuNavigationItemSelected;
 
     @Override
@@ -84,7 +83,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         listFood=new LinkedList<>();
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
         listViewMenu.setAdapter(mAdapter);
-        btnDeleteFood= findViewById(R.id.btnDeleteFood);
         this.menuNavigationItemSelected=new MenuNavigationItemSelected();
 
         //mostro il menu sottostante
@@ -108,15 +106,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             @Override
             public void onClick(View view) {
                 openDialog();//apro una finestra di dialogo per permettere all'utente inserire una nuova voce nel menu in maniera interattiva
-
-            }
-        });
-
-        //se clicca su una voce nella lista del menu
-        listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               Food food=(Food)adapterView.getItemAtPosition(i);
 
             }
         });
@@ -162,14 +151,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-        storage.uploadImage(imgPath,place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
-    }
-
     private void openDialog(){
         DialogAddMenu dialogAddMenu=new DialogAddMenu();
         dialogAddMenu.show(getSupportFragmentManager(),"Dialog add menu");
@@ -178,8 +159,10 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private void openGallery(){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);//intent per accedere alla galleria
         startActivityForResult(gallery,PICK_IMAGE);
-    }
 
+        StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
+        storage.uploadImage(imgPath,place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
