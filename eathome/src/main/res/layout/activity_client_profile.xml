@@ -6,6 +6,16 @@
     tools:context=".clientSide.profile.ClientProfileActivity"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbClientProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -227,11 +237,21 @@
                 android:text="@string/my_address" />
 
             <Button
+                android:id="@+id/activity_client_btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/button_border"
+                android:text="@string/save" />
+
+            <Button
                 android:id="@+id/activity_client_btn_deleteAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_gravity="center"
+                android:layout_marginVertical="20dp"
                 android:background="@drawable/button_border"
                 android:text="@string/delete_account" />
 

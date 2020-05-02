@@ -111,5 +111,8 @@
     <string name="delete_account">Delete account</string>
     <string name="save">Save</string>
     <string name="show_menu">Show menu</string>
+    <string name="add">Add</string>
+    <string name="success_save">Information changed successfully</string>
+    <string name="no_change">No change</string>
 
 </resources>

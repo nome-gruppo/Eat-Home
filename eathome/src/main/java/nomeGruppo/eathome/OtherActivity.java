@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
+import nomeGruppo.eathome.clientSide.MyFeedbackClientActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.clientSide.profile.ClientProfileActivity;
+import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
 import nomeGruppo.eathome.placeSide.profile.PlaceProfileActivity;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 
@@ -75,7 +76,7 @@ public class OtherActivity extends AppCompatActivity {
             this.btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this,FeedbackPlaceActivity.class);
+                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this, FeedbackPlaceActivity.class);
                     feedbackPlaceIntent.putExtra(FirebaseConnection.PLACE,place);
                     startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
@@ -123,7 +124,7 @@ public class OtherActivity extends AppCompatActivity {
             this.btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent feedbackClientIntent=new Intent(OtherActivity.this,MyFeedbackClientActivity.class);
+                    Intent feedbackClientIntent=new Intent(OtherActivity.this, MyFeedbackClientActivity.class);
                     feedbackClientIntent.putExtra(FirebaseConnection.CLIENT,client);
                     startActivity(feedbackClientIntent);//apro l'activity dei feedback di Client
 

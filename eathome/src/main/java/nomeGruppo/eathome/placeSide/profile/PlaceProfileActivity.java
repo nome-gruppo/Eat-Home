@@ -1,6 +1,7 @@
 package nomeGruppo.eathome.placeSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nomeGruppo.eathome.OtherActivity;
+import nomeGruppo.eathome.clientSide.profile.ClientProfileActivity;
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.placeSide.PlaceOpeningTimeActivity;
 import nomeGruppo.eathome.R;
@@ -74,6 +77,20 @@ public class PlaceProfileActivity extends AppCompatActivity {
         mPlace = (Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
         mAuth = FirebaseAuth.getInstance();
+
+        Toolbar toolBarPlaceProfile=findViewById(R.id.tlbPlaceProfile);
+        setSupportActionBar(toolBarPlaceProfile);
+        toolBarPlaceProfile.setTitle(getResources().getString(R.string.my_account));
+        toolBarPlaceProfile.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolBarPlaceProfile.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent otherActivityIntent=new Intent(PlaceProfileActivity.this, OtherActivity.class);
+                otherActivityIntent.putExtra(FirebaseConnection.PLACE,mPlace);
+                startActivity(otherActivityIntent);
+                finish();
+            }
+        });
 
         nameEt = findViewById(R.id.activity_place_profile_et_name);
         emailEt = findViewById(R.id.activity_place_profile_et_email);
@@ -156,18 +173,6 @@ public class PlaceProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        //modifica database solo se qualche campo è stato editato
-        if(edit){
-            FirebaseConnection connection = new FirebaseConnection();
-
-            connection.write(FirebaseConnection.PLACE_TABLE, user.getUid(), mPlace);
-        }
     }
 
     public void onRadioButtonClicked(View view) {
@@ -509,11 +514,17 @@ public class PlaceProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(edit) {
+                    //modifica database solo se qualche campo è stato editato
+                    FirebaseConnection connection = new FirebaseConnection();
+                    connection.write(FirebaseConnection.PLACE_TABLE, user.getUid(), mPlace);
+
                     Intent intent = new Intent(PlaceProfileActivity.this, PlaceHomeActivity.class);
                     intent.putExtra(FirebaseConnection.PLACE, mPlace);
                     startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(PlaceProfileActivity.this,getResources().getString(R.string.no_change), Toast.LENGTH_LONG).show();
                 }
-                finish();
             }
         });
 

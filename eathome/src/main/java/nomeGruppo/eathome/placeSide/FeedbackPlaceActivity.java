@@ -1,15 +1,16 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.placeSide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,6 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import nomeGruppo.eathome.FeedbackAdapter;
+import nomeGruppo.eathome.OtherActivity;
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -42,6 +46,20 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
         listView = findViewById(R.id.feedback_listview);
 
         mPlace = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+
+        Toolbar toolBarPlaceFeedback=findViewById(R.id.tlbPlaceFeedback);
+        setSupportActionBar(toolBarPlaceFeedback);
+        toolBarPlaceFeedback.setTitle(getResources().getString(R.string.my_feedback));
+        toolBarPlaceFeedback.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolBarPlaceFeedback.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent otherActivityIntent=new Intent(FeedbackPlaceActivity.this, OtherActivity.class);
+                otherActivityIntent.putExtra(FirebaseConnection.PLACE,mPlace);
+                startActivity(otherActivityIntent);
+                finish();
+            }
+        });
 
 
         if(mPlace != null){
