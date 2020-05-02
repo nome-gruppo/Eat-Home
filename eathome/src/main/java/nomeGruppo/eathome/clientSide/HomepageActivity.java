@@ -18,7 +18,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.api.ApiException;
@@ -127,6 +130,7 @@ public class HomepageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
 
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
@@ -262,9 +266,8 @@ public class HomepageActivity extends AppCompatActivity {
 
             ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
-            for (nomeGruppo.eathome.actors.Place place : listPlaceFilter) {
-                listPlace.add(place);
-            }
+            //TODO se null?
+            listPlace.addAll(listPlaceFilter);
             placeAdapter.notifyDataSetChanged();
         }
     }
@@ -357,16 +360,18 @@ public class HomepageActivity extends AppCompatActivity {
 
                     Collections.sort(listPlace, new PlacesByName());
 
-                    noPlacesTw.setVisibility(View.GONE);
                     listViewPlace.setVisibility(View.VISIBLE);
+                    noPlacesTw.setVisibility(View.GONE);
                     findPlacesBtn.setVisibility(View.GONE);
                     filterFab.setClickable(true);
 
                     listViewPlace.setAdapter(placeAdapter);
 //                        placeAdapter.notifyDataSetChanged();
                 } else {
-                    listViewPlace.setVisibility(View.GONE);
+
                     noPlacesTw.setVisibility(View.VISIBLE);
+                    findPlacesBtn.setVisibility(View.VISIBLE);
+                    listViewPlace.setVisibility(View.GONE);
                     filterFab.setVisibility(View.GONE);
 
                 }
