@@ -91,25 +91,25 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             btnSignIn.setVisibility(View.INVISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
 
-            if(place.openingTime.get(Days.MONDAY.toString())==CLOSED){
+            if(place.openingTime.get(Days.MONDAY.toString()).equals(CLOSED)){
                 switchMonday.setChecked(false);
             }
-            if(place.openingTime.get(Days.TUESDAY.toString())==CLOSED){
+            if(place.openingTime.get(Days.TUESDAY.toString()).equals(CLOSED)){
                 switchTuesday.setChecked(false);
             }
-            if(place.openingTime.get(Days.WEDNESDAY.toString())==CLOSED){
+            if(place.openingTime.get(Days.WEDNESDAY.toString()).equals(CLOSED)){
                 switchWednesday.setChecked(false);
             }
-            if(place.openingTime.get(Days.THURSDAY.toString())==CLOSED){
+            if(place.openingTime.get(Days.THURSDAY.toString()).equals(CLOSED)){
                 switchThursday.setChecked(false);
             }
-            if(place.openingTime.get(Days.FRIDAY.toString())==CLOSED){
+            if(place.openingTime.get(Days.FRIDAY.toString()).equals(CLOSED)){
                 switchFriday.setChecked(false);
             }
-            if(place.openingTime.get(Days.SATURDAY.toString())==CLOSED){
+            if(place.openingTime.get(Days.SATURDAY.toString()).equals(CLOSED)){
                 switchSaturday.setChecked(false);
             }
-            if(place.openingTime.get(Days.SUNDAY.toString())==CLOSED){
+            if(place.openingTime.get(Days.SUNDAY.toString()).equals(CLOSED)){
                 switchSunday.setChecked(false);
             }
             editMonday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.MONDAY.toString())));

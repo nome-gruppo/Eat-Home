@@ -96,14 +96,14 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                     String passwordTemp = passwordPlaceET.getText().toString();
 
                     if (control.isEmailValid(emailTemp) && control.isPasswordValid(passwordTemp)) {
-                        createAccount(emailTemp, passwordTemp);
+                        checkAccount(emailTemp, passwordTemp);
                     }
                 }
             }
         });
     }// fine onCreate
 
-    public void createAccount(String email, final String password) {
+    public void checkAccount(String email, final String password) {
 
         mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(this, new OnCompleteListener<SignInMethodQueryResult>() {
             @Override

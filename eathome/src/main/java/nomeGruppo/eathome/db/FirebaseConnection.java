@@ -240,11 +240,16 @@ public class FirebaseConnection{
 
         @Override
         public void run() {
+
+            Log.e("thread", "1");
+
+
             user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
+
                     if (task.isSuccessful()) {
-                        Log.d(TAG, "User account deleted.");
+
 
                         mDatabase.child(table).child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -260,6 +265,8 @@ public class FirebaseConnection{
                             }
                         });
                     }
+
+                    Log.e("thread", "end");
                 }
             });
         }

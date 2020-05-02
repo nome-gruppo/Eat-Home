@@ -11,10 +11,10 @@
         android:layout_width="347dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_homepage_tw_no_places"
-        app:layout_constraintEnd_toStartOf="@+id/activity_homepage_tw_no_places"
+        app:layout_constraintBottom_toTopOf="@id/scrollView4"
+        app:layout_constraintEnd_toStartOf="@id/activity_homepage_tw_no_places"
         app:layout_constraintHorizontal_bias="0.573"
-        app:layout_constraintStart_toStartOf="@+id/activity_homepage_tw_no_places"
+        app:layout_constraintStart_toStartOf="@id/activity_homepage_tw_no_places"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
@@ -31,7 +31,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -53,7 +53,7 @@
         app:layout_constraintBottom_toTopOf="@+id/activity_homepage_fab_filter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_homepage_tw_no_places" />
+        app:layout_constraintTop_toBottomOf="@id/activity_homepage_tw_no_places" />
 
     <TextView
         android:id="@+id/activity_homepage_tw_no_places"
@@ -75,12 +75,11 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_homepage_btn_find_places"
         app:srcCompat="@drawable/ic_filter_list" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClient"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
