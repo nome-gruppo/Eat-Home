@@ -67,14 +67,9 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
                 connection.reauthenticateUser(mUser, email, password);
 
-                deleted = true;
-
                 if (connection.getOperationSuccess()) {
-                    mAuth.signOut();
-                    Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
-                    homeIntent.putExtra(FirebaseConnection.LOGIN_FLAG, false);
-                    startActivity(homeIntent);
-                    getActivity().finish();
+                    deleted = true;
+
                 }
 
             }
@@ -107,7 +102,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                 mEditor.apply();
 
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE);
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE, getActivity());
 
                 Thread accountThread = new Thread(deleteAccount);
                 Log.e("diaolg", "a");
@@ -117,7 +112,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
             }else if(mPlace != null){
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE);
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE, getActivity());
                 final FirebaseConnection.DeleteFeedback deleteFeedbacks = new FirebaseConnection.DeleteFeedback(userId);
                 //TODO elimina le recensioni
 
