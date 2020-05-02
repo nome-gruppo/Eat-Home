@@ -61,29 +61,6 @@ public class DialogAddMenu extends AppCompatDialogFragment {
         editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
         editPriceFood = view.findViewById(R.id.editPriceFood);
 
-        editPriceFood.setText(EURO);
-        Selection.setSelection(editPriceFood.getText(), editPriceFood.getText().length());
-
-        editPriceFood.addTextChangedListener(new TextWatcher(){
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(!s.toString().startsWith(EURO)){
-                    editPriceFood.setText(EURO);
-                    Selection.setSelection(editPriceFood.getText(), editPriceFood.getText().length());
-                }
-            }
-        });
         return builder.create();
 
     }

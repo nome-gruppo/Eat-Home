@@ -160,8 +160,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);//intent per accedere alla galleria
         startActivityForResult(gallery,PICK_IMAGE);
 
-        StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-        storage.uploadImage(imgPath,place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
+
     }
 
     @Override
@@ -180,6 +179,9 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
             imgPath=absoluteFilePath;//assegno il valore del path dell'immagine a txtPath
             imgPlace.setImageURI(imageUri);//assegno l'immagine come copertina della home
+
+            StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
+            storage.uploadImage(imgPath,place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
         }
     }
 
