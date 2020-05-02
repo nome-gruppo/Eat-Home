@@ -113,11 +113,10 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
             }else if(mPlace != null){
 
                 final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE, getActivity());
-                final FirebaseConnection.DeleteFeedback deleteFeedbacks = new FirebaseConnection.DeleteFeedback(userId);
-                //TODO elimina le recensioni
+                final FirebaseConnection.DeleteFeedback deleteFeedback = new FirebaseConnection.DeleteFeedback(userId);
 
                 Thread accountThread = new Thread(deleteAccount);
-                Thread feedbackThread = new Thread(deleteFeedbacks);
+                Thread feedbackThread = new Thread(deleteFeedback);
 
                 accountThread.start();
                 feedbackThread.start();

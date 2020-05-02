@@ -147,8 +147,8 @@ public class HomepageActivity extends AppCompatActivity {
         listViewPlace = findViewById(R.id.listViewPlace);
         searchBtn = findViewById(R.id.search_button);
         findPlacesBtn = findViewById(R.id.activity_homepage_btn_find_places);
-        addressesBarAdapter = new AddressesBarAdapter(getApplicationContext(), R.layout.dropdown_list_layout);
 
+        addressesBarAdapter = new AddressesBarAdapter(getApplicationContext(), R.layout.dropdown_list_layout);
 
         //lista dei locali mostrati
         listPlace = new ArrayList<>();
@@ -266,9 +266,11 @@ public class HomepageActivity extends AppCompatActivity {
 
             ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
-            //TODO se null?
-            listPlace.addAll(listPlaceFilter);
-            placeAdapter.notifyDataSetChanged();
+            //TODO se nul
+            if(listPlaceFilter != null) {
+                listPlace.addAll(listPlaceFilter);
+                placeAdapter.notifyDataSetChanged();
+            }
         }
     }
 
