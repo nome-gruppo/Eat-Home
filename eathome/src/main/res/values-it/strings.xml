@@ -101,6 +101,7 @@
     <string name="my_address">I miei indirizzi</string>
     <string name="delete_account">Cancella account</string>
     <string name="save">Salva</string>
+    <string name="show_menu">Mostra menu</string>
 
 
 </resources>

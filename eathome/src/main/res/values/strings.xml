@@ -110,5 +110,6 @@
     <string name="my_address">My address</string>
     <string name="delete_account">Delete account</string>
     <string name="save">Save</string>
+    <string name="show_menu">Show menu</string>
 
 </resources>

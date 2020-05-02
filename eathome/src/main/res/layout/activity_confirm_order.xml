@@ -1,85 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editNameClientOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableLeft="@drawable/ic_menu_login"
-        android:ems="10"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editPhoneClientOrder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
-    <EditText
-        android:id="@+id/editPhoneClientOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
-        android:ems="10"
-        android:hint="@string/placePhone"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/editChooseTime"
-        app:layout_constraintStart_toStartOf="@+id/editNameClientOrder"
-        app:layout_constraintTop_toBottomOf="@+id/editNameClientOrder" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editChooseTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="55dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableLeft="@drawable/ic_access_time_black_24dp"
-        android:ems="10"
-        android:hint="@string/choose_time"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirmOrder"
-        app:layout_constraintStart_toStartOf="@+id/editPhoneClientOrder"
-        app:layout_constraintTop_toBottomOf="@+id/editPhoneClientOrder" />
-
-    <Button
-        android:id="@+id/btnConfirmOrder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="156dp"
-        android:background="@drawable/button_border"
-        android:text="@string/confirm_order"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editChooseTime" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
         app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="8dp"
         app:cardElevation="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/cardView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -169,16 +115,10 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
         app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="8dp"
         app:cardElevation="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/editNameClientOrder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        android:layout_marginVertical="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -199,4 +139,54 @@
     </androidx.cardview.widget.CardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/editNameClientOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
+        android:drawableLeft="@drawable/ic_menu_login"
+        android:ems="10"
+        android:layout_marginVertical="20dp"
+        android:layout_gravity="center"
+        android:hint="@string/name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editPhoneClientOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
+        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+        android:ems="10"
+        android:layout_marginVertical="20dp"
+        android:layout_gravity="center"
+        android:hint="@string/placePhone"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/editChooseTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
+        android:drawableLeft="@drawable/ic_access_time_black_24dp"
+        android:ems="10"
+        android:layout_marginVertical="20dp"
+        android:layout_gravity="center"
+        android:hint="@string/choose_time"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnConfirmOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/button_border"
+        android:text="@string/confirm_order" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

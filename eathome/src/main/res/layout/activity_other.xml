@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="87dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/button_border"
         android:drawableLeft="@drawable/ic_menu_login"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="91dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/button_border"
         android:drawableLeft="@drawable/ic_star"
@@ -42,14 +42,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="61dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="181dp"
         android:background="@drawable/button_border"
         android:drawableLeft="@drawable/ic_logout"
         android:text="@string/menu_logout"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMyFeedback" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationOther"
