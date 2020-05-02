@@ -126,6 +126,8 @@ public class HomepageActivity extends AppCompatActivity {
 
     private Bundle filterBundle;
 
+    private TextView listItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,13 +149,16 @@ public class HomepageActivity extends AppCompatActivity {
         listViewPlace = findViewById(R.id.listViewPlace);
         searchBtn = findViewById(R.id.search_button);
         findPlacesBtn = findViewById(R.id.activity_homepage_btn_find_places);
-        addressesBarAdapter = new AddressesBarAdapter(getApplicationContext(), R.layout.dropdown_list_layout);
 
+        addressesBarAdapter = new AddressesBarAdapter(getApplicationContext(), R.layout.dropdown_list_layout);
 
         //lista dei locali mostrati
         listPlace = new ArrayList<>();
         placeAdapter = new PlaceAdapter(this, R.layout.fragment_place_info_homepage_activity, listPlace);
         listViewPlace.setAdapter(placeAdapter);
+
+        listItem = findViewById(R.id.list_item);
+
 
         mPreferences = getPreferences(Context.MODE_PRIVATE);
         userCity = mPreferences.getString("city", null);
