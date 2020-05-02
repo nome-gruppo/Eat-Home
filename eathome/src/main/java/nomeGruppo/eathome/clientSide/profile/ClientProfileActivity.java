@@ -1,6 +1,7 @@
 package nomeGruppo.eathome.clientSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -40,6 +42,8 @@ public class ClientProfileActivity extends AppCompatActivity {
     private ImageButton phoneBtn;
     private Button myAddressesBtn;
     private Button deleteAccountBtn;
+    private Button btnSave;
+    private Toolbar toolBarClientProfile;
 
     private UtilitiesAndControls controls;
 
@@ -52,8 +56,22 @@ public class ClientProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_profile);
 
+
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
+        toolBarClientProfile=findViewById(R.id.tlbClientProfile);
+        setSupportActionBar(toolBarClientProfile);
+        toolBarClientProfile.setTitle(getResources().getString(R.string.my_account));
+        toolBarClientProfile.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolBarClientProfile.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent otherActivityIntent=new Intent(ClientProfileActivity.this, OtherActivity.class);
+                otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
+                startActivity(otherActivityIntent);
+                finish();
+            }
+        });
 
         nameEt = findViewById(R.id.activity_client_et_name);
         emailEt = findViewById(R.id.activity_client_et_email);
@@ -68,6 +86,26 @@ public class ClientProfileActivity extends AppCompatActivity {
         phoneBtn = findViewById(R.id.activity_client_profile_imBtn_phone);
         myAddressesBtn = findViewById(R.id.activity_client_btn_myAddresses);
         deleteAccountBtn = findViewById(R.id.activity_client_btn_deleteAccount);
+        btnSave=findViewById(R.id.activity_client_btn_save);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edit){
+                    FirebaseConnection connection = new FirebaseConnection();
+                    connection.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
+
+                    Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();
+
+                    Intent otherActivityIntent=new Intent(ClientProfileActivity.this, OtherActivity.class);
+                    otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
+                    startActivity(otherActivityIntent);
+                    finish();
+                }else{
+                    Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.no_change),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         controls = new UtilitiesAndControls();
 
@@ -98,17 +136,6 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if(edit){
-            FirebaseConnection connection = new FirebaseConnection();
-
-            connection.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
-        }
     }
 
     public void initEditTextsListeners() {

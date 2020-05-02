@@ -88,6 +88,9 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
     private void sendReview(){
         Feedback feedback=new Feedback();
+        if(editFeedback.getText().toString().trim().length()==0){
+            editFeedback.setText(" ");
+        }
         feedback.setTextFeedback(editFeedback.getText().toString());//assegno il testo della recensione
         feedback.setVoteFeedback(ratingBar.getRating());//assegno la valutazione numerica del cliente
         feedback.setIdPlaceFeedback(idPlace);

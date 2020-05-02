@@ -1,5 +1,6 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.clientSide;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,9 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import nomeGruppo.eathome.FeedbackAdapter;
+import nomeGruppo.eathome.OtherActivity;
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.placeSide.profile.PlaceProfileActivity;
 
 /*
 activity per far visualizzare al cliente le recensioni scritte
@@ -39,6 +45,20 @@ public class MyFeedbackClientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_feedback_client);
 
         this.client=(Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+
+        Toolbar toolBarClientFeedback=findViewById(R.id.tlbClientFeedback);
+        setSupportActionBar(toolBarClientFeedback);
+        toolBarClientFeedback.setTitle(getResources().getString(R.string.my_feedback));
+        toolBarClientFeedback.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolBarClientFeedback.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent otherActivityIntent=new Intent(MyFeedbackClientActivity.this, OtherActivity.class);
+                otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
+                startActivity(otherActivityIntent);
+                finish();
+            }
+        });
 
         this.listViewFeedbackClient=findViewById(R.id.listViewFeedbackClient);
         this.imgNoFeedback=findViewById(R.id.imgNoFeedback);

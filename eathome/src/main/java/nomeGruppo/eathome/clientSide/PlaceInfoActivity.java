@@ -37,7 +37,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nomeGruppo.eathome.FeedbackPlaceActivity;
+import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
@@ -69,6 +69,8 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_info);
+
+
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 

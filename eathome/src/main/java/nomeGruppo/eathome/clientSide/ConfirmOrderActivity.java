@@ -47,7 +47,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
     private EditText editName;
     private EditText editPhone;
     private Button btnConfirm;
-    private EditText chooseTime;
+    private Button chooseTime;
     private OpeningTime openingTimeUtility;
 
 
@@ -97,7 +97,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
             @Override
             public void onClick(View view) {
                 //se non sono stati completati tutti i campi
-                if(editName.getText().toString().trim().length()==0||chooseTime.getText().toString().trim().length()==0||editPhone.getText().toString().trim().length()==0){
+                if(editName.getText().toString().trim().length()==0||chooseTime.getText().toString()==getResources().getString(R.string.choose_time)||editPhone.getText().toString().trim().length()==0){
                     //mostra messaggio
                     Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
                 }else{//se sono stati completati tutti i campi
@@ -174,7 +174,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
             //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
             if(timeOrder.after(timeOpening)&&timeOrder.before(timeClosed)){
-                EditText editChooseTime=findViewById(R.id.editChooseTime);
+                Button editChooseTime=findViewById(R.id.editChooseTime);
                 editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
             }else{//se il locale è chiuso nell'ora selezionata
                 //mostra messaggio
@@ -183,8 +183,5 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         } catch (NullPointerException | ParseException e) {
             e.printStackTrace();
         }
-
-
-
     }
 }

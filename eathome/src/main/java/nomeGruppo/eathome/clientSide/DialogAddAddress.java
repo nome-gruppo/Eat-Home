@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,20 +32,25 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         final EditText editCity=view.findViewById(R.id.editCityClient);
         final EditText editNumberAddress=view.findViewById(R.id.editNumberAddressClient);
 
-        builder.setView(view).setTitle("Insert address").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle(getActivity().getResources().getString(R.string.choose_address)).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
             }
-        }).setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(getActivity().getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String cityClient=editCity.getText().toString();
-                String addressClient=editAddress.getText().toString();
-                String numberAddressClient=editNumberAddress.getText().toString();
+                if(editCity.getText().toString().trim().length()==0||editAddress.getText().toString().trim().length()==0||editNumberAddress.getText().toString().trim().length()==0){
+                    Toast.makeText(getContext(),getActivity().getResources().getString(R.string.fill_all_fields),Toast.LENGTH_SHORT).show();
+                    DialogAddAddress dialogAddAddress = new DialogAddAddress();
+                    dialogAddAddress.show(getActivity().getSupportFragmentManager(), "Dialog add address");
+                }else {
+                    String cityClient = editCity.getText().toString();
+                    String addressClient = editAddress.getText().toString();
+                    String numberAddressClient = editNumberAddress.getText().toString();
 
-                listener.applyTexts(addressClient,numberAddressClient, cityClient);
-
+                    listener.applyTexts(addressClient, numberAddressClient, cityClient);
+                }
             }
         });
 
