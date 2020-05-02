@@ -1,5 +1,6 @@
 package nomeGruppo.eathome.placeSide;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,7 +14,6 @@ import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,16 +38,14 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.utility.DialogAddMenu;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
-import nomeGruppo.eathome.utility.MyMenuAdapter;
 
 /*
 activity homepage per Place
  */
-public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
+public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener{
 
-    private static final int PICK_IMAGE=100;
+    private static final int GET_FROM_GALLERY = 3;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
     private static final int PICT_SIZE_MAX = 3840;
 
@@ -106,7 +104,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             @Override
             public void onClick(View view) {
                 openDialog();//apro una finestra di dialogo per permettere all'utente inserire una nuova voce nel menu in maniera interattiva
-
             }
         });
 
@@ -157,20 +154,16 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     }
 
     private void openGallery(){
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);//intent per accedere alla galleria
-        startActivityForResult(gallery,PICK_IMAGE);
-
-        StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-        storage.uploadImage(imgPath,place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
+        //intent per accedere alla galleria
+        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode==PICK_IMAGE) {
+        if (resultCode == GET_FROM_GALLERY && requestCode== Activity.RESULT_OK) {
             Uri imageUri = data.getData();//restituisce l'uri dell'immagine
             //trasforma l'Uri in Path
-            Context context = getBaseContext();
             Cursor cursor = getContentResolver().query(imageUri,null, null, null, null);
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
@@ -180,6 +173,9 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
             imgPath=absoluteFilePath;//assegno il valore del path dell'immagine a txtPath
             imgPlace.setImageURI(imageUri);//assegno l'immagine come copertina della home
+
+            StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
+            storage.uploadImage(imgPath,place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
         }
     }
 

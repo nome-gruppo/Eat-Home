@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomeGruppo.eathome.placeSide;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -17,11 +15,19 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.foods.Food;
 
-public class DialogAddMenu extends AppCompatDialogFragment {
+public class DialogEditFood extends AppCompatDialogFragment {
+    private Food food;
+
     private EditText editNameFood;
     private EditText editIngredientsFood;
     private EditText editPriceFood;
-    private DialogAddMenuListener listener;
+
+    private DialogEditFood.DialogEditFoodListener listener;
+
+    public DialogEditFood(Food food){
+        this.food=food;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -30,30 +36,27 @@ public class DialogAddMenu extends AppCompatDialogFragment {
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_insert_food,null);
 
-        builder.setView(view).setTitle("Name food").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle(getActivity().getResources().getString(R.string.edit)).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
             }
-        }).setPositiveButton(getActivity().getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
+        }).setPositiveButton(getActivity().getResources().getString(R.string.edit), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(editNameFood.getText().toString().trim().length()==0||editIngredientsFood.getText().toString().trim().length()==0||editPriceFood.getText().toString().trim().length()==0){
-                    Toast.makeText(getContext(),getActivity().getResources().getString(R.string.fill_all_fields),Toast.LENGTH_SHORT).show();
-                    DialogAddMenu dialogAddMenu=new DialogAddMenu();
-                    dialogAddMenu.show(getActivity().getSupportFragmentManager(),"Dialog add menu");
-                }else {
                     String nameFood = editNameFood.getText().toString();
                     String ingredientsFood = editIngredientsFood.getText().toString();
                     float priceFood = Float.parseFloat(editPriceFood.getText().toString());
-                    listener.applyTexts(nameFood, ingredientsFood, priceFood);
+                    listener.editTexts(nameFood, ingredientsFood, priceFood);
                 }
-            }
         });
 
         editNameFood = view.findViewById(R.id.editNameFood);
         editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
         editPriceFood = view.findViewById(R.id.editPriceFood);
+        editNameFood.setText(food.nameFood);
+        editIngredientsFood.setText(food.ingredientsFood);
+        editPriceFood.setText(Float.toString(food.priceFood));
 
         return builder.create();
 
@@ -63,13 +66,13 @@ public class DialogAddMenu extends AppCompatDialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (DialogAddMenuListener)context;
+            listener = (DialogEditFood.DialogEditFoodListener)context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()+"Error");
         }
     }
 
-    public interface DialogAddMenuListener{
-        void applyTexts(String nameFood, String ingredientsFood, float priceFood);
+    public interface DialogEditFoodListener{
+        void editTexts(String nameFood, String ingredientsFood, float priceFood);
     }
 }
