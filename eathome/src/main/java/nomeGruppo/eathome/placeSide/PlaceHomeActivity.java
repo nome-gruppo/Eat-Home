@@ -217,12 +217,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
     @Override
     public void applyTexts(String nameFood, String ingredientsFood,float priceFood) {
+        FirebaseConnection firebaseConnection=new FirebaseConnection();
         food.setName(nameFood);
         food.setIngredients(ingredientsFood);
         food.setPrice(priceFood);
-
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).push().setValue(food);//aggiungo il nuovo 'cibo' al databse
+        food.setIdFood(firebaseConnection.getmDatabase().push().getKey());
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
 
         listFood.add(food);//aggiungo food alla lista
         mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi

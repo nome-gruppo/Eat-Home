@@ -151,7 +151,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
     private void editFoodFirebase(Food oldFood, Food editFood){
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
         //seleziono il cibo con lo stesso nome del cibo da modificare
-        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).child(oldFood.nameFood).setValue(editFood);
+        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).child(oldFood.idFood).setValue(editFood);
 
         Intent homePage=new Intent(getContext(), PlaceHomeActivity.class);
         homePage.putExtra(FirebaseConnection.PLACE,place);

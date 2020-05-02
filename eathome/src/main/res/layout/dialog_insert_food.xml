@@ -40,6 +40,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:drawableLeft="@drawable/ic_euro_symbol_black_24dp"
         android:hint="@string/enter_price"
         app:layout_constraintStart_toStartOf="@+id/editIngredientsFood"
         app:layout_constraintTop_toBottomOf="@+id/editIngredientsFood" />
