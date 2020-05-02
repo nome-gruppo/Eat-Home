@@ -39,13 +39,14 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listitem_menu, null);
-        TextView title = (TextView)convertView.findViewById(R.id.txtNameFood);
-        TextView price = (TextView)convertView.findViewById(R.id.txtPriceFood);
-        TextView ingredients=(TextView)convertView.findViewById(R.id.txtIngredientsFood);
-        ImageButton btnDelete=(ImageButton) convertView.findViewById(R.id.btnDeleteFood);
+        TextView title =convertView.findViewById(R.id.txtNameFood);
+        TextView price = convertView.findViewById(R.id.txtPriceFood);
+        TextView ingredients=convertView.findViewById(R.id.txtIngredientsFood);
+        ImageButton btnDelete= convertView.findViewById(R.id.btnDeleteFood);
         final Food food = getItem(position);
         title.setText(food.nameFood);
-        price.setText(Float.toString(food.priceFood));
+
+        price.setText(getContext().getResources().getString(R.string.euro,food.priceFood));
         ingredients.setText(food.ingredientsFood);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
