@@ -1,7 +1,9 @@
 package nomeGruppo.eathome.utility;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
@@ -23,7 +25,7 @@ public class OpeningTime {
 
     }
 
-    public void setOpeningTime(Context context, final EditText edit){
+    public void setOpeningTime(Context context, final Button edit){
         final Calendar cldr = Calendar.getInstance();
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
@@ -39,7 +41,7 @@ public class OpeningTime {
         picker.show();
     }
 
-    public void setOpeningTimeClose(Context context, final EditText editOpen,final EditText editClosed){
+    public void setOpeningTimeClose(Context context, final Button editOpen,final Button editClosed){
         String hourMonday=editOpen.getText().toString();
         final Calendar cldr = Calendar.getInstance();
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
@@ -59,14 +61,14 @@ public class OpeningTime {
         picker.show();
     }
 
-    public void setSwitch(final EditText editOpen,final EditText editClosed){
+    public void setSwitch(final Button editOpen, final Button editClosed){
         editOpen.setEnabled(false);
         editClosed.setEnabled(false);
         editOpen.setText("");
         editClosed.setText("");
     }
 
-    public void setSwitchChecked(final EditText editOpen,final EditText editClosed){
+    public void setSwitchChecked(final Button editOpen,final Button editClosed){
         editOpen.setEnabled(true);
         editClosed.setEnabled(true);
         editOpen.setText("Da:");
@@ -114,7 +116,7 @@ public class OpeningTime {
     }
 
     public String getOpening(String openingTime){
-        String[]result=openingTime.split(DASH);
+        String[] result=openingTime.split(DASH);
         return result[0];
     }
     public String getClosed(String openingTime){
