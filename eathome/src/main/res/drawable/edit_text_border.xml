@@ -5,7 +5,7 @@
     <solid android:color="@color/cardview_light_background" />
 
     <!-- Border Color -->
-    <stroke android:width="2dp" android:color="@color/colorPrimaryDark" />
+    <stroke android:width="2dp" android:color="@color/colorPrimary" />
 
     <!-- Round Corners -->
     <corners android:radius="6dp" />

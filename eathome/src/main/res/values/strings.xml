@@ -113,4 +113,7 @@
     <string name="phoneNumberChangedCorrectly">Phone number changed correctly</string>
     <string name="notValidPhoneNumber">Not valid phone number</string>
     <string name="emailAlreadyExists">Email already exists</string>
+    <string name="today">Today</string>
+    <string name="previous">Previous</string>
+
 </resources>

@@ -58,6 +58,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="17dp"
+                android:drawableLeft="@drawable/ic_restaurant_menu_black_24dp"
                 android:text="TextView"
                 android:textColor="#040404"
                 android:textSize="18dp"

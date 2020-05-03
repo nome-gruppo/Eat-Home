@@ -21,6 +21,9 @@ import nomeGruppo.eathome.R;
 
 public class DialogAddMenu extends AppCompatDialogFragment {
 
+    private static char NEW_LINE='\n';
+    private static char COMMA=',';
+
     private EditText editNameFood;
     private EditText editIngredientsFood;
     private EditText editPriceFood;
@@ -32,6 +35,10 @@ public class DialogAddMenu extends AppCompatDialogFragment {
 
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_insert_food,null);
+
+        editNameFood = view.findViewById(R.id.editNameFood);
+        editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
+        editPriceFood = view.findViewById(R.id.editPriceFood);
 
         builder.setView(view).setTitle("Name food").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -48,16 +55,12 @@ public class DialogAddMenu extends AppCompatDialogFragment {
                 }else {
                     String nameFood = editNameFood.getText().toString();
                     String ingredientsFood = editIngredientsFood.getText().toString();
+                    ingredientsFood=ingredientsFood.replace(NEW_LINE,COMMA);
                     float priceFood = Float.parseFloat(editPriceFood.getText().toString());
                     listener.applyTexts(nameFood, ingredientsFood, priceFood);
                 }
             }
         });
-
-        editNameFood = view.findViewById(R.id.editNameFood);
-        editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
-        editPriceFood = view.findViewById(R.id.editPriceFood);
-
         return builder.create();
     }
 

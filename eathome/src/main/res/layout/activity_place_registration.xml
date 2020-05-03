@@ -2,12 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="false"
     android:background="@color/colorPrimary">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
     android:orientation="vertical">
 
     <EditText
@@ -20,7 +22,6 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="50dp"
         android:drawableLeft="@drawable/ic_local_activity_black_24dp"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:textAlignment="center"
         android:inputType="textPersonName" />
@@ -32,8 +33,6 @@
         android:ems="10"
         android:hint="@string/enterCity"
         android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:drawableLeft="@drawable/ic_place_black_24dp"
         android:textAlignment="center"
         android:background="@drawable/edit_text_border"
@@ -46,8 +45,6 @@
         android:ems="10"
         android:hint="@string/enterAddress"
         android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:drawableLeft="@drawable/ic_place_black_24dp"
         android:textAlignment="center"
         android:background="@drawable/edit_text_border"
@@ -60,8 +57,6 @@
         android:ems="10"
         android:hint="@string/enterAddressNumber"
         android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:drawableLeft="@drawable/ic_place_black_24dp"
         android:textAlignment="center"
         android:background="@drawable/edit_text_border"
@@ -74,13 +69,23 @@
         android:ems="10"
         android:hint="@string/enterPhone"
         android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:drawableLeft="@drawable/ic_local_phone_black_24dp"
         android:textAlignment="center"
         android:background="@drawable/edit_text_border"
         android:inputType="phone" />
 
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp"
+        android:layout_marginVertical="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtCategories"
@@ -211,6 +216,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"/>
 
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <EditText
         android:id="@+id/editMailPlace"
         android:layout_width="match_parent"
@@ -221,7 +230,6 @@
         android:inputType="textEmailAddress"
         android:drawableLeft="@drawable/ic_email_black_24dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
         android:textAlignment="center"
         android:layout_marginEnd="10dp"/>
 
@@ -235,16 +243,15 @@
         android:inputType="textPassword"
         android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
         android:textAlignment="center"
         android:layout_marginEnd="10dp"/>
 
     <Button
         android:id="@+id/btnSignin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_border"
-        android:text="@string/action_sign_in"
+        android:text="@string/tw_signUp"
         android:layout_marginVertical="10dp"
         android:layout_gravity="center_horizontal" />
 
