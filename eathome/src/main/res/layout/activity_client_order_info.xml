@@ -6,47 +6,30 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigationClientOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNoOrderClient"
-        app:menu="@menu/bottom_navigation_menu"
-        style="@style/BottomNavigation"/>
-
-    <ScrollView
-        android:id="@+id/scrollView4"
+    <LinearLayout
+        android:id="@+id/lin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClientOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        app:layout_constraintTop_toBottomOf="parent">
 
         <ListView
             android:id="@+id/listViewOrderInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </ScrollView>
 
     <TextView
         android:id="@+id/txtNoOrderClient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="366dp"
         android:text="@string/no_order"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClientOrder"
@@ -57,14 +40,25 @@
     <ImageView
         android:id="@+id/imgNoOrderClient"
         android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="255dp"
-        android:layout_marginBottom="41dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="288dp"
+        android:layout_marginBottom="75dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/txtNoOrderClient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_emoticon_sad" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigationClientOrder"
+        style="@style/BottomNavigation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
