@@ -20,13 +20,16 @@ import androidx.fragment.app.DialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.security.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
+import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -120,6 +123,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     private void openDialogConfirm(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
+
+        final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
         builder.setTitle(this.getResources().getString(R.string.confirm));
         builder.setMessage(this.getResources().getString(R.string.are_you_sure));
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -128,6 +133,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
                     addOrderFirebase();//dopo che l'ordine è stato inserito correttamente all'interno del database
                     Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.order_confirm),Toast.LENGTH_SHORT).show();//mostra messaggio
                     Intent homePage=new Intent(ConfirmOrderActivity.this, HomepageActivity.class);
+                    homePage.putExtra(FirebaseConnection.CLIENT,client);
+
                     startActivity(homePage);//apri homepage
                     finish();
                 }
@@ -148,6 +155,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         order.setPhoneClientOrder(editPhone.getText().toString());
         order.setTimeOrder(chooseTime.getText().toString());
         order.setDateOrder(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        order.timestampOrder = System.currentTimeMillis();   //momento in cui è stato realizzato l'ordine
         FirebaseConnection firebaseConnection=new FirebaseConnection();
 
         //prelevo la chiave assegnata in automatico da Firebase

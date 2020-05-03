@@ -11,28 +11,23 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.Rating;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.api.ApiException;
@@ -56,6 +51,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
@@ -67,9 +63,9 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import nomeGruppo.eathome.AddressesBarAdapter;
-import nomeGruppo.eathome.clientSide.DialogEnterPlaceReview;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
@@ -125,6 +121,7 @@ public class HomepageActivity extends AppCompatActivity {
     private boolean setFilter;//variabile per controllare se l'utente ha filtrato la ricerca o no
 
     private Bundle filterBundle;
+    private static boolean firstLogin = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,7 +186,8 @@ public class HomepageActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if (user != null) {
+        //TODO ma è fatto ad ogni login?
+        if (firstLogin && user != null) {
 
             //leggo la tabella myInfo per verificare se ci sono locali da recensire
             Cursor c = mDB.query(DBOpenHelper.TABLE_INFO, DBOpenHelper.COLUMNS_INFO, DBOpenHelper.SELECTION_BY_USER_ID_INFO, new String[]{user.getUid()}, null, null, null);
@@ -226,9 +224,32 @@ public class HomepageActivity extends AppCompatActivity {
 
     }//end onStart
 
-    private void openDialogReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper) {
-        DialogEnterPlaceReview dialogEnterPlaceReview = new DialogEnterPlaceReview(idPlace, namePlace, idClient, nameClient, mDB, mDBHelper);
-        dialogEnterPlaceReview.show(getSupportFragmentManager(), "Enter review");
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(firstLogin) {
+            FirebaseConnection connection = new FirebaseConnection();
+            final long cutoff = new Date().getTime() - TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS);
+            Query query = connection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("timestampOrder").endAt(cutoff);
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        snapshot.getRef().removeValue();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    //cc
+                }
+            });
+
+            firstLogin = false;
+        }
+
     }
 
     @Override
@@ -329,6 +350,11 @@ public class HomepageActivity extends AppCompatActivity {
             }
         }
     }// end onRequestPermissionsResult
+
+    private void openDialogReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper) {
+        DialogEnterPlaceReview dialogEnterPlaceReview = new DialogEnterPlaceReview(idPlace, namePlace, idClient, nameClient, mDB, mDBHelper);
+        dialogEnterPlaceReview.show(getSupportFragmentManager(), "Enter review");
+    }
 
     private void search(String city) {
 
@@ -570,6 +596,7 @@ public class HomepageActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nomeGruppo.eathome.actors.Place place = (nomeGruppo.eathome.actors.Place) adapterView.getItemAtPosition(i);
                 Intent placeInfoIntent = new Intent(HomepageActivity.this, PlaceInfoActivity.class);
+                placeInfoIntent.putExtra(FirebaseConnection.CLIENT,client);
                 placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
                 startActivity(placeInfoIntent);
             }

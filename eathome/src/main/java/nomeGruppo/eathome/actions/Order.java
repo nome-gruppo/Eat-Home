@@ -22,6 +22,7 @@ public class Order implements Serializable {
     public String phoneClientOrder;
     public String timeOrder;
     public String dateOrder;
+    public float timestampOrder;
     public ArrayList<String> foodsOrder;
     public float totalOrder;
     public String idClientOrder;

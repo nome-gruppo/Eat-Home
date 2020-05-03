@@ -38,6 +38,7 @@ import java.util.Map;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
+import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -87,7 +88,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         this.mAdapter=new MenuAdapterForClient(PlaceListFoodOrderActivity.this,R.layout.listitem_menu_client,listFood,listFoodOrder);
         listViewFoodInfo.setAdapter(mAdapter);
 
-        btnOrder.setOnClickListener(new View.OnClickListener() {
+        this.btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(user != null) {//se l'utente è loggato
@@ -172,6 +173,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     //dialog per selezionare l'indirizzo di spedizione
     private void openDialogChooseAddress(final ArrayList<String>nameFood, final float finalTot, final Place place){
         final AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
         LayoutInflater inflater=PlaceListFoodOrderActivity.this.getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_choose_address,null);
         builder.setView(view).setTitle(this.getResources().getString(R.string.choose_address));
@@ -212,6 +214,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
                 order=setOrder(addressOrder);
                 orderActivity.putExtra(FirebaseConnection.ORDER,order);
                 orderActivity.putExtra(FirebaseConnection.PLACE,place);
+                orderActivity.putExtra(FirebaseConnection.CLIENT,client);
                 startActivity(orderActivity);
             }
         });
@@ -265,6 +268,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         final String addressOrder=address+","+numberAddress+","+city;
         order=setOrder(addressOrder);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
         orderActivity.putExtra(FirebaseConnection.ORDER,order);
+        orderActivity.putExtra(FirebaseConnection.PLACE,place);
         startActivity(orderActivity);//apro l'activity per confermare l'ordine
     }
 
