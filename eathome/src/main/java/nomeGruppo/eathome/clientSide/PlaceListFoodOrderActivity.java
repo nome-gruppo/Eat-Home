@@ -105,6 +105,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
                     Intent loginIntent = new Intent(PlaceListFoodOrderActivity.this, LoginActivity.class);
                     loginIntent.putExtra(FirebaseConnection.FROM_ANOTHER_ACTIVITY, false);
                     loginIntent.putExtra(FirebaseConnection.PLACE, place);
+                    loginIntent.putExtra(FirebaseConnection.ORDER,order);   //TODO serve?
                     startActivityForResult(loginIntent, TO_LOGIN_ACTIVITY);//apri login
                 }
             }
@@ -120,6 +121,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
                 client = (Client) data.getSerializableExtra(FirebaseConnection.CLIENT);
                 place = (Place) data.getSerializableExtra(FirebaseConnection.PLACE);
+                order = (Order) data.getSerializableExtra(FirebaseConnection.ORDER);
 
 
             }
