@@ -87,7 +87,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
         this.mAuth = FirebaseAuth.getInstance();
 
-        if(!place.openingTime.isEmpty()){
+        if(place.openingTime!=null){
             btnSignIn.setVisibility(View.INVISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
 
