@@ -52,20 +52,22 @@
                 android:text="@string/monday" />
 
 
-            <EditText
+            <Button
                 android:id="@+id/editMonday"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/from" />
 
-            <EditText
+            <Button
                 android:id="@+id/editMondayClosed"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/to" />
 
             <Switch
@@ -92,20 +94,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tuesday" />
 
-            <EditText
+            <Button
                 android:id="@+id/editTuesday"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/from" />
 
-            <EditText
+            <Button
                 android:id="@+id/editTuesdayClosed"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/to" />
 
             <Switch
@@ -131,20 +135,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/wednesday" />
 
-            <EditText
+            <Button
                 android:id="@+id/editWednesday"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/from" />
 
-            <EditText
+            <Button
                 android:id="@+id/editWednesdayClosed"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/to" />
 
             <Switch
@@ -172,21 +178,23 @@
                 android:text="@string/thursday"
                 />
 
-            <EditText
+            <Button
                 android:id="@+id/editThursday"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/from"
                />
 
-            <EditText
+            <Button
                 android:id="@+id/editThursdayClosed"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/to"
                 />
 
@@ -215,21 +223,23 @@
                 android:text="@string/friday"
                />
 
-            <EditText
+            <Button
                 android:id="@+id/editFriday"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/from"
                 />
 
-            <EditText
+            <Button
                 android:id="@+id/editFridayClosed"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/to"
                 />
 
@@ -258,21 +268,23 @@
                 android:text="@string/saturday"
                  />
 
-            <EditText
+            <Button
                 android:id="@+id/editSaturday"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/from"
                  />
 
-            <EditText
+            <Button
                 android:id="@+id/editSaturdayClosed"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/to"
                 />
 
@@ -301,21 +313,23 @@
                 android:text="@string/sunday"
                 />
 
-            <EditText
+            <Button
                 android:id="@+id/editSunday"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/from"
                  />
 
-            <EditText
+            <Button
                 android:id="@+id/editSundayClosed"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:background="@drawable/button_border"
                 android:text="@string/to"
                  />
 
@@ -343,7 +357,7 @@
         android:layout_height="wrap_content"
         android:text="@string/action_sign_in"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginVertical="20dp"
         android:background="@drawable/button_border"/>
 
     <Button
@@ -353,7 +367,7 @@
         android:text="@string/edit"
         android:visibility="invisible"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_border"/>
 
         </LinearLayout>
