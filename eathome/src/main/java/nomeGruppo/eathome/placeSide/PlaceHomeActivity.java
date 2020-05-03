@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ImageWriter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,7 +29,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +61,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private List<Food> listFood;
     private MyMenuAdapter mAdapter;
     private FloatingActionButton btnAddMenu;
-    private String imgPath;
+    private boolean changeImg=false;
     private BottomNavigationView bottomMenuPlace;
     private Food food;
     private MenuNavigationItemSelected menuNavigationItemSelected;
@@ -110,18 +117,20 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onStart();
         listFood.clear();
 
-        StorageConnection storageConnection=new StorageConnection();//apro la connessione allo Storage di Firebase
-        StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
+        if(!changeImg) {//se l'immagine non è stata appena cambiata
+            StorageConnection storageConnection = new StorageConnection();//apro la connessione allo Storage di Firebase
+            StorageReference storageReference = storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
 
-        //metodo di lettura immagine tramite byte
-        storageReference.getBytes(PICT_SIZE_MAX * PICT_SIZE_MAX)
-                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                        imgPlace.setImageBitmap(bitmap);
-                    }
-                });
+            //metodo di lettura immagine tramite byte
+            storageReference.getBytes(PICT_SIZE_MAX * PICT_SIZE_MAX)
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            imgPlace.setImageBitmap(bitmap);
+                        }
+                    });
+        }
 
         final FirebaseConnection firebaseConnection=new FirebaseConnection();
 
@@ -157,21 +166,28 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == GET_FROM_GALLERY && requestCode== Activity.RESULT_OK) {
+        if (requestCode == GET_FROM_GALLERY && resultCode== Activity.RESULT_OK) {
             Uri imageUri = data.getData();//restituisce l'uri dell'immagine
-            //trasforma l'Uri in Path
-            Cursor cursor = getContentResolver().query(imageUri,null, null, null, null);
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            String absoluteFilePath = cursor.getString(idx);
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);//converto l'uri in Bitmap
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,10,stream);//comprimo l'immagine
 
-            cursor.close();;
-
-            imgPath=absoluteFilePath;//assegno il valore del path dell'immagine a txtPath
-            imgPlace.setImageURI(imageUri);//assegno l'immagine come copertina della home
+            imgPlace.setImageBitmap(bitmap);//assegno l'immagine come copertina della home
+            changeImg=true;//imposto che l'immagine è stata appena cambiata
 
             StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-            storage.uploadImage(imgPath,place.idPlace);//carico l'immagine nello Storage con nome corrispondente all'idPlace
+            storage.uploadImageBitmap(stream,place.idPlace);//inserisco l'immagine nello storage
+
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
