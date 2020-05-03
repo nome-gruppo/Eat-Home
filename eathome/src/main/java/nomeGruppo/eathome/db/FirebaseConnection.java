@@ -93,21 +93,22 @@ public class FirebaseConnection {
                         final Client client = dataSnapshot.getValue(Client.class);
                         final Intent intent = new Intent(activity, HomepageActivity.class);
                         intent.putExtra(CLIENT, client);
-                        intent.putExtra(LOGGED_FLAG, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        if (activity.getIntent().getBooleanExtra(FirebaseConnection.LOGIN_FLAG, false)) {
-                            activity.finish();
-                        } else {
-                            activity.startActivity(intent);
-                            activity.finish();
-                        }
+                        activity.startActivity(intent);
+                        activity.finish();
+
+//                        if (activity.getIntent().getBooleanExtra(FirebaseConnection.LOGIN_FLAG, false)) {
+//                            activity.finish();
+//                        } else {
+//                            activity.startActivity(intent);
+//                            activity.finish();
+//                        }
 
                     } else { //ricerca nel nodo places
                         final Place place = dataSnapshot.getValue(Place.class);
                         final Intent intent = new Intent(activity, PlaceHomeActivity.class);
                         intent.putExtra(PLACE, place);
-                        intent.putExtra(LOGGED_FLAG, true);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         activity.startActivity(intent);
                         activity.finish();

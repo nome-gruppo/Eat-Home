@@ -51,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.activity_login_et_password);
         loginBtn = findViewById(R.id.activity_login_btn_login);
         progressBar = findViewById(R.id.activity_login_pb_loading);
-        final TextView txtPlaceRegistration = findViewById(R.id.fragment_login_tw_signInPlace);
-        final TextView txtClientRegistration = findViewById(R.id.fragment_login_tw_signIn);
+        final TextView txtPlaceRegistration = findViewById(R.id.activity_login_tw_signInPlace);
+        final TextView txtClientRegistration = findViewById(R.id.activity_login_tw_signIn);
         final TextView resetPasswordTW = findViewById(R.id.activity_login_tw_resetPassword);
 
         emailET.addTextChangedListener(afterTextChangedListener);

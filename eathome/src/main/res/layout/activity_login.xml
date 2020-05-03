@@ -44,79 +44,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_et_email" />
 
+    <ProgressBar
+        android:id="@+id/activity_login_pb_loading"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="7dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/activity_login_et_password"
+        app:layout_constraintStart_toStartOf="@+id/activity_login_et_password"
+        app:layout_constraintTop_toBottomOf="@id/activity_login_et_password" />
+
     <Button
         android:id="@+id/activity_login_btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginTop="70dp"
         android:layout_marginBottom="44dp"
         android:background="@drawable/button_border"
         android:enabled="false"
         android:text="@string/action_sign_in"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_password"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_password" />
 
-    <ProgressBar
-        android:id="@+id/activity_login_pb_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="71dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="64dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/activity_login_et_password"
-        app:layout_constraintStart_toStartOf="@+id/activity_login_et_password"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+
 
     <TextView
-        android:id="@+id/fragment_login_tw_signIn"
+        android:id="@+id/activity_login_tw_signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="174dp"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         android:text="@string/tw_signUp"
+        android:textColor="@color/quantum_white_100"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.678"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_btn_login"
         tools:ignore="OnClick" />
 
     <TextView
-        android:id="@+id/fragment_login_tw_signInPlace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="160dp"
-        android:clickable="true"
-        android:text="@string/tw_restaurantOwner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signIn" />
-
-    <TextView
         android:id="@+id/activity_login_tw_resetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="178dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="175dp"
+        android:layout_marginTop="20dp"
         android:text="Hai dimenticato la password?"
+        android:textColor="@color/quantum_white_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_tw_signIn"
+        />
+
+    <TextView
+        android:id="@+id/activity_login_tw_signInPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:textColor="@color/quantum_white_100"
+        android:text="@string/tw_restaurantOwner"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_tw_signInPlace" />
+        app:layout_constraintTop_toBottomOf="@id/activity_login_tw_resetPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

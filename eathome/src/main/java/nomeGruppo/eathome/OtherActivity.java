@@ -81,23 +81,6 @@ public class OtherActivity extends AppCompatActivity {
                     startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
             });
-
-            //se place clicca su logout
-            this.btnLogout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mAuth.signOut();
-
-                    SharedPreferences.Editor mEditor = getPreferences(Context.MODE_PRIVATE).edit();
-                    mEditor.clear();
-                    mEditor.apply();
-
-                    Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
-                    homepageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, false);
-                    startActivity(homepageIntent);//faccio il logout e ritorna alla Home
-                    finish();
-                }
-            });
         }
 
         else{ //se l'activity corrente è stata raggiunta da un Client
@@ -131,19 +114,24 @@ public class OtherActivity extends AppCompatActivity {
                 }
             });
 
-            //se cliente clicca su logout
-            this.btnLogout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mAuth.signOut();
-                    Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
-                    homepageIntent.putExtra(FirebaseConnection.LOGGED_FLAG, false);
-                    startActivity(homepageIntent);//faccio il logout e torno alla Home
-                    finish();
-                }
-            });
         }
 
+        //se place clicca su logout
+        this.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+
+                SharedPreferences.Editor mEditor = getPreferences(Context.MODE_PRIVATE).edit();
+                mEditor.clear();
+                mEditor.apply();
+
+                Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
+                homepageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(homepageIntent);//faccio il logout e ritorna alla Home
+                finish();
+            }
+        });
 
     }
 }

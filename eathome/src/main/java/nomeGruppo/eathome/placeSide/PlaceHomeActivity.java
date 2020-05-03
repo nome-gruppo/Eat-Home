@@ -57,7 +57,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private String imgPath;
     private BottomNavigationView bottomMenuPlace;
     private Food food;
-    private boolean logged;
     private MenuNavigationItemSelected menuNavigationItemSelected;
 
     @Override
@@ -65,7 +64,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_homepage);
 
-        logged = getIntent().getBooleanExtra(FirebaseConnection.LOGGED_FLAG, false);
 
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         food=new Food();
