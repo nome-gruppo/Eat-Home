@@ -75,19 +75,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_places_filter);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-
-
-
         pizzeriaCB = findViewById(R.id.activity_places_filter_cb_pizzeria);
         restaurantCB = findViewById(R.id.activity_places_filter_cb_itaRestaurant);
         sushiCB = findViewById(R.id.activity_places_filter_cb_sushi);

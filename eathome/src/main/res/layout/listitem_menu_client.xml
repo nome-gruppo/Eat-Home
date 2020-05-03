@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
@@ -21,34 +22,33 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="@+id/txtIngredientsFoodPlaceInfo"
+            app:layout_constraintTop_toBottomOf="@+id/txtIngredientsFoodPlaceInfo">
 
             <ImageButton
                 android:id="@+id/btnDeleteFoodPlaceInfo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="245dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="239dp"
+                android:layout_marginEnd="12dp"
                 android:backgroundTint="@color/cardview_light_background"
                 android:padding="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btnAddFoodPlaceInfo"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCounterFoodPlaceInfo"
                 app:layout_constraintEnd_toStartOf="@+id/txtCounterFoodPlaceInfo"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btnAddFoodPlaceInfo"
+                app:layout_constraintTop_toTopOf="@+id/txtCounterFoodPlaceInfo"
                 app:srcCompat="@drawable/ic_remove_shopping_cart_black_24dp" />
 
             <TextView
                 android:id="@+id/txtIngredientsFoodPlaceInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="57dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="58dp"
+                android:layout_marginStart="25dp"
                 android:text="TextView"
                 android:textColor="#343434"
-                android:textSize="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtCounterFoodPlaceInfo"
-                app:layout_constraintEnd_toStartOf="@+id/txtPriceFoodPlaceInfo"
-                app:layout_constraintStart_toStartOf="@+id/txtNameFoodPlaceInfo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -82,27 +82,29 @@
 
             <TextView
                 android:id="@+id/txtCounterFoodPlaceInfo"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="3dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/edit_text_border"
                 android:text="0"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/btnDeleteFoodPlaceInfo"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnAddFoodPlaceInfo"
                 app:layout_constraintStart_toEndOf="@+id/btnDeleteFoodPlaceInfo" />
 
             <ImageButton
                 android:id="@+id/btnAddFoodPlaceInfo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="9dp"
                 android:backgroundTint="@color/cardview_light_background"
                 android:padding="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCounterFoodPlaceInfo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txtCounterFoodPlaceInfo"
+                app:layout_constraintTop_toTopOf="@+id/txtCounterFoodPlaceInfo"
                 app:srcCompat="@drawable/ic_add_shopping_cart_black_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
