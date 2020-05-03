@@ -127,6 +127,7 @@ public class OtherActivity extends AppCompatActivity {
                 mEditor.apply();
 
                 Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
+                homepageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 homepageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(homepageIntent);//faccio il logout e ritorna alla Home
                 finish();
