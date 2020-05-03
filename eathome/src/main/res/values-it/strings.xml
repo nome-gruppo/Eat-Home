@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Eat Home</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="menu_settings">Impostazioni</string>
-    <string name="btn_search">Cerca</string>
-    <string name="menu_orders">Ordini</string>
-    <string name="menu_booking">Prenotazioni</string>
-    <string name="btn_signin">REGISTRATI</string>
-    <string name="txt_registration">Registrazione</string>
+
     <string name="placeName">Inserisci nome attività</string>
-    <string name="placeAdress">Inserisci indirizzo</string>
-    <string name="placePhone">Inserisci numero di telefono</string>
-    <string name="placeMail">Inserisci indirizzo mail</string>
-    <string name="placePassword">Inserisci password</string>
-    <string name="placeCity">Inserisci città</string>
-    <string name="addressNumberPlace">Inserisci numero civico</string>
+    <string name="enterAddress">Inserisci indirizzo</string>
+    <string name="enterPhone">Inserisci numero di telefono</string>
+    <string name="enterEmail">Inserisci indirizzo mail</string>
+    <string name="enterPassword">Inserisci password</string>
+    <string name="enterCity">Inserisci città</string>
+    <string name="enterAddressNumber">Inserisci numero civico</string>
     <string name="pizzeria">Pizzeria</string>
     <string name="italianRestaurant">Ristorante italiano</string>
     <string name="sushi">Sushi</string>
@@ -30,13 +20,10 @@
     <string name="btn_go">Vai</string>
     <string name="ciSiamo">Ci siamo quasi</string>
     <string name="tw_signUp">Registrati</string>
-    <string name="title_activity_login">Accedi</string>
     <string name="action_sign_in">Accedi</string>
     <string name="action_sign_in_short">Accedi</string>
     <string name="welcome">Benvenuto!</string>
-    <string name="invalid_username">Username non valido</string>
     <string name="invalid_password">La password deve essere più lunda di 6 caratteri</string>
-    <string name="login_failed">Accesso fallito</string>
     <string name="tw_restaurantOwner">"Sei il titolare di un ristorante? Registrati qui "</string>
     <string name="pizzeriaRestaurant">Ristorante-pizzeria</string>
     <string name="name">Inserisci nome</string>
@@ -55,7 +42,7 @@
     <string name="tot_order">Totale ordine</string>
     <string name="tot_delivery">Costi di spedizione</string>
     <string name="total">Totale</string>
-    <string name="confirm_order">Conferma</string>
+    <string name="confirm">Conferma</string>
     <string name="are_you_sure">Sei sicuro di voler confermare?</string>
     <string name="choose_time">Seleziona ora di consegna</string>
     <string name="no_booking">Spiacenti! Non ci sono prenotazioni</string>
@@ -86,7 +73,7 @@
     <string name="need_data">Bisogna impostare prima una data</string>
     <string name="invalid_date">Il locale è chiuso nella data selezionata</string>
     <string name="invalid_time">Il locale è chiuso nell\'ora selezionata</string>
-    <string name="reservetion_confirmed">Prenotazione confermata</string>
+    <string name="reservation_confirmed">Prenotazione confermata</string>
     <string name="order_confirm">Order confirm</string>
     <string name="invalid_order">Il carello è vuoto</string>
     <string name="show_cart">Mostra carello</string>
@@ -106,6 +93,7 @@
     <string name="success_save">Informazioni modificate con successo</string>
     <string name="no_change">Nessuna modifica effettuata</string>
     <string name="edit">Modifica</string>
-
+    <string name="authenticationFailed">Autenticazione fallita</string>
+    <string name="insertEmailToEnter">Inserisci la tua email per continuare</string>
 
 </resources>

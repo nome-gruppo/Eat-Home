@@ -120,7 +120,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     private void openDialogConfirm(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle(this.getResources().getString(R.string.confirm_order));
+        builder.setTitle(this.getResources().getString(R.string.confirm));
         builder.setMessage(this.getResources().getString(R.string.are_you_sure));
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override

@@ -75,12 +75,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         food=new Food();
 
-        txtNamePlace= findViewById(R.id.txtNamePlace);
+        txtNamePlace= findViewById(R.id.place_homepage_txtNamePlace);
         txtNamePlace.setText(place.namePlace);
-        btnAddMenu= findViewById(R.id.btnAddMenu);
-        listViewMenu= findViewById(R.id.listMenu);
+        btnAddMenu= findViewById(R.id.place_homepage_btnAddMenu);
+        listViewMenu= findViewById(R.id.place_homepage_listMenu);
         bottomMenuPlace=  findViewById(R.id.bottom_navigationPlace);
-        imgPlace= findViewById(R.id.placeImg);
+        imgPlace= findViewById(R.id.place_homepage_placeImg);
         listFood=new LinkedList<>();
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
         listViewMenu.setAdapter(mAdapter);

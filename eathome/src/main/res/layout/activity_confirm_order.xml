@@ -160,7 +160,7 @@
         android:ems="10"
         android:layout_marginVertical="20dp"
         android:layout_gravity="center"
-        android:hint="@string/placePhone"
+        android:hint="@string/enterPhone"
         android:inputType="phone" />
 
     <Button
@@ -181,7 +181,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="20dp"
         android:background="@drawable/button_border"
-        android:text="@string/confirm_order" />
+        android:text="@string/confirm" />
 
         </LinearLayout>
 

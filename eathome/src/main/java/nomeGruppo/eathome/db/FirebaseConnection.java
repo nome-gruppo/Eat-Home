@@ -93,6 +93,7 @@ public class FirebaseConnection {
                         final Client client = dataSnapshot.getValue(Client.class);
                         final Intent intent = new Intent(activity, HomepageActivity.class);
                         intent.putExtra(CLIENT, client);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                         activity.startActivity(intent);
@@ -109,6 +110,7 @@ public class FirebaseConnection {
                         final Place place = dataSnapshot.getValue(Place.class);
                         final Intent intent = new Intent(activity, PlaceHomeActivity.class);
                         intent.putExtra(PLACE, place);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         activity.startActivity(intent);
                         activity.finish();
