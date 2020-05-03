@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Locale;
 
 import nomeGruppo.eathome.OtherActivity;
+import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
@@ -93,6 +94,8 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         final RatingBar ratingBar = findViewById(R.id.activity_place_info_ratingBar);
         final TextView numFeedbackTW = findViewById(R.id.activity_place_info_numFeedback);
 
+        final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+
         ratingBar.setRating(place.valuation);
 
         numFeedbackTW.setText(place.numberReview + " recensioni");
@@ -135,6 +138,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onClick(View view) {
                 Intent orderActivity=new Intent(PlaceInfoActivity.this, PlaceListFoodOrderActivity.class);
+                orderActivity.putExtra(FirebaseConnection.CLIENT, client);
                 orderActivity.putExtra(FirebaseConnection.PLACE,place);
                 startActivity(orderActivity);
             }
@@ -147,6 +151,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
                 if(user != null) {//se l'utente è loggato
                     Intent bookingActivity = new Intent(PlaceInfoActivity.this,ConfirmBookingActivity.class);
                     bookingActivity.putExtra(FirebaseConnection.PLACE,place);
+                    bookingActivity.putExtra(FirebaseConnection.CLIENT,client);
                     bookingActivity.putExtra("UserID",user.getUid());
                     startActivity(bookingActivity);//apri activity di conferma ordinazione
                 }else{//se l'utente non è loggato

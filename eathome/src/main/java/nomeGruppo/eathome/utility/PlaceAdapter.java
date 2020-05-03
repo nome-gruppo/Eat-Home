@@ -42,7 +42,7 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         Place place = getItem(position);
         title.setText(place.namePlace);
         type.setText(place.categories);
-        address.setText(place.cityPlace+" "+place.addressPlace+", "+place.addressNumPlace);
+        address.setText(place.cityPlace+", "+place.addressPlace+", "+place.addressNumPlace);
 
         ratingBar.setRating(place.valuation);
 
