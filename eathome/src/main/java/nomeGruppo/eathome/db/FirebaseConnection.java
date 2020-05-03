@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.actors.Client;
@@ -105,8 +106,10 @@ public class FirebaseConnection {
                         }else{
                             final Intent intent = new Intent();
                             final Place place = (Place) activity.getIntent().getSerializableExtra(PLACE);
+                            final Order order = (Order) activity.getIntent().getSerializableExtra(ORDER);
                             intent.putExtra(PLACE, place);
                             intent.putExtra(CLIENT, client);
+                            intent.putExtra(ORDER, order);
                             activity.setResult(Activity.RESULT_OK, intent);
                             activity.finish();
                         }
