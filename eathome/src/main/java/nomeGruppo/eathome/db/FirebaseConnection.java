@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.actors.Client;
@@ -39,10 +40,8 @@ public class FirebaseConnection {
     public static final String FOOD_TABLE = "Foods";
     public static final String BOOKING_TABLE = "Bookings";
     public static final String FEEDBACK_TABLE = "Feedback";
-    public static final String LOGIN_FLAG = "Login from another activity"; //flag per controllare se l'activity login è stata chiamata da un'altra activity
 
-    //stringhe utilizzate negli intent
-    public static final String LOGGED_FLAG = "Logged";
+    //stringhe usate negli intent
     public static final String PLACE = "Place";
     public static final String CLIENT = "Client";
     public static final String ORDER = "Order";
@@ -95,16 +94,8 @@ public class FirebaseConnection {
                         intent.putExtra(CLIENT, client);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
                         activity.startActivity(intent);
                         activity.finish();
-
-//                        if (activity.getIntent().getBooleanExtra(FirebaseConnection.LOGIN_FLAG, false)) {
-//                            activity.finish();
-//                        } else {
-//                            activity.startActivity(intent);
-//                            activity.finish();
-//                        }
 
                     } else { //ricerca nel nodo places
                         final Place place = dataSnapshot.getValue(Place.class);
@@ -187,14 +178,14 @@ public class FirebaseConnection {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(activity, "Email modificata correttamente", Toast.LENGTH_LONG).show();
+                                Toast.makeText(activity, activity.getString(R.string.emailChangedCorrectly), Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(activity, "Non è stato possibile cambiare la mail", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(activity, "Email già presente", Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, activity.getString(R.string.emailAlreadyExists), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -265,7 +256,8 @@ public class FirebaseConnection {
                                     dataSnapshot.getRef().removeValue();
 
                                     Intent homeIntent = new Intent(activity, HomepageActivity.class);
-                                    homeIntent.putExtra(FirebaseConnection.LOGIN_FLAG, false);
+                                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     activity.startActivity(homeIntent);
                                     activity.finish();
                                 }

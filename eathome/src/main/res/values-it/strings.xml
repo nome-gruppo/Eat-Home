@@ -94,8 +94,15 @@
     <string name="no_change">Nessuna modifica effettuata</string>
     <string name="edit">Modifica</string>
     <string name="authenticationFailed">Autenticazione fallita</string>
-    <string name="insertEmailToEnter">Inserisci la tua email per continuare</string>
-    <string name="today">Oggi</string>
-    <string name="previous">Precedenti</string>
-
+    <string name="enterEmailToContinue">Inserisci la tua email per continuare</string>
+    <string name="enterOldPasswordToChangeEmail">Inserisci la vecchia password per cambiare la tua mail</string>
+    <string name="incorrectPasswordFormat">Formato password non corretto</string>
+    <string name="emailChangedCorrectly">Email cambiata correttamente</string>
+    <string name="notValidEmail">Email non valida</string>
+    <string name="incorrectPassword">Password non corretta</string>
+    <string name="enteredDifferentPasswords">Inserite password diverse</string>
+    <string name="oldIncorrectPassword">Vecchia password non corretta</string>
+    <string name="phoneNumberChangedCorrectly">Numero di telefono cambiato correttamente</string>
+    <string name="notValidPhoneNumber">Numero di telefono non valido</string>
+    <string name="emailAlreadyExists">Email già esistente</string>
 </resources>

@@ -100,9 +100,17 @@
     <string name="no_change">No change</string>
     <string name="edit">Edit</string>
     <string name="euro" translatable="false">€ %.02f</string>
-    <string name="authenticationFailed">Authentication Failed</string>
-    <string name="insertEmailToEnter">Insert your email to enter</string>
-    <string name="today">Today</string>
-    <string name="previous">Previous</string>
 
+    <string name="authenticationFailed">Authentication Failed</string>
+    <string name="enterEmailToContinue">Enter your email to continue</string>
+    <string name="enterOldPasswordToChangeEmail">Enter old password to change your email</string>
+    <string name="incorrectPasswordFormat">Incorrect password format</string>
+    <string name="emailChangedCorrectly">Email changed correctly</string>
+    <string name="notValidEmail">Not valid email</string>
+    <string name="incorrectPassword">Incorrect password</string>
+    <string name="enteredDifferentPasswords">Entered different passwords</string>
+    <string name="oldIncorrectPassword">Old incorrect password</string>
+    <string name="phoneNumberChangedCorrectly">Phone number changed correctly</string>
+    <string name="notValidPhoneNumber">Not valid phone number</string>
+    <string name="emailAlreadyExists">Email already exists</string>
 </resources>

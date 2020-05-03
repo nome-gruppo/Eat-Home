@@ -98,7 +98,6 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
                     }
                 }else{//se l'utente non è loggato
                     Intent loginIntent = new Intent(PlaceListFoodOrderActivity.this, LoginActivity.class);
-                    loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);
                     startActivity(loginIntent);//apri login
                 }
             }

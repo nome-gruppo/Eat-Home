@@ -51,6 +51,8 @@ public class ClientProfileActivity extends AppCompatActivity {
 
     private boolean edit = false; //flag per controllare se qualche campo è stato modificato
 
+    private boolean editFinished;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,11 +94,7 @@ public class ClientProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(edit){
-                    FirebaseConnection connection = new FirebaseConnection();
-                    connection.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
-
-                    Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();
-
+                    editFinished = true;
                     Intent otherActivityIntent=new Intent(ClientProfileActivity.this, OtherActivity.class);
                     otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
                     startActivity(otherActivityIntent);
@@ -138,6 +136,20 @@ public class ClientProfileActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(editFinished){
+            FirebaseConnection connection = new FirebaseConnection();
+            connection.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
+
+            Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
     public void initEditTextsListeners() {
 
         nameEt.addTextChangedListener(new TextWatcher() {
@@ -169,7 +181,7 @@ public class ClientProfileActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Toast.makeText(ClientProfileActivity.this, "Inserisci anche il campo vecchia password per cambiare la mail", Toast.LENGTH_LONG).show();
+                Toast.makeText(ClientProfileActivity.this, getResources().getString(R.string.enterOldPasswordToChangeEmail), Toast.LENGTH_LONG).show();
 
             }
 
@@ -191,14 +203,13 @@ public class ClientProfileActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Toast.makeText(ClientProfileActivity.this, "Inserisci anche il campo mail per cambiare la password", Toast.LENGTH_LONG).show();
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
                 if ((passwordConfirmEt.getText().length() == 0) && (oldPasswordEt.getText().length() == 0)
-                        && (passwordEt.getText().length() == 0) && (emailEt.getText().toString().trim().length() == 0)) {
+                        && (passwordEt.getText().length() == 0)) {
                     passwordBtn.setClickable(false);
                 } else {
                     passwordBtn.setClickable(true);
@@ -244,8 +255,8 @@ public class ClientProfileActivity extends AppCompatActivity {
         emailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = emailEt.getText().toString().trim();
-                String oldPassword = oldPasswordEt.getText().toString();
+                final String email = emailEt.getText().toString().trim();
+                final String oldPassword = oldPasswordEt.getText().toString();
 
                 connection.reauthenticateUser(user, email, oldPassword);
 
@@ -254,33 +265,32 @@ public class ClientProfileActivity extends AppCompatActivity {
                     //controllo validità formato mail
                     if (controls.isEmailValid(email)) {
 
+                        //cambia email in firebase authentication
                         connection.updateEmail(mAuth, user, email, ClientProfileActivity.this);
 
-                        //controllo se l'email è stata cambiata, allora modifica le informazioni da inserire nel database database
+                        //controllo se l'email è stata cambiata, allora modifica le informazioni da inserire nel database
                         if (email.equals(user.getEmail())) {
                             client.emailClient = email;
                             edit = true;
-                            Toast.makeText(ClientProfileActivity.this, "Email cambiata correttamente", Toast.LENGTH_LONG).show();
                         }
 
                     } else {
-                        Toast.makeText(ClientProfileActivity.this, "Email non valida", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ClientProfileActivity.this, getString(R.string.notValidEmail), Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(ClientProfileActivity.this, "Password non corretta", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ClientProfileActivity.this, getString(R.string.incorrectPassword), Toast.LENGTH_LONG).show();
                 }
             }
         });
 
         passwordBtn.setOnClickListener(new View.OnClickListener() {
-            String email = emailEt.getText().toString().trim();
             String oldPassword = oldPasswordEt.getText().toString();
             String newPassword = passwordEt.getText().toString();
             String confirmPassword = passwordConfirmEt.getText().toString();
 
             @Override
             public void onClick(View view) {
-                connection.reauthenticateUser(user, email, oldPassword);
+                connection.reauthenticateUser(user, user.getEmail(), oldPassword);
 
                 //controllo riautenticazione utente
                 if (connection.getOperationSuccess()){
@@ -295,13 +305,13 @@ public class ClientProfileActivity extends AppCompatActivity {
                                 edit = true;
                             }
                         }else{
-                            Toast.makeText(ClientProfileActivity.this, "Formato password non corrette", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ClientProfileActivity.this, getString(R.string.incorrectPasswordFormat), Toast.LENGTH_LONG).show();
                         }
                     }else{
-                        Toast.makeText(ClientProfileActivity.this, "Le password non sono corrette", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ClientProfileActivity.this, getString(R.string.enteredDifferentPasswords), Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(ClientProfileActivity.this, "Email non corretta", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ClientProfileActivity.this, getString(R.string.oldIncorrectPassword), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -313,9 +323,9 @@ public class ClientProfileActivity extends AppCompatActivity {
                 if(controls.isPhoneValid(phoneEt.getText().toString().trim())){
                     client.setPhoneClient(phoneEt.getText().toString().trim());
                     edit = true;
-                    Toast.makeText(ClientProfileActivity.this, "Telefono cambiato correttamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientProfileActivity.this, getString(R.string.phoneNumberChangedCorrectly), Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(ClientProfileActivity.this, "Telefono non valido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientProfileActivity.this, getString(R.string.notValidPhoneNumber), Toast.LENGTH_SHORT).show();
                 }
             }
         });

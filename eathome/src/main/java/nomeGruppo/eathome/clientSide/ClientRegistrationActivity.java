@@ -60,7 +60,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         emailClientET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         passwordClientET =  findViewById(R.id.editPasswordClient);
         passwordClientET.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        final Button signInBtn = findViewById(R.id.btnSigninClient);
+        final Button signInBtn = findViewById(R.id.btnSignInClient);
         statusTV =  findViewById(R.id.activity_client_registration_tw_status);
 
         //se l'utente clicca sul bottone registrati

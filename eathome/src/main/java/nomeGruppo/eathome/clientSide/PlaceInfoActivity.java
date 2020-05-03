@@ -151,7 +151,6 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
                     startActivity(bookingActivity);//apri activity di conferma ordinazione
                 }else{//se l'utente non è loggato
                     Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
-                    loginIntent.putExtra(FirebaseConnection.LOGIN_FLAG, true);
                     startActivity(loginIntent);//apri login
                 }
             }
