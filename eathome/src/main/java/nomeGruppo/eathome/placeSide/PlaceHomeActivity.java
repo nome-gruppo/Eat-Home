@@ -61,7 +61,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private List<Food> listFood;
     private MyMenuAdapter mAdapter;
     private FloatingActionButton btnAddMenu;
-    private String imgPath;
+    private boolean changeImg=false;
     private BottomNavigationView bottomMenuPlace;
     private Food food;
     private MenuNavigationItemSelected menuNavigationItemSelected;
@@ -117,18 +117,20 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onStart();
         listFood.clear();
 
-        StorageConnection storageConnection=new StorageConnection();//apro la connessione allo Storage di Firebase
-        StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
+        if(!changeImg) {//se l'immagine non è stata appena cambiata
+            StorageConnection storageConnection = new StorageConnection();//apro la connessione allo Storage di Firebase
+            StorageReference storageReference = storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
 
-        //metodo di lettura immagine tramite byte
-        storageReference.getBytes(PICT_SIZE_MAX * PICT_SIZE_MAX)
-                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                        imgPlace.setImageBitmap(bitmap);
-                    }
-                });
+            //metodo di lettura immagine tramite byte
+            storageReference.getBytes(PICT_SIZE_MAX * PICT_SIZE_MAX)
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            imgPlace.setImageBitmap(bitmap);
+                        }
+                    });
+        }
 
         final FirebaseConnection firebaseConnection=new FirebaseConnection();
 
@@ -176,6 +178,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             bitmap.compress(Bitmap.CompressFormat.JPEG,10,stream);//comprimo l'immagine
 
             imgPlace.setImageBitmap(bitmap);//assegno l'immagine come copertina della home
+            changeImg=true;//imposto che l'immagine è stata appena cambiata
 
             StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
             storage.uploadImageBitmap(stream,place.idPlace);//inserisco l'immagine nello storage
