@@ -218,14 +218,14 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
     private void openDialogConfirm(){//dialog  di conferma
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle(this.getResources().getString(R.string.confirm_order));
+        builder.setTitle(this.getResources().getString(R.string.confirm));
         builder.setMessage(this.getResources().getString(R.string.are_you_sure));
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(addBookingFirebase()){//se la prenotazione è stata inserita correttamente nel database
                     //mostra messaggio
-                    Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.reservetion_confirmed),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.reservation_confirmed),Toast.LENGTH_SHORT).show();
                     Intent homePage=new Intent(ConfirmBookingActivity.this, HomepageActivity.class);
                     startActivity(homePage);//apro la homepage
                     finish();

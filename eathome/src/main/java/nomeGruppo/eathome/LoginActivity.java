@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseConnection connection = new FirebaseConnection();
                 if(emailET.getText() == null) {
-                    Toast.makeText(getApplicationContext(), "Inserisci la tua mail per continuare", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.insertEmailToEnter), Toast.LENGTH_LONG).show();
                 }else{
                     connection.resetPassword(mAuth, emailET.getText().toString().trim(), LoginActivity.this);
                 }
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.INVISIBLE);
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.authenticationFailed), Toast.LENGTH_SHORT).show();
                         }
 
                     }

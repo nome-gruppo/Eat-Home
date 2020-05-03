@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
-import nomeGruppo.eathome.clientSide.profile.MyAddressesActivity;
 import nomeGruppo.eathome.db.DBOpenHelper;
 
 
@@ -133,7 +132,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         editAddress.setText(addressObj.getAddress());
         editNumberAddress.setText(addressObj.getNumberAddress());
 
-        builder.setView(view).setTitle(getContext().getResources().getString(R.string.placeAdress)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle(getContext().getResources().getString(R.string.enterAddress)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Address newAddress=new Address(addressObj.getIdAddress(),editAddress.getText().toString(),editNumberAddress.getText().toString(),editCity.getText().toString());
