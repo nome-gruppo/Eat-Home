@@ -102,5 +102,7 @@
     <string name="euro" translatable="false">€ %.02f</string>
     <string name="authenticationFailed">Authentication Failed</string>
     <string name="insertEmailToEnter">Insert your email to enter</string>
+    <string name="today">Today</string>
+    <string name="previous">Previous</string>
 
 </resources>

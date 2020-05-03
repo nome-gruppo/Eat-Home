@@ -95,5 +95,7 @@
     <string name="edit">Modifica</string>
     <string name="authenticationFailed">Autenticazione fallita</string>
     <string name="insertEmailToEnter">Inserisci la tua email per continuare</string>
+    <string name="today">Oggi</string>
+    <string name="previous">Precedenti</string>
 
 </resources>

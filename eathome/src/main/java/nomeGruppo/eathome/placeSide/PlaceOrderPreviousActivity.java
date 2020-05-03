@@ -5,20 +5,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,34 +32,33 @@ import nomeGruppo.eathome.utility.DialogListFoodOrder;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.PlaceOrderAdapter;
 
-public class PlaceOrderInfoActivity extends AppCompatActivity {
+public class PlaceOrderPreviousActivity extends AppCompatActivity {
 
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
     private BottomNavigationView bottomMenuPlace;
-    private ListView listViewOrderInfo;
-    private List<Order> listOrder;
+    private ListView listViewOrderPrevious;
+    private List<Order>listOrderPrevious;
     private PlaceOrderAdapter placeOrderAdapter;
     private TabLayout tabLayout;
-    private ImageButton restore;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_place_order_info);
+        setContentView(R.layout.activity_place_order_previous);
 
         this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-
         this.menuNavigationItemSelected=new MenuNavigationItemSelected();
-        this.bottomMenuPlace=findViewById(R.id.bottom_navigationPlaceOrderInfo);
-        this.listViewOrderInfo=findViewById(R.id.listViewPlaceOrderInfo);
-        this.restore=findViewById(R.id.btnRestore);
-        this.listOrder=new LinkedList<>();
-        this.placeOrderAdapter=new PlaceOrderAdapter(this,R.layout.listitem_order_info,listOrder);
+        this.bottomMenuPlace=findViewById(R.id.bottom_navigationPlaceOrderPrevious);
+        this.listViewOrderPrevious=findViewById(R.id.listViewPlaceOrderPrevious);
+        this.listOrderPrevious=new LinkedList<>();
+        this.placeOrderAdapter=new PlaceOrderAdapter(this,R.layout.listitem_order_info,listOrderPrevious);
 
+        this.tabLayout=findViewById(R.id.tabLayoutPlaceOrderPrevious);
 
+        this.tabLayout.selectTab(this.tabLayout.getTabAt(1));
 
-        this.tabLayout=findViewById(R.id.tabLayoutPlaceOrderInfo);
 
         this.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -74,12 +67,12 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
                 // Switch to view for this tab
                 switch (position){
                     case 0:
-                        Intent orderInfoToday=new Intent(PlaceOrderInfoActivity.this,PlaceOrderInfoActivity.class);
+                        Intent orderInfoToday=new Intent(PlaceOrderPreviousActivity.this,PlaceOrderInfoActivity.class);
                         orderInfoToday.putExtra(FirebaseConnection.PLACE,place);
                         startActivity(orderInfoToday);
                         break;
                     case 1:
-                        Intent orderInfoPrevious=new Intent(PlaceOrderInfoActivity.this,PlaceOrderPreviousActivity.class);
+                        Intent orderInfoPrevious=new Intent(PlaceOrderPreviousActivity.this,PlaceOrderPreviousActivity.class);
                         orderInfoPrevious.putExtra(FirebaseConnection.PLACE,place);
                         startActivity(orderInfoPrevious);
                         break;
@@ -97,26 +90,18 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
             }
         });
 
-
         this.bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return menuNavigationItemSelected.menuNavigationPlace(item,place,PlaceOrderInfoActivity.this);
+                return menuNavigationItemSelected.menuNavigationPlace(item,place,PlaceOrderPreviousActivity.this);
             }
         });
 
-        this.listViewOrderInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        this.listViewOrderPrevious.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Order order=(Order)adapterView.getItemAtPosition(i);
                 showDialogListFood(order);
-            }
-        });
-
-        this.restore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadOrder();
             }
         });
     }
@@ -130,7 +115,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
     }
 
     private void loadOrder(){
-        listOrder.clear();
+        listOrderPrevious.clear();
 
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");//imposto il formato della data
         final Date curDate=new Date();
@@ -147,15 +132,15 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        if (curDate.compareTo(dateOrder) < 1) {
-                            listOrder.add(order);
+                        if (curDate.compareTo(dateOrder) >= 1) {
+                            listOrderPrevious.add(order);
                         }else{
-                            Toast.makeText(PlaceOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_LONG).show();
+                            Toast.makeText(PlaceOrderPreviousActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_LONG).show();
                         }
                         placeOrderAdapter.notifyDataSetChanged();
                     }
                 }else{
-                    Toast.makeText(PlaceOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_LONG).show();
+                    Toast.makeText(PlaceOrderPreviousActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -170,4 +155,5 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
         DialogListFoodOrder dialogListFoodOrder=new DialogListFoodOrder(order);
         dialogListFoodOrder.show(getSupportFragmentManager(),"Dialog list food");
     }
+
 }
