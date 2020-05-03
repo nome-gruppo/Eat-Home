@@ -42,6 +42,7 @@ public class FirebaseConnection {
     public static final String FEEDBACK_TABLE = "Feedback";
 
     //stringhe usate negli intent
+    public final static String FROM_ANOTHER_ACTIVITY  = "fromActivity";
     public static final String PLACE = "Place";
     public static final String CLIENT = "Client";
     public static final String ORDER = "Order";
@@ -78,6 +79,8 @@ public class FirebaseConnection {
      */
     public void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
 
+        final boolean fromAnotherActivity = activity.getIntent().getBooleanExtra(FROM_ANOTHER_ACTIVITY ,false);
+
         mDatabase.child(node).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -90,12 +93,25 @@ public class FirebaseConnection {
                     //ricerca nel nodo clienti
                     if (node.equals(FirebaseConnection.CLIENT_TABLE)) {
                         final Client client = dataSnapshot.getValue(Client.class);
-                        final Intent intent = new Intent(activity, HomepageActivity.class);
-                        intent.putExtra(CLIENT, client);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        activity.startActivity(intent);
-                        activity.finish();
+
+
+                        if(!fromAnotherActivity){
+                            final Intent intent = new Intent(activity, HomepageActivity.class);
+                            intent.putExtra(CLIENT, client);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            activity.startActivity(intent);
+                            activity.finish();
+                        }else{
+                            final Intent intent = new Intent();
+                            final Place place = (Place) activity.getIntent().getSerializableExtra(PLACE);
+                            intent.putExtra(PLACE, place);
+                            intent.putExtra(CLIENT, client);
+                            activity.setResult(Activity.RESULT_OK, intent);
+                            activity.finish();
+                        }
+
+
 
                     } else { //ricerca nel nodo places
                         final Place place = dataSnapshot.getValue(Place.class);

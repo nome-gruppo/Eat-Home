@@ -65,33 +65,33 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
 
-        this.order=(Order)getIntent().getSerializableExtra(FirebaseConnection.ORDER);
-        this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        this.openingTimeUtility=new OpeningTime();
+        this.order = (Order) getIntent().getSerializableExtra(FirebaseConnection.ORDER);
+        this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        this.openingTimeUtility = new OpeningTime();
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getReadableDatabase();
 
-        this.txtTotOrder=findViewById(R.id.txtTotOrder);
-        this.txtTotDelivery=findViewById(R.id.txtDeliveryCostOrder);
-        this.txtTotal=findViewById(R.id.txtTotal);
-        this.txtAddressOrder=findViewById(R.id.txtAddressOrder);
+        this.txtTotOrder = findViewById(R.id.txtTotOrder);
+        this.txtTotDelivery = findViewById(R.id.txtDeliveryCostOrder);
+        this.txtTotal = findViewById(R.id.txtTotal);
+        this.txtAddressOrder = findViewById(R.id.txtAddressOrder);
         this.txtTotOrder.setText(Float.toString(order.totalOrder));
         this.txtTotDelivery.setText(Float.toString(order.deliveryCost));
-        this.txtTotal.setText(Float.toString(order.totalOrder+order.deliveryCost));
+        this.txtTotal.setText(Float.toString(order.totalOrder + order.deliveryCost));
         this.txtAddressOrder.setText(order.addressOrder);
-        this.btnConfirm=findViewById(R.id.btnConfirmOrder);
-        this.editName=findViewById(R.id.editNameClientOrder);
-        this.editPhone=findViewById(R.id.editPhoneClientOrder);
-        this.chooseTime=findViewById(R.id.editChooseTime);
+        this.btnConfirm = findViewById(R.id.btnConfirmOrder);
+        this.editName = findViewById(R.id.editNameClientOrder);
+        this.editPhone = findViewById(R.id.editPhoneClientOrder);
+        this.chooseTime = findViewById(R.id.editChooseTime);
 
 
         //se l'utenten clicca sulla editText per scegliere l'ora
         this.chooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment timePicker=new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(),"Time picker");//apro il TimePicker
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "Time picker");//apro il TimePicker
             }
         });
 
@@ -100,10 +100,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
             @Override
             public void onClick(View view) {
                 //se non sono stati completati tutti i campi
-                if(editName.getText().toString().trim().length()==0||chooseTime.getText().toString()==getResources().getString(R.string.choose_time)||editPhone.getText().toString().trim().length()==0){
+                if (editName.getText().toString().trim().length() == 0 || chooseTime.getText().toString() == getResources().getString(R.string.choose_time) || editPhone.getText().toString().trim().length() == 0) {
                     //mostra messaggio
                     Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
-                }else{//se sono stati completati tutti i campi
+                } else {//se sono stati completati tutti i campi
                     openDialogConfirm();//apri il dialog di conferma
                 }
 
@@ -121,8 +121,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     }
 
-    private void openDialogConfirm(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+    private void openDialogConfirm() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
         builder.setTitle(this.getResources().getString(R.string.confirm));
@@ -130,14 +130,16 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                    addOrderFirebase();//dopo che l'ordine è stato inserito correttamente all'interno del database
-                    Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.order_confirm),Toast.LENGTH_SHORT).show();//mostra messaggio
-                    Intent homePage=new Intent(ConfirmOrderActivity.this, HomepageActivity.class);
-                    homePage.putExtra(FirebaseConnection.CLIENT,client);
+                addOrderFirebase();//dopo che l'ordine è stato inserito correttamente all'interno del database
+                Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.order_confirm), Toast.LENGTH_SHORT).show();//mostra messaggio
+                Intent homePage = new Intent(ConfirmOrderActivity.this, HomepageActivity.class);
+                homePage.putExtra(FirebaseConnection.CLIENT, client);
+                homePage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                homePage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    startActivity(homePage);//apri homepage
-                    finish();
-                }
+                startActivity(homePage);//apri homepage
+                finish();
+            }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -150,43 +152,43 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     }
 
-    private void addOrderFirebase(){
+    private void addOrderFirebase() {
         order.setNameClientOrder(editName.getText().toString());
         order.setPhoneClientOrder(editPhone.getText().toString());
         order.setTimeOrder(chooseTime.getText().toString());
         order.setDateOrder(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         order.timestampOrder = System.currentTimeMillis();   //momento in cui è stato realizzato l'ordine
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //prelevo la chiave assegnata in automatico da Firebase
         String idOrder = firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().getKey();
         order.setIdOrder(idOrder);
-        firebaseConnection.write(FirebaseConnection.ORDER_TABLE,idOrder,order);
+        firebaseConnection.write(FirebaseConnection.ORDER_TABLE, idOrder, order);
 
         //inserisco l'informazione dell'ordinazione nel db interno
-        mDBHelper.addInfo(mDB,order.idPlaceOrder, order.namePlaceOrder,new SimpleDateFormat("yyyy/MM/dd").format(new Date()), mUser.getUid());
+        mDBHelper.addInfo(mDB, order.idPlaceOrder, order.namePlaceOrder, new SimpleDateFormat("yyyy/MM/dd").format(new Date()), mUser.getUid());
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
         SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
         //leggo l'orario di apertura chiusura del locale
-        String openingTime=place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
-        Date  timeOpening=null;
-        Date timeClosed= null;
-        Date timeOrder=null;
+        String openingTime = place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
+        Date timeOpening = null;
+        Date timeClosed = null;
+        Date timeOrder = null;
         try {
-            timeOrder=parser.parse(hourOfDay+":"+minutes);
+            timeOrder = parser.parse(hourOfDay + ":" + minutes);
             timeClosed = openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'orario di chiusura
-            timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'orario di apertura
+            timeOpening = openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'orario di apertura
 
             //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
-            if(timeOrder.after(timeOpening)&&timeOrder.before(timeClosed)){
-                Button editChooseTime=findViewById(R.id.editChooseTime);
+            if (timeOrder.after(timeOpening) && timeOrder.before(timeClosed)) {
+                Button editChooseTime = findViewById(R.id.editChooseTime);
                 editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
-            }else{//se il locale è chiuso nell'ora selezionata
+            } else {//se il locale è chiuso nell'ora selezionata
                 //mostra messaggio
-                Toast.makeText(ConfirmOrderActivity.this,ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();
             }
         } catch (NullPointerException | ParseException e) {
             e.printStackTrace();
