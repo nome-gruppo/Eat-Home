@@ -37,7 +37,7 @@
 
     <ImageButton
         android:id="@+id/btnRestore"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:background="@color/colorPrimary"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lin"
-        app:layout_constraintVertical_bias="0.854"
+        app:layout_constraintVertical_bias="0.785"
         app:srcCompat="@drawable/ic_restore_black_24dp" />
 
     <LinearLayout

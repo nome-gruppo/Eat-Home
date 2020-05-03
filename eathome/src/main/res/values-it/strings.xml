@@ -105,7 +105,7 @@
     <string name="phoneNumberChangedCorrectly">Numero di telefono cambiato correttamente</string>
     <string name="notValidPhoneNumber">Numero di telefono non valido</string>
     <string name="emailAlreadyExists">Email già esistente</string>
-    <string name="today">Today</string>
-    <string name="previous">Previous</string>
+    <string name="today">Oggi</string>
+    <string name="previous">Precedenti</string>
 
 </resources>
