@@ -221,115 +221,35 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             }
         });
 
-
         editMonday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                // time picker dialog
-                picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
-                                editMonday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editTuesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editWednesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editThursday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editFriday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editSaturday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editSunday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                            }
-                        }, hour, minutes, true);
-                picker.show();
+                openingTimeUtility.setOpeningTime(PlaceOpeningTimeActivity.this,editMonday);
             }
         });
 
         editMondayClosed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String hourMonday=editMonday.getText().toString();
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                if(hourMonday.length()==LENGTH){//se l'orario di apertura è stato settato allora faccio partire l'orologio da questo orario
-                    hour=Integer.parseInt(hourMonday.substring(0,2));
-                    minutes=Integer.parseInt(hourMonday.substring(3));
-                }
-                // time picker dialog
-                picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
-                                editMondayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editTuesdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editWednesdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editThursdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editFridayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editSaturdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editSundayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                            }
-                        }, hour, minutes, true);
-                picker.show();
+                openingTimeUtility.setOpeningTimeClose(PlaceOpeningTimeActivity.this,editMonday,editMondayClosed);
             }
         });
 
-        editTuesday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                // time picker dialog
-                picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
-                                editTuesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editWednesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editThursday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editFriday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editSaturday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editSunday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                            }
-                        }, hour, minutes, true);
-                picker.show();
-            }
-        });
+       editTuesday.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               openingTimeUtility.setOpeningTime(PlaceOpeningTimeActivity.this,editTuesday);
+           }
+       });
 
         editTuesdayClosed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String hourMonday=editTuesday.getText().toString();
-                final Calendar cldr = Calendar.getInstance();
-                int hour = cldr.get(Calendar.HOUR_OF_DAY);
-                int minutes = cldr.get(Calendar.MINUTE);
-                if(hourMonday.length()==LENGTH){//se l'orario di apertura è stato settato allora faccio partire l'orologio da questo orario
-                    hour=Integer.parseInt(hourMonday.substring(0,2));
-                    minutes=Integer.parseInt(hourMonday.substring(3));
-                }
-                // time picker dialog
-                picker = new TimePickerDialog(PlaceOpeningTimeActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
-                                editTuesdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editWednesdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editThursdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editFridayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editSaturdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                                editSundayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-                            }
-                        }, hour, minutes, true);
-                picker.show();
+                openingTimeUtility.setOpeningTimeClose(PlaceOpeningTimeActivity.this,editTuesday,editTuesdayClosed);
             }
         });
 
+        
         editWednesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
