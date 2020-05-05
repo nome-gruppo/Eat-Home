@@ -235,6 +235,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
                                 //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
                                 editMonday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editTuesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
                                 editWednesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
                                 editThursday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
                                 editFriday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
@@ -414,6 +415,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
               place.setOpeningTime(putOpeningTime(openingTime));
+              Toast.makeText(PlaceOpeningTimeActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();
               Intent otherActivity=new Intent(PlaceOpeningTimeActivity.this, OtherActivity.class);
               otherActivity.putExtra(FirebaseConnection.PLACE,place);
               startActivity(otherActivity);
