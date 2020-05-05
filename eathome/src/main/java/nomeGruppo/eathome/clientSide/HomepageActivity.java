@@ -408,7 +408,7 @@ public class HomepageActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                //something
             }
         });
 
@@ -422,7 +422,7 @@ public class HomepageActivity extends AppCompatActivity {
 
 
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                List<Address> list = null;
+                List<Address> list;
 
                 try {
                     list = geocoder.getFromLocationName(addressesBar.getText().toString(), 1);
@@ -430,9 +430,9 @@ public class HomepageActivity extends AppCompatActivity {
                     userCity = list.get(0).getLocality();
 
                     search(userCity);
-                } catch (IOException e) {
+                } catch (IndexOutOfBoundsException | IOException e) {
 
-                    Toast.makeText(getApplicationContext(), "Località non trovata", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.locationNotFound), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
 
                 }

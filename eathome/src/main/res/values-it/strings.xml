@@ -107,5 +107,6 @@
     <string name="emailAlreadyExists">Email già esistente</string>
     <string name="today">Today</string>
     <string name="previous">Previous</string>
+    <string name="locationNotFound">Località non trovata</string>
 
 </resources>

@@ -115,5 +115,6 @@
     <string name="emailAlreadyExists">Email already exists</string>
     <string name="today">Today</string>
     <string name="previous">Previous</string>
+    <string name="locationNotFound">Location not found</string>
 
 </resources>
