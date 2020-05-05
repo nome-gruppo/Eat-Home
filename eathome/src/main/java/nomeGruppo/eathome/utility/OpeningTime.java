@@ -34,7 +34,8 @@ public class OpeningTime {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                        edit.setText(sHour + SPLIT + sMinute);
+                        //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
+                        edit.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
 
                     }
                 }, hour, minutes, true);
@@ -55,7 +56,8 @@ public class OpeningTime {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                        editClosed.setText(sHour + SPLIT + sMinute);
+                        //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
+                        editClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
                     }
                 }, hour, minutes, true);
         picker.show();

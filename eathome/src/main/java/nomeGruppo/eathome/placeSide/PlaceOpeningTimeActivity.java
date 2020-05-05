@@ -233,12 +233,13 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editMonday.setText(sHour + SPLIT + sMinute);
-                                editWednesday.setText(sHour + SPLIT + sMinute);
-                                editThursday.setText(sHour + SPLIT + sMinute);
-                                editFriday.setText(sHour + SPLIT + sMinute);
-                                editSaturday.setText(sHour + SPLIT + sMinute);
-                                editSunday.setText(sHour + SPLIT + sMinute);
+                                //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
+                                editMonday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editWednesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editThursday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editFriday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editSaturday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editSunday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
                             }
                         }, hour, minutes, true);
                 picker.show();
@@ -261,13 +262,14 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editMondayClosed.setText(sHour + SPLIT + sMinute);
-                                editTuesdayClosed.setText(sHour + SPLIT + sMinute);
-                                editWednesdayClosed.setText(sHour + SPLIT + sMinute);
-                                editThursdayClosed.setText(sHour + SPLIT + sMinute);
-                                editFridayClosed.setText(sHour + SPLIT + sMinute);
-                                editSaturdayClosed.setText(sHour + SPLIT + sMinute);
-                                editSundayClosed.setText(sHour + SPLIT + sMinute);
+                                //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
+                                editMondayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editTuesdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editWednesdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editThursdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editFridayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editSaturdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editSundayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
                             }
                         }, hour, minutes, true);
                 picker.show();
@@ -285,12 +287,13 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editTuesday.setText(sHour + SPLIT + sMinute);
-                                editWednesday.setText(sHour + SPLIT + sMinute);
-                                editThursday.setText(sHour + SPLIT + sMinute);
-                                editFriday.setText(sHour + SPLIT + sMinute);
-                                editSaturday.setText(sHour + SPLIT + sMinute);
-                                editSunday.setText(sHour + SPLIT + sMinute);
+                                //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
+                                editTuesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editWednesday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editThursday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editFriday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editSaturday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editSunday.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
                             }
                         }, hour, minutes, true);
                 picker.show();
@@ -313,12 +316,13 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                editTuesdayClosed.setText(sHour + SPLIT + sMinute);
-                                editWednesdayClosed.setText(sHour + SPLIT + sMinute);
-                                editThursdayClosed.setText(sHour + SPLIT + sMinute);
-                                editFridayClosed.setText(sHour + SPLIT + sMinute);
-                                editSaturdayClosed.setText(sHour + SPLIT + sMinute);
-                                editSundayClosed.setText(sHour + SPLIT + sMinute);
+                                //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
+                                editTuesdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editWednesdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editThursdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editFridayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editSaturdayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                                editSundayClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
                             }
                         }, hour, minutes, true);
                 picker.show();
@@ -419,16 +423,6 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//
-//
-//
-//        //assegno come chiave del db l'user id generato da Firebase Authentication
-//
-//    }
-
     //TODO controlla se si può mettere in onStop
     @Override
     protected void onPause() {
@@ -437,7 +431,6 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
         db.write(FirebaseConnection.PLACE_TABLE,place.idPlace, place);
-
     }
 
     private HashMap<String,String> putOpeningTime(HashMap<String,String>openingTime){

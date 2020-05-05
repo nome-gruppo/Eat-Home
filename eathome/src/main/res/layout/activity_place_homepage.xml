@@ -21,7 +21,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/place_homepage_placeImg"
@@ -35,6 +35,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/place_homepage_txtNamePlace"
         app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBarPlaceHome"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="192dp"
+        tools:layout_editor_absoluteY="118dp"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/place_homepage_btnAddMenu"
@@ -62,7 +72,9 @@
         <ListView
             android:id="@+id/place_homepage_listMenu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"></ListView>
+
+
     </LinearLayout>
 
     <!--    <ScrollView-->
@@ -86,6 +98,7 @@
     <!--                android:layout_height="wrap_content" />-->
     <!--        </LinearLayout>-->
     <!--    </ScrollView>-->
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlace"

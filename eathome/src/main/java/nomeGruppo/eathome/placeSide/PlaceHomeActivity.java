@@ -10,11 +10,13 @@ import android.graphics.Matrix;
 import android.media.ImageWriter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,6 +67,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private BottomNavigationView bottomMenuPlace;
     private Food food;
     private MenuNavigationItemSelected menuNavigationItemSelected;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +88,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
         listViewMenu.setAdapter(mAdapter);
         this.menuNavigationItemSelected=new MenuNavigationItemSelected();
+        this.progressBar=findViewById(R.id.progressBarPlaceHome);
 
         //mostro il menu sottostante
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -150,7 +154,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
             }
         });
-
     }
 
     private void openDialog(){
