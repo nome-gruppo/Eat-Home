@@ -47,21 +47,6 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
 
         mPlace = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
-        Toolbar toolBarPlaceFeedback=findViewById(R.id.tlbPlaceFeedback);
-        setSupportActionBar(toolBarPlaceFeedback);
-        toolBarPlaceFeedback.setTitle(getResources().getString(R.string.my_feedback));
-        toolBarPlaceFeedback.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
-        toolBarPlaceFeedback.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent otherActivityIntent=new Intent(FeedbackPlaceActivity.this, OtherActivity.class);
-                otherActivityIntent.putExtra(FirebaseConnection.PLACE,mPlace);
-                startActivity(otherActivityIntent);
-                finish();
-            }
-        });
-
-
         if(mPlace != null){
 
             ratingBar.setRating(mPlace.valuation);
