@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -23,6 +24,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
@@ -109,7 +112,6 @@ public class HomepageActivity extends AppCompatActivity {
 
     private SharedPreferences mPreferences;
 
-    private FusedLocationProviderClient mFusedLocationClient;
     private FirebaseUser user;
 
     private TextView noPlacesTw;
@@ -122,6 +124,10 @@ public class HomepageActivity extends AppCompatActivity {
 
     private Bundle filterBundle;
     private static boolean firstLogin = true;
+
+    private ProgressBar mBar;
+
+    private MyLocationListener myLocationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +150,9 @@ public class HomepageActivity extends AppCompatActivity {
         listViewPlace = findViewById(R.id.listViewPlace);
         searchBtn = findViewById(R.id.search_button);
         findPlacesBtn = findViewById(R.id.activity_homepage_btn_find_places);
+        mBar = findViewById(R.id.homepage_progressBar);
+
+        myLocationListener = new MyLocationListener();
 
         addressesBarAdapter = new AddressesBarAdapter(getApplicationContext(), R.layout.dropdown_list_layout);
 
@@ -156,7 +165,6 @@ public class HomepageActivity extends AppCompatActivity {
         userCity = mPreferences.getString("city", null);
 
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         //se non è mai stata effettuata una ricerca prima
         if (userCity == null) {
@@ -186,8 +194,9 @@ public class HomepageActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        //TODO ma è fatto ad ogni login?
+
         if (firstLogin && user != null) {
+
 
             //leggo la tabella myInfo per verificare se ci sono locali da recensire
             Cursor c = mDB.query(DBOpenHelper.TABLE_INFO, DBOpenHelper.COLUMNS_INFO, DBOpenHelper.SELECTION_BY_USER_ID_INFO, new String[]{user.getUid()}, null, null, null);
@@ -214,21 +223,20 @@ public class HomepageActivity extends AppCompatActivity {
                     }
                 }
                 c.close();
-            }
 
-            //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
-            if (!setFilter && userCity != null) {
-                search(userCity);
             }
         }
-
+        //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
+        if (!setFilter && userCity != null) {
+            search(userCity);
+        }
     }//end onStart
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if(firstLogin) {
+        if (firstLogin) {
             FirebaseConnection connection = new FirebaseConnection();
             final long cutoff = new Date().getTime() - TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS);
             Query query = connection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("timestampOrder").endAt(cutoff);
@@ -288,7 +296,7 @@ public class HomepageActivity extends AppCompatActivity {
             ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
             //TODO se nul
-            if(listPlaceFilter != null) {
+            if (listPlaceFilter != null) {
                 listPlace.addAll(listPlaceFilter);
                 placeAdapter.notifyDataSetChanged();
             }
@@ -336,6 +344,7 @@ public class HomepageActivity extends AppCompatActivity {
     }//end loadAddresses
 
 
+    //TODO SERVE?
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -464,36 +473,6 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
 
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-
-                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                    List<Address> list = null;
-                    try {
-                        list = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-
-                        addressesBar.setText(list.get(0).getAddressLine(0));
-                        userCity = list.get(0).getLocality();
-                        findPlacesBtn.setVisibility(View.GONE);
-                        search(userCity);
-                        listViewPlace.setVisibility(View.VISIBLE);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        mFusedLocationClient.getLastLocation().addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(HomepageActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         findPlacesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -511,6 +490,9 @@ public class HomepageActivity extends AppCompatActivity {
                     if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
+                    } else {
+                        mBar.setVisibility(View.VISIBLE);
+                        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000000L, 0, myLocationListener);
                     }
                 }
             }
@@ -587,6 +569,8 @@ public class HomepageActivity extends AppCompatActivity {
                 filtersIntent.putExtra("listPlace", listPlace);
                 filtersIntent.putExtra("outState", filterBundle);
                 filtersIntent.putExtra("userCity", userCity);
+                filtersIntent.putExtra("userLatitude", myLocationListener.latitude);
+                filtersIntent.putExtra("userLongitude", myLocationListener.longitude);
                 startActivityForResult(filtersIntent, SEARCH_FILTER_REQUEST_CODE);
             }
         });
@@ -596,12 +580,54 @@ public class HomepageActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nomeGruppo.eathome.actors.Place place = (nomeGruppo.eathome.actors.Place) adapterView.getItemAtPosition(i);
                 Intent placeInfoIntent = new Intent(HomepageActivity.this, PlaceInfoActivity.class);
-                placeInfoIntent.putExtra(FirebaseConnection.CLIENT,client);
+                placeInfoIntent.putExtra(FirebaseConnection.CLIENT, client);
                 placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
                 startActivity(placeInfoIntent);
             }
         });
     }//end initListeners
 
+    private class MyLocationListener implements LocationListener {
 
+        private double latitude;
+        private double longitude;
+
+        public void onLocationChanged(Location location) {
+
+
+
+            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+            List<Address> list = null;
+            try {
+                list = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+
+                addressesBar.setText(list.get(0).getAddressLine(0));
+                userCity = list.get(0).getLocality();
+                findPlacesBtn.setVisibility(View.GONE);
+                search(userCity);
+                mBar.setVisibility(View.GONE);
+                listViewPlace.setVisibility(View.VISIBLE);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void onProviderDisabled(String arg0) {
+
+        }
+
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+    }
 }
+
+

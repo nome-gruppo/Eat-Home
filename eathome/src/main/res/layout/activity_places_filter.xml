@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".clientSide.PlacesFilterActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".clientSide.PlacesFilterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -183,7 +183,7 @@
 
             <RadioGroup
                 android:id="@+id/activity_places_filter_rg_order"
-                android:layout_width="212dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -205,6 +205,13 @@
                     android:layout_height="wrap_content"
                     android:onClick="orderByOnRadioButtonClicked"
                     android:text="Valuation" />
+
+                <RadioButton
+                    android:id="@+id/activity_places_filter_rb_distance_order"
+                    android:layout_width="123dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="orderByOnRadioButtonClicked"
+                    android:text="Distance" />
 
             </RadioGroup>
 
