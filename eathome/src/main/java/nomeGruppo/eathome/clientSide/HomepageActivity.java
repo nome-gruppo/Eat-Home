@@ -459,9 +459,9 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                loadAddresses(addressesBar.getText().toString());
-                addressesBarAdapter.notifyDataSetChanged();
-                addressesBar.setAdapter(addressesBarAdapter);
+//                loadAddresses(addressesBar.getText().toString());
+//                addressesBarAdapter.notifyDataSetChanged();
+//                addressesBar.setAdapter(addressesBarAdapter);
             }
 
             @Override
@@ -593,8 +593,6 @@ public class HomepageActivity extends AppCompatActivity {
         private double longitude;
 
         public void onLocationChanged(Location location) {
-
-
 
             Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
             List<Address> list = null;
