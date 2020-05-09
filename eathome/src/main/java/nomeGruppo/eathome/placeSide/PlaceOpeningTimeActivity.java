@@ -249,7 +249,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             }
         });
 
-        
+
         editWednesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

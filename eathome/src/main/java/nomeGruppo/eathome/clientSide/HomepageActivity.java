@@ -527,6 +527,7 @@ public class HomepageActivity extends AppCompatActivity {
                             Intent intent = new Intent(HomepageActivity.this, ClientOrderInfoActivity.class);
                             intent.putExtra(FirebaseConnection.CLIENT, client);
                             startActivity(intent);
+                            finish();
                         } else {
                             Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                             startActivity(intent);
@@ -537,6 +538,7 @@ public class HomepageActivity extends AppCompatActivity {
                             Intent intent = new Intent(HomepageActivity.this, ClientBookingInfoActivity.class);
                             intent.putExtra(FirebaseConnection.CLIENT, client);
                             startActivity(intent);
+                            finish();
                         } else {
                             Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                             startActivity(intent);
@@ -548,6 +550,7 @@ public class HomepageActivity extends AppCompatActivity {
                             Intent intent = new Intent(HomepageActivity.this, OtherActivity.class);
                             intent.putExtra(FirebaseConnection.CLIENT, client);
                             startActivity(intent);
+                            finish();
                         } else {
                             Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                             startActivity(intent);

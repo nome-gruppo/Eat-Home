@@ -1,5 +1,6 @@
 package nomeGruppo.eathome.clientSide;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,6 +64,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 return menuNavigationItemSelected.menuNavigation(item,client,ClientBookingInfoActivity.this);
             }
+
         });
     }
 
