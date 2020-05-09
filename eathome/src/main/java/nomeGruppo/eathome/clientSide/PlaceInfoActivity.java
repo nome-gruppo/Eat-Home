@@ -234,7 +234,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
         try {
-            List<Address> mList = geocoder.getFromLocationName(place.addressPlace + " "+ place.addressNumPlace + ", " + place.cityPlace, 1);
+            List<Address> mList = geocoder.getFromLocationName(place.addressPlace + ", "+ place.addressNumPlace + ", " + place.cityPlace, 1);
 
             LatLng placeLatLng = new LatLng(mList.get(0).getLatitude(), mList.get(0).getLongitude());
             LatLngBounds bounds = new LatLngBounds(new LatLng(placeLatLng.latitude-0.001, placeLatLng.longitude -0.001),

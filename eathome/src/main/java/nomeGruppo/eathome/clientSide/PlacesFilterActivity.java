@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -25,6 +26,7 @@ import java.util.TreeSet;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.actors.PlacesByDistance;
 import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.actors.PlacesByValuation;
 import nomeGruppo.eathome.actors.PlaceCategories;
@@ -52,6 +54,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
     private RadioButton bookingRB;
 
     private RadioButton orderByValuationRB;
+    private RadioButton orderByDistanceRB;
 
     private Switch freeDeliverySwitch;
 
@@ -69,6 +72,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private Bundle outState;
 
+    private double userLatitude;
+    private double userLongitude;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +91,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
         bookingRB = findViewById(R.id.activity_places_filter_rb_booking);
 
         orderByValuationRB = findViewById(R.id.activity_places_filter_rb_valuation_order);
+        orderByDistanceRB = findViewById(R.id.activity_places_filter_rb_distance_order);
 
         freeDeliverySwitch = findViewById(R.id.switch1activity_places_filter_switch_free_delivery);
 
@@ -93,6 +100,13 @@ public class PlacesFilterActivity extends AppCompatActivity {
         showBtn = findViewById(R.id.activity_places_filter_btn_show);
 
         outState = new Bundle();
+
+        userLatitude = getIntent().getDoubleExtra("userLatitude", 0);
+        userLongitude = getIntent().getDoubleExtra("userLongitude", 0);
+
+        if(userLongitude == 0 && userLatitude == 0){
+            orderByDistanceRB.setClickable(false);
+        }
 
         initCheckListener();
 
@@ -116,6 +130,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 //        }
 
             orderByValuationRB.setChecked(bundle.getBoolean("orderByValuationRB", false));
+            orderByDistanceRB.setChecked(bundle.getBoolean("orderByDistanceRB", false));
 
             freeDeliverySwitch.setChecked(bundle.getBoolean("freeDeliverySwitch", false));
 
@@ -218,6 +233,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
                 outState.putBoolean(BOOKING_RB, bookingRB.isChecked());
 
                 outState.putBoolean("orderByValuationRB", orderByValuationRB.isChecked());
+                outState.putBoolean("orderByDistanceRB", orderByDistanceRB.isChecked());
 
                 outState.putBoolean("freeDeliverySwitch", freeDeliverySwitch.isChecked());
 
@@ -328,9 +344,12 @@ public class PlacesFilterActivity extends AppCompatActivity {
             if (orderByValuationRB.isChecked()) {
                 treeSet = new TreeSet<>(new PlacesByValuation());
 
-            } else {
-                treeSet = new TreeSet<>(new PlacesByName());
+            } else if(orderByDistanceRB.isChecked()){
 
+                treeSet = new TreeSet<>(new PlacesByDistance(userLatitude,userLongitude, getApplicationContext()));
+
+            }else{
+                treeSet = new TreeSet<>(new PlacesByName());
             }
 
             treeSet.addAll(places);
@@ -365,19 +384,19 @@ public class PlacesFilterActivity extends AppCompatActivity {
     }
 
     public void orderByOnRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-//        // Check which radio button was clicked
-//        if (view.getId() == R.id.activity_places_filter_rb_valuation_order) {
-//            if (checked) {
-//                orderChanged = true;
-//            }
-//        } else {
-//            if (checked) {
-//                orderChanged = false;
-//            }
-//        }
+//        // Is the button now checked?
+//        boolean checked = ((RadioButton) view).isChecked();
+//
+////        // Check which radio button was clicked
+////        if (view.getId() == R.id.activity_places_filter_rb_valuation_order) {
+////            if (checked) {
+////                orderChanged = true;
+////            }
+////        } else {
+////            if (checked) {
+////                orderChanged = false;
+////            }
+////        }
         orderChanged = true;
     }
 
