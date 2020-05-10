@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.utility.City;
 
 public class DialogAddAddress extends AppCompatDialogFragment {
 
@@ -29,8 +32,12 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         View view=inflater.inflate(R.layout.dialog_insert_address,null);
 
         final EditText editAddress=view.findViewById(R.id.editAddressClient);
-        final EditText editCity=view.findViewById(R.id.editCityClient);
+        final AutoCompleteTextView editCity=view.findViewById(R.id.editCityClient);
         final EditText editNumberAddress=view.findViewById(R.id.editNumberAddressClient);
+        final City city=new City();//classe che contiene l'elenco delle città
+        //creo un adapter che conterrà l'elenco delle città per l'autocompletetext
+        ArrayAdapter<String> adapterCity=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,city.getListCity());
+        editCity.setAdapter(adapterCity);//setto l'adapter in editCity
 
         builder.setView(view).setTitle(getActivity().getResources().getString(R.string.choose_address)).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
