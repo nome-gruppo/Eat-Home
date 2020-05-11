@@ -286,19 +286,25 @@ public class HomepageActivity extends AppCompatActivity {
                 // The user canceled the operation.
             }
         } else if (requestCode == SEARCH_FILTER_REQUEST_CODE) {
-            setFilter = true;//setto la variabile filtri a true
-            listPlace.clear();//svuoto la listPlace
-            //prendo l'arrayList restiuita da PlaceFilterActivity
+            if (resultCode == RESULT_OK) {
+                setFilter = true;//setto la variabile filtri a true
+                listPlace.clear();//svuoto la listPlace
+                //prendo l'arrayList restiuita da PlaceFilterActivity
 
-            filterBundle = data.getBundleExtra("outState");
+                filterBundle = data.getBundleExtra("outState");
 
 
-            ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
+                ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
-            //TODO se nul
-            if (listPlaceFilter != null) {
-                listPlace.addAll(listPlaceFilter);
-                placeAdapter.notifyDataSetChanged();
+                //TODO se nul
+                if (listPlaceFilter != null) {
+                    listPlace.addAll(listPlaceFilter);
+                    placeAdapter.notifyDataSetChanged();
+                    if (listPlaceFilter.isEmpty()) {
+                        noPlacesTw.setVisibility(View.VISIBLE);
+                        findPlacesBtn.setVisibility(View.VISIBLE);
+                    }
+                }
             }
         }
     }
@@ -459,9 +465,6 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-//                loadAddresses(addressesBar.getText().toString());
-//                addressesBarAdapter.notifyDataSetChanged();
-//                addressesBar.setAdapter(addressesBarAdapter);
             }
 
             @Override
