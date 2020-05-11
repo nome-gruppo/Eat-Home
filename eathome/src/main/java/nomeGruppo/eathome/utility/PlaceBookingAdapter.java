@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import nomeGruppo.eathome.R;
@@ -33,7 +34,7 @@ public class PlaceBookingAdapter extends ArrayAdapter<Booking> {
         final Booking booking = getItem(position);
         title.setText(booking.nameBooking);
         address.setVisibility(View.INVISIBLE);
-        date.setText(booking.dateBooking+" "+booking.timeBooking);
+        date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy, hh:mm").format(booking.dateBooking));
         number.setText(booking.personNumBooking);
         return convertView;
     }

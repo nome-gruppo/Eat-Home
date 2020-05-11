@@ -53,6 +53,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     private EditText editNameBooking;
     private TextView txtDayOfWeek;
     private OpeningTime openingTimeUtility;
+    private Calendar dateBooking;
 
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
@@ -76,6 +77,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         this.editNameBooking=findViewById(R.id.editNameClientBooking);
         this.txtDayOfWeek=findViewById(R.id.txtDayOfWeek);
         this.openingTimeUtility=new OpeningTime();
+        this.dateBooking=Calendar.getInstance();
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getWritableDatabase();
@@ -128,7 +130,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
                     //mostra messaggio
                     Toast.makeText(ConfirmBookingActivity.this, ConfirmBookingActivity.this.getResources().getString(R.string.need_data), Toast.LENGTH_SHORT).show();
                 }else {//se è stata impostata una data
-                    openDialogChooseHour(txtDayOfWeek.getText().toString());//apri il dialog per scegliere l'ora
+                    openDialogChooseHour();//apri il dialog per scegliere l'ora
                 }
             }
         });
@@ -162,17 +164,15 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-        Calendar dateBooking=Calendar.getInstance();
-        dateBooking.set(year,month++,dayOfMonth);//moth++ perchè i mesi partono da 0 e non da 1
+        dateBooking.set(year,month,dayOfMonth);//month++ perchè i mesi partono da 0 e non da 1
 
-        //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorno della settimana
+        //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendar.DAY_OF_WEEk nella stringa corrispondente al giorno della settimana
         String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
 
         //se nel giorno selezioanto è stato impostato in orario quindi il locale non è chiuso
         if(place.openingTime.get(dayOfWeek).length()>8){
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd");
-            txtDateBooking.setText(simpleDateFormat.format(dateBooking.getTime()));//setto la data in base alla scelta dell'utente.
-            openDialogChooseHour(dayOfWeek);//una volta selezionata la data apro il dialog per scegliere l'ora
+            txtDateBooking.setText(dayOfMonth+"/"+(month++)+"/"+year);//setto la data in base alla scelta dell'utente.
+            openDialogChooseHour();//una volta selezionata la data apro il dialog per scegliere l'ora
         }else{//se il locale è chiuso nel giorno selezionato
             //mostra messaggio
             Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_date),Toast.LENGTH_SHORT).show();
@@ -180,18 +180,16 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         }
     }
 
-    private void openDialogChooseHour(String dayOfWeek){
-        //setto la TextView con il giorno della settiama corrispondente alla prenotazione che mi
-        // servirà per confrontare se l'ora della prenotazione in quel giorno è valida o no
-        txtDayOfWeek.setText(dayOfWeek);
+    private void openDialogChooseHour(){
         DialogFragment timePicker=new TimePickerFragment();
         timePicker.show(getSupportFragmentManager(),"Time picker");
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
-        String day=txtDayOfWeek.getText().toString();//prendo il giorno della settimana corrispondente alla data della prenotazione
-        String openingTime=place.openingTime.get(day);
+        //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorno della settimana
+        String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
+        String openingTime=place.openingTime.get(dayOfWeek);
         SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
         Date hourOpening=null;
         Date hourClosed=null;
@@ -203,11 +201,13 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
             //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
             if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
+                dateBooking.set(Calendar.HOUR_OF_DAY,hour);
+                dateBooking.set(Calendar.MINUTE,minutes);
                 txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
             }else{//se il locale è chiuso nell'ora selezionata
                 //mostra messaggio
                 Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
-                openDialogChooseHour(day);//riapri il dialog per scegliere il giorno
+                openDialogChooseHour();//riapri il dialog per scegliere l'ora
             }
 
         } catch (NullPointerException | ParseException e) {
@@ -244,17 +244,19 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
     private boolean addBookingFirebase(){
         //assegno all'oggetto booking i valori
-        booking.setDateBooking(txtDateBooking.getText().toString());
-        booking.setTimeBooking(txtHourBooking.getText().toString());
+        booking.setDateBooking(dateBooking);
         booking.setIdClientBooking(getIntent().getStringExtra("UserID"));
-        booking.setPlaceBooking(place);
+        booking.setNamePlaceBooking(place.namePlace);
+        booking.setAddressPlaceBooking(place.cityPlace+", "+place.addressPlace+", "+place.addressNumPlace);
+        booking.setPhonePlaceBooking(place.phonePlace);
+        booking.setIdPlaceBooking(place.idPlace);
         booking.setPersonNumBooking(Integer.parseInt(txtNumberPersonBooking.getText().toString()));
         booking.setNameBooking(editNameBooking.getText().toString());
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
         firebaseConnection.writeObject(FirebaseConnection.BOOKING_TABLE,booking);//inserisco booking all'interno del Db
 
-        mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,booking.dateBooking, mUser.getUid());//inserisco l'informazione della prenotazione del db interno
+        mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,txtDateBooking.getText().toString(), mUser.getUid());//inserisco l'informazione della prenotazione del db interno
         return true;
     }
 

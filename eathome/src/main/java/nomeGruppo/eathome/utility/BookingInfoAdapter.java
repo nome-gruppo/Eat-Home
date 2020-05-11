@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import nomeGruppo.eathome.R;
@@ -37,9 +38,9 @@ public class BookingInfoAdapter extends ArrayAdapter<Booking> {
         TextView number=convertView.findViewById(R.id.txtNumberPersonBookingInfo);
         final Booking booking = getItem(position);
         if(booking != null) {
-            title.setText(booking.placeBooking.namePlace);
-            address.setText(booking.placeBooking.cityPlace + " " + booking.placeBooking.addressPlace + " " + booking.placeBooking.addressNumPlace);
-            date.setText(booking.dateBooking + " " + booking.timeBooking);
+            title.setText(booking.namePlaceBooking);
+            address.setText(booking.addressPlaceBooking);
+            date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy, hh:mm").format(booking.dateBooking));
             number.setText(String.valueOf(booking.personNumBooking));
         }
         return convertView;

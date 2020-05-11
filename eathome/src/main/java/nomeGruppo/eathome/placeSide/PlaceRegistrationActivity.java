@@ -1,5 +1,6 @@
 package nomeGruppo.eathome.placeSide;
 
+import nomeGruppo.eathome.utility.City;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -33,8 +36,10 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
     private static final String TAG = "PlaceRegistration";
     private static final int DURATION = Toast.LENGTH_SHORT;
 
+    private City city;
+
     private EditText namePlaceET;
-    private EditText cityPlaceET;
+    private AutoCompleteTextView cityPlaceET;
     private EditText phonePlaceET;
     private EditText addressPlaceET;
     private EditText emailPlaceET;
@@ -80,6 +85,11 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         deliveryCostTV = findViewById(R.id.txtDeliveryCost);
         statusTV = findViewById(R.id.activity_place_registration_tw_status);
 
+        this.city=new City();//classe che contiene l'elenco delle città
+        //creo un adapter che conterrà l'elenco delle città per l'autocompletetext
+        ArrayAdapter<String>adapterCity=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,city.getListCity());
+        cityPlaceET.setAdapter(adapterCity);//setto l'adapter in editCity
+
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,8 +123,8 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
                         place.setAddressNumPlace(numberAddressPlaceET.getText().toString().trim());
                         place.setAddressPlace(addressPlaceET.getText().toString().trim());
-                        place.setCityPlace(cityPlaceET.getText().toString().trim());
-                        place.setNamePlace(namePlaceET.getText().toString().trim());
+                        place.setCityPlace(cityPlaceET.getText().toString().trim().substring(0,1).toUpperCase());
+                        place.setNamePlace(namePlaceET.getText().toString().trim().substring(0,1).toUpperCase());
                         place.setPhonePlace(phonePlaceET.getText().toString().trim());
                         place.setEmailPlace(emailPlaceET.getText().toString().trim());
 

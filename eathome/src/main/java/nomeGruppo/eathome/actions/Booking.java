@@ -1,30 +1,24 @@
 package nomeGruppo.eathome.actions;
 
-import java.sql.Time;
-import java.time.LocalTime;
-import java.util.Date;
-
-import nomeGruppo.eathome.actors.Place;
+import java.util.Calendar;
 
 public class Booking {
 
-    public String dateBooking;
-    public String timeBooking;
+    public Calendar dateBooking;
     public int personNumBooking;
     public String nameBooking;
     public String idClientBooking;
-    public Place placeBooking;
+    public String idPlaceBooking;
+    public String namePlaceBooking;
+    public String addressPlaceBooking;
+    public String phonePlaceBooking;
 
     public Booking(){
 
     }
 
-    public void setDateBooking(String dateBooking) {
+    public void setDateBooking(Calendar dateBooking) {
         this.dateBooking = dateBooking;
-    }
-
-    public void setTimeBooking(String timeBooking) {
-        this.timeBooking = timeBooking;
     }
 
     public void setPersonNumBooking(int personNumBooking) {
@@ -39,7 +33,19 @@ public class Booking {
         this.idClientBooking = idClientBooking;
     }
 
-    public void setPlaceBooking(Place placeBooking) {
-        this.placeBooking = placeBooking;
+    public void setNamePlaceBooking(String namePlaceBooking) {
+        this.namePlaceBooking = namePlaceBooking;
+    }
+
+    public void setAddressPlaceBooking(String addressPlaceBooking) {
+        this.addressPlaceBooking = addressPlaceBooking;
+    }
+
+    public void setPhonePlaceBooking(String phonePlaceBooking) {
+        this.phonePlaceBooking = phonePlaceBooking;
+    }
+
+    public void setIdPlaceBooking(String idPlaceBooking) {
+        this.idPlaceBooking = idPlaceBooking;
     }
 }
