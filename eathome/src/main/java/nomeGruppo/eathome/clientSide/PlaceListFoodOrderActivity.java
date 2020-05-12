@@ -175,7 +175,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
             tot += totParz;//sommo il costo del cibo con il totale finale
             message += (number + "X " + key.nameFood + " " + totParz + " €" + "\n");//imposto il messaggio con il riepilogo della quantità del nome e del costo parziale del cibo
         }
-        message += "Tot" + tot + " €";//imposto nel messaggio il totale finale
+        message += "Tot " + tot + " €";//imposto nel messaggio il totale finale
         builder.setMessage(message);//mostro il messaggio
         finalTot = tot;
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
