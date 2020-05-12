@@ -12,18 +12,10 @@ public class Feedback {
     public String idClientFeedback;
     public String idPlaceFeedback;
     public String clientNameFeedback;
+    public String replyPlace;
 
 
     public Feedback() {
-    }
-
-    public Feedback(String idFeedback, float voteFeedback, String textFeedback, String dateFeedback, String idClientFeedback, String idPlaceFeedback) {
-        this.idFeedback = idFeedback;
-        this.voteFeedback = voteFeedback;
-        this.textFeedback = textFeedback;
-        this.dateFeedback = dateFeedback;
-        this.idClientFeedback = idClientFeedback;
-        this.idPlaceFeedback = idPlaceFeedback;
     }
 
     public void setIdFeedback(String idFeedback) {
@@ -52,5 +44,9 @@ public class Feedback {
 
     public void setClientNameFeedback(String clientNameFeedback) {
         this.clientNameFeedback = clientNameFeedback;
+    }
+
+    public void setReplyPlace(String replyPlace) {
+        this.replyPlace = replyPlace;
     }
 }

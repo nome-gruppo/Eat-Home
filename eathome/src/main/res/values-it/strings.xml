@@ -108,4 +108,7 @@
     <string name="today">Oggi</string>
     <string name="previous">Precedenti</string>
     <string name="locationNotFound">Località non trovata</string>
+    <string name="reply">Rispondi</string>
+    <string name="answer_added">Risposta aggiunta</string>
+    <string name="no_reply">Nessuna risposta per questa recensione</string>
 </resources>

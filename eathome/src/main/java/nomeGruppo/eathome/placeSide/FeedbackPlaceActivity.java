@@ -7,9 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import nomeGruppo.eathome.FeedbackAdapter;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.ShowAnswerPlace;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -63,6 +66,19 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
             }
 
         }
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Feedback feedback=(Feedback)adapterView.getItemAtPosition(i);
+                if(feedback.replyPlace.trim().length()==0){
+                    Toast.makeText(FeedbackPlaceActivity.this,getResources().getString(R.string.no_reply),Toast.LENGTH_SHORT).show();
+                }else {
+                    ShowAnswerPlace showAnswerPlace = new ShowAnswerPlace(feedback.replyPlace);
+                    showAnswerPlace.show(getSupportFragmentManager(), "Show answer");
+                }
+            }
+        });
 
     }
 
