@@ -49,7 +49,7 @@ public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
 
             final Feedback mFeedback = getItem(position);
 
-            if(getContext().getClass()==FeedbackPlaceActivity.class){
+            if(getContext().getClass()==FeedbackPlaceActivity.class){//se è un place che visualizza le recensioni rendo visibile il bottone per rispondere
                 btnReply.setVisibility(View.VISIBLE);
             }
 

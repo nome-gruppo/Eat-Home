@@ -102,7 +102,6 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         //prelevo la chiave assegnata in automatico da Firebase
         String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).push().getKey();
         feedback.setIdFeedback(idFeedback);
-
         firebaseConnection.write(FirebaseConnection.FEEDBACK_TABLE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
     }
 

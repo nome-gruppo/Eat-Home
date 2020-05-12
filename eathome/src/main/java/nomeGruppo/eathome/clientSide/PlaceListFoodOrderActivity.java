@@ -292,6 +292,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         order = setOrder(addressOrder);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
         orderActivity.putExtra(FirebaseConnection.ORDER, order);
         orderActivity.putExtra(FirebaseConnection.PLACE, place);
+        orderActivity.putExtra(FirebaseConnection.CLIENT,client);
         startActivity(orderActivity);//apro l'activity per confermare l'ordine
     }
 

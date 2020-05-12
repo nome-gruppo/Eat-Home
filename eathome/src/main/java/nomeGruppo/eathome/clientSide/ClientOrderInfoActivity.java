@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,8 +51,6 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
     private OrderInfoAdapter orderInfoAdapter;
     private List<Order>listOrder;
     private FirebaseConnection firebaseConnection;
-    private TextView txtNoOrder;
-    private ImageView imgNoOrder;
 
     @Override
     protected void onStart() {
@@ -73,8 +72,6 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
         this.listOrder=new LinkedList<>();
         this.orderInfoAdapter=new OrderInfoAdapter(this,R.layout.listitem_order_info,listOrder);
         this.listViewOrderInfo.setAdapter(orderInfoAdapter);
-        this.txtNoOrder=findViewById(R.id.txtNoOrderClient);
-        this.imgNoOrder=findViewById(R.id.imgNoOrderClient);
 
         //menu sottostante l'activity
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -114,8 +111,7 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
                     Collections.reverse(listOrder);//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
                     orderInfoAdapter.notifyDataSetChanged();
                 }else{//se non c'è nemmeno un ordine
-                    txtNoOrder.setVisibility(View.VISIBLE);//mostro messaggio 'siamo spiacenti'
-                    imgNoOrder.setVisibility(View.VISIBLE);//mostro la smile triste
+                    Toast.makeText(ClientOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_SHORT).show();
                 }
             }
 

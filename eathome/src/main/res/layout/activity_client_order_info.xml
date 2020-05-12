@@ -8,15 +8,15 @@
 
     <LinearLayout
         android:id="@+id/lin"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="808dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClientOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ListView
             android:id="@+id/listViewOrderInfo"
@@ -25,40 +25,16 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/txtNoOrderClient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="366dp"
-        android:text="@string/no_order"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClientOrder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgNoOrderClient" />
-
-    <ImageView
-        android:id="@+id/imgNoOrderClient"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="288dp"
-        android:layout_marginBottom="75dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/txtNoOrderClient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_emoticon_sad" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClientOrder"
         style="@style/BottomNavigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginStart="23dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lin"
         app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
