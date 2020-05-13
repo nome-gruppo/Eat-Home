@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +53,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
     private Button btnConfirm;
     private Button chooseTime;
     private OpeningTime openingTimeUtility;
+    private Button btnAddNote;
 
 
     private SQLiteDatabase mDB;
@@ -84,6 +86,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.editName = findViewById(R.id.editNameClientOrder);
         this.editPhone = findViewById(R.id.editPhoneClientOrder);
         this.chooseTime = findViewById(R.id.editChooseTime);
+        this.btnAddNote=findViewById(R.id.btnAddNote);
 
 
         //se l'utenten clicca sulla editText per scegliere l'ora
@@ -92,6 +95,13 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
             public void onClick(View view) {
                 DialogFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "Time picker");//apro il TimePicker
+            }
+        });
+
+        this.btnAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialogAddNote();
             }
         });
 
@@ -119,6 +129,39 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+    }
+
+    private void openDialogAddNote(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = ConfirmOrderActivity.this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_reply_feedback, null);
+        final EditText note=view.findViewById(R.id.editReplyFeedback);
+        if(order.note==null){
+            note.setHint(getResources().getString(R.string.add_note));
+        }else{
+            note.setText(order.note);
+        }
+        note.setText(getResources().getString(R.string.add_note));
+        builder.setView(view).setTitle(getResources().getString(R.string.add_note));
+        builder.setView(view).setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(note.getText().toString().trim().length()==0){
+                    Toast.makeText(ConfirmOrderActivity.this,getResources().getString(R.string.no_note),Toast.LENGTH_SHORT).show();
+                }else{
+                    order.setNote(note.getText().toString());
+                    Toast.makeText(ConfirmOrderActivity.this,getResources().getString(R.string.note_success),Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void openDialogConfirm() {

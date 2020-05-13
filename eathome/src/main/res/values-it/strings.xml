@@ -111,4 +111,10 @@
     <string name="reply">Rispondi</string>
     <string name="answer_added">Risposta aggiunta</string>
     <string name="no_reply">Nessuna risposta per questa recensione</string>
+    <string name="add_note">Aggiungi note</string>
+    <string name="no_note">Nessuna nota aggiunta</string>
+    <string name="note_success">Nota aggiunta con successo</string>
+    <string name="read_note">Mostra note</string>
+
+
 </resources>

@@ -218,7 +218,7 @@ public class HomepageActivity extends AppCompatActivity {
                     Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
                     calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
                     curDate.getTime();//prendo la data odierna
-                    if (curDate.compareTo(calendar)>0) { //se la data odierna è successiva alla data di prenotazione/ordinazione
+                    if (curDate.compareTo(calendar)>=1) { //se la data odierna è successiva alla data di prenotazione/ordinazione
                         openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, mDB, mDBHelper);//apre il dialog per la recensione
                     }
                 }

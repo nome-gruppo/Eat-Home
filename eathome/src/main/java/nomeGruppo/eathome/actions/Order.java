@@ -31,6 +31,7 @@ public class Order implements Serializable {
     public int deliveryCost;
     public String addressPlaceOrder;
     public String phonePlaceOrder;
+    public String note;
     public boolean stateOrder;
 
 
@@ -98,5 +99,9 @@ public class Order implements Serializable {
 
     public void setTotalOrder(float totalOrder) {
         this.totalOrder = totalOrder;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
