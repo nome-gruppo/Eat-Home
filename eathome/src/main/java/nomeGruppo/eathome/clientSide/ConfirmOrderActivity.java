@@ -141,7 +141,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         }else{
             note.setText(order.note);
         }
-        note.setText(getResources().getString(R.string.add_note));
         builder.setView(view).setTitle(getResources().getString(R.string.add_note));
         builder.setView(view).setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
             @Override
