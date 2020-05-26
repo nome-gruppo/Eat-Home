@@ -19,7 +19,8 @@ public class DialogListFoodOrder extends AppCompatDialogFragment {
     }
 
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        String message="";
         builder.setTitle(getContext().getResources().getString(R.string.order_summary)).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -31,11 +32,14 @@ public class DialogListFoodOrder extends AppCompatDialogFragment {
 
             }
         });
-        String message="";
         for(String value:order.foodsOrder){
             message+=value+"\n";
+        }
+        if(order.note!=null){
+            message+="\nNote: "+order.note;
         }
         builder.setMessage(message);
         return builder.create();
     }
+
 }

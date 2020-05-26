@@ -116,5 +116,12 @@
     <string name="today">Today</string>
     <string name="previous">Previous</string>
     <string name="locationNotFound">Location not found</string>
+    <string name="reply">Reply</string>
+    <string name="answer_added">Answer added</string>
+    <string name="no_reply">No reply by place</string>
+    <string name="add_note">Add note</string>
+    <string name="no_note">No note added</string>
+    <string name="note_success">Note added successfully</string>
+    <string name="read_note">Show note</string>
 
 </resources>

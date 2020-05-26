@@ -4,9 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,7 +30,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.TreeSet;
 
 import nomeGruppo.eathome.OtherActivity;
@@ -34,14 +47,21 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class PlacesFilterActivity extends AppCompatActivity {
 
+
+    private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
+
     //costanti usate per il bundle
     private static final String PIZZERIA_CB = "pizzeriaCB";
-    private static final String RESTAURANT_CB  = "restaurantCB";
+    private static final String RESTAURANT_CB = "restaurantCB";
     private static final String SUSHI_CB = "sushiCB";
     private static final String RESTAURANT_PIZZERIA_CB = "restaurantPizzeriaCB";
-    private static final String OTHER_CB  = "otherCB";
+    private static final String OTHER_CB = "otherCB";
     private static final String DELIVERY_RB = "deliveryRB";
     private static final String BOOKING_RB = "bookingRB";
+    private static final String ORDER_BY_VALUATION_RB = "orderByValuationRB";
+    private static final String ORDER_BY_DISTANCE_RB = "orderByDistanceRB";
+
+
 
 
     private CheckBox pizzeriaCB;
@@ -53,6 +73,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
     private RadioButton deliveryRB;
     private RadioButton bookingRB;
 
+    private RadioButton orderByNameRB;
     private RadioButton orderByValuationRB;
     private RadioButton orderByDistanceRB;
 
@@ -65,7 +86,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
     private boolean typeChanged = false;
     private boolean freeDeliverySet = false;
     private boolean valuationChanged = false;
-    private boolean orderChanged = false;
+    private boolean someChanged = false;
 
     private ArrayList<Place> places;
     private Button showBtn;
@@ -75,6 +96,10 @@ public class PlacesFilterActivity extends AppCompatActivity {
     private double userLatitude;
     private double userLongitude;
 
+    private MyLocationListener myLocationListener;
+    private LocationManager mLocationManager;
+
+    private Bundle bundle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +115,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
         deliveryRB = findViewById(R.id.activity_places_filter_rb_delivery);
         bookingRB = findViewById(R.id.activity_places_filter_rb_booking);
 
+        orderByNameRB = findViewById(R.id.activity_places_filter_rb_name_order);
         orderByValuationRB = findViewById(R.id.activity_places_filter_rb_valuation_order);
         orderByDistanceRB = findViewById(R.id.activity_places_filter_rb_distance_order);
 
@@ -99,21 +125,22 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         showBtn = findViewById(R.id.activity_places_filter_btn_show);
 
+        myLocationListener = new MyLocationListener();
+        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
         outState = new Bundle();
+
 
         userLatitude = getIntent().getDoubleExtra("userLatitude", 0);
         userLongitude = getIntent().getDoubleExtra("userLongitude", 0);
 
-        if(userLongitude == 0 && userLatitude == 0){
-            orderByDistanceRB.setClickable(false);
-        }
 
         initCheckListener();
 
         places = new ArrayList<>();
 
 
-        Bundle bundle = getIntent().getBundleExtra("outState");
+        bundle = getIntent().getBundleExtra("outState");
 
         if (bundle != null) {
             pizzeriaCB.setChecked(bundle.getBoolean(PIZZERIA_CB, true));
@@ -129,15 +156,15 @@ public class PlacesFilterActivity extends AppCompatActivity {
 //            allRB.isChecked();
 //        }
 
-            orderByValuationRB.setChecked(bundle.getBoolean("orderByValuationRB", false));
-            orderByDistanceRB.setChecked(bundle.getBoolean("orderByDistanceRB", false));
+            orderByValuationRB.setChecked(bundle.getBoolean(ORDER_BY_VALUATION_RB, false));
+            orderByDistanceRB.setChecked(bundle.getBoolean(ORDER_BY_DISTANCE_RB, false));
 
             freeDeliverySwitch.setChecked(bundle.getBoolean("freeDeliverySwitch", false));
 
             valuationSB.setProgress(bundle.getInt("valuationSB"));
 
         }
-    }
+    }// end onCreate
 
     @Override
     protected void onResume() {
@@ -176,12 +203,37 @@ public class PlacesFilterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PERMISSION_LOCATION_REQUEST_CODE) {
+
+
+            if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                //gps attivato
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+                }
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000000L, 0, myLocationListener);
+            } else {
+                //gps disabilitato
+
+               orderByNameRB.setChecked(true);
+
+            }
+        }
+
+    }
+
     public void initCheckListener() {
 
         CompoundButton.OnCheckedChangeListener changeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                someChanged = true;
                 categoryChanged = true;
+
             }
         };
 
@@ -195,8 +247,8 @@ public class PlacesFilterActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
+                someChanged = true;
                 freeDeliverySet = true;
-
             }
         });
 
@@ -214,8 +266,8 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                someChanged = true;
                 valuationChanged = true;
-
             }
         });
 
@@ -253,111 +305,137 @@ public class PlacesFilterActivity extends AppCompatActivity {
     }
 
     private ArrayList<Place> applyFilters() {
+
         ArrayList<Place> result = null;
 
-        ArrayList<Place> toRemove = new ArrayList<>();
-        //controllo cambio tipo
-        if (typeChanged) {
+        if (someChanged) {
 
-            if (deliveryRB.isChecked()) {
-                for (Place item : places) {
-                    if (!item.takesOrderPlace) {
-                        toRemove.add(item);
+            ArrayList<Place> toRemove = new ArrayList<>();
+            //controllo cambio tipo
+            if (typeChanged) {
+
+                if (deliveryRB.isChecked()) {
+                    for (Place item : places) {
+                        if (!item.takesOrderPlace) {
+                            toRemove.add(item);
+                        }
+                    }
+                } else {
+                    for (Place item : places) {
+                        if (!item.takesBookingPlace) {
+                            toRemove.add(item);
+                        }
                     }
                 }
-            } else {
+                //se rimane su all non eliminare nulla
+            }
+
+            //controllo categoria
+            if (categoryChanged) {
+                if (!pizzeriaCB.isChecked()) {
+                    for (Place item : places) {
+                        if (item.categories.equals(PlaceCategories.PIZZERIA.toString())) {
+                            toRemove.add(item);
+                        }
+                    }
+                }
+
+                if (!restaurantCB.isChecked()) {
+                    for (Place item : places) {
+                        if (item.categories.equals(PlaceCategories.RISTORANTE_ITALIANO.toString())) {
+                            toRemove.add(item);
+                        }
+                    }
+                }
+                if (!sushiCB.isChecked()) {
+                    for (Place item : places) {
+                        if (item.categories.equals(PlaceCategories.SUSHI.toString())) {
+                            toRemove.add(item);
+                        }
+                    }
+                }
+
+                if (!restaurantPizzeriaCB.isChecked()) {
+                    for (Place item : places) {
+                        if (item.categories.equals(PlaceCategories.PIZZERIA_RISTORANTE.toString())) {
+                            toRemove.add(item);
+                        }
+                    }
+                }
+                if (!otherCB.isChecked()) {
+                    for (Place item : places) {
+                        if (item.categories.equals(PlaceCategories.ALTRO.toString())) {
+                            toRemove.add(item);
+                        }
+                    }
+                }
+            }
+
+            //controllo spedizione gratuita
+            if (freeDeliverySet) {
                 for (Place item : places) {
-                    if (!item.takesBookingPlace) {
+                    if (item.deliveryCost != 0) {
                         toRemove.add(item);
                     }
                 }
             }
-            //se rimane su all non eliminare nulla
+
+            //controllo valutazione minima
+            if (valuationChanged) {
+                int valuation = valuationSB.getProgress();
+
+                for (Place item : places) {
+                    if (item.valuation < valuation) {
+                        toRemove.add(item);
+                    }
+                }
+            }
+
+            places.removeAll(toRemove);
         }
 
-        //controllo categoria
-        if (categoryChanged) {
-            if (!pizzeriaCB.isChecked()) {
-                for (Place item : places) {
-                    if (item.categories.equals(PlaceCategories.PIZZERIA.toString())) {
-                        toRemove.add(item);
-                    }
-                }
-            }
+        //seleziona ordinamento
+        TreeSet<Place> treeSet;
+        if (orderByValuationRB.isChecked()) {
+            treeSet = new TreeSet<>(new PlacesByValuation());
 
-            if (!restaurantCB.isChecked()) {
-                for (Place item : places) {
-                    if (item.categories.equals(PlaceCategories.RISTORANTE_ITALIANO.toString())) {
-                        toRemove.add(item);
-                    }
-                }
-            }
-            if (!sushiCB.isChecked()) {
-                for (Place item : places) {
-                    if (item.categories.equals(PlaceCategories.SUSHI.toString())) {
-                        toRemove.add(item);
-                    }
-                }
-            }
+        } else if (orderByDistanceRB.isChecked()) {
 
-            if (!restaurantPizzeriaCB.isChecked()) {
-                for (Place item : places) {
-                    if (item.categories.equals(PlaceCategories.PIZZERIA_RISTORANTE.toString())) {
-                        toRemove.add(item);
-                    }
-                }
-            }
-            if (!otherCB.isChecked()) {
-                for (Place item : places) {
-                    if (item.categories.equals(PlaceCategories.ALTRO.toString())) {
-                        toRemove.add(item);
-                    }
-                }
-            }
+            treeSet = new TreeSet<>(new PlacesByDistance(userLatitude, userLongitude, getApplicationContext()));
+
+        } else {
+            treeSet = new TreeSet<>(new PlacesByName());
         }
 
-        //controllo spedizione gratuita
-        if (freeDeliverySet) {
-            for (Place item : places) {
-                if (item.deliveryCost != 0) {
-                    toRemove.add(item);
-                }
-            }
-        }
+        treeSet.addAll(places);
+        result = new ArrayList<>(treeSet);
 
-        //controllo valutazione minima
-        if (valuationChanged) {
-            int valuation = valuationSB.getProgress();
-
-            for (Place item : places) {
-                if (item.valuation < valuation) {
-                    toRemove.add(item);
-                }
-            }
-        }
-
-        places.removeAll(toRemove);
-
-        if (orderChanged) {
-
-            TreeSet<Place> treeSet;
-            if (orderByValuationRB.isChecked()) {
-                treeSet = new TreeSet<>(new PlacesByValuation());
-
-            } else if(orderByDistanceRB.isChecked()){
-
-                treeSet = new TreeSet<>(new PlacesByDistance(userLatitude,userLongitude, getApplicationContext()));
-
-            }else{
-                treeSet = new TreeSet<>(new PlacesByName());
-            }
-
-            treeSet.addAll(places);
-            result = new ArrayList<>(places);
-        }
 
         return result;
+
     }// end applyFilters
+
+    private void locationPermissionRequest(){
+        //richiedo permessi
+        if (ActivityCompat.checkSelfPermission(PlacesFilterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(PlacesFilterActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //permessi non concessi
+
+            ActivityCompat.requestPermissions(PlacesFilterActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    PERMISSION_LOCATION_REQUEST_CODE);
+
+        } else {
+            //permessi concessi
+
+            if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS),PERMISSION_LOCATION_REQUEST_CODE);
+
+            } else {
+                orderByDistanceRB.setClickable(true);
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000000L, 0, myLocationListener);
+            }
+        }
+    }
 
     public void filtersOnRadioButtonClicked(View view) {
         // Is the button now checked?
@@ -383,6 +461,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
         typeChanged = true;
     }
 
+    //TODO elimina
     public void orderByOnRadioButtonClicked(View view) {
 //        // Is the button now checked?
 //        boolean checked = ((RadioButton) view).isChecked();
@@ -397,12 +476,45 @@ public class PlacesFilterActivity extends AppCompatActivity {
 ////                orderChanged = false;
 ////            }
 ////        }
-        orderChanged = true;
+//        orderChanged = true;
+        boolean checked = ((RadioButton) view).isChecked();
+
+        if(view.getId() == R.id.activity_places_filter_rb_distance_order){
+            if(checked) {
+                locationPermissionRequest();
+            }
+        }
     }
 
+    //TODO serve visto che non c'è la toolbar?
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private class MyLocationListener implements LocationListener {
+
+        private double latitude;
+        private double longitude;
+
+        public void onLocationChanged(Location location) {
+
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+
+        }
+
+        public void onProviderDisabled(String arg0) {
+
+        }
+
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
     }
 }

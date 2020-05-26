@@ -150,12 +150,12 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
                         if (curDate.compareTo(dateOrder) < 1) {
                             listOrder.add(order);
                         }else{
-                            Toast.makeText(PlaceOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_LONG).show();
+                            Toast.makeText(PlaceOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_SHORT).show();
                         }
                         placeOrderAdapter.notifyDataSetChanged();
                     }
                 }else{
-                    Toast.makeText(PlaceOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_LONG).show();
+                    Toast.makeText(PlaceOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_SHORT).show();
                 }
             }
 

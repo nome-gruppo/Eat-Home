@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -175,7 +174,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
             tot += totParz;//sommo il costo del cibo con il totale finale
             message += (number + "X " + key.nameFood + " " + totParz + " €" + "\n");//imposto il messaggio con il riepilogo della quantità del nome e del costo parziale del cibo
         }
-        message += "Tot" + tot + " €";//imposto nel messaggio il totale finale
+        message += "Tot " + tot + " €";//imposto nel messaggio il totale finale
         builder.setMessage(message);//mostro il messaggio
         finalTot = tot;
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -272,7 +271,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
                 convertView = inflater.inflate(R.layout.listitem_address, null);
 
             }
-            txtAddress = convertView.findViewById(R.id.radioBtnAddress);
+            txtAddress = convertView.findViewById(R.id.listitem_address_tw);
 
             String address = getItem(position);
 
@@ -292,6 +291,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         order = setOrder(addressOrder);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
         orderActivity.putExtra(FirebaseConnection.ORDER, order);
         orderActivity.putExtra(FirebaseConnection.PLACE, place);
+        orderActivity.putExtra(FirebaseConnection.CLIENT,client);
         startActivity(orderActivity);//apro l'activity per confermare l'ordine
     }
 

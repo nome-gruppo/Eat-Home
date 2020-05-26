@@ -74,7 +74,7 @@
     <string name="invalid_date">Il locale è chiuso nella data selezionata</string>
     <string name="invalid_time">Il locale è chiuso nell\'ora selezionata</string>
     <string name="reservation_confirmed">Prenotazione confermata</string>
-    <string name="order_confirm">Order confirm</string>
+    <string name="order_confirm">Ordine confermato</string>
     <string name="invalid_order">Il carello è vuoto</string>
     <string name="show_cart">Mostra carello</string>
     <string name="not_done">Non eseguito</string>
@@ -108,4 +108,13 @@
     <string name="today">Oggi</string>
     <string name="previous">Precedenti</string>
     <string name="locationNotFound">Località non trovata</string>
+    <string name="reply">Rispondi</string>
+    <string name="answer_added">Risposta aggiunta</string>
+    <string name="no_reply">Nessuna risposta per questa recensione</string>
+    <string name="add_note">Aggiungi note</string>
+    <string name="no_note">Nessuna nota aggiunta</string>
+    <string name="note_success">Nota aggiunta con successo</string>
+    <string name="read_note">Mostra note</string>
+
+
 </resources>
