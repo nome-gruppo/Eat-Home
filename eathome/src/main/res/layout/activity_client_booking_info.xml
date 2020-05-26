@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <ListView
         android:id="@+id/listViewBookingInfo"
@@ -20,10 +21,11 @@
         android:id="@+id/txtNoBookingClient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="116dp"
+        android:layout_marginEnd="64dp"
         android:layout_marginBottom="300dp"
-        android:visibility="invisible"
+        android:gravity="center"
         android:text="@string/no_booking"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClientBooking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgNoBookingClient" />
@@ -33,23 +35,25 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="43dp"
+        android:gravity="center"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/txtNoBookingClient"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listViewBookingInfo"
         app:srcCompat="@drawable/ic_emoticon_sad" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClientBooking"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/BottomNavigation"
+        android:layout_width="416dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNoBookingClient"
-        app:menu="@menu/bottom_navigation_menu"
-        style="@style/BottomNavigation"/>
+        app:menu="@menu/bottom_navigation_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

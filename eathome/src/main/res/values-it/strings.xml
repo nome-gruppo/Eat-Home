@@ -32,8 +32,8 @@
     <string name="ingredientsFood">Inserisci ingredienti</string>
     <string name="my_account">Profilo</string>
     <string name="enter_price">Inserisci prezzo</string>
-    <string name="delivery_expected">Per questo locale la consegna è disponibile al costo di</string>
-    <string name="booking_expected">Per questo locale la prenotazione è disponibile</string>
+    <string name="delivery_expected">Consegna disponibile, costo: </string>
+    <string name="booking_expected">Prenotazione disponibile</string>
     <string name="confirmation">Sei sicuro di voler cancellare </string>
     <string name="action_order">Ordina</string>
     <string name="action_book">Prenota</string>

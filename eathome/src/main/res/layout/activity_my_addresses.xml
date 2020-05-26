@@ -3,18 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
 
     <TextView
         android:id="@+id/activity_my_address_et_noAddresses"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="150dp"
+        android:layout_height="51dp"
         android:text="Non hai indirizzi salvati"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/activity_my_addresses_listView"
@@ -25,6 +28,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
     </ListView>
 

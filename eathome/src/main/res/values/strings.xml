@@ -38,8 +38,8 @@
     <string name="ingredientsFood">Enter ingredients</string>
     <string name="my_account">My account</string>
     <string name="enter_price">Enter price</string>
-    <string name="delivery_expected">Delivery is available for this location at the cost of</string>
-    <string name="booking_expected">Booking is available for this place</string>
+    <string name="delivery_expected">Delivery is available at the cost of</string>
+    <string name="booking_expected">Booking available</string>
     <string name="confirmation">Are you sure you want to cancel </string>
     <string name="action_order">Order</string>
     <string name="action_book">Book</string>
