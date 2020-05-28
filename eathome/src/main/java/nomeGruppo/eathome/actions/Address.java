@@ -17,10 +17,6 @@ public class Address {
         return idAddress;
     }
 
-    public void setIdAddress(int idAddress) {
-        this.idAddress = idAddress;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -33,15 +29,7 @@ public class Address {
         return numberAddress;
     }
 
-    public void setNumberAddress(String numberAddress) {
-        this.numberAddress = numberAddress;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 }

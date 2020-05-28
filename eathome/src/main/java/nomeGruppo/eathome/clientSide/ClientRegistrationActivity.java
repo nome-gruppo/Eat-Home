@@ -116,7 +116,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
                             client.nameClient = nameClientET.getText().toString().trim();
                             client.emailClient = emailClientET.getText().toString().trim();
-                            client.setIdClient(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
+                            client.idClient = user.getUid(); //assegno come id l'user id generato da Firebase Authentication
 
                             Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, HomepageActivity.class);
                             clientHomeIntent.putExtra(FirebaseConnection.CLIENT, client);

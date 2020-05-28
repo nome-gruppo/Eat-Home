@@ -18,7 +18,7 @@
     <string name="actions">Scegli azione</string>
     <string name="deliveryCost">Inserisci costo spedizione</string>
     <string name="btn_go">Vai</string>
-    <string name="ciSiamo">Ci siamo quasi</string>
+    <string name="weAreAlmostThere">Ci siamo quasi</string>
     <string name="tw_signUp">Registrati</string>
     <string name="action_sign_in">Accedi</string>
     <string name="action_sign_in_short">Accedi</string>
@@ -115,6 +115,7 @@
     <string name="no_note">Nessuna nota aggiunta</string>
     <string name="note_success">Nota aggiunta con successo</string>
     <string name="read_note">Mostra note</string>
+    <string name="cancel">Cancella</string>
 
 
 </resources>

@@ -34,8 +34,6 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
 
     private MenuNavigationItemSelected menuNavigationItemSelected;
     private Client client;
-    private BottomNavigationView bottomMenuClient;
-    private ListView listViewBookingInfo;
     private List<Booking> listBooking;
     private BookingInfoAdapter bookingInfoAdapter;
     private FirebaseConnection firebaseConnection;
@@ -47,14 +45,15 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_booking_info);
 
+        final ListView listViewBookingInfo = findViewById(R.id.listViewBookingInfo);
+        final BottomNavigationView bottomMenuClient = findViewById(R.id.bottom_navigationClientBooking);
+
         this.firebaseConnection=new FirebaseConnection();
-        this.bottomMenuClient=findViewById(R.id.bottom_navigationClientBooking);
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
         this.menuNavigationItemSelected=new MenuNavigationItemSelected();
-        this.listViewBookingInfo=findViewById(R.id.listViewBookingInfo);
         this.listBooking=new LinkedList<>();
         this.bookingInfoAdapter=new BookingInfoAdapter(this,R.layout.listitem_booking_info,listBooking);
-        this.listViewBookingInfo.setAdapter(bookingInfoAdapter);
+        listViewBookingInfo.setAdapter(bookingInfoAdapter);
         this.txtNoBooking=findViewById(R.id.txtNoBookingClient);
         this.imgNoBooking=findViewById(R.id.imgNoBookingClient);
 
@@ -74,7 +73,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
 
         listBooking.clear();
         //leggo in firebase le prenotazioni del cliente in base al suo id
-        firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild("idClientBooking").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild(Booking.ID_CLIENT_FIELD).equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {//se esiste almeno una prenotazione

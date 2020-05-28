@@ -8,6 +8,7 @@ In ordine:
 - in consegna
 - consegnato
  */
+//TODO controlla
 public enum OrderState {
     PENDING_CONFIRMATION, CONFIRMED, REJECTED, DELIVERING, DELIVERED
 }
