@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
+    android:background="?attr/colorPrimary"
     android:descendantFocusability="blocksDescendants">
 
     <TextView
-        android:id="@+id/radioBtnAddress"
+        android:id="@+id/listitem_address_tw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"

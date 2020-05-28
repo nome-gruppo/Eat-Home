@@ -35,7 +35,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
     private MyAddressesActivity callingActivity;
 
 
-    public AddressAdapter(@NonNull Context context, int resource, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
+    AddressAdapter(@NonNull Context context, int resource, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
         super(context, resource, list);
         this.idClient=idClient;
         this.list=list;
@@ -68,30 +68,33 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         mDB = helper.getWritableDatabase();
 
         final Address addressObj= getItem(position);
-        final String address=addressObj.getCity()+SPLIT+addressObj.getAddress()+SPLIT+addressObj.getNumberAddress()+SPLIT;
-        holder.addressET.setText(address);
 
-        holder.editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if(addressObj != null){
+            final String address=addressObj.getCity()+SPLIT+addressObj.getAddress()+SPLIT+addressObj.getNumberAddress()+SPLIT;
+            holder.addressET.setText(address);
 
-               openDialog(addressObj,position);
+            holder.editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-            }
-        });
+                    openDialog(addressObj,position);
 
-        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                list.remove(addressObj);
-                notifyDataSetChanged();
-                helper.deleteAdd(mDB,addressObj.getIdAddress(),idClient);
-
-                if(list.isEmpty()){
-                    callingActivity.getNoAddressTW().setVisibility(View.VISIBLE);
                 }
-            }
-        });
+            });
+
+            holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    list.remove(addressObj);
+                    notifyDataSetChanged();
+                    helper.deleteAdd(mDB,addressObj.getIdAddress(),idClient);
+
+                    if(list.isEmpty()){
+                        callingActivity.getNoAddressTW().setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+        }
 
         return convertView;
     }
@@ -117,6 +120,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         ImageButton editBtn;
         ImageButton deleteBtn;
     }
+
     private void openDialog(final Address addressObj, final int position){ //creo un alert dialogo
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
 

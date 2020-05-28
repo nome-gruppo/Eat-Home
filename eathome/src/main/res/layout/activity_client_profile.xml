@@ -1,271 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".clientSide.profile.ClientProfileActivity"
     android:orientation="vertical"
+    android:layout_marginHorizontal="5dp"
     android:background="@color/colorPrimary">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbClientProfile"
-        android:layout_width="match_parent"
+        android:layout_width="450dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/toolbar_border"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
         android:autofillHints="true">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp">
-
-            <TextView
-            android:id="@+id/activity_client_tw_name"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="@string/edit_name"
-                android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
 
-            <EditText
-                android:id="@+id/activity_client_et_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_border"
-                android:ems="10"
-                android:drawableLeft="@drawable/ic_menu_login"
-                android:layout_gravity="center"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="136dp" />
+            >
 
-            <ImageButton
-                android:id="@+id/activity_client_profile_imBtn_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_profile_edit"
-                tools:layout_editor_absoluteX="350dp" />
-            </TableRow>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="300dp"
+                android:layout_height="770dp"
+                android:layout_gravity="center">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp">
-
-            <TextView
-                android:id="@+id/activity_client_tw_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:layout_gravity="center"
-                tools:layout_editor_absoluteX="30dp"
-                tools:layout_editor_absoluteY="71dp" />
-
-            <EditText
-                android:id="@+id/activity_client_et_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_border"
-                android:ems="10"
-                android:drawableLeft="@drawable/ic_email_black_24dp"
-                android:layout_gravity="center"
-                android:inputType="textEmailAddress"
-                tools:layout_editor_absoluteX="134dp"
-                tools:layout_editor_absoluteY="57dp" />
-
-            <ImageButton
-                android:id="@+id/activity_client_profile_imBtn_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_profile_edit"
-                tools:layout_editor_absoluteX="350dp"
-                tools:layout_editor_absoluteY="48dp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp">
-            <TextView
-                android:id="@+id/activity_client_tw_oldPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/old_password"
-                android:layout_gravity="center"
-                tools:layout_editor_absoluteX="10dp"
-                tools:layout_editor_absoluteY="103dp" />
-
-            <EditText
-                android:id="@+id/activity_client_et_oldPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_border"
-                android:ems="10"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:hint="@string/old_password"
-                android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-                android:inputType="textPassword"
-                tools:layout_editor_absoluteX="133dp"
-                tools:layout_editor_absoluteY="99dp" />
-
-            </TableRow>
-
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp">
-
-            <TextView
-                android:id="@+id/activity_client_tw_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_password"
-                android:layout_gravity="center"
-                tools:layout_editor_absoluteX="18dp"
-                tools:layout_editor_absoluteY="146dp" />
-
-            <EditText
-                android:id="@+id/activity_client_et_newPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_border"
-                android:ems="10"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-                android:hint="@string/new_password"
-                android:inputType="textPassword"
-                tools:layout_editor_absoluteX="130dp"
-                tools:layout_editor_absoluteY="142dp" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp">
-
-            <TextView
-                android:id="@+id/activity_client_tw_password_confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:layout_gravity="center"
-                tools:layout_editor_absoluteX="20dp"
-                tools:layout_editor_absoluteY="194dp" />
-
-            <EditText
-                android:id="@+id/activity_client_et_password_confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_border"
-                android:ems="10"
-                android:layout_gravity="center"
-                android:hint="@string/confirm_password"
-                android:textAlignment="center"
-                android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-                android:inputType="textPassword"
-                tools:layout_editor_absoluteX="131dp"
-                tools:layout_editor_absoluteY="190dp" />
-
-                <ImageButton
-                    android:id="@+id/activity_client_profile_imBtn_password_confirm"
+                <TableLayout
+                    android:id="@+id/tableLayout2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_profile_edit"
-                    tools:layout_editor_absoluteX="348dp"
-                    tools:layout_editor_absoluteY="190dp" />
+                    android:layout_marginTop="68dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="20dp"
+                        android:layout_marginStart="15dp">
+
+                        <EditText
+                            android:id="@+id/activity_client_et_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_menu_login"
+                            android:ems="10"
+                            android:hint="@string/edit_name"
+                            android:inputType="textPersonName"
+                            android:textAlignment="center"
+                            tools:layout_editor_absoluteX="136dp" />
+
+                        <ImageButton
+                            android:id="@+id/activity_client_profile_imBtn_name"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit"
+                            tools:layout_editor_absoluteX="350dp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp"
+                        android:layout_marginStart="15dp"
+                        android:hint="Email">
 
 
-            </TableRow>
+                        <EditText
+                            android:id="@+id/activity_client_et_email"
+                            android:layout_width="194dp"
+                            android:layout_height="43dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_email_black_24dp"
+                            android:ems="10"
+                            android:hint="Email"
+                            android:inputType="textEmailAddress"
+                            android:textAlignment="center"
+                            tools:layout_editor_absoluteX="134dp"
+                            tools:layout_editor_absoluteY="57dp" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp">
+                        <ImageButton
+                            android:id="@+id/activity_client_profile_imBtn_email"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit"
+                            tools:layout_editor_absoluteX="350dp"
+                            tools:layout_editor_absoluteY="48dp" />
+                    </TableRow>
 
-            <TextView
-                android:id="@+id/activity_client_tw_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phone"
-                android:layout_gravity="center"
-                tools:layout_editor_absoluteX="39dp"
-                tools:layout_editor_absoluteY="248dp" />
-
-            <EditText
-                android:id="@+id/activity_client_et_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_border"
-                android:ems="10"
-                android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_local_phone_black_24dp"
-                android:inputType="phone"
-                tools:layout_editor_absoluteX="131dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <ImageButton
-                android:id="@+id/activity_client_profile_imBtn_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_profile_edit"
-                tools:layout_editor_absoluteX="347dp"
-                tools:layout_editor_absoluteY="241dp" />
-            </TableRow>
-
-            <Button
-                android:id="@+id/activity_client_btn_myAddresses"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp"
-                android:background="@drawable/button_border"
-                android:text="@string/my_address" />
-
-            <Button
-                android:id="@+id/activity_client_btn_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/button_border"
-                android:text="@string/save" />
-
-            <Button
-                android:id="@+id/activity_client_btn_deleteAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_gravity="center"
-                android:layout_marginVertical="20dp"
-                android:background="@drawable/button_border"
-                android:text="@string/delete_account" />
-
-        </TableLayout>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp"
+                        android:layout_marginStart="20dp">
 
 
+                        <EditText
+                            android:id="@+id/activity_client_et_oldPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:ems="10"
+                            android:hint="@string/old_password"
+                            android:inputType="textPassword"
+                            android:textAlignment="center"
+                            tools:layout_editor_absoluteX="133dp"
+                            tools:layout_editor_absoluteY="99dp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp"
+                        android:layout_marginStart="20dp">
+
+
+                        <EditText
+                            android:id="@+id/activity_client_et_newPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:ems="10"
+                            android:hint="@string/new_password"
+                            android:inputType="textPassword"
+                            android:textAlignment="center" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp"
+                        android:layout_marginStart="20dp">
+
+
+                        <EditText
+                            android:id="@+id/activity_client_et_password_confirm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:ems="10"
+                            android:hint="@string/confirm_password"
+                            android:inputType="textPassword"
+                            android:textAlignment="center"
+                            tools:layout_editor_absoluteX="131dp"
+                            tools:layout_editor_absoluteY="190dp" />
+
+                        <ImageButton
+                            android:id="@+id/activity_client_profile_imBtn_password_confirm"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit"
+                            tools:layout_editor_absoluteX="348dp"
+                            tools:layout_editor_absoluteY="190dp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="383dp"
+                        android:layout_height="57dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp">
+
+
+                        <EditText
+                            android:id="@+id/activity_client_et_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+                            android:ems="10"
+                            android:inputType="phone"
+                            tools:layout_editor_absoluteX="131dp"
+                            tools:layout_editor_absoluteY="265dp" />
+
+                        <ImageButton
+                            android:id="@+id/activity_client_profile_imBtn_phone"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit"
+                            tools:layout_editor_absoluteX="347dp"
+                            tools:layout_editor_absoluteY="241dp" />
+                    </TableRow>
+
+
+                </TableLayout>
+
+                <Button
+                    android:id="@+id/activity_client_btn_myAddresses"
+                    android:layout_width="258dp"
+                    android:layout_height="47dp"
+
+                    android:layout_marginVertical="20dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/button_border"
+                    android:text="@string/my_address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
+
+                <Button
+                    android:id="@+id/activity_client_btn_save"
+                    android:layout_width="258dp"
+                    android:layout_height="47dp"
+
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/button_border"
+                    android:text="@string/save"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_client_btn_myAddresses" />
+
+                <Button
+                    android:id="@+id/activity_client_btn_deleteAccount"
+                    android:layout_width="258dp"
+                    android:layout_height="47dp"
+
+                    android:layout_marginTop="17dp"
+                    android:background="@drawable/button_border"
+                    android:text="@string/delete_account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_client_btn_save" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </ScrollView>
 
-    </LinearLayout>
+</LinearLayout>

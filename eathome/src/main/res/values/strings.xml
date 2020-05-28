@@ -7,6 +7,8 @@
     <string name="menu_home" translatable="false">Home</string>
     <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password" translatable="false">Password</string>
+    <string name="ok" translatable="false">Ok</string>
+
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
@@ -28,7 +30,7 @@
     <string name="actions">Choose actions</string>
     <string name="deliveryCost">Insert delivery cost</string>
     <string name="btn_go">Go</string>
-    <string name="ciSiamo">We are almost there</string>
+    <string name="weAreAlmostThere">We are almost there</string>
     <string name="tw_signUp">Sign up</string>
     <string name="tw_restaurantOwner">Restaurant owner? Sign up here</string>
     <string name="pizzeriaRestaurant">Restaurant-pizzeria</string>
@@ -38,8 +40,8 @@
     <string name="ingredientsFood">Enter ingredients</string>
     <string name="my_account">My account</string>
     <string name="enter_price">Enter price</string>
-    <string name="delivery_expected">Delivery is available for this location at the cost of</string>
-    <string name="booking_expected">Booking is available for this place</string>
+    <string name="delivery_expected">Delivery is available at the cost of</string>
+    <string name="booking_expected">Booking available</string>
     <string name="confirmation">Are you sure you want to cancel </string>
     <string name="action_order">Order</string>
     <string name="action_book">Book</string>
@@ -123,5 +125,6 @@
     <string name="no_note">No note added</string>
     <string name="note_success">Note added successfully</string>
     <string name="read_note">Show note</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

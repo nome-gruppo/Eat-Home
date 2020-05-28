@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/colorPrimary"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
@@ -17,7 +18,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="6dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,8 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="33dp"
                 android:layout_marginTop="12dp"
-                android:text="TextView"
                 android:drawableLeft="@drawable/ic_restaurant_menu_black_24dp"
+                android:text="TextView"
                 android:textColor="#040404"
                 android:textSize="18dp"
                 android:textStyle="bold"
@@ -67,27 +68,28 @@
 
             <ImageButton
                 android:id="@+id/btnDeleteFood"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="31dp"
+                android:layout_height="36dp"
                 android:layout_gravity="right"
-                android:layout_marginEnd="16dp"
-                android:background="@color/cardview_light_background"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/quantum_white_100"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnEditFood"
                 app:srcCompat="@drawable/ic_delete" />
 
             <ImageButton
                 android:id="@+id/btnEditFood"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="273dp"
-                android:layout_marginEnd="23dp"
-                android:background="@color/cardview_light_background"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="31dp"
+                android:layout_height="36dp"
+
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/quantum_white_100"
                 app:layout_constraintEnd_toStartOf="@+id/btnDeleteFood"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btnDeleteFood"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_menu_orders" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,358 +20,384 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="1dp"
         android:layout_marginTop="20dp"
-        android:autofillHints="true">
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp">
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"
-        android:inputType="textPersonName"
-        android:drawableLeft="@drawable/ic_menu_login"
-        android:background="@drawable/edit_text_border"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="25dp" />
-
-    <ImageButton
-        android:id="@+id/activity_place_profile_imBtn_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_profile_edit"
-        android:layout_gravity="center"/>
-
-    </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp">
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:drawableLeft="@drawable/ic_email_black_24dp"
-        android:layout_gravity="center"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/edit_text_border"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="91dp" />
-
-    <ImageButton
-        android:id="@+id/activity_place_profile_imBtn_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_profile_edit"
-        android:layout_gravity="center"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp">
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_oldPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-        android:layout_gravity="center"
-        android:hint="@string/old_password"
-        android:inputType="textPassword"
-        android:background="@drawable/edit_text_border" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp">
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_newPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-        android:layout_gravity="center"
-        android:hint="@string/new_password"
-        android:background="@drawable/edit_text_border"
-        android:inputType="textPassword" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp">
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_confirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-        android:hint="@string/confirm_password"
-        android:background="@drawable/edit_text_border"
-        android:inputType="textPassword" />
-
-    <ImageButton
-        android:id="@+id/activity_place_profile_imBtn_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_profile_edit"
-        android:layout_gravity="center"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp">
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
-        android:inputType="textPersonName"
-        android:background="@drawable/edit_text_border" />
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_numAddress"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"
-        android:inputType="textPersonName"
-        android:background="@drawable/edit_text_border" />
-
-    <ImageButton
-        android:id="@+id/activity_place_profile_imBtn_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_profile_edit"
-        android:layout_gravity="center"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp">
-
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
-        android:layout_gravity="center"
-        android:inputType="textPersonName"
-        android:background="@drawable/edit_text_border" />
-
-
-    <ImageButton
-        android:id="@+id/activity_place_profile_imBtn_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_profile_edit"
-        android:layout_gravity="center"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp">
-
-    <EditText
-        android:id="@+id/activity_place_profile_et_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
-        android:layout_gravity="center"
-        android:inputType="phone"
-        android:background="@drawable/edit_text_border" />
-
-    <ImageButton
-        android:id="@+id/activity_place_profile_imBtn_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_profile_edit"
-        android:layout_gravity="center"/>
-
-        </TableRow>
+        android:autofillHints="true"
+        tools:layout_editor_absoluteX="1dp">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+            android:id="@+id/cardView3"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="6dp">
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:scrollbars="vertical">
+            >
 
-
-
-    <SeekBar
-        android:id="@+id/activity_place_profile_sb_deliveryCost"
-        android:layout_width="299dp"
-        android:layout_height="33dp"
-        android:max="5"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"/>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp">
-
-    <CheckBox
-        android:id="@+id/activity_place_profile_cb_delivery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delivery"
-        tools:layout_editor_absoluteX="165dp"
-        tools:layout_editor_absoluteY="560dp" />
-
-    <CheckBox
-        android:id="@+id/activity_place_profile_cb_booking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Booking"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="557dp" />
-
-        </TableRow>
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="20dp">
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/activity_place_profile_rb_pizzeria"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/pizzeria" />
+                android:layout_gravity="center">
 
-            <RadioButton
-                android:id="@+id/activity_place_profile_rb_restaurant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/pizzeriaRestaurant" />
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="540dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <RadioButton
-                android:id="@+id/activity_place_profile_rb_sushi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/sushi" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp">
 
-        </RadioGroup>
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_menu_login"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            tools:layout_editor_absoluteX="100dp"
+                            tools:layout_editor_absoluteY="25dp" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                        <ImageButton
+                            android:id="@+id/activity_place_profile_imBtn_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit" />
 
-            <RadioButton
-                android:id="@+id/activity_place_profile_rb_other"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="Altro" />
+                    </TableRow>
 
-            <RadioButton
-                android:id="@+id/activity_place_profile_rb_italianRestaurant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/italianRestaurant" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp">
 
-        </RadioGroup>
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_email_black_24dp"
+                            android:ems="10"
+                            android:inputType="textEmailAddress"
+                            tools:layout_editor_absoluteX="104dp"
+                            tools:layout_editor_absoluteY="91dp" />
 
-    </RadioGroup>
+                        <ImageButton
+                            android:id="@+id/activity_place_profile_imBtn_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit" />
 
-        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp">
+
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_oldPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:ems="10"
+                            android:hint="@string/old_password"
+                            android:inputType="textPassword" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp">
+
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_newPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:ems="10"
+                            android:hint="@string/new_password"
+                            android:inputType="textPassword" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp">
+
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_confirmPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:ems="10"
+                            android:hint="@string/confirm_password"
+                            android:inputType="textPassword" />
+
+                        <ImageButton
+                            android:id="@+id/activity_place_profile_imBtn_password"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp">
+
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_place_black_24dp"
+                            android:ems="10"
+                            android:inputType="textPersonName" />
+
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_numAddress"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:ems="10"
+                            android:inputType="textPersonName" />
+
+                        <ImageButton
+                            android:id="@+id/activity_place_profile_imBtn_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_profile_edit" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp"
+                        android:background="@color/quantum_white_100">
+
+
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_city"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_place_black_24dp"
+                            android:ems="10"
+                            android:inputType="textPersonName" />
+
+
+                        <ImageButton
+                            android:id="@+id/activity_place_profile_imBtn_city"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="20dp">
+
+                        <EditText
+                            android:id="@+id/activity_place_profile_et_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edit_text_border"
+                            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+                            android:ems="10"
+                            android:inputType="phone" />
+
+                        <ImageButton
+                            android:id="@+id/activity_place_profile_imBtn_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/quantum_white_100"
+                            android:src="@drawable/ic_profile_edit" />
+
+                    </TableRow>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:scrollbars="vertical">
+
+
+                            <SeekBar
+                                android:id="@+id/activity_place_profile_sb_deliveryCost"
+                                android:layout_width="219dp"
+                                android:layout_height="31dp"
+                                android:layout_marginHorizontal="20dp"
+                                android:layout_marginVertical="10dp"
+                                android:max="5" />
+
+                            <TableRow
+                                android:layout_width="220dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="20dp"
+                                android:layout_marginVertical="10dp">
+
+                                <CheckBox
+                                    android:id="@+id/activity_place_profile_cb_delivery"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Delivery"
+                                    tools:layout_editor_absoluteX="165dp"
+                                    tools:layout_editor_absoluteY="560dp" />
+
+                                <CheckBox
+                                    android:id="@+id/activity_place_profile_cb_booking"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Booking"
+                                    tools:layout_editor_absoluteX="49dp"
+                                    tools:layout_editor_absoluteY="557dp" />
+
+                            </TableRow>
+
+                            <RadioGroup
+                                android:id="@+id/radioGroup"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="20dp"
+                                android:orientation="vertical">
+
+                                <RadioButton
+                                    android:id="@+id/activity_place_profile_rb_sushi"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="onRadioButtonClicked"
+                                    android:text="@string/sushi" />
+
+                                <RadioButton
+                                    android:id="@+id/activity_place_profile_rb_restaurant"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="onRadioButtonClicked"
+                                    android:text="@string/pizzeriaRestaurant">
+
+                                </RadioButton>
+
+
+                                    <RadioButton
+                                        android:id="@+id/activity_place_profile_rb_pizzeria"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:onClick="onRadioButtonClicked"
+                                        android:text="@string/pizzeria"/>
+
+
+
+
+                                    <RadioButton
+                                        android:id="@+id/activity_place_profile_rb_italianRestaurant"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:onClick="onRadioButtonClicked"
+                                        android:text="@string/italianRestaurant" />
+
+
+                                <RadioButton
+                                    android:id="@+id/activity_place_profile_rb_other"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="42dp"
+                                    android:onClick="onRadioButtonClicked"
+                                    android:text="Altro" />
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <Button
+                        android:id="@+id/activity_place_profile_btn_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="10dp"
+                        android:background="@drawable/button_border"
+                        android:text="@string/set_opening" />
+
+                    <Button
+                        android:id="@+id/activity_place_profile_btn_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="10dp"
+                        android:background="@drawable/button_border"
+                        android:text="@string/save" />
+
+                    <Button
+                        android:id="@+id/activity_client_btn_deleteAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="10dp"
+                        android:background="@drawable/button_border"
+                        android:text="@string/delete_account" />
+
+                </TableLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/activity_place_profile_btn_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/set_opening"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/button_border" />
-
-    <Button
-        android:id="@+id/activity_place_profile_btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/button_border" />
-
-        <Button
-            android:id="@+id/activity_client_btn_deleteAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_account"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/button_border" />
-
-    </TableLayout>
 
     </ScrollView>
 

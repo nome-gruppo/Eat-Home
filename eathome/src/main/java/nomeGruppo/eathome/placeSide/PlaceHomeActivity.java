@@ -174,20 +174,18 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);//converto l'uri in Bitmap
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,10,stream);//comprimo l'immagine
 
-            imgPlace.setImageBitmap(bitmap);//assegno l'immagine come copertina della home
-            changeImg=true;//imposto che l'immagine è stata appena cambiata
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,10,stream);//comprimo l'immagine
 
-            StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-            storage.uploadImageBitmap(stream,place.idPlace);//inserisco l'immagine nello storage
+                imgPlace.setImageBitmap(bitmap);//assegno l'immagine come copertina della home
+                changeImg=true;//imposto che l'immagine è stata appena cambiata
 
-            try {
+                StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
+                storage.uploadImageBitmap(stream,place.idPlace);//inserisco l'immagine nello storage
+
                 stream.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -212,23 +210,23 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         return resizedBitmap;
     }
 
-    //TODO a che serve?
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-            }
-            return;
-        }
-    }
+//    //TODO a che serve?
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        switch (requestCode) {
+//            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    // permission was granted, yay! Do the
+//                    // contacts-related task you need to do.
+//                } else {
+//                    // permission denied, boo! Disable the
+//                    // functionality that depends on this permission.
+//                }
+//            }
+//            return;
+//        }
+//    }
 
     @Override
     public void applyTexts(String nameFood, String ingredientsFood,float priceFood) {

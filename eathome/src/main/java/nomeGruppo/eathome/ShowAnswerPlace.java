@@ -32,12 +32,12 @@ public class ShowAnswerPlace extends AppCompatDialogFragment {
         editReply.setEnabled(false);
         editReply.setText(reply);
 
-        builder.setTitle(getContext().getResources().getString(R.string.reply)).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.reply).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
             }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 

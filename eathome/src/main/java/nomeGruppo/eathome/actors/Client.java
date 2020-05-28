@@ -18,20 +18,5 @@ public class Client implements Serializable {
 
     }
 
-    public void setNameClient(String nameClient) {
-        this.nameClient = nameClient;
-    }
-
-    public void setPhoneClient(String phoneClient) {
-        this.phoneClient = phoneClient;
-    }
-
-    public void setEmailClient(String emailClient) {
-        this.emailClient = emailClient;
-    }
-
-    public void setIdClient(String idClient) {
-        this.idClient = idClient;
-    }
 }
 

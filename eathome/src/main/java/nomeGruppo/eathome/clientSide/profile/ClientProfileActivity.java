@@ -42,8 +42,6 @@ public class ClientProfileActivity extends AppCompatActivity {
     private ImageButton phoneBtn;
     private Button myAddressesBtn;
     private Button deleteAccountBtn;
-    private Button btnSave;
-    private Toolbar toolBarClientProfile;
 
     private UtilitiesAndControls controls;
 
@@ -61,7 +59,7 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
-        toolBarClientProfile=findViewById(R.id.tlbClientProfile);
+        final Toolbar toolBarClientProfile = findViewById(R.id.tlbClientProfile);
         setSupportActionBar(toolBarClientProfile);
         toolBarClientProfile.setTitle(getResources().getString(R.string.my_account));
         toolBarClientProfile.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
@@ -88,7 +86,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         phoneBtn = findViewById(R.id.activity_client_profile_imBtn_phone);
         myAddressesBtn = findViewById(R.id.activity_client_btn_myAddresses);
         deleteAccountBtn = findViewById(R.id.activity_client_btn_deleteAccount);
-        btnSave=findViewById(R.id.activity_client_btn_save);
+        final Button btnSave = findViewById(R.id.activity_client_btn_save);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +110,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         emailEt.setHint(client.emailClient);
 
         if (client.phoneClient == null) {
-            phoneEt.setHint("Telefono");
+            phoneEt.setHint(R.string.enterPhone);
         } else {
             phoneEt.setHint(client.phoneClient);
         }
@@ -247,7 +245,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         nameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                client.setNameClient(nameEt.getText().toString().trim());
+                client.nameClient = nameEt.getText().toString().trim();
                 edit = true;
             }
         });
@@ -321,7 +319,7 @@ public class ClientProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(controls.isPhoneValid(phoneEt.getText().toString().trim())){
-                    client.setPhoneClient(phoneEt.getText().toString().trim());
+                    client.phoneClient = phoneEt.getText().toString().trim();
                     edit = true;
                     Toast.makeText(ClientProfileActivity.this, getString(R.string.phoneNumberChangedCorrectly), Toast.LENGTH_SHORT).show();
                 }else{

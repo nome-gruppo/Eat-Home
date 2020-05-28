@@ -9,17 +9,17 @@
 
     <TextView
         android:id="@+id/place_homepage_txtNamePlace"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/edit_text_border"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Nome locale"
+        app:layout_constraintBottom_toTopOf="@+id/place_homepage_placeImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,11 +29,11 @@
         android:layout_height="115dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="84dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/place_homepage_txtNamePlace"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
 
     <ProgressBar
@@ -42,21 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="192dp"
-        tools:layout_editor_absoluteY="118dp"
-        tools:ignore="MissingConstraints" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/place_homepage_btnAddMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/place_homepage_placeImg"
-        app:srcCompat="@drawable/ic_button_add_menu" />
+        tools:layout_editor_absoluteY="118dp" />
 
     <LinearLayout
         android:id="@+id/place_homepage_linearLayout_list"
@@ -109,5 +97,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/place_homepage_btnAddMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.295"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_homepage_placeImg"
+        app:srcCompat="@drawable/ic_button_add_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

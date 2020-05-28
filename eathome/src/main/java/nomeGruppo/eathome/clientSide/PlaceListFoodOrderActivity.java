@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -272,7 +271,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
                 convertView = inflater.inflate(R.layout.listitem_address, null);
 
             }
-            txtAddress = convertView.findViewById(R.id.radioBtnAddress);
+            txtAddress = convertView.findViewById(R.id.listitem_address_tw);
 
             String address = getItem(position);
 
