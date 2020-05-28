@@ -24,7 +24,6 @@ import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
-import nomeGruppo.eathome.utility.PlaceBookingAdapter;
 
 /*
 activity per far visualizzare a Place il riepilogo delle sue prenotazioni

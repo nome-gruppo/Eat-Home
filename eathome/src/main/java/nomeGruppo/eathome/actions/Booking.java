@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Booking {
 
-    public Calendar dateBooking;
+    public long dateBooking;
     public int personNumBooking;
     public String nameBooking;
     public String idClientBooking;
@@ -17,7 +17,7 @@ public class Booking {
 
     }
 
-    public void setDateBooking(Calendar dateBooking) {
+    public void setDateBooking(Long dateBooking) {
         this.dateBooking = dateBooking;
     }
 
