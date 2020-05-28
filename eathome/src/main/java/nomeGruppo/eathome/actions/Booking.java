@@ -1,9 +1,10 @@
 package nomeGruppo.eathome.actions;
 
-import java.lang.reflect.Field;
 import java.util.Calendar;
 
 public class Booking {
+
+    public static final String ID_CLIENT_FIELD = "idClientBooking";
 
     public Calendar dateBooking;
     public int personNumBooking;
@@ -13,8 +14,6 @@ public class Booking {
     public String namePlaceBooking;
     public String addressPlaceBooking;
     public String phonePlaceBooking;
-
-    public static final String ID_CLIENT_FIELD = "idClientBooking";
 
     public Booking(){
 
