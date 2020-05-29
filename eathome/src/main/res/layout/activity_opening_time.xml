@@ -14,8 +14,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="0dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
+        app:cardCornerRadius="7dp"
         app:cardElevation="10dp">
 
         <LinearLayout
@@ -335,10 +336,9 @@
 
             <Button
                 android:id="@+id/btnSigninPlace"
-                android:layout_width="430dp"
-                android:layout_height="51dp"
-                android:layout_marginHorizontal="0dp"
-                android:layout_marginVertical="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:background="@drawable/button_border"
                 android:text="@string/tw_signUp" />
 

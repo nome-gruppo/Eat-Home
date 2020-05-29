@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomeGruppo.eathome.placeSide;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;
@@ -34,7 +36,9 @@ public class PlaceBookingAdapter extends ArrayAdapter<Booking> {
         final Booking booking = getItem(position);
         title.setText(booking.nameBooking);
         address.setVisibility(View.INVISIBLE);
-        date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy, hh:mm").format(booking.dateBooking));
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(booking.dateBooking);
+        date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy, hh:mm").format(calendar));
         number.setText(booking.personNumBooking);
         return convertView;
     }

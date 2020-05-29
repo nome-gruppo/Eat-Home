@@ -244,7 +244,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
     private boolean addBookingFirebase(){
         //assegno all'oggetto booking i valori
-        booking.setDateBooking(dateBooking);
+        booking.setDateBooking(dateBooking.getTimeInMillis());//Firebase non accetta Calendar come tipo di dato in quanto non è un tipo JSON
         booking.setIdClientBooking(getIntent().getStringExtra("UserID"));
         booking.setNamePlaceBooking(place.namePlace);
         booking.setAddressPlaceBooking(place.cityPlace+", "+place.addressPlace+", "+place.addressNumPlace);

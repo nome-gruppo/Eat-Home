@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomeGruppo.eathome.clientSide;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import nomeGruppo.eathome.R;
@@ -40,7 +41,9 @@ public class BookingInfoAdapter extends ArrayAdapter<Booking> {
         if(booking != null) {
             title.setText(booking.namePlaceBooking);
             address.setText(booking.addressPlaceBooking);
-            date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy, hh:mm").format(booking.dateBooking));
+            Calendar calendar=Calendar.getInstance();
+            calendar.setTimeInMillis(booking.dateBooking);
+            date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy, hh:mm").format(calendar));
             number.setText(String.valueOf(booking.personNumBooking));
         }
         return convertView;

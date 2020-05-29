@@ -1,6 +1,5 @@
 package nomeGruppo.eathome.clientSide;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,6 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.BookingInfoAdapter;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 
 /*
