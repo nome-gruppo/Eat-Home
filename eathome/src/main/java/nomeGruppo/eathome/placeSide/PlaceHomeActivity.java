@@ -51,13 +51,9 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
     private ImageView imgPlace;
     private Place place;
-    private TextView txtNamePlace;
-    private ListView listViewMenu;
     private List<Food> listFood;
     private MyMenuAdapter mAdapter;
-    private FloatingActionButton btnAddMenu;
     private boolean changeImg=false;
-    private BottomNavigationView bottomMenuPlace;
     private Food food;
     private MenuNavigationItemSelected menuNavigationItemSelected;
     private ProgressBar progressBar;
@@ -71,22 +67,23 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         food=new Food();
 
-        txtNamePlace= findViewById(R.id.place_homepage_txtNamePlace);
-        txtNamePlace.setText(place.namePlace);
-        btnAddMenu= findViewById(R.id.place_homepage_btnAddMenu);
-        listViewMenu= findViewById(R.id.place_homepage_listMenu);
-        bottomMenuPlace=  findViewById(R.id.bottom_navigationPlace);
-        imgPlace= findViewById(R.id.place_homepage_placeImg);
-        listFood=new LinkedList<>();
-        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
-        listViewMenu.setAdapter(mAdapter);
-        this.menuNavigationItemSelected=new MenuNavigationItemSelected();
-        this.progressBar=findViewById(R.id.progressBarPlaceHome);
+        final TextView txtNamePlace = findViewById(R.id.place_homepage_txtNamePlace);
+        final FloatingActionButton btnAddMenu = findViewById(R.id.place_homepage_btnAddMenu);
+        final ListView listViewMenu = findViewById(R.id.place_homepage_listMenu);
+        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlace);
 
+        imgPlace= findViewById(R.id.place_homepage_placeImg);
+        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
+        menuNavigationItemSelected=new MenuNavigationItemSelected();
+        progressBar=findViewById(R.id.progressBarPlaceHome);
+        listFood=new LinkedList<>();
+
+        txtNamePlace.setText(place.namePlace);
+        listViewMenu.setAdapter(mAdapter);
         //mostro il menu sottostante
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 return menuNavigationItemSelected.menuNavigationPlace(item,place,PlaceHomeActivity.this);
             }
         });
@@ -112,6 +109,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     @Override
     protected void onStart() {
         super.onStart();
+        progressBar.setVisibility(View.VISIBLE);
         listFood.clear();
 
         if(!changeImg) {//se l'immagine non è stata appena cambiata
@@ -141,6 +139,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                     }
                 }
                 mAdapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -164,7 +163,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GET_FROM_GALLERY && resultCode== Activity.RESULT_OK) {
             Uri imageUri = data.getData();//restituisce l'uri dell'immagine
-            Bitmap bitmap = null;
+            Bitmap bitmap;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);//converto l'uri in Bitmap
 

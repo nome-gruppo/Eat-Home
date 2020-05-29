@@ -1,6 +1,7 @@
 package nomeGruppo.eathome.utility;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -24,9 +25,12 @@ import static nomeGruppo.eathome.utility.UtilitiesAndControls.PICT_SIZE_MAX;
 
 public class PlaceAdapter extends ArrayAdapter<Place> {
 
+    private Resources res;
+
     public PlaceAdapter(Context context, int textViewResourceId,
                          List<Place> place) {
         super(context, textViewResourceId, place);
+        this.res = context.getResources();
     }
 
 
@@ -36,30 +40,32 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.fragment_place_info_homepage_activity, null);
-        TextView title = (TextView)convertView.findViewById(R.id.txtNamePlaceFragment);
-        TextView type = (TextView)convertView.findViewById(R.id.txtTypePlaceFragment);
-        TextView address=(TextView)convertView.findViewById(R.id.txtAddressPlaceFragment);
-        ImageView imgPlace=(ImageView)convertView.findViewById(R.id.imgPlaceFragment);
-        RatingBar ratingBar=convertView.findViewById(R.id.ratingBarPlaceFragment);
-        Place place = getItem(position);
-        title.setText(place.namePlace);
-        type.setText(place.categories);
-        address.setText(place.cityPlace+", "+place.addressPlace+", "+place.addressNumPlace);
+        final TextView title = convertView.findViewById(R.id.txtNamePlaceFragment);
+        final TextView type = convertView.findViewById(R.id.txtTypePlaceFragment);
+        final TextView address= convertView.findViewById(R.id.txtAddressPlaceFragment);
+        final ImageView imgPlace= convertView.findViewById(R.id.imgPlaceFragment);
+        final RatingBar ratingBar=convertView.findViewById(R.id.ratingBarPlaceFragment);
 
-        ratingBar.setRating(place.valuation);
+        final Place place = getItem(position);
+        if(place != null) {
+            title.setText(place.namePlace);
+            type.setText(place.categories);
+            address.setText(res.getString(R.string.addressPrinted, place.addressPlace, place.addressNumPlace, place.cityPlace));
 
-        if(!place.takesBookingPlace){
-            ImageView mImageView = convertView.findViewById(R.id.list_places_booking_icon);
-            mImageView.setVisibility(View.GONE);
+            ratingBar.setRating(place.valuation);
+
+            if (!place.takesBookingPlace) {
+                ImageView mImageView = convertView.findViewById(R.id.list_places_booking_icon);
+                mImageView.setVisibility(View.GONE);
+            }
+
+            if (!place.takesOrderPlace) {
+                ImageView mImageView = convertView.findViewById(R.id.list_places_delivery_icon);
+                mImageView.setVisibility(View.GONE);
+            }
+
+            setImage(imgPlace, place);
         }
-
-        if(!place.takesOrderPlace){
-            ImageView mImageView = convertView.findViewById(R.id.list_places_delivery_icon);
-            mImageView.setVisibility(View.GONE);
-        }
-
-        setImage(imgPlace, place);
-
         return convertView;
     }
 
