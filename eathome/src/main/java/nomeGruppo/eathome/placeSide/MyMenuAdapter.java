@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Locale;
+
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -31,8 +33,8 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
     private Place place;
     private List<Food>list;
 
-    public MyMenuAdapter(Context context, int textViewResourceId,
-                         List<Food> food, Place place) {
+    MyMenuAdapter(Context context, int textViewResourceId,
+                  List<Food> food, Place place) {
         super(context, textViewResourceId, food);
         this.place=place;
         this.list=food;
@@ -43,27 +45,30 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listitem_menu, null);
-        TextView title = (TextView)convertView.findViewById(R.id.txtNameFood);
-        TextView price = (TextView)convertView.findViewById(R.id.txtPriceFood);
-        TextView ingredients=(TextView)convertView.findViewById(R.id.txtIngredientsFood);
-        ImageButton btnDelete=(ImageButton) convertView.findViewById(R.id.btnDeleteFood);
+        TextView title = convertView.findViewById(R.id.txtNameFood);
+        TextView price = convertView.findViewById(R.id.txtPriceFood);
+        TextView ingredients=convertView.findViewById(R.id.txtIngredientsFood);
+        ImageButton btnDelete= convertView.findViewById(R.id.btnDeleteFood);
         ImageButton btnEdit=convertView.findViewById(R.id.btnEditFood);
         final Food food = getItem(position);
-        title.setText(food.nameFood);
-        price.setText(getContext().getResources().getString(R.string.euro, food.priceFood));
-        ingredients.setText(food.ingredientsFood);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog(food,place);
-            }
-        });
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialogEditFood(food);
-            }
-        });
+
+        if(food != null) {
+            title.setText(food.nameFood);
+            price.setText(getContext().getResources().getString(R.string.euro, food.priceFood));
+            ingredients.setText(food.ingredientsFood);
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openDialog(food, place);
+                }
+            });
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openDialogEditFood(food);
+                }
+            });
+        }
         return convertView;
     }
 
@@ -120,8 +125,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         final EditText editPriceFood = view.findViewById(R.id.editPriceFood);
         editNameFood.setText(food.nameFood);
         editIngredientsFood.setText(food.ingredientsFood);
-        editPriceFood.setText(Float.toString(food.priceFood));
-
+        editPriceFood.setText(String.format(Locale.getDefault(),"%.02f", food.priceFood));
         builder.setView(view).setTitle(getContext().getResources().getString(R.string.edit)).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

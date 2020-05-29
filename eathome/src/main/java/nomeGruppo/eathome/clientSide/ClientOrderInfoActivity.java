@@ -46,8 +46,6 @@ activity per far visualizzare al cliente il riepilogo dei suoi ordini
 public class ClientOrderInfoActivity extends AppCompatActivity {
     private MenuNavigationItemSelected menuNavigationItemSelected;
     private Client client;
-    private BottomNavigationView bottomMenuClient;
-    private ListView listViewOrderInfo;
     private OrderInfoAdapter orderInfoAdapter;
     private List<Order>listOrder;
     private FirebaseConnection firebaseConnection;
@@ -64,19 +62,22 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_order_info);
 
+        final BottomNavigationView bottomMenuClient = findViewById(R.id.bottom_navigationClientOrder);
+        final ListView listViewOrderInfo = findViewById(R.id.listViewOrderInfo);
+
         this.firebaseConnection=new FirebaseConnection();
-        this.bottomMenuClient=findViewById(R.id.bottom_navigationClientOrder);
+
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
         this.menuNavigationItemSelected=new MenuNavigationItemSelected();
-        this.listViewOrderInfo=findViewById(R.id.listViewOrderInfo);
+
         this.listOrder=new LinkedList<>();
         this.orderInfoAdapter=new OrderInfoAdapter(this,R.layout.listitem_order_info,listOrder);
-        this.listViewOrderInfo.setAdapter(orderInfoAdapter);
+        listViewOrderInfo.setAdapter(orderInfoAdapter);
 
         //menu sottostante l'activity
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 return menuNavigationItemSelected.menuNavigation(item,client,ClientOrderInfoActivity.this);
             }
         });
@@ -111,7 +112,7 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
                     Collections.reverse(listOrder);//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
                     orderInfoAdapter.notifyDataSetChanged();
                 }else{//se non c'è nemmeno un ordine
-                    Toast.makeText(ClientOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientOrderInfoActivity.this, R.string.no_order,Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -1,25 +1,25 @@
 package nomeGruppo.eathome.utility;
 
-import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TimePicker;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.LoggingPermission;
+import java.util.Locale;
+
+import nomeGruppo.eathome.R;
 
 
 public class OpeningTime {
     private TimePickerDialog picker;
-    private static final String SPLIT=":";
     private static final int LENGTH=5;
     private static final String DASH="-";
+    private Resources res;
 
     public OpeningTime(){
 
@@ -35,11 +35,11 @@ public class OpeningTime {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
                         //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
-                        edit.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
-
+                        edit.setText(res.getString(R.string.hourPrinted, sHour, sMinute));
                     }
                 }, hour, minutes, true);
         picker.show();
+        res = context.getResources();
     }
 
     public void setOpeningTimeClose(Context context, final Button editOpen,final Button editClosed){
@@ -57,7 +57,7 @@ public class OpeningTime {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
                         //String.format() aggiunge uno zero davanti al numero qualora questo avesse un unica cifra
-                        editClosed.setText(String.format("%02d", sHour) + SPLIT + String.format("%02d", sMinute));
+                        editClosed.setText(res.getString(R.string.hourPrinted, sHour, sMinute));
                     }
                 }, hour, minutes, true);
         picker.show();
@@ -73,8 +73,8 @@ public class OpeningTime {
     public void setSwitchChecked(final Button editOpen,final Button editClosed){
         editOpen.setEnabled(true);
         editClosed.setEnabled(true);
-        editOpen.setText("Da:");
-        editClosed.setText("A:");
+        editOpen.setText(res.getString(R.string.from));
+        editClosed.setText(res.getString(R.string.to));
     }
 
     public String getDayOfWeek(int value) {//funzione per convertire DAY_OF_WEEK restituito da Calendar da formato numerico a String
@@ -106,13 +106,13 @@ public class OpeningTime {
     }
 
     public Date getTimeOpening(String openingTime) throws ParseException {
-        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat parser = new SimpleDateFormat(res.getString(R.string.hourFormat), Locale.getDefault());
         String[] result=openingTime.split(DASH);
         return parser.parse(result[0]);
     }
 
     public Date getTimeClosed(String openingTime) throws ParseException {
-        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat parser = new SimpleDateFormat(res.getString(R.string.hourFormat), Locale.getDefault());
         String[] result=openingTime.split(DASH);
         return parser.parse(result[1]);
     }

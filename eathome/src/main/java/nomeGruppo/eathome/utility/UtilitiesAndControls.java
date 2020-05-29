@@ -5,7 +5,12 @@ import android.util.Patterns;
  */
 public class UtilitiesAndControls {
 
+    /**costante che indica la dimensione massima di un Place
+     */
+    public static final int PICT_SIZE_MAX = 3840;
+
     private static final int MIN_PASSWORD_LENGTH = 6;
+
 
     public UtilitiesAndControls(){
 

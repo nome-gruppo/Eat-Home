@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -48,21 +46,18 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
 import nomeGruppo.eathome.utility.OpeningTime;
+
+import static nomeGruppo.eathome.utility.UtilitiesAndControls.PICT_SIZE_MAX;
+
 /*
 activity che visualizza le informazioni per il locale selezionato dall'utente
  */
 public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private static final String SPLIT = ", ";
     private Place place;
     private ImageView imgPlaceInfo;
-    private TextView txtDeliveryPlaceInfo;
-    private TextView txtBookingPlaceInfo;
-    private TextView txtNamePlaceInfo;
-    private TextView txtAddressPlaceInfo;
     private TextView txtOpeningTime;
     private Button btnOrder;
-    private Button btnBook;
 
     private OpeningTime openingTimeUtility;
 
@@ -74,21 +69,23 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_info);
 
+        final TextView txtDeliveryPlaceInfo = findViewById(R.id.txtDeliveryPlaceInfo);
+        final TextView txtBookingPlaceInfo = findViewById(R.id.txtBookingPlaceInfo);
+        final TextView txtAddressPlaceInfo = findViewById(R.id.txtAddressPlaceInfo);
+        final TextView txtNamePlaceInfo =findViewById(R.id.txtNamePlaceInfo);
+        final Button btnBook =  findViewById(R.id.btnBook);
+
+        this.imgPlaceInfo= findViewById(R.id.imgPlaceInfo);
+        this.txtOpeningTime=findViewById(R.id.txtOpeningTime);
+        this.btnOrder= findViewById(R.id.btnOrder);
+
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
         this.openingTimeUtility=new OpeningTime();
 
-        this.imgPlaceInfo=(ImageView) findViewById(R.id.imgPlaceInfo);
-        this.txtDeliveryPlaceInfo=(TextView)findViewById(R.id.txtDeliveryPlaceInfo);
-        this.txtBookingPlaceInfo=(TextView)findViewById(R.id.txtBookingPlaceInfo);
-        this.txtNamePlaceInfo=(TextView)findViewById(R.id.txtNamePlaceInfo);
-        this.txtAddressPlaceInfo=(TextView)findViewById(R.id.txtAddressPlaceInfo);
-        this.txtOpeningTime=findViewById(R.id.txtOpeningTime);
-        this.btnBook=(Button)findViewById(R.id.btnBook);
-        this.btnOrder=(Button)findViewById(R.id.btnOrder);
-
-        this.txtNamePlaceInfo.setText(this.place.namePlace);
-        this.txtAddressPlaceInfo.setText(this.place.cityPlace+", "+this.place.addressPlace+", "+this.place.addressNumPlace);
+        txtNamePlaceInfo.setText(this.place.namePlace);
+        txtAddressPlaceInfo.setText(getString(R.string.addressPrinted, this.place.addressPlace,
+                this.place.addressNumPlace, this.place.cityPlace));
 
 
         final RatingBar ratingBar = findViewById(R.id.activity_place_info_ratingBar);
@@ -122,14 +119,14 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         //se il locale accetta prenotazioni
         if(this.place.takesBookingPlace){
-            this.txtBookingPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta prenotazioni'
-            this.btnBook.setEnabled(true);//rendo il bottone prenota cliccabile
+            txtBookingPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta prenotazioni'
+            btnBook.setEnabled(true);//rendo il bottone prenota cliccabile
         }
 
         //se il locale accetta ordinazioni
         if(this.place.takesOrderPlace){
-            this.txtDeliveryPlaceInfo.setText(getResources().getString(R.string.delivery_expected)+ " "+this.place.deliveryCost+" €");
-            this.txtDeliveryPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta ordinazioni'
+            txtDeliveryPlaceInfo.setText(getResources().getString(R.string.delivery_expected)+ " "+this.place.deliveryCost+" €");
+            txtDeliveryPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta ordinazioni'
             this.btnOrder.setEnabled(true);//rendo cliccabile il bottone ordina
         }
 
@@ -175,7 +172,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
 
         //metodo di lettura immagine tramite byte
-        storageReference.getBytes(3840*3840)
+        storageReference.getBytes(PICT_SIZE_MAX * PICT_SIZE_MAX)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {

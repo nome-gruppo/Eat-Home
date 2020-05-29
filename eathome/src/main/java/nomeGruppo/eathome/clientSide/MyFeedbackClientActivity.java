@@ -25,7 +25,6 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.placeSide.profile.PlaceProfileActivity;
 
 /*
 activity per far visualizzare al cliente le recensioni scritte

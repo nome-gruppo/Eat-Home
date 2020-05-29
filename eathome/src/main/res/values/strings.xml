@@ -7,7 +7,11 @@
     <string name="menu_home" translatable="false">Home</string>
     <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password" translatable="false">Password</string>
-    <string name="ok" translatable="false">Ok</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="dateFormat" translatable="false">dd/MM/yyyy</string>
+    <string name="hourFormat" translatable="false">HH:mm</string>
+    <string name="hourPrinted" translatable="false">%1$02d:%2$02d</string>
+    <string name="addressPrinted" translatable="false">%1$s, %2$s, %3$s</string>
 
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -54,7 +58,7 @@
     <string name="are_you_sure">Are you sure you want to confirm?</string>
     <string name="choose_time">Choose the time</string>
     <string name="no_booking">Sorry! There are no booking</string>
-    <string name="no_order">Sorry! There are no order</string>
+    <string name="no_order">Sorry! There are no orders</string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
     <string name="wednesday">Wednesday</string>
@@ -126,5 +130,7 @@
     <string name="note_success">Note added successfully</string>
     <string name="read_note">Show note</string>
     <string name="cancel">Cancel</string>
+    <string name="successfulRegistration">Successful Registration</string>
+    <string name="yes">Yes</string>
 
 </resources>

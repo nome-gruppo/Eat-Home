@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import nomeGruppo.eathome.R;
@@ -44,16 +45,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     private Order order;
     private Place place;
-    private TextView txtTotOrder;
-    private TextView txtTotDelivery;
-    private TextView txtTotal;
-    private TextView txtAddressOrder;
     private EditText editName;
     private EditText editPhone;
-    private Button btnConfirm;
     private Button chooseTime;
     private OpeningTime openingTimeUtility;
-    private Button btnAddNote;
 
 
     private SQLiteDatabase mDB;
@@ -67,26 +62,29 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
 
+        final TextView txtTotOrder = findViewById(R.id.txtTotOrder);
+        final TextView txtTotDelivery = findViewById(R.id.txtDeliveryCostOrder);
+        final TextView txtTotal = findViewById(R.id.txtTotal);
+        final TextView txtAddressOrder = findViewById(R.id.txtAddressOrder);
+        final Button btnAddNote = findViewById(R.id.btnAddNote);
+        final Button btnConfirm = findViewById(R.id.btnConfirmOrder);
+        this.editName = findViewById(R.id.editNameClientOrder);
+        this.editPhone = findViewById(R.id.editPhoneClientOrder);
+        this.chooseTime = findViewById(R.id.editChooseTime);
+
+        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f", order.totalOrder));
+        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder));
+        txtTotDelivery.setText(String.format(Locale.getDefault(),"%.2f",order.deliveryCost));
+        txtTotal.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder + order.deliveryCost));
+        txtAddressOrder.setText(order.addressOrder);
+
+
         this.order = (Order) getIntent().getSerializableExtra(FirebaseConnection.ORDER);
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.openingTimeUtility = new OpeningTime();
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getReadableDatabase();
-
-        this.txtTotOrder = findViewById(R.id.txtTotOrder);
-        this.txtTotDelivery = findViewById(R.id.txtDeliveryCostOrder);
-        this.txtTotal = findViewById(R.id.txtTotal);
-        this.txtAddressOrder = findViewById(R.id.txtAddressOrder);
-        this.txtTotOrder.setText(Float.toString(order.totalOrder));
-        this.txtTotDelivery.setText(Float.toString(order.deliveryCost));
-        this.txtTotal.setText(Float.toString(order.totalOrder + order.deliveryCost));
-        this.txtAddressOrder.setText(order.addressOrder);
-        this.btnConfirm = findViewById(R.id.btnConfirmOrder);
-        this.editName = findViewById(R.id.editNameClientOrder);
-        this.editPhone = findViewById(R.id.editPhoneClientOrder);
-        this.chooseTime = findViewById(R.id.editChooseTime);
-        this.btnAddNote=findViewById(R.id.btnAddNote);
 
 
         //se l'utenten clicca sulla editText per scegliere l'ora
@@ -98,7 +96,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
             }
         });
 
-        this.btnAddNote.setOnClickListener(new View.OnClickListener() {
+        btnAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openDialogAddNote();
@@ -106,11 +104,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         });
 
         //se l'utente clicca su conferma
-        this.btnConfirm.setOnClickListener(new View.OnClickListener() {
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //se non sono stati completati tutti i campi
-                if (editName.getText().toString().trim().length() == 0 || chooseTime.getText().toString() == getResources().getString(R.string.choose_time) || editPhone.getText().toString().trim().length() == 0) {
+                if (editName.getText().toString().trim().length() == 0 || chooseTime.getText().toString().equals(getResources().getString(R.string.choose_time)) || editPhone.getText().toString().trim().length() == 0) {
                     //mostra messaggio
                     Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
                 } else {//se sono stati completati tutti i campi
@@ -198,7 +196,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         order.setNameClientOrder(editName.getText().toString());
         order.setPhoneClientOrder(editPhone.getText().toString());
         order.setTimeOrder(chooseTime.getText().toString());
-        order.setDateOrder(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        order.setDateOrder(new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(new Date()));
         order.timestampOrder = System.currentTimeMillis();   //momento in cui è stato realizzato l'ordine
         FirebaseConnection firebaseConnection = new FirebaseConnection();
 
@@ -208,12 +206,12 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         firebaseConnection.write(FirebaseConnection.ORDER_TABLE, idOrder, order);
 
         //inserisco l'informazione dell'ordinazione nel db interno
-        mDBHelper.addInfo(mDB, order.idPlaceOrder, order.namePlaceOrder, new SimpleDateFormat("yyyy/MM/dd").format(new Date()), mUser.getUid());
+        mDBHelper.addInfo(mDB, order.idPlaceOrder, order.namePlaceOrder, new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(new Date()), mUser.getUid());
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat parser = new SimpleDateFormat(getString(R.string.hourFormat), Locale.getDefault());
         //leggo l'orario di apertura chiusura del locale
         String openingTime = place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
         Date timeOpening = null;

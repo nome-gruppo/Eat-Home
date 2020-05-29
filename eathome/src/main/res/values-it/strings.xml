@@ -116,6 +116,8 @@
     <string name="note_success">Nota aggiunta con successo</string>
     <string name="read_note">Mostra note</string>
     <string name="cancel">Cancella</string>
+    <string name="successfulRegistration">Registrazione effettuata con successo</string>
+    <string name="yes">Sì</string>
 
 
 </resources>

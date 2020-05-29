@@ -60,7 +60,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
         //menu sottostante l'activity
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 return menuNavigationItemSelected.menuNavigation(item,client,ClientBookingInfoActivity.this);
             }
 

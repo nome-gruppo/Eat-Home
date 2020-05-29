@@ -35,7 +35,6 @@ dialog per l'inserimento delle recensioni da parte del cliente
 public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private RatingBar ratingBar;
     private String idPlace,namePlace,idClient,nameClient;
-    private TextView txtNamePlaceReview;
     private SQLiteDatabase mDB;
     private DBOpenHelper mDBHelper;
     private EditText editFeedback;
@@ -43,7 +42,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private FirebaseConnection firebaseConnection;
 
 
-    public DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
+    DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
         this.idPlace=idPlace;
         this.namePlace=namePlace;
         this.idClient=idClient;
@@ -60,11 +59,11 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_enter_place_review, null);
 
+        final TextView txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
         this.ratingBar = view.findViewById(R.id.ratingBar);
-        this.txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
         this.editFeedback=view.findViewById(R.id.editTextFeedback);
 
-        this.txtNamePlaceReview.setText(namePlace);
+        txtNamePlaceReview.setText(namePlace);
 
 
         builder.setView(view).setTitle(getActivity().getResources().getString(R.string.enterReview)).setNegativeButton(getActivity().getResources().getString(R.string.notNow), new DialogInterface.OnClickListener() {//se il cliente clicca 'non ora'
@@ -114,11 +113,13 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
                 if(dataSnapshot.exists()) {//se è stato trovato Place
                     //ritorna un iterable con un solo elemento
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+
                         Place place = snapshot.getValue(Place.class);
-                        place.newValuation(ratingBar.getRating());//assegno la valutazione data dal cliente al Place corrispondente
+                        if(place != null) {
+                            place.newValuation(ratingBar.getRating());//assegno la valutazione data dal cliente al Place corrispondente
 
-                        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);//aggiorno il valore in firebase
-
+                            firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);//aggiorno il valore in firebase
+                        }
                     }
                 }
             }
@@ -128,9 +129,5 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
             }
         });
-
-
-
-
     }
 }

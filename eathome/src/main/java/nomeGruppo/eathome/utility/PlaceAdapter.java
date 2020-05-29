@@ -20,6 +20,8 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.StorageConnection;
 
+import static nomeGruppo.eathome.utility.UtilitiesAndControls.PICT_SIZE_MAX;
+
 public class PlaceAdapter extends ArrayAdapter<Place> {
 
     public PlaceAdapter(Context context, int textViewResourceId,
@@ -61,12 +63,12 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         return convertView;
     }
 
-    public void setImage(final ImageView imgPlace, Place place){
+    private void setImage(final ImageView imgPlace, Place place){
         StorageConnection storageConnection=new StorageConnection();//apro la connessione allo Storage di Firebase
         StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
 
         //metodo di lettura immagine tramite byte
-        storageReference.getBytes(3840*3840)
+        storageReference.getBytes(PICT_SIZE_MAX*PICT_SIZE_MAX)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {

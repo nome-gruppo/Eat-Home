@@ -120,15 +120,15 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
                             Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, HomepageActivity.class);
                             clientHomeIntent.putExtra(FirebaseConnection.CLIENT, client);
-                            Toast.makeText(ClientRegistrationActivity.this, "Registrazione effettuata con successo", DURATION).show();
+                            Toast.makeText(ClientRegistrationActivity.this, R.string.successfulRegistration, DURATION).show();
                             startActivity(clientHomeIntent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(ClientRegistrationActivity.this, "Authentication failed.",
+                            Toast.makeText(ClientRegistrationActivity.this, R.string.authenticationFailed,
                                     Toast.LENGTH_SHORT).show();
 
-                            statusTV.setText("Email già presente");
+                            statusTV.setText(R.string.emailAlreadyExists);
                             statusTV.setVisibility(View.VISIBLE);
 
                             emailClientET.setText("");
