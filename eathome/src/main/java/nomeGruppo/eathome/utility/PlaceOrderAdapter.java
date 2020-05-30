@@ -17,7 +17,7 @@ import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-public class PlaceOrderAdapter extends ArrayAdapter <Order>{
+public class PlaceOrderAdapter extends ArrayAdapter<Order> {
 
     public PlaceOrderAdapter(@NonNull Context context, int resource, @NonNull List<Order> listOrder) {
         super(context, resource, listOrder);
@@ -28,22 +28,22 @@ public class PlaceOrderAdapter extends ArrayAdapter <Order>{
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listitem_order_info, null);
-        TextView title = (TextView)convertView.findViewById(R.id.txtNameOrderInfo);
-        TextView total = (TextView)convertView.findViewById(R.id.txtTotalOrderInfo);
-        TextView address=(TextView)convertView.findViewById(R.id.txtAddressOrderInfo);
-        TextView date=(TextView)convertView.findViewById(R.id.txtDateOrderInfo);
-        TextView phone=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
-        final CheckBox stateOrder=convertView.findViewById(R.id.checkBoxStateOrder);
+        final TextView title = (TextView) convertView.findViewById(R.id.txtNameOrderInfo);
+        final TextView total = (TextView) convertView.findViewById(R.id.txtTotalOrderInfo);
+        final TextView address = (TextView) convertView.findViewById(R.id.txtAddressOrderInfo);
+        final TextView date = (TextView) convertView.findViewById(R.id.txtDateOrderInfo);
+        final TextView phone = (TextView) convertView.findViewById(R.id.txtPhoneNumber);
+        final CheckBox stateOrder = convertView.findViewById(R.id.checkBoxStateOrder);
         final Order order = getItem(position);
         title.setText(order.nameClientOrder);
-        total.setText(order.totalOrder+" €");
+        total.setText(order.totalOrder + " €");
         address.setText(order.addressOrder);
-        date.setText(order.dateOrder+" "+order.timeOrder);
+        date.setText(order.dateOrder + " " + order.timeOrder);
         phone.setText(order.phoneClientOrder);
-        if(order.stateOrder){
+        if (order.stateOrder) {
             stateOrder.setChecked(true);
             stateOrder.setText(getContext().getResources().getString(R.string.done));
-        }else{
+        } else {
             stateOrder.setChecked(false);
             stateOrder.setText(getContext().getResources().getString(R.string.not_done));
         }
@@ -53,18 +53,18 @@ public class PlaceOrderAdapter extends ArrayAdapter <Order>{
             public void onClick(View view) {
                 boolean checked = ((CheckBox) view).isChecked();
                 // Check which checkbox was clicked
-                switch(view.getId()) {
+                switch (view.getId()) {
                     case R.id.checkBoxStateOrder:
-                        if (checked){ //se place conferma l'avvenuta esecuzione dell'ordine
+                        if (checked) { //se place conferma l'avvenuta esecuzione dell'ordine
                             order.setStateOrder(true);//metto la checkBox su check
                             stateOrder.setText(getContext().getResources().getString(R.string.done));//cambio il testo in 'eseguito'
                             updateStateOrder(order);//aggiorno lo stato dell'ordine in firebase
-                        }
-                        else { //se place non conferma l'avvenuta esecuzione dell'ordine
+                        } else { //se place non conferma l'avvenuta esecuzione dell'ordine
                             order.setStateOrder(false);//metto la checkBox su uncheck
                             stateOrder.setText(getContext().getResources().getString(R.string.not_done));//cambio il testo in 'non eseguito'
                             updateStateOrder(order);//aggiorno lo stato dell'ordine in firebase
-                        }break;
+                        }
+                        break;
                 }
             }
 
@@ -72,8 +72,9 @@ public class PlaceOrderAdapter extends ArrayAdapter <Order>{
         });
         return convertView;
     }
-    private void updateStateOrder(Order order){
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
+
+    private void updateStateOrder(Order order) {
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).child(order.idOrder).child("stateOrder").setValue(order.stateOrder);
     }
 }

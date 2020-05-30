@@ -1,32 +1,21 @@
 package nomeGruppo.eathome.clientSide;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.internal.$Gson$Preconditions;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -86,13 +75,13 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Order order=(Order)adapterView.getItemAtPosition(i);
-                opendDialogOrderSummary(order);
+                openDialogOrderSummary(order);
             }
         });
 
     }
 
-    private void opendDialogOrderSummary(Order order){
+    private void openDialogOrderSummary(Order order){
         DialogListFoodOrder dialogListFoodOrder=new DialogListFoodOrder(order);
         dialogListFoodOrder.show(getSupportFragmentManager(),"Dialog list food");
     }

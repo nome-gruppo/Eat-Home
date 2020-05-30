@@ -29,14 +29,14 @@ public class PlaceBookingAdapter extends ArrayAdapter<Booking> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listitem_booking_info, null);
-        TextView title = (TextView)convertView.findViewById(R.id.txtNameBookingInfo);
-        TextView address=(TextView)convertView.findViewById(R.id.txtAddressBookingInfo);
-        TextView date=(TextView)convertView.findViewById(R.id.txtDateBookingInfo);
-        TextView number=(TextView)convertView.findViewById(R.id.txtNumberPersonBookingInfo);
+        final TextView title = convertView.findViewById(R.id.txtNameBookingInfo);
+        final TextView address = convertView.findViewById(R.id.txtAddressBookingInfo);
+        final TextView date = convertView.findViewById(R.id.txtDateBookingInfo);
+        final TextView number = convertView.findViewById(R.id.txtNumberPersonBookingInfo);
         final Booking booking = getItem(position);
         title.setText(booking.nameBooking);
         address.setVisibility(View.INVISIBLE);
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(booking.dateBooking);
         date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy, hh:mm").format(calendar));
         number.setText(booking.personNumBooking);

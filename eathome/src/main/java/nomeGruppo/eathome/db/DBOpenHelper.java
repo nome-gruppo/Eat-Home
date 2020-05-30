@@ -64,12 +64,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         mContext.deleteDatabase(DB_NAME);
     }
 
-    public void addAddress(SQLiteDatabase db, String address, String numAddress, String city, String userId){
+    public void addAddress(SQLiteDatabase db, String city, String address, String numAddress, String userId){
         ContentValues values=new ContentValues();
 
+        values.put(CITY, city);
         values.put(ADDRESS, address);
         values.put(NUM_ADDRESS, numAddress);
-        values.put(CITY, city);
         values.put(USER_ID_ADDRESS, userId);
         db.insert(TABLE_ADDRESSES,null,values);
     }
@@ -82,8 +82,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         return c.getInt(c.getColumnIndexOrThrow(ID_ADDRESS));
     }
 
-    public void updateAdd(SQLiteDatabase db, int idAddress, String address, String numAddress, String city,String idClient){
-        String sql="UPDATE "+TABLE_ADDRESSES+" SET "+ADDRESS+ "= '"+address+"', "+NUM_ADDRESS+ "= '"+numAddress+"', "+CITY+"= '"+city+"' "+
+    public void updateAdd(SQLiteDatabase db, int idAddress, String street, String numAddress, String city,String idClient){
+        String sql="UPDATE "+TABLE_ADDRESSES+" SET "+ADDRESS+ "= '"+street+"', "+NUM_ADDRESS+ "= '"+numAddress+"', "+CITY+"= '"+city+"' "+
                 " WHERE "+ ID_ADDRESS +"= '"+idAddress+"' AND "+USER_ID_ADDRESS +"= '"+idClient+"';";
         db.execSQL(sql);
     }

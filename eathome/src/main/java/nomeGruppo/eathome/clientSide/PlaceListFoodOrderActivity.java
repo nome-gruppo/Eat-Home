@@ -36,6 +36,7 @@ import java.util.Map;
 
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
@@ -287,8 +288,8 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         mDBHelper.addAddress(mDB, address, numberAddress, city, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
 
         Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
-        final String addressOrder = address + "," + numberAddress + "," + city;
-        order = setOrder(addressOrder);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
+        final Address mAddress = new Address(city, address, numberAddress);
+        order = setOrder(mAddress.getFullAddress());//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
         orderActivity.putExtra(FirebaseConnection.ORDER, order);
         orderActivity.putExtra(FirebaseConnection.PLACE, place);
         orderActivity.putExtra(FirebaseConnection.CLIENT,client);

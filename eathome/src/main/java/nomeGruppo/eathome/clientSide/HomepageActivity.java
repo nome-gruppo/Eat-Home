@@ -387,19 +387,21 @@ public class HomepageActivity extends AppCompatActivity {
                     listPlace.clear();
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
-                        boolean mFound = false;
 
-                        //controlla locale non sia già mostrato
-                        for (nomeGruppo.eathome.actors.Place item : listPlace) {
-                            if (item.idPlace.equals(mPlaceId)) {
-                                mFound = true;
-                                break;
+                            String mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
+                            boolean mFound = false;
+
+                            //controlla locale non sia già mostrato
+                            for (nomeGruppo.eathome.actors.Place item : listPlace) {
+                                if (item.idPlace.equals(mPlaceId)) {
+                                    mFound = true;
+                                    break;
+                                }
                             }
-                        }
-                        if (!mFound) {
-                            listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
-                        }
+                            if (!mFound) {
+                                listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
+                            }
+
                     }
 
                     Collections.sort(listPlace, new PlacesByName());

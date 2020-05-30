@@ -70,15 +70,14 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         final Address addressObj= getItem(position);
 
         if(addressObj != null){
-            final String address=addressObj.getCity()+SPLIT+addressObj.getAddress()+SPLIT+addressObj.getNumberAddress()+SPLIT;
+            final String address = addressObj.getFullAddress();
             holder.addressET.setText(address);
 
             holder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    openDialog(addressObj,position);
-
+                    openDialog(addressObj);
                 }
             });
 
@@ -115,13 +114,8 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         return list.indexOf(getItem(position));
     }
 
-    private class Holder{
-        EditText addressET;
-        ImageButton editBtn;
-        ImageButton deleteBtn;
-    }
 
-    private void openDialog(final Address addressObj, final int position){ //creo un alert dialogo
+    private void openDialog(final Address addressObj){ //creo un alert dialogo
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
 
         Activity activity = (Activity) getContext();
@@ -133,16 +127,17 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         final EditText editNumberAddress=view.findViewById(R.id.editNumberAddressClient);
 
         editCity.setText(addressObj.getCity());
-        editAddress.setText(addressObj.getAddress());
+        editAddress.setText(addressObj.getStreet());
         editNumberAddress.setText(addressObj.getNumberAddress());
 
-        builder.setView(view).setTitle(getContext().getResources().getString(R.string.enterAddress)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle(getContext().getResources().getString(R.string.enterAddress)).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Address newAddress=new Address(addressObj.getIdAddress(),editAddress.getText().toString(),editNumberAddress.getText().toString(),editCity.getText().toString());
+                Address newAddress=new Address(addressObj.getIdAddress(),editAddress.getText().toString(),
+                        editNumberAddress.getText().toString(),editCity.getText().toString());
                 list.remove(addressObj);
                 list.add(newAddress);
-                helper.updateAdd(mDB, newAddress.getIdAddress(),newAddress.getAddress(),newAddress.getNumberAddress(),newAddress.getCity(),idClient);
+                helper.updateAdd(mDB, newAddress.getIdAddress(),newAddress.getStreet(),newAddress.getNumberAddress(),newAddress.getCity(),idClient);
                 notifyDataSetChanged();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -153,5 +148,11 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private class Holder{
+        EditText addressET;
+        ImageButton editBtn;
+        ImageButton deleteBtn;
     }
 }

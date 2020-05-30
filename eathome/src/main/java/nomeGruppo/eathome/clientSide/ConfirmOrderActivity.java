@@ -167,7 +167,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
         builder.setTitle(this.getResources().getString(R.string.confirm));
         builder.setMessage(this.getResources().getString(R.string.are_you_sure));
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 addOrderFirebase();//dopo che l'ordine è stato inserito correttamente all'interno del database
@@ -180,7 +180,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
                 startActivity(homePage);//apri homepage
                 finish();
             }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //se clicca su no non succede nulla e l'alert di chiude

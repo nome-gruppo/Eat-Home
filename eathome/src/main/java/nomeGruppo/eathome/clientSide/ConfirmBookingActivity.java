@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
@@ -244,10 +245,12 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
     private boolean addBookingFirebase(){
         //assegno all'oggetto booking i valori
+        final Address mAddress = new Address(place.cityPlace, place.addressPlace, place.addressNumPlace);
+
         booking.setDateBooking(dateBooking.getTimeInMillis());//Firebase non accetta Calendar come tipo di dato in quanto non è un tipo JSON
         booking.setIdClientBooking(getIntent().getStringExtra("UserID"));
         booking.setNamePlaceBooking(place.namePlace);
-        booking.setAddressPlaceBooking(place.cityPlace+", "+place.addressPlace+", "+place.addressNumPlace);
+        booking.setAddressPlaceBooking(mAddress.getFullAddress());
         booking.setPhonePlaceBooking(place.phonePlace);
         booking.setIdPlaceBooking(place.idPlace);
         booking.setPersonNumBooking(Integer.parseInt(txtNumberPersonBooking.getText().toString()));
