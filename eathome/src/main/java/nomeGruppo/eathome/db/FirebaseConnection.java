@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -190,21 +189,21 @@ public class FirebaseConnection {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
 
-                Log.d(TAG, "" + task.getResult().getSignInMethods().size());
-
-                if (task.getResult().getSignInMethods().size() == 0) {
-                    user.updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(activity, activity.getString(R.string.emailChangedCorrectly), Toast.LENGTH_LONG).show();
-                            } else {
-                                Toast.makeText(activity, "Non è stato possibile cambiare la mail", Toast.LENGTH_LONG).show();
+                if(task.getResult() != null && task.getResult().getSignInMethods() != null) {
+                    if (task.getResult().getSignInMethods().size() == 0) {
+                        user.updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(activity, activity.getString(R.string.emailChangedCorrectly), Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(activity, activity.getString(R.string.noChangedEmail), Toast.LENGTH_LONG).show();
+                                }
                             }
-                        }
-                    });
-                } else {
-                    Toast.makeText(activity, activity.getString(R.string.emailAlreadyExists), Toast.LENGTH_LONG).show();
+                        });
+                    } else {
+                        Toast.makeText(activity, activity.getString(R.string.emailAlreadyExists), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 

@@ -35,26 +35,31 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listitem_order_info, null);
-        TextView title = (TextView)convertView.findViewById(R.id.txtNameOrderInfo);
-        TextView total = (TextView)convertView.findViewById(R.id.txtTotalOrderInfo);
-        TextView address=(TextView)convertView.findViewById(R.id.txtAddressOrderInfo);
-        TextView date=(TextView)convertView.findViewById(R.id.txtDateOrderInfo);
-        TextView phone=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
-        final CheckBox stateOrder=convertView.findViewById(R.id.checkBoxStateOrder);
-        stateOrder.setEnabled(false);
-        final Order order = getItem(position);
-        title.setText(order.namePlaceOrder);
-        total.setText(Float.toString(order.totalOrder)+" €");
-        address.setText(order.addressPlaceOrder);
-        date.setText(order.dateOrder+" "+order.timeOrder);
-        phone.setText(order.phonePlaceOrder);
 
-        if(order.stateOrder){
-            stateOrder.setChecked(true);
-            stateOrder.setText(getContext().getResources().getString(R.string.done));
-        }else{
-            stateOrder.setChecked(false);
-            stateOrder.setText(getContext().getResources().getString(R.string.not_done));
+        final TextView title =  convertView.findViewById(R.id.txtNameOrderInfo);
+        final TextView total = convertView.findViewById(R.id.txtTotalOrderInfo);
+        final TextView address = convertView.findViewById(R.id.txtAddressOrderInfo);
+        final TextView date = convertView.findViewById(R.id.txtDateOrderInfo);
+        final TextView phone =  convertView.findViewById(R.id.txtPhoneNumber);
+        final CheckBox stateOrder = convertView.findViewById(R.id.checkBoxStateOrder);
+
+        stateOrder.setEnabled(false);
+
+        final Order order = getItem(position);
+        if(order != null) {
+            title.setText(order.namePlaceOrder);
+            total.setText(order.totalOrder + " €");
+            address.setText(order.addressPlaceOrder);
+            date.setText(order.dateOrder + " " + order.timeOrder);
+            phone.setText(order.phonePlaceOrder);
+
+            if (order.stateOrder) {
+                stateOrder.setChecked(true);
+                stateOrder.setText(getContext().getResources().getString(R.string.done));
+            } else {
+                stateOrder.setChecked(false);
+                stateOrder.setText(getContext().getResources().getString(R.string.not_done));
+            }
         }
         return convertView;
     }

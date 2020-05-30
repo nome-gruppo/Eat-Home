@@ -13,6 +13,8 @@ public class Booking {
     public String addressPlaceBooking;
     public String phonePlaceBooking;
 
+    public static final String ID_CLIENT_FIELD = "idClientBooking";
+
     public Booking(){
 
     }

@@ -18,7 +18,7 @@ public class UtilitiesAndControls {
 
     /**metodo che ontrolla la validità della mail
      * l'input inserito deve aver il pattern di un indirizzo mail
-     * @param email
+     * @param email email da controllare
      * @return
      */
     public boolean isEmailValid(String email) {

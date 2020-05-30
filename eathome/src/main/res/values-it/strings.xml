@@ -118,6 +118,8 @@
     <string name="cancel">Cancella</string>
     <string name="successfulRegistration">Registrazione effettuata con successo</string>
     <string name="yes">Sì</string>
+    <string name="numFeedback">%d recensioni</string>
+    <string name="noChangedEmail">Scusa. Non è stato possibilie cambiare la tua email</string>
 
 
 </resources>

@@ -201,9 +201,9 @@ public class HomepageActivity extends AppCompatActivity {
 
             if (rows > 0) {//se ci sono locali per cui l'utente ha prenotato/ordinato
                 while (c.moveToNext()) {
-                    String idPlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ID_INFO));
-                    String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
-                    String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
+                    final String idPlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ID_INFO));
+                    final String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
+                    final String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault());//imposto il formato della data
                     Date date = null;
                     try {
@@ -211,12 +211,16 @@ public class HomepageActivity extends AppCompatActivity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
-                    Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
-                    calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
-                    curDate.getTime();//prendo la data odierna
-                    if (curDate.compareTo(calendar)>=1) { //se la data odierna è successiva alla data di prenotazione/ordinazione
-                        openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, mDB, mDBHelper);//apre il dialog per la recensione
+
+                    final Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
+                    final Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
+
+                    if (date != null) {
+                        calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
+                        curDate.getTime();//prendo la data odierna
+                        if (curDate.compareTo(calendar) >= 1) { //se la data odierna è successiva alla data di prenotazione/ordinazione
+                            openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, mDB, mDBHelper);//apre il dialog per la recensione
+                        }
                     }
                 }
                 c.close();
