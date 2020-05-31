@@ -62,9 +62,6 @@ public class AddressAdapter extends ArrayAdapter<Address> {
             holder = (Holder) convertView.getTag();
         }
 
-        helper = new DBOpenHelper(getContext());
-        mDB = helper.getWritableDatabase();
-
         final Address addressObj= getItem(position);
 
         if(addressObj != null){
@@ -79,6 +76,8 @@ public class AddressAdapter extends ArrayAdapter<Address> {
                 }
             });
 
+            helper = new DBOpenHelper(getContext());
+            mDB = helper.getWritableDatabase();
             holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
