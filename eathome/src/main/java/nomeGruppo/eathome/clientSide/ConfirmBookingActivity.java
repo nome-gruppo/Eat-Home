@@ -196,8 +196,8 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         Date hourBooking=null;
 
         try {
-            hourOpening = openingTimeUtility.getTimeOpening(openingTime);
-            hourClosed=openingTimeUtility.getTimeClosed(openingTime);
+            hourOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);
+            hourClosed=openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);
             hourBooking=parser.parse(hour+":"+minutes);
 
             //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura

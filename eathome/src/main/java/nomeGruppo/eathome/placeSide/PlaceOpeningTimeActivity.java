@@ -150,7 +150,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                     openingTimeUtility.setSwitch(editMonday,editMondayClosed);
                 }
                 else{
-                    openingTimeUtility.setSwitchChecked(editMonday,editMondayClosed);
+                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editMonday,editMondayClosed);
                 }
             }
         });
@@ -161,7 +161,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                 if(!isChecked){
                    openingTimeUtility.setSwitch(editTuesday,editTuesdayClosed);
                 }else{
-                    openingTimeUtility.setSwitchChecked(editTuesday,editTuesdayClosed);
+                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editTuesday,editTuesdayClosed);
                 }
             }
         });
@@ -172,7 +172,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editWednesday,editWednesdayClosed);
                 }else{
-                    openingTimeUtility.setSwitchChecked(editWednesday,editWednesdayClosed);
+                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editWednesday,editWednesdayClosed);
                 }
             }
         });
@@ -183,7 +183,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editThursday,editThursdayClosed);
                 }else{
-                    openingTimeUtility.setSwitchChecked(editThursday,editThursdayClosed);
+                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editThursday,editThursdayClosed);
                 }
             }
         });
@@ -194,7 +194,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editFriday,editFridayClosed);
                 }else{
-                    openingTimeUtility.setSwitchChecked(editFriday,editFridayClosed);
+                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editFriday,editFridayClosed);
                 }
             }
         });
@@ -205,7 +205,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editSaturday,editSaturdayClosed);
                 }else{
-                    openingTimeUtility.setSwitchChecked(editSaturday,editSaturdayClosed);
+                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editSaturday,editSaturdayClosed);
                 }
             }
         });
@@ -216,7 +216,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                 if(!isChecked){
                     openingTimeUtility.setSwitch(editSunday,editSundayClosed);
                 }else{
-                    openingTimeUtility.setSwitchChecked(editSunday,editSundayClosed);
+                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editSunday,editSundayClosed);
                 }
             }
         });

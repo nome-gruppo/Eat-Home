@@ -219,8 +219,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         Date timeOrder = null;
         try {
             timeOrder = parser.parse(hourOfDay + ":" + minutes);
-            timeClosed = openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'orario di chiusura
-            timeOpening = openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'orario di apertura
+            timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'orario di chiusura
+            timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'orario di apertura
 
             //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
             if (timeOrder.after(timeOpening) && timeOrder.before(timeClosed)) {

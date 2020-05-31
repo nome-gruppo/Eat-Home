@@ -62,7 +62,6 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
     private OpeningTime openingTimeUtility;
 
     private FirebaseUser user;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -158,8 +157,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
     protected void onStart() {
         super.onStart();
 
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         StorageConnection storageConnection = new StorageConnection();//apro la connessione allo Storage di Firebase
         StorageReference storageReference = storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
@@ -189,8 +187,8 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         Date localTime = parser.parse(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
         if (openingTime.length() > 8) {//se è stato impostato un orario di apertura e chiusura
-            Date timeOpening = openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'ora di apertura
-            Date timeClosed = openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'ora di chiusura
+            Date timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'ora di apertura
+            Date timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'ora di chiusura
             //se localTime si trova tra timeOpening e timeClosed
             if (localTime.after(timeOpening) && localTime.before(timeClosed)) {
                 txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + parser.format(timeClosed));

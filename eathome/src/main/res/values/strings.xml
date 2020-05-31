@@ -134,6 +134,7 @@
     <string name="successfulRegistration">Successful Registration</string>
     <string name="yes">Yes</string>
     <string name="numFeedback">%d feedback</string>
-    <string name="noChangedEmail">Sorry. It was not possible to change your email</string>
+    <string name="noChangedEmail">Sorry, it wasn\'t possible to change your email</string>
+    <string name="impossibleOrder">Sorry, this place doesn\'t delivery to your city</string>
 
 </resources>
