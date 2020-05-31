@@ -72,16 +72,15 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.editPhone = findViewById(R.id.editPhoneClientOrder);
         this.chooseTime = findViewById(R.id.editChooseTime);
 
-        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f", order.totalOrder));
-        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder));
-        txtTotDelivery.setText(String.format(Locale.getDefault(),"%.2f",order.deliveryCost));
-        txtTotal.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder + order.deliveryCost));
-        txtAddressOrder.setText(order.addressOrder);
-
-
         this.order = (Order) getIntent().getSerializableExtra(FirebaseConnection.ORDER);
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.openingTimeUtility = new OpeningTime();
+
+        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f", order.totalOrder));
+        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder));
+        txtTotDelivery.setText(String.format(Locale.getDefault(),"%d",order.deliveryCost));
+        txtTotal.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder + order.deliveryCost));
+        txtAddressOrder.setText(order.addressOrder);
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getReadableDatabase();

@@ -53,7 +53,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     private List<Food> listFood;
     private MenuAdapterForClient menuAdapter;
     private Order order;
-    private HashMap<Food, Integer> listFoodOrder;
+    private HashMap<Food, Integer> mapFoodOrder;
     private FirebaseUser user;
     private ArrayList<String> nameFood;
     private float finalTot;
@@ -83,11 +83,11 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         addressAdapter = new PlaceListFoodOrderActivity.AddressAdapter(PlaceListFoodOrderActivity.this, R.layout.listitem_address, listAddress);
 
         listFood = new LinkedList<>();
-        menuAdapter = new MenuAdapterForClient(PlaceListFoodOrderActivity.this, R.layout.listitem_menu_client, listFood, listFoodOrder);
+        mapFoodOrder = new HashMap<>();
+        menuAdapter = new MenuAdapterForClient(PlaceListFoodOrderActivity.this, R.layout.listitem_menu_client, listFood, mapFoodOrder);
         listViewFoodInfo.setAdapter(menuAdapter);
 
         order = new Order();
-        listFoodOrder = new HashMap<>();
         nameFood = new ArrayList<>();
         finalTot = 0;
 
@@ -95,10 +95,10 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
             @Override
             public void onClick(View view) {
                 if (user != null) {//se l'utente è loggato
-                    if (listFoodOrder.isEmpty()) {//se la lista degli ordini è vuota
+                    if (mapFoodOrder.isEmpty()) {//se la lista degli ordini è vuota
                         Toast.makeText(PlaceListFoodOrderActivity.this, getResources().getString(R.string.invalid_order), Toast.LENGTH_SHORT).show();
                     } else {//se la lista ordine contiene almeno un ordine
-                        openDialogOrder(listFoodOrder, place);//apri dialog di riepilogo ordine
+                        openDialogOrder(mapFoodOrder, place);//apri dialog di riepilogo ordine
                     }
                 } else {//se l'utente non è loggato
                     Intent loginIntent = new Intent(PlaceListFoodOrderActivity.this, LoginActivity.class);
@@ -303,16 +303,21 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
     @Override
     public void applyTexts(String city, String address, String numberAddress) {
+        addressAdapter.add(new Address(city,address,numberAddress));
         addressAdapter.notifyDataSetChanged();
         mDBHelper.addAddress(mDB, address, numberAddress, city, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
 
-        Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
-        final Address mAddress = new Address(city, address, numberAddress);
-        order = setOrder(mAddress);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
-        orderActivity.putExtra(FirebaseConnection.ORDER, order);
-        orderActivity.putExtra(FirebaseConnection.PLACE, place);
-        orderActivity.putExtra(FirebaseConnection.CLIENT, client);
-        startActivity(orderActivity);//apro l'activity per confermare l'ordine
+//        if(city.toLowerCase().equals(place.cityPlace.toLowerCase())) {
+//            Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
+//            final Address mAddress = new Address(city, address, numberAddress);
+//            order = setOrder(mAddress);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
+//            orderActivity.putExtra(FirebaseConnection.ORDER, order);
+//            orderActivity.putExtra(FirebaseConnection.PLACE, place);
+//            orderActivity.putExtra(FirebaseConnection.CLIENT, client);
+//            startActivity(orderActivity);//apro l'activity per confermare l'ordine
+//        }else{
+//
+//        }
     }
 
 }

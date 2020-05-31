@@ -24,8 +24,6 @@ import nomeGruppo.eathome.db.DBOpenHelper;
 
 public class AddressAdapter extends ArrayAdapter<Address> {
 
-    private static final String SPLIT=", ";
-
     private DBOpenHelper helper;
     private SQLiteDatabase mDB;
 

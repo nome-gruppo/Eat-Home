@@ -13,15 +13,15 @@ public class Address {
 
     public Address(int idAddress, String city, String street, String numberAddress) {
         this.idAddress = idAddress;
-        this.city = city;
-        this.street = street;
-        this.numberAddress = numberAddress;
+        this.city = city.trim();
+        this.street = street.trim();
+        this.numberAddress = numberAddress.trim();
     }
 
     public Address(String city, String street, String numberAddress) {
-        this.city = city;
-        this.street = street;
-        this.numberAddress = numberAddress;
+        this.city = city.trim();
+        this.street = street.trim();
+        this.numberAddress = numberAddress.trim();
     }
 
     public Address(String fullAddress) {

@@ -29,6 +29,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     private SQLiteDatabase mDB;
 
     private Client client;
+    private ArrayList<Address> addressList;
 
     private ListView addressesLW;
     private TextView noAddressesTW;
@@ -39,20 +40,17 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         setContentView(R.layout.activity_my_addresses);
 
         final FloatingActionButton addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
-        final ArrayList<Address> addressList = new ArrayList<>();
-
-        addressesLW = findViewById(R.id.activity_my_addresses_listView);
-
-        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        noAddressesTW = findViewById(R.id.activity_my_address_et_noAddresses);
 
         mDBHelper = new DBOpenHelper(this);
         mDB = mDBHelper.getWritableDatabase();
-        noAddressesTW = findViewById(R.id.activity_my_address_et_noAddresses);
 
+        addressList = new ArrayList<>();
+        addressesLW = findViewById(R.id.activity_my_addresses_listView);
+        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
         if (client != null) {
             mAdapter = new AddressAdapter(this, R.layout.listitem_my_address, addressList, client.idClient, MyAddressesActivity.this);
-
 
             Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES, DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID_ADDRESS, new String[]{client.idClient}, null, null, null);
 
@@ -69,7 +67,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
                     String numAddress = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS));
                     String city = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY));
 
-                    Address addressObj = new Address(idAddress, address, numAddress, city);
+                    Address addressObj = new Address(idAddress, city, address, numAddress);
                     addressList.add(addressObj);
                 }
                 addressesLW.setAdapter(mAdapter);
@@ -98,11 +96,10 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     public void applyTexts(String city, String address, String numberAddress) {
         mDBHelper.addAddress(mDB, address, numberAddress, city, client.idClient);
         Address mAddress = new Address(mDBHelper.getLastIdAddresses(mDB), city, address, numberAddress);
-        mAdapter.add(mAddress);
+        addressList.add(mAddress);
         mAdapter.notifyDataSetChanged();
         noAddressesTW.setVisibility(View.GONE);
         addressesLW.setAdapter(mAdapter);
-
     }
 
     @Override
