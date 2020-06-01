@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import nomeGruppo.eathome.actions.Address;
+
 public class DBOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "eathome.db";
@@ -64,12 +66,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         mContext.deleteDatabase(DB_NAME);
     }
 
-    public void addAddress(SQLiteDatabase db, String city, String address, String numAddress, String userId){
+    public void addAddress(SQLiteDatabase db, Address address, String userId){
         ContentValues values=new ContentValues();
 
-        values.put(CITY, city);
-        values.put(ADDRESS, address);
-        values.put(NUM_ADDRESS, numAddress);
+        values.put(CITY, address.getCity());
+        values.put(ADDRESS, address.getStreet());
+        values.put(NUM_ADDRESS, address.getNumberAddress());
         values.put(USER_ID_ADDRESS, userId);
         db.insert(TABLE_ADDRESSES,null,values);
     }
@@ -82,9 +84,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         return c.getInt(c.getColumnIndexOrThrow(ID_ADDRESS));
     }
 
-    public void updateAdd(SQLiteDatabase db, int idAddress, String street, String numAddress, String city,String idClient){
-        String sql="UPDATE "+TABLE_ADDRESSES+" SET "+ADDRESS+ "= '"+street+"', "+NUM_ADDRESS+ "= '"+numAddress+"', "+CITY+"= '"+city+"' "+
-                " WHERE "+ ID_ADDRESS +"= '"+idAddress+"' AND "+USER_ID_ADDRESS +"= '"+idClient+"';";
+    public void updateAdd(SQLiteDatabase db, Address address,String idClient){
+        String sql="UPDATE "+TABLE_ADDRESSES+" SET "+ADDRESS+ "= '"+address.getStreet()+"', "+NUM_ADDRESS+ "= '"+address.getNumberAddress()+"', "+CITY+"= '"+address.getCity()+"' "+
+                " WHERE "+ ID_ADDRESS +"= '"+address.getIdAddress()+"' AND "+USER_ID_ADDRESS +"= '"+idClient+"';";
         db.execSQL(sql);
     }
 

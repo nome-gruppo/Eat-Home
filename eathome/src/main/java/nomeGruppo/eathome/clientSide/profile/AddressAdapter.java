@@ -134,7 +134,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
                         editNumberAddress.getText().toString(),editCity.getText().toString());
                 list.remove(addressObj);
                 list.add(newAddress);
-                helper.updateAdd(mDB, newAddress.getIdAddress(),newAddress.getStreet(),newAddress.getNumberAddress(),newAddress.getCity(),idClient);
+                helper.updateAdd(mDB, newAddress,idClient);
                 notifyDataSetChanged();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {

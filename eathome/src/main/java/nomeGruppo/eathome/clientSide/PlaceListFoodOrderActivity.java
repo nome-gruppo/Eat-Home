@@ -303,10 +303,10 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
 
     @Override
-    public void applyTexts(String city, String address, String numberAddress) {
-        addressAdapter.add(new Address(city,address,numberAddress));
+    public void applyTexts(Address address) {
+        addressAdapter.add(address);
         addressAdapter.notifyDataSetChanged();
-        mDBHelper.addAddress(mDB, city, address, numberAddress, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
+        mDBHelper.addAddress(mDB, address, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
 
 //        if(city.toLowerCase().equals(place.cityPlace.toLowerCase())) {
 //            Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);

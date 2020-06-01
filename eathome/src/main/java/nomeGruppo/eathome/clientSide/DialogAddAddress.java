@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.utility.City;
 
 public class DialogAddAddress extends AppCompatDialogFragment {
@@ -54,11 +55,11 @@ public class DialogAddAddress extends AppCompatDialogFragment {
                     DialogAddAddress dialogAddAddress = new DialogAddAddress();
                     dialogAddAddress.show(getActivity().getSupportFragmentManager(), "Dialog add address");
                 } else {
-                    String cityClient = editCity.getText().toString();
-                    String addressClient = editAddress.getText().toString();
-                    String numberAddressClient = editNumberAddress.getText().toString();
 
-                    listener.applyTexts(cityClient, addressClient, numberAddressClient);
+                    final Address mAddress = new Address(editCity.getText().toString(),editAddress.getText().toString(),editNumberAddress.getText().toString());
+
+
+                    listener.applyTexts(mAddress);
                 }
             }
         });
@@ -78,7 +79,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
     }
 
     public interface DialogAddAddressListener {
-        void applyTexts(String city, String address, String numberAddress);
+        void applyTexts(Address address);
     }
 
 }

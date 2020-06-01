@@ -93,13 +93,26 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     }
 
     @Override
-    public void applyTexts(String city, String address, String numberAddress) {
-        mDBHelper.addAddress(mDB, city, address, numberAddress, client.idClient);
-        Address mAddress = new Address(mDBHelper.getLastIdAddresses(mDB), city, address, numberAddress);
-        addressList.add(mAddress);
-        mAdapter.notifyDataSetChanged();
-        noAddressesTW.setVisibility(View.GONE);
-        addressesLW.setAdapter(mAdapter);
+    public void applyTexts(Address address) {
+        //ricerca che l'address non sia già presente nella lista
+        boolean found = false;
+        for(Address item: addressList){
+            if(item.equals(address)){
+                found = true;
+            }
+        }
+
+        //se non trovato aggiungilo nella lista
+        if(!found){
+
+                mDBHelper.addAddress(mDB, address, client.idClient);
+                Address mAddress = new Address(mDBHelper.getLastIdAddresses(mDB), address);
+                addressList.add(mAddress);
+                mAdapter.notifyDataSetChanged();
+                noAddressesTW.setVisibility(View.GONE);
+                addressesLW.setAdapter(mAdapter);
+
+        }
     }
 
     @Override
