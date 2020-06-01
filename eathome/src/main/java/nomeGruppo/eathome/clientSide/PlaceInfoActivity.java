@@ -189,6 +189,14 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         if (openingTime.length() > 8) {//se è stato impostato un orario di apertura e chiusura
             Date timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'ora di apertura
             Date timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'ora di chiusura
+
+            //se timeClosed.before(timeOpening) allora il locale chiude dopo la mezzanotte
+            if(timeClosed.before(timeOpening)){
+                calendar.setTime(timeClosed);
+                calendar.add(Calendar.DAY_OF_MONTH,1);
+                timeClosed = calendar.getTime();
+            }
+
             //se localTime si trova tra timeOpening e timeClosed
             if (localTime.after(timeOpening) && localTime.before(timeClosed)) {
                 txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + parser.format(timeClosed));

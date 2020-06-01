@@ -135,8 +135,6 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         }
     }
 
-
-
     private void loadFood() {
         listFood.clear();
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
@@ -195,16 +193,19 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
     //dialog per selezionare l'indirizzo di spedizione
     private void openDialogChooseAddress(final ArrayList<String> nameFood, final float finalTot, final Place place) {
+
+        final LayoutInflater inflater = PlaceListFoodOrderActivity.this.getLayoutInflater();
+        final View view = inflater.inflate(R.layout.dialog_choose_address, null);
+
+        final ListView listViewAddress = view.findViewById(R.id.listViewChooseAddress);
+        final FloatingActionButton btnAddAddress = view.findViewById(R.id.btnAddAddress);
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = PlaceListFoodOrderActivity.this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_choose_address, null);
         builder.setView(view).setTitle(this.getResources().getString(R.string.choose_address));
 
-        ListView listViewAddress = (ListView) view.findViewById(R.id.listViewChooseAddress);
         listViewAddress.setAdapter(addressAdapter);
-        FloatingActionButton btnAddAddress = view.findViewById(R.id.btnAddAddress);
-
         listAddress.clear();
+
         //leggo in SQLite gli indirizzi presenti e li assegno alla listView
         final Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES, DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID_ADDRESS, new String[]{user.getUid()}, null, null, null);
 
