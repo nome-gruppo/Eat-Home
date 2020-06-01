@@ -24,18 +24,6 @@ public class Address {
         this.numberAddress = numberAddress.trim();
     }
 
-    public Address(String fullAddress) {
-        String[] tokens = fullAddress.split(DIVIDER);
-
-        if (tokens.length != TOKEN_NUM) {
-            throw new IllegalArgumentException();
-        } else {
-            this.city = tokens[0];
-            this.street = tokens[1];
-            this.numberAddress = tokens[2];
-        }
-    }
-
     public String getFullAddress() {
         return city + DIVIDER + street + DIVIDER + numberAddress;
     }

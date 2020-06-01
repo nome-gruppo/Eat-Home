@@ -136,5 +136,6 @@
     <string name="numFeedback">%d feedback</string>
     <string name="noChangedEmail">Sorry, it wasn\'t possible to change your email</string>
     <string name="impossibleOrder">Sorry, this place doesn\'t delivery to your city</string>
+    <string name="noInternetConnection">No internet connection</string>
 
 </resources>

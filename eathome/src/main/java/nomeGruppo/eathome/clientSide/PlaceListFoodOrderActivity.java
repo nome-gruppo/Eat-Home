@@ -306,7 +306,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     public void applyTexts(String city, String address, String numberAddress) {
         addressAdapter.add(new Address(city,address,numberAddress));
         addressAdapter.notifyDataSetChanged();
-        mDBHelper.addAddress(mDB, address, numberAddress, city, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
+        mDBHelper.addAddress(mDB, city, address, numberAddress, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
 
 //        if(city.toLowerCase().equals(place.cityPlace.toLowerCase())) {
 //            Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);

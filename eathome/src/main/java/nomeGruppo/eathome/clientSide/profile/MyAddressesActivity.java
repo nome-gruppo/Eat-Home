@@ -94,7 +94,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     @Override
     public void applyTexts(String city, String address, String numberAddress) {
-        mDBHelper.addAddress(mDB, address, numberAddress, city, client.idClient);
+        mDBHelper.addAddress(mDB, city, address, numberAddress, client.idClient);
         Address mAddress = new Address(mDBHelper.getLastIdAddresses(mDB), city, address, numberAddress);
         addressList.add(mAddress);
         mAdapter.notifyDataSetChanged();

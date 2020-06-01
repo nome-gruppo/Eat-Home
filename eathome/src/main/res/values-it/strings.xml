@@ -121,6 +121,7 @@
     <string name="numFeedback">%d recensioni</string>
     <string name="noChangedEmail">Scusa, non è stato possibilie cambiare la tua email</string>
     <string name="impossibleOrder">Ci dispiace, questo locale non consegna nella tua città</string>
+    <string name="noInternetConnection">Nessuna connessiona internet</string>
 
 
 </resources>
