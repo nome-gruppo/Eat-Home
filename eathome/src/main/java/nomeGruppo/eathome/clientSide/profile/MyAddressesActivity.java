@@ -97,8 +97,9 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         //ricerca che l'address non sia già presente nella lista
         boolean found = false;
         for(Address item: addressList){
-            if(item.equals(address)){
+            if (item.equals(address)) {
                 found = true;
+                break;
             }
         }
 
