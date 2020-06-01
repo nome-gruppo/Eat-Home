@@ -1,7 +1,5 @@
 package nomeGruppo.eathome.actions;
 
-import java.util.Calendar;
-
 public class Booking {
 
     public long dateBooking;

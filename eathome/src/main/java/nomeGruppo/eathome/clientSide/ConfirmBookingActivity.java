@@ -86,7 +86,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
             public void onClick(View view) {
                 int i=Integer.parseInt(txtNumberPersonBooking.getText().toString());//trasformo in intero il numero letto dalla TextView
                 i++;//aggiungo un posto
-                txtNumberPersonBooking.setText(String.format(Locale.getDefault(),"%d", i));//imposto il numero aggiornato nella TextView
+                txtNumberPersonBooking.setText(Integer.toString(i));//imposto il numero aggiornato nella TextView
             }
         });
 
@@ -97,7 +97,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
                 int i=Integer.parseInt(txtNumberPersonBooking.getText().toString());//trasformo in intero il numero letto dalla TextView
                 if(i>1){//se il numero letto è maggiore di 1
                     i--;//sottraggo di un posto
-                    txtNumberPersonBooking.setText(String.format(Locale.getDefault(),"%d", i));//imposto il numero aggiornato nella TextView
+                    txtNumberPersonBooking.setText(Integer.toString(i));//imposto il numero aggiornato nella TextView
                 }
             }
         });
@@ -170,7 +170,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         //se nel giorno selezioanto è stato impostato in orario quindi il locale non è chiuso
         if(place.openingTime.get(dayOfWeek) != null) {
             if (place.openingTime.get(dayOfWeek).length() > 8) {
-                txtDateBooking.setText(dayOfMonth + "/" + (month++) + "/" + year);//setto la data in base alla scelta dell'utente.
+                txtDateBooking.setText(String.format("%0" + 2 + "d", dayOfMonth)+ "/" + String.format("%0" + 2 + "d", month++) + "/" + year);//setto la data in base alla scelta dell'utente.
                 openDialogChooseHour();//una volta selezionata la data apro il dialog per scegliere l'ora
             } else {//se il locale è chiuso nel giorno selezionato
                 //mostra messaggio
@@ -204,7 +204,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
             if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
                 dateBooking.set(Calendar.HOUR_OF_DAY,hour);
                 dateBooking.set(Calendar.MINUTE,minutes);
-                txtHourBooking.setText(hour+":"+minutes);//setto l'ora della prenotazione
+                txtHourBooking.setText(String.format("%0" + 2 + "d", hour)+":"+String.format("%0" + 2 + "d", minutes));//setto l'ora della prenotazione
             }else{//se il locale è chiuso nell'ora selezionata
                 //mostra messaggio
                 Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
@@ -247,7 +247,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         //assegno all'oggetto booking i valori
         final Address mAddress = new Address(place.cityPlace, place.addressPlace, place.addressNumPlace);
 
-        booking.setDateBooking(dateBooking.getTimeInMillis());//Firebase non accetta Calendar come tipo di dato in quanto non è un tipo JSON
+        booking.setDateBooking(dateBooking.getTimeInMillis());//Firebase non accetta Calendar come tipo di dato in quanto non è un tipo JSON quindi lo trasformo in long
         booking.setIdClientBooking(getIntent().getStringExtra("UserID"));
         booking.setNamePlaceBooking(place.namePlace);
         booking.setAddressPlaceBooking(mAddress.getFullAddress());

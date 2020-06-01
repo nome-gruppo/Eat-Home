@@ -36,16 +36,17 @@ public class BookingInfoAdapter extends ArrayAdapter<Booking> {
         TextView address=convertView.findViewById(R.id.txtAddressBookingInfo);
         TextView date=convertView.findViewById(R.id.txtDateBookingInfo);
         TextView number=convertView.findViewById(R.id.txtNumberPersonBookingInfo);
+        TextView phone=convertView.findViewById(R.id.txtPhonePlace);
         final Booking booking = getItem(position);
         if(booking != null) {
             title.setText(booking.namePlaceBooking);
             address.setText(booking.addressPlaceBooking);
             Calendar calendar=Calendar.getInstance();
             calendar.setTimeInMillis(booking.dateBooking);
-            date.setText(new SimpleDateFormat(String.format("EEEE" + res.getString(R.string.dateFormat) +
-                    ", " + res.getString(R.string.hourFormat)), Locale.getDefault()).format(calendar));
-//            date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy, hh:mm", Locale.getDefault()).format(calendar));
+            date.setText(new SimpleDateFormat(String.format(res.getString(R.string.dateFormat) +
+                   " - " + res.getString(R.string.hourFormat)), Locale.getDefault()).format(calendar.getTime()));
             number.setText(String.valueOf(booking.personNumBooking));
+            phone.setText(booking.phonePlaceBooking);
         }
         return convertView;
     }

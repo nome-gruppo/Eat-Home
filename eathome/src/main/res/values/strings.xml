@@ -13,6 +13,7 @@
     <string name="hourPrinted" translatable="false">%1$02d:%2$02d</string>
     <string name="addressPrinted" translatable="false">%1$s, %2$s, %3$s</string>
     <string name="euro" translatable="false">€ %.02f</string>
+    <string name="one" translatable="false">1</string>
 
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>

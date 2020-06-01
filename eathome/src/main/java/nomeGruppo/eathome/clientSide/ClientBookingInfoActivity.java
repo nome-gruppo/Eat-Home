@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,8 +36,6 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
     private List<Booking> listBooking;
     private BookingInfoAdapter bookingInfoAdapter;
     private FirebaseConnection firebaseConnection;
-    private TextView txtNoBooking;
-    private ImageView imgNoBooking;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,8 +51,6 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
         this.listBooking=new LinkedList<>();
         this.bookingInfoAdapter=new BookingInfoAdapter(this,R.layout.listitem_booking_info,listBooking);
         listViewBookingInfo.setAdapter(bookingInfoAdapter);
-        this.txtNoBooking=findViewById(R.id.txtNoBookingClient);
-        this.imgNoBooking=findViewById(R.id.imgNoBookingClient);
 
         //menu sottostante l'activity
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -80,8 +77,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
                         listBooking.add(booking);//aggiungo la prenotazione alla lista collegata all'adapter
                     }
                 }else{//se non ci sono prenotazioni
-                    txtNoBooking.setVisibility(View.VISIBLE);//mostro messaggio 'siamo spiacenti'
-                    imgNoBooking.setVisibility(View.VISIBLE);//mostro la smile triste
+                    Toast.makeText(ClientBookingInfoActivity.this,getResources().getString(R.string.no_booking),Toast.LENGTH_LONG);
                 }
                 bookingInfoAdapter.notifyDataSetChanged();
             }

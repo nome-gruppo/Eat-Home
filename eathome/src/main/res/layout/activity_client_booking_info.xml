@@ -8,41 +8,15 @@
 
     <ListView
         android:id="@+id/listViewBookingInfo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="252dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgNoBookingClient"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigationClientBooking"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtNoBookingClient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="300dp"
-        android:gravity="center"
-        android:text="@string/no_booking"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClientBooking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgNoBookingClient" />
-
-    <ImageView
-        android:id="@+id/imgNoBookingClient"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="43dp"
-        android:gravity="center"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/txtNoBookingClient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listViewBookingInfo"
-        app:srcCompat="@drawable/ic_emoticon_sad" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClientBooking"
