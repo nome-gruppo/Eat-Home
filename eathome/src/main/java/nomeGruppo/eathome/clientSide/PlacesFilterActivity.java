@@ -275,7 +275,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //cerca nel database i locali nella città dell'utente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByChild("cityPlace").equalTo(userCity).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).orderByChild("cityPlace").equalTo(userCity).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -450,22 +450,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
         typeChanged = true;
     }
 
-    //TODO elimina
+
     public void orderByOnRadioButtonClicked(View view) {
-//        // Is the button now checked?
-//        boolean checked = ((RadioButton) view).isChecked();
-//
-////        // Check which radio button was clicked
-////        if (view.getId() == R.id.activity_places_filter_rb_valuation_order) {
-////            if (checked) {
-////                orderChanged = true;
-////            }
-////        } else {
-////            if (checked) {
-////                orderChanged = false;
-////            }
-////        }
-//        orderChanged = true;
+
         boolean checked = ((RadioButton) view).isChecked();
 
         if (view.getId() == R.id.activity_places_filter_rb_distance_order) {

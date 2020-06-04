@@ -240,7 +240,7 @@ public class HomepageActivity extends AppCompatActivity {
         if (firstLogin) {
             FirebaseConnection connection = new FirebaseConnection();
             final long cutoff = new Date().getTime() - TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS);
-            Query query = connection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("timestampOrder").endAt(cutoff);
+            Query query = connection.getmDatabase().child(FirebaseConnection.ORDER_NODE).orderByChild("timestampOrder").endAt(cutoff);
 
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -377,7 +377,7 @@ public class HomepageActivity extends AppCompatActivity {
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //cerca nel database i locali nella città dell'utente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByChild("cityPlace").equalTo(city).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).orderByChild("cityPlace").equalTo(city).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

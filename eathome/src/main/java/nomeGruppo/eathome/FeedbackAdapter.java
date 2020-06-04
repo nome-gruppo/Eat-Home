@@ -97,7 +97,7 @@ public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
 
     private void addReplyOnFirebase(String reply, String id){
         FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).child(id).child("replyPlace").setValue(reply);
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_NODE).child(id).child("replyPlace").setValue(reply);
     }
 
 }

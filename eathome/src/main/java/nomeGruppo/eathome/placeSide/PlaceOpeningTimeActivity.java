@@ -344,7 +344,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
         FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
-        db.write(FirebaseConnection.PLACE_TABLE, place.idPlace, place);
+        db.write(FirebaseConnection.PLACE_NODE, place.idPlace, place);
     }
 
     private HashMap<String, String> putOpeningTime(HashMap<String, String> openingTime) {

@@ -72,6 +72,6 @@ public class PlaceOrderAdapter extends ArrayAdapter<Order> {
 
     private void updateStateOrder(Order order) {
         FirebaseConnection firebaseConnection = new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).child(order.idOrder).child("stateOrder").setValue(order.stateOrder);
+        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_NODE).child(order.idOrder).child("stateOrder").setValue(order.stateOrder);
     }
 }

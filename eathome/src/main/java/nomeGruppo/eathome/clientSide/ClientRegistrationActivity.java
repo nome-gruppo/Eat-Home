@@ -97,7 +97,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
             FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
             //assegno come chiave del db l'user id generato da Firebase Authentication
-            db.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
+            db.write(FirebaseConnection.CLIENT_NODE, user.getUid(), client);
         }
     }
 

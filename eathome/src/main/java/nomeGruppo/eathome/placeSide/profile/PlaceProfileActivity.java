@@ -515,7 +515,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
                 if(edit) {
                     //modifica database solo se qualche campo è stato editato
                     FirebaseConnection connection = new FirebaseConnection();
-                    connection.write(FirebaseConnection.PLACE_TABLE, user.getUid(), mPlace);
+                    connection.write(FirebaseConnection.PLACE_NODE, user.getUid(), mPlace);
 
                     Intent intent = new Intent(PlaceProfileActivity.this, PlaceHomeActivity.class);
                     intent.putExtra(FirebaseConnection.PLACE, mPlace);

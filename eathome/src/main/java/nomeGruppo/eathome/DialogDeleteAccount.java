@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
@@ -93,7 +92,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                 mEditor.apply();
 
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE, getActivity());
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_NODE, getActivity());
 
                 Thread accountThread = new Thread(deleteAccount);
                 accountThread.start();
@@ -101,7 +100,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
             }else if(mPlace != null){
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE, getActivity());
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_NODE, getActivity());
                 final FirebaseConnection.DeleteFeedback deleteFeedback = new FirebaseConnection.DeleteFeedback(userId);
 
                 Thread accountThread = new Thread(deleteAccount);

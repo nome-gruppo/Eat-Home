@@ -69,7 +69,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //leggo in firebase le prenotazioni con id place corrispondente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild("idPlaceBooking").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_NODE).orderByChild("idPlaceBooking").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {//se esiste almeno una prenotazione

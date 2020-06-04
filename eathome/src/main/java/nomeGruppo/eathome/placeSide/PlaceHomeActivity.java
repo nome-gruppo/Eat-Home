@@ -130,7 +130,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         final FirebaseConnection firebaseConnection=new FirebaseConnection();
 
         //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -227,7 +227,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         food.setIngredients(ingredientsFood);
         food.setPrice(priceFood);
         food.setIdFood(firebaseConnection.getmDatabase().push().getKey());
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
 
         listFood.add(food);//aggiungo food alla lista
         mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi

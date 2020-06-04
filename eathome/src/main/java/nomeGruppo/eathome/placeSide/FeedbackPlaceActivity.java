@@ -88,7 +88,7 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
         final FeedbackAdapter mAdapter = new FeedbackAdapter(this, R.layout.listitem_feedback, feedbackList);
 
         //leggo in firebase i feedback corrispondenti all'id diPlace
-        mDB.child(FirebaseConnection.FEEDBACK_TABLE).orderByChild("idPlaceFeedback").equalTo(mPlace.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDB.child(FirebaseConnection.FEEDBACK_NODE).orderByChild("idPlaceFeedback").equalTo(mPlace.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){//se esiste almeno un feedback

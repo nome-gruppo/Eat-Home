@@ -65,7 +65,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
 
         listBooking.clear();
         //leggo in firebase le prenotazioni del cliente in base al suo id
-        firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild(Booking.ID_CLIENT_FIELD).equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_NODE).orderByChild(Booking.ID_CLIENT_FIELD).equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {//se esiste almeno una prenotazione

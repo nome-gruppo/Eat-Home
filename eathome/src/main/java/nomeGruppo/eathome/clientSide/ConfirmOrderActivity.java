@@ -198,9 +198,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //prelevo la chiave assegnata in automatico da Firebase
-        String idOrder = firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().getKey();
+        String idOrder = firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_NODE).push().getKey();
         order.setIdOrder(idOrder);
-        firebaseConnection.write(FirebaseConnection.ORDER_TABLE, idOrder, order);
+        firebaseConnection.write(FirebaseConnection.ORDER_NODE, idOrder, order);
 
         //inserisco l'informazione dell'ordinazione nel db interno
         mDBHelper.addInfo(mDB, order.idPlaceOrder, order.namePlaceOrder, new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(new Date()), mUser.getUid());

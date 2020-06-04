@@ -90,7 +90,7 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
         listOrder.clear();
 
         //leggo in firebase gli ordini in base all'id del cliente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("idClientOrder").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_NODE).orderByChild("idClientOrder").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {//se esiste almeno un ordine

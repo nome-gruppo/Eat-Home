@@ -54,7 +54,7 @@ public class LauncherActivity extends AppCompatActivity{
                 final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
                 try {
-                    firebaseConnection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_TABLE, progressBar, this);
+                    firebaseConnection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_NODE, progressBar, this);
                 } catch (Resources.NotFoundException e) {
                     errorTv.setVisibility(View.VISIBLE);
                     e.printStackTrace();

@@ -34,12 +34,12 @@ public class FirebaseConnection {
 
     private static final String TAG = "FirebaseConnection";
 
-    public static final String PLACE_TABLE = "Places"; //todo rinomina tutti i table in node
-    public static final String CLIENT_TABLE = "Clients";
-    public static final String ORDER_TABLE = "Orders";
-    public static final String FOOD_TABLE = "Foods";
-    public static final String BOOKING_TABLE = "Bookings";
-    public static final String FEEDBACK_TABLE = "Feedback";
+    public static final String PLACE_NODE = "Places";
+    public static final String CLIENT_NODE = "Clients";
+    public static final String ORDER_NODE = "Orders";
+    public static final String FOOD_NODE = "Foods";
+    public static final String BOOKING_NODE = "Bookings";
+    public static final String FEEDBACK_NODE = "Feedback";
 
     //stringhe usate negli intent
     public final static String FROM_ANOTHER_ACTIVITY  = "fromActivity";
@@ -91,7 +91,7 @@ public class FirebaseConnection {
                         progressBar.setVisibility(View.INVISIBLE);
                     }
                     //ricerca nel nodo clienti
-                    if (node.equals(FirebaseConnection.CLIENT_TABLE)) {
+                    if (node.equals(FirebaseConnection.CLIENT_NODE)) {
                         final Client client = dataSnapshot.getValue(Client.class);
 
 
@@ -122,8 +122,8 @@ public class FirebaseConnection {
                     }
                     activity.finish();
                     //se non è stato trovato l'id nel nodo clienti cerca in places
-                } else if (!dataSnapshot.exists() && node.equals(FirebaseConnection.CLIENT_TABLE)) {
-                    searchUserInDb(userId, PLACE_TABLE, progressBar, activity);
+                } else if (!dataSnapshot.exists() && node.equals(FirebaseConnection.CLIENT_NODE)) {
+                    searchUserInDb(userId, PLACE_NODE, progressBar, activity);
                 }
             }
 
@@ -300,7 +300,7 @@ public class FirebaseConnection {
 
         @Override
         public void run() {
-            mDatabase.child(FEEDBACK_TABLE).orderByChild("idPlaceBooking").equalTo(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabase.child(FEEDBACK_NODE).orderByChild("idPlaceBooking").equalTo(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {

@@ -76,7 +76,7 @@ public class MyFeedbackClientActivity extends AppCompatActivity {
         final FeedbackAdapter mAdapter = new FeedbackAdapter(this, R.layout.listitem_feedback, feedbackList);
 
         //leggo in firebase i feedback con idCliente corrispondente
-        mDB.child(FirebaseConnection.FEEDBACK_TABLE).orderByChild("idClientFeedback").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDB.child(FirebaseConnection.FEEDBACK_NODE).orderByChild("idClientFeedback").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){//se esiste almeno un feedback

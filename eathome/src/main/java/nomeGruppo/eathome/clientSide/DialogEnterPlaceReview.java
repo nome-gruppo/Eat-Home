@@ -102,15 +102,15 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         String dateFeedback = formatData.format(date.getTime());//setto la data nel formato corretto
         feedback.setDateFeedback(dateFeedback);
         //prelevo la chiave assegnata in automatico da Firebase
-        String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).push().getKey();
+        String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_NODE).push().getKey();
         feedback.setIdFeedback(idFeedback);
-        firebaseConnection.write(FirebaseConnection.FEEDBACK_TABLE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
+        firebaseConnection.write(FirebaseConnection.FEEDBACK_NODE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
     }
 
     private void updateValuationPlace(){
 
         //leggo il Place corrispondente all'id all'interno di firebase
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {//se è stato trovato Place
@@ -121,7 +121,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
                         if(place != null) {
                             place.newValuation(ratingBar.getRating());//assegno la valutazione data dal cliente al Place corrispondente
 
-                            firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);//aggiorno il valore in firebase
+                            firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).child(idPlace).setValue(place);//aggiorno il valore in firebase
                         }
                     }
                 }

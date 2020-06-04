@@ -140,7 +140,7 @@ public class ClientProfileActivity extends AppCompatActivity {
 
         if(editFinished){
             FirebaseConnection connection = new FirebaseConnection();
-            connection.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
+            connection.write(FirebaseConnection.CLIENT_NODE, user.getUid(), client);
 
             Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();
         }

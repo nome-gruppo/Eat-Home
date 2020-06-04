@@ -257,7 +257,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         booking.setNameBooking(editNameBooking.getText().toString());
 
         FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.writeObject(FirebaseConnection.BOOKING_TABLE,booking);//inserisco booking all'interno del Db
+        firebaseConnection.writeObject(FirebaseConnection.BOOKING_NODE,booking);//inserisco booking all'interno del Db
 
         mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,txtDateBooking.getText().toString(), mUser.getUid());//inserisco l'informazione della prenotazione del db interno
         return true;
