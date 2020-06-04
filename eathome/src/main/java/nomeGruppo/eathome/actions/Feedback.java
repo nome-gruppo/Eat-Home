@@ -2,6 +2,8 @@ package nomeGruppo.eathome.actions;
 
 public class Feedback {
 
+
+
     public String idFeedback;
     public float voteFeedback;
     public String textFeedback;
@@ -11,6 +13,7 @@ public class Feedback {
     public String clientNameFeedback;
     public String replyPlace;
 
+    public static final String ID_PLACE_FIELD = "idPlaceBooking";
 
     public Feedback() {
     }

@@ -118,6 +118,7 @@
     <string name="incorrectPassword">Incorrect password</string>
     <string name="enteredDifferentPasswords">Entered different passwords</string>
     <string name="oldIncorrectPassword">Old incorrect password</string>
+    <string name="passwordChangedCorrectly">Password changed correctly</string>
     <string name="phoneNumberChangedCorrectly">Phone number changed correctly</string>
     <string name="notValidPhoneNumber">Not valid phone number</string>
     <string name="emailAlreadyExists">Email already exists</string>
@@ -139,7 +140,9 @@
         <item quantity="other">%d feedback</item>
     </plurals>
     <string name="noChangedEmail">Sorry, it was not possible to change your email</string>
+    <string name="noChangedPassword">Sorry, it was not possible to change your password</string>
     <string name="impossibleOrder">Sorry, this place does not delivery to your city</string>
     <string name="noInternetConnection">No internet connection</string>
+    <string name="emailSent">Email sent</string>
 
 </resources>

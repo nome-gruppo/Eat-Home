@@ -97,7 +97,7 @@
     <string name="enterEmailToContinue">Inserisci la tua email per continuare</string>
     <string name="enterOldPasswordToChangeEmail">Inserisci la vecchia password per cambiare la tua mail</string>
     <string name="incorrectPasswordFormat">Formato password non corretto</string>
-    <string name="emailChangedCorrectly">Email cambiata correttamente</string>
+    <string name="emailChangedCorrectly">Email modificata correttamente</string>
     <string name="notValidEmail">Email non valida</string>
     <string name="incorrectPassword">Password non corretta</string>
     <string name="enteredDifferentPasswords">Inserite password diverse</string>
@@ -122,9 +122,12 @@
         <item quantity="one">%d recensione</item>
         <item quantity="other">%d recensioni</item>
     </plurals>
-    <string name="noChangedEmail">Scusa, non è stato possibilie cambiare la tua email</string>
+    <string name="noChangedEmail">Scusa, non è stato possibilie modificare la tua email</string>
     <string name="impossibleOrder">Ci dispiace, questo locale non consegna nella tua città</string>
     <string name="noInternetConnection">Nessuna connessiona internet</string>
+    <string name="passwordChangedCorrectly">Password modificata correttamente</string>
+    <string name="noChangedPassword">Scusa, non è stato possibilie modificare la tua email</string>
+    <string name="emailSent">Email inviata</string>
 
 
 </resources>

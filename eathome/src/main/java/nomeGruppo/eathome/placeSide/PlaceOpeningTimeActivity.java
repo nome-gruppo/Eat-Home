@@ -337,10 +337,9 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
     }
 
-    //TODO controlla se si può mettere in onStop
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
 
         FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 

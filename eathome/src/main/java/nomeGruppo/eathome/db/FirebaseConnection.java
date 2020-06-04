@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
@@ -220,9 +221,9 @@ public class FirebaseConnection {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(activity, "Password modificata correttamente", Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity, R.string.passwordChangedCorrectly, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(activity, "Non è stato possibile cambiare la password", Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity, R.string.noChangedPassword, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -234,7 +235,7 @@ public class FirebaseConnection {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(activity, "Email inviata", Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity, R.string.emailSent, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -300,7 +301,7 @@ public class FirebaseConnection {
 
         @Override
         public void run() {
-            mDatabase.child(FEEDBACK_NODE).orderByChild("idPlaceBooking").equalTo(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabase.child(FEEDBACK_NODE).orderByChild(Feedback.ID_PLACE_FIELD).equalTo(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
