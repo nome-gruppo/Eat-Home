@@ -3,10 +3,8 @@ package nomeGruppo.eathome;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -16,15 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
-import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
@@ -36,7 +28,6 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     private String userId;
     private FirebaseUser mUser;
     private boolean deleted;
-    private FirebaseAuth mAuth;
 
     @NonNull
     @Override
@@ -45,20 +36,20 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
 
-        final FirebaseConnection connection = new FirebaseConnection();
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-        userId = mUser.getUid();
-
         final EditText emailEt = dialogView.findViewById(R.id.dialog_delete_account_et_email);
         final EditText passwordEt = dialogView.findViewById(R.id.dialog_delete_account_et_password);
+
+        final FirebaseConnection connection = new FirebaseConnection();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        userId = mUser.getUid();
 
         builder.setView(dialogView).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //onClick return back
             }
-        }).setPositiveButton("Sì", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -105,9 +96,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                 final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE, getActivity());
 
                 Thread accountThread = new Thread(deleteAccount);
-                Log.e("diaolg", "a");
                 accountThread.start();
-                Log.e("diaolg", "b");
 
 
             }else if(mPlace != null){

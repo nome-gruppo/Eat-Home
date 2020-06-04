@@ -1,9 +1,6 @@
 package nomeGruppo.eathome.actors;
 
 import java.io.Serializable;
-import java.util.List;
-
-import nomeGruppo.eathome.actions.Booking;
 
 
 public class Client implements Serializable {

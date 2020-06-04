@@ -25,7 +25,7 @@ import static nomeGruppo.eathome.utility.UtilitiesAndControls.PICT_SIZE_MAX;
 
 public class PlaceAdapter extends ArrayAdapter<Place> {
 
-    private Resources res;
+    private final Resources res;
 
     public PlaceAdapter(Context context, int textViewResourceId,
                          List<Place> place) {

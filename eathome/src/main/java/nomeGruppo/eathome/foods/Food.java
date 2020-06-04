@@ -1,7 +1,5 @@
 package nomeGruppo.eathome.foods;
 
-import java.util.HashSet;
-
 public class Food {
     public String idFood;
     public String nameFood;

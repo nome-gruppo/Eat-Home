@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 
 public class ShowAnswerPlace extends AppCompatDialogFragment {
-    private String reply;
+    private final String reply;
 
     public ShowAnswerPlace(String reply){
         this.reply=reply;

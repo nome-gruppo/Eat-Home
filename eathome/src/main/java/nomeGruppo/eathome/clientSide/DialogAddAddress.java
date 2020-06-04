@@ -36,9 +36,12 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         final AutoCompleteTextView editCity = view.findViewById(R.id.editCityClient);
         final EditText editNumberAddress = view.findViewById(R.id.editNumberAddressClient);
         final City city = new City();//classe che contiene l'elenco delle città
+
         //creo un adapter che conterrà l'elenco delle città per l'autocompletetext
-        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, city.getListCity());
-        editCity.setAdapter(adapterCity);//setto l'adapter in editCity
+        if(getContext() != null) {
+            ArrayAdapter<String> adapterCity = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, city.getListCity());
+            editCity.setAdapter(adapterCity);//setto l'adapter in editCity
+        }
 
         builder.setView(view).setTitle(getActivity().getResources().getString(R.string.choose_address))
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

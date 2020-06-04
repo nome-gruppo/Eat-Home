@@ -6,23 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class OrderInfoAdapter extends ArrayAdapter<Order> {
 

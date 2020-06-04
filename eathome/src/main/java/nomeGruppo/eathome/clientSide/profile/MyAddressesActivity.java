@@ -50,7 +50,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
         if (client != null) {
-            mAdapter = new AddressAdapter(this, R.layout.listitem_my_address, addressList, client.idClient, MyAddressesActivity.this);
+            mAdapter = new AddressAdapter(this, addressList, client.idClient, MyAddressesActivity.this);
 
             Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES, DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID_ADDRESS, new String[]{client.idClient}, null, null, null);
 

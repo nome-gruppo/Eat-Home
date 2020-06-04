@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.OtherActivity;
-import nomeGruppo.eathome.clientSide.profile.ClientProfileActivity;
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.placeSide.PlaceOpeningTimeActivity;
 import nomeGruppo.eathome.R;
@@ -392,10 +391,10 @@ public class PlaceProfileActivity extends AppCompatActivity {
         });
 
         passwordBtn.setOnClickListener(new View.OnClickListener() {
-            String email = emailEt.getText().toString().trim();
-            String oldPassword = oldPasswordEt.getText().toString();
-            String newPassword = newPasswordEt.getText().toString();
-            String confirmPassword = confirmPasswordEt.getText().toString();
+            final String email = emailEt.getText().toString().trim();
+            final String oldPassword = oldPasswordEt.getText().toString();
+            final String newPassword = newPasswordEt.getText().toString();
+            final String confirmPassword = confirmPasswordEt.getText().toString();
 
             @Override
             public void onClick(View view) {

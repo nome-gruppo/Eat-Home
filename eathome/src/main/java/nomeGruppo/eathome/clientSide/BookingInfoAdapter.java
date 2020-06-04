@@ -20,7 +20,7 @@ import nomeGruppo.eathome.actions.Booking;
 
 public class BookingInfoAdapter extends ArrayAdapter<Booking> {
 
-    private Resources res;
+    private final Resources res;
 
     public BookingInfoAdapter(@NonNull Context context, int resource, @NonNull List<Booking> listBooking) {
         super(context, resource, listBooking);
@@ -43,8 +43,8 @@ public class BookingInfoAdapter extends ArrayAdapter<Booking> {
             address.setText(booking.addressPlaceBooking);
             Calendar calendar=Calendar.getInstance();
             calendar.setTimeInMillis(booking.dateBooking);
-            date.setText(new SimpleDateFormat(String.format(res.getString(R.string.dateFormat) +
-                   " - " + res.getString(R.string.hourFormat)), Locale.getDefault()).format(calendar.getTime()));
+            date.setText(new SimpleDateFormat(res.getString(R.string.dateFormat) +
+                   " - " + res.getString(R.string.hourFormat), Locale.getDefault()).format(calendar.getTime()));
             number.setText(String.valueOf(booking.personNumBooking));
             phone.setText(booking.phonePlaceBooking);
         }

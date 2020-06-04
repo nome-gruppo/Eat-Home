@@ -12,7 +12,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 public class StorageConnection {
-    private StorageReference mStorageRef;
+    private final StorageReference mStorageRef;
 
     public StorageConnection() {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance("gs://eathome-bc890.appspot.com");

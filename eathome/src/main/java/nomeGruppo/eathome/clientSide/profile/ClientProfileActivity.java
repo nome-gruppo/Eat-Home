@@ -282,9 +282,9 @@ public class ClientProfileActivity extends AppCompatActivity {
         });
 
         passwordBtn.setOnClickListener(new View.OnClickListener() {
-            String oldPassword = oldPasswordEt.getText().toString();
-            String newPassword = passwordEt.getText().toString();
-            String confirmPassword = passwordConfirmEt.getText().toString();
+            final String oldPassword = oldPasswordEt.getText().toString();
+            final String newPassword = passwordEt.getText().toString();
+            final String confirmPassword = passwordConfirmEt.getText().toString();
 
             @Override
             public void onClick(View view) {

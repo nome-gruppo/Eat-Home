@@ -12,7 +12,7 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 
 public class DialogListFoodOrder extends AppCompatDialogFragment {
-    private Order order;
+    private final Order order;
 
     public DialogListFoodOrder(Order order){
         this.order=order;
@@ -20,25 +20,29 @@ public class DialogListFoodOrder extends AppCompatDialogFragment {
 
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-        String message="";
-        builder.setTitle(getContext().getResources().getString(R.string.order_summary)).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        StringBuilder message= new StringBuilder();
 
-            }
-        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        if(getContext() != null) {
+            builder.setTitle(getContext().getResources().getString(R.string.order_summary)).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
+                }
+            }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+        }
+
         for(String value:order.foodsOrder){
-            message+=value+"\n";
+            message.append(value).append("\n");
         }
         if(order.note!=null){
-            message+="\nNote: "+order.note;
+            message.append("\nNote: ").append(order.note);
         }
-        builder.setMessage(message);
+        builder.setMessage(message.toString());
         return builder.create();
     }
 

@@ -30,8 +30,8 @@ import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 
 
 public class MyMenuAdapter extends ArrayAdapter<Food> {
-    private Place place;
-    private List<Food>list;
+    private final Place place;
+    private final List<Food>list;
 
     MyMenuAdapter(Context context, int textViewResourceId,
                   List<Food> food, Place place) {

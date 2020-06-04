@@ -1,8 +1,5 @@
 package nomeGruppo.eathome.actions;
 
-import java.util.Calendar;
-import java.util.Date;
-
 public class Feedback {
 
     public String idFeedback;

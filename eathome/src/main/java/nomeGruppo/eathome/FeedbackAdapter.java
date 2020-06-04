@@ -20,7 +20,6 @@ import java.util.List;
 
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
 
 /*

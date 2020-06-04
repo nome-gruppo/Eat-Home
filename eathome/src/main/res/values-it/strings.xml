@@ -118,7 +118,10 @@
     <string name="cancel">Cancella</string>
     <string name="successfulRegistration">Registrazione effettuata con successo</string>
     <string name="yes">Sì</string>
-    <string name="numFeedback">%d recensioni</string>
+    <plurals name="numFeedback">
+        <item quantity="one">%d recensione</item>
+        <item quantity="other">%d recensioni</item>
+    </plurals>
     <string name="noChangedEmail">Scusa, non è stato possibilie cambiare la tua email</string>
     <string name="impossibleOrder">Ci dispiace, questo locale non consegna nella tua città</string>
     <string name="noInternetConnection">Nessuna connessiona internet</string>

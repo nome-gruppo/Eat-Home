@@ -17,7 +17,7 @@ import java.util.List;
 
 public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
 
-    private List<AutocompletePrediction> list;      //lista per controllare che non vengano mostrate repliche
+    private final List<AutocompletePrediction> list;      //lista per controllare che non vengano mostrate repliche
 
     public AddressesBarAdapter(@NonNull Context context, int resource) {
         super(context, resource);
@@ -43,7 +43,10 @@ public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
             convertView = inflater.inflate(R.layout.dropdown_list_layout, null);
 
             final TextView item = convertView.findViewById(R.id.list_item);
-            item.setText(getItem(position).getFullText(null));
+
+            if(getItem(position) != null) {
+                item.setText(getItem(position).getFullText(null));
+            }
         }
 
 

@@ -11,14 +11,12 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.foods.Food;
 
 public class MenuAdapterForClient extends ArrayAdapter<Food> {
-    private HashMap<Food,Integer>order;
+    private final HashMap<Food,Integer>order;
 
     public MenuAdapterForClient(Context context, int textViewResourceId,
                                 List<Food> food, HashMap<Food,Integer>order) {

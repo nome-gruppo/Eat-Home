@@ -37,7 +37,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
 import nomeGruppo.eathome.LoginActivity;
@@ -90,7 +89,9 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
             txtAddressPlaceInfo.setText(getString(R.string.addressPrinted, this.place.addressPlace,
                     this.place.addressNumPlace, this.place.cityPlace));
             ratingBar.setRating(place.valuation);
-            numFeedbackTW.setText(getString(R.string.numFeedback, place.numberReview));
+
+            numFeedbackTW.setText(getResources().getQuantityString(R.plurals.numFeedback, place.numberReview, place.numberReview));
+
 
             final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
@@ -201,18 +202,15 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
             if (localTime.after(timeOpening) && localTime.before(timeClosed)) {
                 txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + parser.format(timeClosed));
                 txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillagreenA400));
-                return;
             } else {//se l'ora corrente non è tra l'ora di apertura e l'ora di chiusura
                 txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + parser.format(timeOpening));
                 txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillaredA700));
                 btnOrder.setEnabled(false);//non è possibile ordinare
-                return;
             }
         } else {//se non è stato impostato alcun orario per il giorno corrente
             txtOpeningTime.setText(getResources().getString(R.string.closed_place));
             txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillaredA700));
             btnOrder.setEnabled(false);//non è possibile ordinare
-            return;
         }
     }
 

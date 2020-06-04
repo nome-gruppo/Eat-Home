@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;

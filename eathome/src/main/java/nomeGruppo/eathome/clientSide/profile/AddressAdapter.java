@@ -27,14 +27,14 @@ public class AddressAdapter extends ArrayAdapter<Address> {
     private DBOpenHelper helper;
     private SQLiteDatabase mDB;
 
-    private String idClient;
+    private final String idClient;
 
-    private ArrayList<Address> list;
-    private MyAddressesActivity callingActivity;
+    private final ArrayList<Address> list;
+    private final MyAddressesActivity callingActivity;
 
 
-    AddressAdapter(@NonNull Context context, int resource, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
-        super(context, resource, list);
+    AddressAdapter(@NonNull Context context, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
+        super(context, R.layout.listitem_my_address, list);
         this.idClient=idClient;
         this.list=list;
         this.callingActivity = callingActivity;

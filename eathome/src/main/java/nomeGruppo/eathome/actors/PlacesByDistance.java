@@ -12,10 +12,8 @@ import java.util.Locale;
 
 public class PlacesByDistance implements Comparator<Place> {
 
-    private static final String SEPARATOR = ", ";
-
-    private Location userLocation;
-    private Context context;
+    private final Location userLocation;
+    private final Context context;
 
 
     public PlacesByDistance(double latitude, double longitude, Context context) {

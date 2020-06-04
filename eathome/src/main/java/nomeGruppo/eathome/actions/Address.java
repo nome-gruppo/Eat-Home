@@ -5,12 +5,11 @@ import androidx.annotation.Nullable;
 public class Address {
 
     private static final String DIVIDER = ", ";
-    private static final int TOKEN_NUM = 3;
 
     private int idAddress;
-    private String city;
+    private final String city;
     private String street;
-    private String numberAddress;
+    private final String numberAddress;
 
     public Address(String city, String street, String numberAddress) {
         this.city = city.trim();
@@ -41,10 +40,6 @@ public class Address {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
     public String getNumberAddress() {
         return numberAddress;
     }
@@ -61,11 +56,7 @@ public class Address {
             final String objStreet = ((Address) obj).getStreet().toLowerCase();
             final String objAddressNum = ((Address) obj).getNumberAddress().toLowerCase();
 
-            if(objCity.equals(this.city.toLowerCase()) && objStreet.equals(this.street.toLowerCase()) && objAddressNum.equals(this.numberAddress.toLowerCase())){
-                return true;
-            }else{
-                return false;
-            }
+            return objCity.equals(this.city.toLowerCase()) && objStreet.equals(this.street.toLowerCase()) && objAddressNum.equals(this.numberAddress.toLowerCase());
         }else{
             return false;
         }

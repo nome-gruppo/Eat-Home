@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,12 +31,10 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
 
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
-    private BottomNavigationView bottomMenuPlace;
-    private ListView listViewBooking;
     private List<Booking> listBooking;
     private PlaceBookingAdapter placeBookingAdapter;
     private TextView txtNoBooking;
-    private ImageView imgNoBookin;
+    private ImageView impNoBooking;
 
 
     @Override
@@ -45,20 +42,20 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_booking_info);
 
-        this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        this.menuNavigationItemSelected=new MenuNavigationItemSelected();
-        this.bottomMenuPlace=findViewById(R.id.bottom_navigationPlaceBookingInfo);
-        this.listViewBooking=findViewById(R.id.listViewPlaceBookingInfo);
-        this.listBooking=new LinkedList<>();
-        this.txtNoBooking=findViewById(R.id.txtNoBookingPlace);
-        this.imgNoBookin=findViewById(R.id.imgNoBookingPlace);
-        this.placeBookingAdapter=new PlaceBookingAdapter(this,R.layout.listitem_booking_info,listBooking);
+        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceBookingInfo);
+        this.txtNoBooking = findViewById(R.id.txtNoBookingPlace);
+        this.impNoBooking = findViewById(R.id.imgNoBookingPlace);
+
+        this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        this.menuNavigationItemSelected = new MenuNavigationItemSelected();
+        this.listBooking = new LinkedList<>();
+        this.placeBookingAdapter = new PlaceBookingAdapter(this, R.layout.listitem_booking_info, listBooking);
 
         //mostro il menu sottostante
-        this.bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return menuNavigationItemSelected.menuNavigationPlace(item,place,PlaceBookingInfoActivity.this);
+                return menuNavigationItemSelected.menuNavigationPlace(item, place, PlaceBookingInfoActivity.this);
             }
         });
 
@@ -69,7 +66,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         super.onStart();
         listBooking.clear();
 
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //leggo in firebase le prenotazioni con id place corrispondente
         firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_TABLE).orderByChild("idPlaceBooking").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -80,9 +77,9 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
                         Booking booking = snapshot.getValue(Booking.class);
                         listBooking.add(booking);//aggiungo la prenotazione alla lista a cui è stato impostato l'adapter
                     }
-                }else{//se non c'è alcuna prenotazione
+                } else {//se non c'è alcuna prenotazione
                     txtNoBooking.setVisibility(View.VISIBLE);//mostro il messaggio 'siamo spiacenti'
-                    imgNoBookin.setVisibility(View.VISIBLE);//mostro la smile triste
+                    impNoBooking.setVisibility(View.VISIBLE);//mostro la smile triste
                 }
                 placeBookingAdapter.notifyDataSetChanged();
             }

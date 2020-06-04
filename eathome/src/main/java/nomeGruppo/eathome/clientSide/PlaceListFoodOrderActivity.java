@@ -163,17 +163,17 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(this.getResources().getString(R.string.order_summary));
         float tot = 0;
-        String message = "";
+        StringBuilder message = new StringBuilder();
         for (Map.Entry<Food, Integer> entry : listFoodOrder.entrySet()) {//scorro l'hashMap per prendere il nome dei cibi e la quantità
             Food key = entry.getKey();
             nameFood.add("X " + entry.getValue() + " " + key.nameFood);//aggiungo alla lista dei cibi il nome con la relativa quantità
             int number = entry.getValue();//prendo la quantità
             float totParz = key.priceFood * number;//moltiplico il prezzo per la quantità per avere il costo di un cibo ordinato
             tot += totParz;//sommo il costo del cibo con il totale finale
-            message += (number + "X " + key.nameFood + " " + totParz + " €" + "\n");//imposto il messaggio con il riepilogo della quantità del nome e del costo parziale del cibo
+            message.append(number).append("X ").append(key.nameFood).append(" ").append(totParz).append(" €").append("\n");//imposto il messaggio con il riepilogo della quantità del nome e del costo parziale del cibo
         }
-        message += "Tot " + tot + " €";//imposto nel messaggio il totale finale
-        builder.setMessage(message);//mostro il messaggio
+        message.append("Tot ").append(tot).append(" €");//imposto nel messaggio il totale finale
+        builder.setMessage(message.toString());//mostro il messaggio
         finalTot = tot;
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override

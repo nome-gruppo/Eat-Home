@@ -2,7 +2,6 @@ package nomeGruppo.eathome.utility;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.widget.Button;
 import android.widget.TimePicker;
 

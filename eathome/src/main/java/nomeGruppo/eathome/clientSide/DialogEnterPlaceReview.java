@@ -34,12 +34,15 @@ dialog per l'inserimento delle recensioni da parte del cliente
  */
 public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private RatingBar ratingBar;
-    private String idPlace,namePlace,idClient,nameClient;
-    private SQLiteDatabase mDB;
-    private DBOpenHelper mDBHelper;
+    private final String idPlace;
+    private final String namePlace;
+    private final String idClient;
+    private final String nameClient;
+    private final SQLiteDatabase mDB;
+    private final DBOpenHelper mDBHelper;
     private EditText editFeedback;
     private Calendar date;
-    private FirebaseConnection firebaseConnection;
+    private final FirebaseConnection firebaseConnection;
 
 
     DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper){

@@ -101,7 +101,6 @@ public class FirebaseConnection {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             activity.startActivity(intent);
-                            activity.finish();
                         }else{
                             final Intent intent = new Intent();
                             final Place place = (Place) activity.getIntent().getSerializableExtra(PLACE);
@@ -110,9 +109,7 @@ public class FirebaseConnection {
                             intent.putExtra(CLIENT, client);
                             intent.putExtra(ORDER, order);
                             activity.setResult(Activity.RESULT_OK, intent);
-                            activity.finish();
                         }
-
 
 
                     } else { //ricerca nel nodo places
@@ -122,8 +119,8 @@ public class FirebaseConnection {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         activity.startActivity(intent);
-                        activity.finish();
                     }
+                    activity.finish();
                     //se non è stato trovato l'id nel nodo clienti cerca in places
                 } else if (!dataSnapshot.exists() && node.equals(FirebaseConnection.CLIENT_TABLE)) {
                     searchUserInDb(userId, PLACE_TABLE, progressBar, activity);
@@ -245,10 +242,10 @@ public class FirebaseConnection {
 
     public static class DeleteAccount implements Runnable {
 
-        private FirebaseUser user;
-        private String uID;
-        private String table;
-        private Activity activity;
+        private final FirebaseUser user;
+        private final String uID;
+        private final String table;
+        private final Activity activity;
 
         public DeleteAccount(FirebaseUser user, String uID, String table, Activity callingActivity) {
             this.user = user;
@@ -295,7 +292,7 @@ public class FirebaseConnection {
 
     public static class DeleteFeedback implements Runnable {
 
-        private String uID;
+        private final String uID;
 
         public DeleteFeedback(String uID) {
             this.uID = uID;

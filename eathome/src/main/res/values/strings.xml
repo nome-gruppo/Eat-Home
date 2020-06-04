@@ -134,9 +134,12 @@
     <string name="cancel">Cancel</string>
     <string name="successfulRegistration">Successful Registration</string>
     <string name="yes">Yes</string>
-    <string name="numFeedback">%d feedback</string>
-    <string name="noChangedEmail">Sorry, it wasn\'t possible to change your email</string>
-    <string name="impossibleOrder">Sorry, this place doesn\'t delivery to your city</string>
+    <plurals name="numFeedback">
+        <item quantity="one">%d feedback</item>
+        <item quantity="other">%d feedback</item>
+    </plurals>
+    <string name="noChangedEmail">Sorry, it was not possible to change your email</string>
+    <string name="impossibleOrder">Sorry, this place does not delivery to your city</string>
     <string name="noInternetConnection">No internet connection</string>
 
 </resources>

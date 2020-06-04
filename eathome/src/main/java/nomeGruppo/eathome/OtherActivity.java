@@ -29,7 +29,7 @@ import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 activity dove sono presenti il mio profilo le mie recensioni e il logout
  */
 public class OtherActivity extends AppCompatActivity {
-    private MenuNavigationItemSelected menuNavigationItemSelected=new MenuNavigationItemSelected();
+    private final MenuNavigationItemSelected menuNavigationItemSelected=new MenuNavigationItemSelected();
     private Place place;
     private Client client;
     private FirebaseAuth mAuth;
