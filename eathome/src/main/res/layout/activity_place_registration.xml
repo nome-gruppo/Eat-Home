@@ -21,7 +21,7 @@
         android:background="@drawable/edit_text_border"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
-        android:drawableLeft="@drawable/ic_local_activity_black_24dp"
+        android:drawableStart="@drawable/ic_local_activity_black_24dp"
         android:textAlignment="center"
         android:inputType="textPersonName" />
 
@@ -33,7 +33,7 @@
         android:completionHint="@string/enterCity"
         android:completionThreshold="2"
         android:layout_marginVertical="10dp"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
+        android:drawableStart="@drawable/ic_place_black_24dp"
         android:textAlignment="center"
         android:background="@drawable/edit_text_border" />
 
@@ -44,7 +44,7 @@
         android:ems="10"
         android:hint="@string/enterAddress"
         android:layout_marginVertical="10dp"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
+        android:drawableStart="@drawable/ic_place_black_24dp"
         android:textAlignment="center"
         android:background="@drawable/edit_text_border"
         android:inputType="textPostalAddress" />
@@ -56,7 +56,7 @@
         android:ems="10"
         android:hint="@string/enterAddressNumber"
         android:layout_marginVertical="10dp"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
+        android:drawableStart="@drawable/ic_place_black_24dp"
         android:textAlignment="center"
         android:background="@drawable/edit_text_border"
         android:inputType="textPostalAddress" />
@@ -68,7 +68,7 @@
         android:ems="10"
         android:hint="@string/enterPhone"
         android:layout_marginVertical="10dp"
-        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+        android:drawableStart="@drawable/ic_local_phone_black_24dp"
         android:textAlignment="center"
         android:background="@drawable/edit_text_border"
         android:inputType="phone" />
@@ -95,7 +95,7 @@
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -147,7 +147,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:text="@string/actions"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"/>
@@ -188,9 +188,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberDecimal"
         android:text="@string/deliveryCost"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"/>
@@ -200,11 +199,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:text="0"
+        android:text="@string/zero"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <SeekBar
         android:id="@+id/seekDeliveryCost"
@@ -227,7 +225,7 @@
         android:hint="@string/enterEmail"
         android:background="@drawable/edit_text_border"
         android:inputType="textEmailAddress"
-        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:drawableStart="@drawable/ic_email_black_24dp"
         android:layout_marginVertical="10dp"
         android:textAlignment="center"
         android:layout_marginEnd="10dp"/>
@@ -240,7 +238,7 @@
         android:hint="@string/enterPassword"
         android:background="@drawable/edit_text_border"
         android:inputType="textPassword"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
         android:layout_marginVertical="10dp"
         android:textAlignment="center"
         android:layout_marginEnd="10dp"/>
@@ -258,8 +256,8 @@
         android:id="@+id/activity_place_registration_tw_status"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:text="Email già presente"
-        android:textSize="24dp"
+        android:text="@string/emailAlreadyExists"
+        android:textSize="24sp"
         android:visibility="invisible" />
 
     <TextView

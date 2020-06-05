@@ -1,5 +1,6 @@
 package nomeGruppo.eathome.clientSide;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -62,7 +63,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
         if(getActivity() != null) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            final View view = inflater.inflate(R.layout.dialog_enter_place_review, null);
+            @SuppressLint("InflateParams") final View view = inflater.inflate(R.layout.dialog_enter_place_review, null);
 
             final TextView txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
             this.ratingBar = view.findViewById(R.id.ratingBar);

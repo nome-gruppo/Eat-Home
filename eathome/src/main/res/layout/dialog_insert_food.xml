@@ -47,7 +47,7 @@
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="20dp"
         android:inputType="numberDecimal"
-        android:drawableLeft="@drawable/ic_euro_symbol_black_24dp"
+        android:drawableStart="@drawable/ic_euro_symbol_black_24dp"
         android:hint="@string/enter_price"
         app:layout_constraintStart_toStartOf="@+id/editIngredientsFood"
         app:layout_constraintTop_toBottomOf="@+id/editIngredientsFood" />

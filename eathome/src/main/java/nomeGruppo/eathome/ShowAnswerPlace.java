@@ -1,5 +1,6 @@
 package nomeGruppo.eathome;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -26,7 +27,7 @@ public class ShowAnswerPlace extends AppCompatDialogFragment {
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater=getActivity().getLayoutInflater();
-        View view=inflater.inflate(R.layout.dialog_reply_feedback,null);
+        @SuppressLint("InflateParams") View view=inflater.inflate(R.layout.dialog_reply_feedback,null);
 
         final EditText editReply=view.findViewById(R.id.editReplyFeedback);
         editReply.setEnabled(false);

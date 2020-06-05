@@ -2,6 +2,8 @@
     <string name="api_key" translatable="false">AIzaSyD16nICsy8YDrIUIt_CXfoGgPpIJRNDeSI</string>
 
     <string name="app_name" translatable="false">Eat Home</string>
+    <string name="image_button" translatable="false">ImageButton</string>
+    <string name="image" translatable="false">Image</string>
     <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="menu_logout" translatable="false">Logout</string>
     <string name="menu_home" translatable="false">Home</string>
@@ -14,6 +16,8 @@
     <string name="addressPrinted" translatable="false">%1$s, %2$s, %3$s</string>
     <string name="euro" translatable="false">€ %.02f</string>
     <string name="one" translatable="false">1</string>
+    <string name="zero" translatable="false">0</string>
+
 
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>

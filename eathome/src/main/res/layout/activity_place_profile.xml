@@ -66,11 +66,13 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_menu_login"
+                            android:drawableStart="@drawable/ic_menu_login"
                             android:ems="10"
                             android:inputType="textPersonName"
                             tools:layout_editor_absoluteX="100dp"
-                            tools:layout_editor_absoluteY="25dp" />
+                            tools:layout_editor_absoluteY="25dp"
+                            android:importantForAutofill="no"
+                            tools:ignore="LabelFor"/>
 
                         <ImageButton
                             android:id="@+id/activity_place_profile_imBtn_name"
@@ -78,7 +80,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit" />
+                            android:src="@drawable/ic_profile_edit"
+                            android:contentDescription="@string/image_button" />
 
                     </TableRow>
 
@@ -94,11 +97,13 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_email_black_24dp"
+                            android:drawableStart="@drawable/ic_email_black_24dp"
                             android:ems="10"
                             android:inputType="textEmailAddress"
                             tools:layout_editor_absoluteX="104dp"
-                            tools:layout_editor_absoluteY="91dp" />
+                            tools:layout_editor_absoluteY="91dp"
+                            android:importantForAutofill="no"
+                            tools:ignore="LabelFor"/>
 
                         <ImageButton
                             android:id="@+id/activity_place_profile_imBtn_email"
@@ -106,7 +111,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit" />
+                            android:src="@drawable/ic_profile_edit"
+                            android:contentDescription="@string/image_button" />
 
                     </TableRow>
 
@@ -122,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/old_password"
                             android:inputType="textPassword" />
@@ -141,7 +147,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/new_password"
                             android:inputType="textPassword" />
@@ -160,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/confirm_password"
                             android:inputType="textPassword" />
@@ -171,7 +177,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit" />
+                            android:src="@drawable/ic_profile_edit"
+                            android:contentDescription="@string/image_button" />
 
                     </TableRow>
 
@@ -187,9 +194,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_place_black_24dp"
+                            android:drawableStart="@drawable/ic_place_black_24dp"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:importantForAutofill="no"
+                            tools:ignore="LabelFor"/>
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_numAddress"
@@ -198,14 +207,17 @@
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:importantForAutofill="no"
+                            tools:ignore="LabelFor"/>
 
                         <ImageButton
                             android:id="@+id/activity_place_profile_imBtn_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_profile_edit" />
+                            android:src="@drawable/ic_profile_edit"
+                            android:contentDescription="@string/image_button" />
 
                     </TableRow>
 
@@ -223,9 +235,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_place_black_24dp"
+                            android:drawableStart="@drawable/ic_place_black_24dp"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:importantForAutofill="no"
+                            tools:ignore="LabelFor"/>
 
 
                         <ImageButton
@@ -234,7 +248,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit" />
+                            android:src="@drawable/ic_profile_edit"
+                            android:contentDescription="@string/image_button" />
 
                     </TableRow>
 
@@ -250,9 +265,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+                            android:drawableStart="@drawable/ic_local_phone_black_24dp"
                             android:ems="10"
-                            android:inputType="phone" />
+                            android:inputType="phone"
+                            android:importantForAutofill="no"
+                            tools:ignore="LabelFor"/>
 
                         <ImageButton
                             android:id="@+id/activity_place_profile_imBtn_phone"
@@ -260,7 +277,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit" />
+                            android:src="@drawable/ic_profile_edit"
+                            android:contentDescription="@string/image_button" />
 
                     </TableRow>
 

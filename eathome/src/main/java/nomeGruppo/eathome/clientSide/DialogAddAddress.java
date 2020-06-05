@@ -1,5 +1,6 @@
 package nomeGruppo.eathome.clientSide;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -30,7 +31,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_insert_address, null);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.dialog_insert_address, null);
 
         final EditText editAddress = view.findViewById(R.id.editAddressClient);
         final AutoCompleteTextView editCity = view.findViewById(R.id.editCityClient);

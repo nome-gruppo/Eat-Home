@@ -1,5 +1,6 @@
 package nomeGruppo.eathome.clientSide;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -129,7 +130,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
     private void openDialogAddNote(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ConfirmOrderActivity.this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_reply_feedback, null);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.dialog_reply_feedback, null);
         final EditText note=view.findViewById(R.id.editReplyFeedback);
         if(order.note==null){
             note.setHint(getResources().getString(R.string.add_note));

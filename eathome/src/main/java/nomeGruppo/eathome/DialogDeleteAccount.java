@@ -1,5 +1,6 @@
 package nomeGruppo.eathome;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,7 +34,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
+        @SuppressLint("InflateParams") final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
 
         final EditText emailEt = dialogView.findViewById(R.id.dialog_delete_account_et_email);
         final EditText passwordEt = dialogView.findViewById(R.id.dialog_delete_account_et_password);
