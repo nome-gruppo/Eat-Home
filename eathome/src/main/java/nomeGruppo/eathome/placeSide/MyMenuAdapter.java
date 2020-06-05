@@ -1,6 +1,5 @@
 package nomeGruppo.eathome.placeSide;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -123,7 +122,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
 
         Activity activity = (Activity) getContext();
         LayoutInflater inflater=activity.getLayoutInflater();
-        @SuppressLint("InflateParams") View view=inflater.inflate(R.layout.dialog_insert_food,null);
+        View view=inflater.inflate(R.layout.dialog_insert_food, (ViewGroup) ((Activity) getContext()).getCurrentFocus(),false);
 
         final EditText editNameFood = view.findViewById(R.id.editNameFood);
         final EditText editIngredientsFood = view.findViewById(R.id.editIngredientsFood);

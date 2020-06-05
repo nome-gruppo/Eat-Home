@@ -69,7 +69,7 @@
         android:id="@+id/my_feedback_place_noFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Non hai ancora recensioni"
+        android:text="@string/no_feedback"
         android:visibility="gone"
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="87dp" />

@@ -1,6 +1,5 @@
 package nomeGruppo.eathome.clientSide;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -196,7 +195,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     private void openDialogChooseAddress(final ArrayList<String> nameFood, final float finalTot, final Place place) {
 
         final LayoutInflater inflater = PlaceListFoodOrderActivity.this.getLayoutInflater();
-        @SuppressLint("InflateParams") final View view = inflater.inflate(R.layout.dialog_choose_address, null);
+        final View view = inflater.inflate(R.layout.dialog_choose_address, (ViewGroup) getCurrentFocus(),false);
 
         final ListView listViewAddress = view.findViewById(R.id.listViewChooseAddress);
         final FloatingActionButton btnAddAddress = view.findViewById(R.id.btnAddAddress);

@@ -1,6 +1,5 @@
 package nomeGruppo.eathome.clientSide.profile;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -120,7 +119,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
 
         Activity activity = (Activity) getContext();
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.dialog_insert_address,null);
+        View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) ((Activity) getContext()).getCurrentFocus(),false);
 
         final EditText editAddress = view.findViewById(R.id.editAddressClient);
         final EditText editCity = view.findViewById(R.id.editCityClient);

@@ -1,6 +1,5 @@
 package nomeGruppo.eathome.clientSide;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -63,7 +63,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
 
         if(getActivity() != null) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            @SuppressLint("InflateParams") final View view = inflater.inflate(R.layout.dialog_enter_place_review, null);
+            final View view = inflater.inflate(R.layout.dialog_enter_place_review, (ViewGroup) getActivity().getCurrentFocus(),false);
 
             final TextView txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
             this.ratingBar = view.findViewById(R.id.ratingBar);

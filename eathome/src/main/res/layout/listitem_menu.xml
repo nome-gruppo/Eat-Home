@@ -67,7 +67,6 @@
                 android:id="@+id/btnDeleteFood"
                 android:layout_width="31dp"
                 android:layout_height="36dp"
-                android:layout_gravity="right"
                 android:layout_marginEnd="28dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/quantum_white_100"

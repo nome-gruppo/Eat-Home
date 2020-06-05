@@ -153,5 +153,21 @@
     <string name="ops_c_stato_un_errore">Ops. There\'s an error</string>
     <string name="no_address">There ins\'t any saved address</string>
     <string name="search_button">Search city</string>
+    <string name="date">Date</string>
+    <string name="no_place">Sorry, there aren\'t places</string>
+    <string name="search_place">Search place</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="delivery">Delivery</string>
+    <string name="other">Other</string>
+    <string name="all">All</string>
+    <string name="free_delivery">Only free delivery</string>
+    <string name="show_place">Show place</string>
+    <string name="average_valuation">Average valuation</string>
+    <string name="order_by">Order by</string>
+    <string name="order_name">Name</string>
+    <string name="valuation">Valuation</string>
+    <string name="distance">Distance</string>
+    <string name="order_categories">Categories</string>
+
 
 </resources>

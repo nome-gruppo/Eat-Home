@@ -315,7 +315,7 @@
                                     android:id="@+id/activity_place_profile_cb_delivery"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Delivery"
+                                    android:text="@string/delivery"
                                     tools:layout_editor_absoluteX="165dp"
                                     tools:layout_editor_absoluteY="560dp" />
 
@@ -323,7 +323,7 @@
                                     android:id="@+id/activity_place_profile_cb_booking"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Booking"
+                                    android:text="@string/bookings"
                                     tools:layout_editor_absoluteX="49dp"
                                     tools:layout_editor_absoluteY="557dp" />
 
@@ -377,7 +377,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="42dp"
                                     android:onClick="onRadioButtonClicked"
-                                    android:text="Altro" />
+                                    android:text="@string/other" />
 
                             </RadioGroup>
 

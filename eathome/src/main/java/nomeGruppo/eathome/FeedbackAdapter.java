@@ -1,6 +1,5 @@
 package nomeGruppo.eathome;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -78,7 +77,7 @@ public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
 
         Activity activity = (Activity) getContext();
         LayoutInflater inflater=activity.getLayoutInflater();
-        @SuppressLint("InflateParams") View view=inflater.inflate(R.layout.dialog_reply_feedback,null);
+        View view=inflater.inflate(R.layout.dialog_reply_feedback, (ViewGroup) ((Activity) getContext()).getCurrentFocus(),false);
 
         final EditText editReply=view.findViewById(R.id.editReplyFeedback);
 

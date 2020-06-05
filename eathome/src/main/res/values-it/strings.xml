@@ -122,16 +122,31 @@
         <item quantity="one">%d recensione</item>
         <item quantity="other">%d recensioni</item>
     </plurals>
-    <string name="noChangedEmail">Scusa, non è stato possibilie modificare la tua email</string>
+    <string name="noChangedEmail">Spiacenti, non è stato possibilie modificare la tua email</string>
     <string name="impossibleOrder">Ci dispiace, questo locale non consegna nella tua città</string>
     <string name="noInternetConnection">Nessuna connessiona internet</string>
     <string name="passwordChangedCorrectly">Password modificata correttamente</string>
-    <string name="noChangedPassword">Scusa, non è stato possibilie modificare la tua email</string>
+    <string name="noChangedPassword">Spiacenti, non è stato possibilie modificare la tua password</string>
     <string name="emailSent">Email inviata</string>
     <string name="confirmation">Conferma</string>
     <string name="ops_c_stato_un_errore">Ops. C\'è stato un errore</string>
     <string name="no_address">Non ci sono indirizzi salvati</string>
     <string name="search_button">Ricerca città</string>
+    <string name="date">Data</string>
+    <string name="no_place">Spiacenti, non sono stati trovati locali</string>
+    <string name="search_place">Trova i tuoi locali preferiti</string>
+    <string name="forgot_password">Password dimenticata?</string>
+    <string name="delivery">Consegna a domicilio</string>
+    <string name="other">Altro</string>
+    <string name="all">Tutto</string>
+    <string name="free_delivery">Solo consegna gratis</string>
+    <string name="show_place">Mostra locali</string>
+    <string name="average_valuation">valutazione media</string>
+    <string name="order_by">Ordina per</string>
+    <string name="order_name">Nome</string>
+    <string name="valuation">Valutazione</string>
+    <string name="distance">Distanza</string>
+    <string name="order_categories">Categorie</string>
 
 
 </resources>

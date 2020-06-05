@@ -18,7 +18,6 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:hint="Nome locale"
         app:layout_constraintBottom_toTopOf="@+id/place_homepage_placeImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
