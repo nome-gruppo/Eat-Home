@@ -8,7 +8,7 @@ public class Address {
 
     private int idAddress;
     private final String city;
-    private String street;
+    private final String street;
     private final String numberAddress;
 
     public Address(String city, String street, String numberAddress) {

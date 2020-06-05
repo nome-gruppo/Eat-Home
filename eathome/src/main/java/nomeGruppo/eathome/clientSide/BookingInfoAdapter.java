@@ -27,26 +27,30 @@ public class BookingInfoAdapter extends ArrayAdapter<Booking> {
         this.res = context.getResources();
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.listitem_booking_info, null);
-        TextView title = convertView.findViewById(R.id.txtNameBookingInfo);
-        TextView address=convertView.findViewById(R.id.txtAddressBookingInfo);
-        TextView date=convertView.findViewById(R.id.txtDateBookingInfo);
-        TextView number=convertView.findViewById(R.id.txtNumberPersonBookingInfo);
-        TextView phone=convertView.findViewById(R.id.txtPhonePlace);
-        final Booking booking = getItem(position);
-        if(booking != null) {
-            title.setText(booking.namePlaceBooking);
-            address.setText(booking.addressPlaceBooking);
-            Calendar calendar=Calendar.getInstance();
-            calendar.setTimeInMillis(booking.dateBooking);
-            date.setText(new SimpleDateFormat(res.getString(R.string.dateFormat) +
-                   " - " + res.getString(R.string.hourFormat), Locale.getDefault()).format(calendar.getTime()));
-            number.setText(String.valueOf(booking.personNumBooking));
-            phone.setText(booking.phonePlaceBooking);
+        if (inflater != null) {
+            convertView = inflater.inflate(R.layout.listitem_booking_info, parent, false);
+            TextView title = convertView.findViewById(R.id.txtNameBookingInfo);
+            TextView address = convertView.findViewById(R.id.txtAddressBookingInfo);
+            TextView date = convertView.findViewById(R.id.txtDateBookingInfo);
+            TextView number = convertView.findViewById(R.id.txtNumberPersonBookingInfo);
+            TextView phone = convertView.findViewById(R.id.txtPhonePlace);
+
+            final Booking booking = getItem(position);
+            if (booking != null) {
+                title.setText(booking.namePlaceBooking);
+                address.setText(booking.addressPlaceBooking);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(booking.dateBooking);
+                date.setText(new SimpleDateFormat(res.getString(R.string.dateFormat) +
+                        " - " + res.getString(R.string.hourFormat), Locale.getDefault()).format(calendar.getTime()));
+                number.setText(String.valueOf(booking.personNumBooking));
+                phone.setText(booking.phonePlaceBooking);
+            }
         }
         return convertView;
     }

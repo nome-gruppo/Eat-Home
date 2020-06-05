@@ -211,23 +211,25 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         SimpleDateFormat parser = new SimpleDateFormat(getString(R.string.hourFormat), Locale.getDefault());
         //leggo l'orario di apertura chiusura del locale
         String openingTime = place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
-        Date timeOpening = null;
-        Date timeClosed = null;
-        Date timeOrder = null;
+        Date timeOpening;
+        Date timeClosed;
+        Date timeOrder;
         try {
-            timeOrder = parser.parse(hourOfDay + ":" + minutes);
-            timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'orario di chiusura
-            timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'orario di apertura
+            if(openingTime != null) {
+                timeOrder = parser.parse(hourOfDay + ":" + minutes);
+                timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'orario di chiusura
+                timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'orario di apertura
 
-            //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
-            if (timeOrder.after(timeOpening) && timeOrder.before(timeClosed)) {
-                Button editChooseTime = findViewById(R.id.editChooseTime);
-                editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
-            } else {//se il locale è chiuso nell'ora selezionata
-                //mostra messaggio
-                Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();
+                //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
+                if (timeOrder.after(timeOpening) && timeOrder.before(timeClosed)) {
+                    Button editChooseTime = findViewById(R.id.editChooseTime);
+                    editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
+                } else {//se il locale è chiuso nell'ora selezionata
+                    //mostra messaggio
+                    Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();
+                }
             }
-        } catch (NullPointerException | ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }

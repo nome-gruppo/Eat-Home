@@ -170,7 +170,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         //se nel giorno selezioanto è stato impostato in orario quindi il locale non è chiuso
         if(place.openingTime.get(dayOfWeek) != null) {
             if (place.openingTime.get(dayOfWeek).length() > 8) {
-                txtDateBooking.setText(String.format("%0" + 2 + "d", dayOfMonth)+ "/" + String.format("%0" + 2 + "d", month++) + "/" + year);//setto la data in base alla scelta dell'utente.
+                txtDateBooking.setText(String.format(Locale.getDefault(), "%0" + 2 + "d", dayOfMonth)+ "/" + String.format("%0" + 2 + "d", month++) + "/" + year);//setto la data in base alla scelta dell'utente.
                 openDialogChooseHour();//una volta selezionata la data apro il dialog per scegliere l'ora
             } else {//se il locale è chiuso nel giorno selezionato
                 //mostra messaggio

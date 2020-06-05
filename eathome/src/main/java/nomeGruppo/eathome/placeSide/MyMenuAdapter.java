@@ -26,7 +26,6 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 
 
 public class MyMenuAdapter extends ArrayAdapter<Food> {
@@ -40,44 +39,49 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         this.list=food;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView,@NonNull ViewGroup parent) {
+
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.listitem_menu, null);
-        TextView title = convertView.findViewById(R.id.txtNameFood);
-        TextView price = convertView.findViewById(R.id.txtPriceFood);
-        TextView ingredients=convertView.findViewById(R.id.txtIngredientsFood);
-        ImageButton btnDelete= convertView.findViewById(R.id.btnDeleteFood);
-        ImageButton btnEdit=convertView.findViewById(R.id.btnEditFood);
-        final Food food = getItem(position);
 
-        if(food != null) {
-            title.setText(food.nameFood);
-            price.setText(getContext().getResources().getString(R.string.euro, food.priceFood));
-            ingredients.setText(food.ingredientsFood);
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openDialog(food, place);
-                }
-            });
-            btnEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openDialogEditFood(food);
-                }
-            });
+        if(inflater != null) {
+            convertView = inflater.inflate(R.layout.listitem_menu, parent, false);
+            TextView title = convertView.findViewById(R.id.txtNameFood);
+            TextView price = convertView.findViewById(R.id.txtPriceFood);
+            TextView ingredients = convertView.findViewById(R.id.txtIngredientsFood);
+            ImageButton btnDelete = convertView.findViewById(R.id.btnDeleteFood);
+            ImageButton btnEdit = convertView.findViewById(R.id.btnEditFood);
+            final Food food = getItem(position);
+
+            if (food != null) {
+                title.setText(food.nameFood);
+                price.setText(getContext().getResources().getString(R.string.euro, food.priceFood));
+                ingredients.setText(food.ingredientsFood);
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openDialog(food, place);
+                    }
+                });
+                btnEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openDialogEditFood(food);
+                    }
+                });
+            }
         }
         return convertView;
     }
 
     private void openDialog(final Food food,final Place place){ //creo un alert dialogo per chiedere conferma all'utente della cancellazione
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-        builder.setTitle("Confirmation");
-        builder.setMessage(getContext().getResources().getString(R.string.confirmation)+" "
+        builder.setTitle(R.string.confirmation);
+        builder.setMessage(getContext().getResources().getString(R.string.cancelConfirmation)+" "
                 +food.nameFood);//prelevo la stringa di richiesta conferma da values.strings
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 deleteFoodFirebase(food,place);//se clicca su ok allora cancello il cibo dalla tabella foods del database
@@ -126,7 +130,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         editNameFood.setText(food.nameFood);
         editIngredientsFood.setText(food.ingredientsFood);
         editPriceFood.setText(String.format(Locale.getDefault(),"%.02f", food.priceFood));
-        builder.setView(view).setTitle(getContext().getResources().getString(R.string.edit)).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle(getContext().getResources().getString(R.string.edit)).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -155,7 +159,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
     private void editFoodFirebase(Food oldFood, Food editFood){
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
         //seleziono il cibo con lo stesso nome del cibo da modificare
-        firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).child(oldFood.idFood).setValue(editFood);
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(oldFood.idFood).setValue(editFood);
 
         Intent homePage=new Intent(getContext(), PlaceHomeActivity.class);
         homePage.putExtra(FirebaseConnection.PLACE,place);

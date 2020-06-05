@@ -55,36 +55,38 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         this.firebaseConnection=new FirebaseConnection();
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View view = inflater.inflate(R.layout.dialog_enter_place_review, null);
+        if(getActivity() != null) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            final View view = inflater.inflate(R.layout.dialog_enter_place_review, null);
 
-        final TextView txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
-        this.ratingBar = view.findViewById(R.id.ratingBar);
-        this.editFeedback=view.findViewById(R.id.editTextFeedback);
+            final TextView txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
+            this.ratingBar = view.findViewById(R.id.ratingBar);
+            this.editFeedback = view.findViewById(R.id.editTextFeedback);
 
-        txtNamePlaceReview.setText(namePlace);
+            txtNamePlaceReview.setText(namePlace);
 
 
-        builder.setView(view).setTitle(getActivity().getResources().getString(R.string.enterReview)).setNegativeButton(getActivity().getResources().getString(R.string.notNow), new DialogInterface.OnClickListener() {//se il cliente clicca 'non ora'
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                mDBHelper.deleteInfo(mDB,idPlace);//cancello la riga corrispondente all'interno del db
-            }
-        }).setPositiveButton(getActivity().getResources().getString(R.string.send), new DialogInterface.OnClickListener() { //se il cliente clicca su 'invia'
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(ratingBar.getRating() == 0.0){ //se è stata data una valutazione TODO controlla se funzione uguaglianza
-                    sendReview();//inserisco la recensione in Firebase
-                    updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
+            builder.setView(view).setTitle(getActivity().getResources().getString(R.string.enterReview)).setNegativeButton(getActivity().getResources().getString(R.string.notNow), new DialogInterface.OnClickListener() {//se il cliente clicca 'non ora'
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mDBHelper.deleteInfo(mDB, idPlace);//cancello la riga corrispondente all'interno del db
                 }
-                mDBHelper.deleteInfo(mDB,idPlace);
-            }
-        });
-
+            }).setPositiveButton(getActivity().getResources().getString(R.string.send), new DialogInterface.OnClickListener() { //se il cliente clicca su 'invia'
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (ratingBar.getRating() == 0.0) { //se è stata data una valutazione TODO controlla se funzione uguaglianza
+                        sendReview();//inserisco la recensione in Firebase
+                        updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
+                    }
+                    mDBHelper.deleteInfo(mDB, idPlace);
+                }
+            });
+        }
         return builder.create();
     }
 

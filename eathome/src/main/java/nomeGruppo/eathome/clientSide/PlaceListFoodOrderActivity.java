@@ -239,14 +239,14 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
                 Address addressOrder = (Address) adapterView.getItemAtPosition(i);
 
-                if(addressOrder.getCity().toLowerCase().equals(place.cityPlace.toLowerCase())){
+                if (addressOrder.getCity().toLowerCase().equals(place.cityPlace.toLowerCase())) {
                     Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
                     order = setOrder(addressOrder);
                     orderActivity.putExtra(FirebaseConnection.ORDER, order);
                     orderActivity.putExtra(FirebaseConnection.PLACE, place);
                     orderActivity.putExtra(FirebaseConnection.CLIENT, client);
                     startActivity(orderActivity);
-                }else{
+                } else {
 
                     Toast.makeText(PlaceListFoodOrderActivity.this, R.string.impossibleOrder, Toast.LENGTH_LONG).show();
                 }
@@ -283,20 +283,24 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
             return super.getItem(position);
         }
 
+        @NonNull
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) getContext()
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.listitem_address, null);
+        public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
-            }
-            final TextView txtAddress = convertView.findViewById(R.id.listitem_address_tw);
+            LayoutInflater inflater = (LayoutInflater) getContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            Address address = getItem(position);
-            if (address != null) {
-                txtAddress.setText(address.getFullAddress());
+            if (inflater != null) {
+                convertView = inflater.inflate(R.layout.listitem_address, parent, false);
+
+                final TextView txtAddress = convertView.findViewById(R.id.listitem_address_tw);
+
+                Address address = getItem(position);
+                if (address != null) {
+                    txtAddress.setText(address.getFullAddress());
+                }
             }
+
             return convertView;
         }
     }

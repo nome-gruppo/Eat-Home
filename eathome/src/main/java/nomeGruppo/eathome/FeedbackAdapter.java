@@ -32,38 +32,43 @@ public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
         super(context, resource, list);
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView,@NonNull ViewGroup parent) {
 
-        if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.listitem_feedback, null);
 
-            final Button btnReply=convertView.findViewById(R.id.btnReplyFeedback);
-            final RatingBar ratingBar = convertView.findViewById(R.id.listitem_feedback_ratingBar);
-            final TextView nameTW = convertView.findViewById(R.id.listitem_feedback_name);
-            final TextView dateTW = convertView.findViewById(R.id.listitem_feedback_date);
-            final TextView textTW = convertView.findViewById(R.id.listitem_feedback_tw_text);
+            if(inflater != null) {
+                convertView = inflater.inflate(R.layout.listitem_feedback, parent, false);
 
-            final Feedback mFeedback = getItem(position);
+                final Button btnReply = convertView.findViewById(R.id.btnReplyFeedback);
+                final RatingBar ratingBar = convertView.findViewById(R.id.listitem_feedback_ratingBar);
+                final TextView nameTW = convertView.findViewById(R.id.listitem_feedback_name);
+                final TextView dateTW = convertView.findViewById(R.id.listitem_feedback_date);
+                final TextView textTW = convertView.findViewById(R.id.listitem_feedback_tw_text);
 
-            if(getContext().getClass()==FeedbackPlaceActivity.class){//se è un place che visualizza le recensioni rendo visibile il bottone per rispondere
-                btnReply.setVisibility(View.VISIBLE);
+                final Feedback mFeedback = getItem(position);
+
+                if (mFeedback != null) {
+                    ratingBar.setRating(mFeedback.voteFeedback);
+                    nameTW.setText(mFeedback.clientNameFeedback);
+                    dateTW.setText(mFeedback.dateFeedback);
+                    textTW.setText(mFeedback.textFeedback);
+
+                    if (getContext().getClass() == FeedbackPlaceActivity.class) {//se è un place che visualizza le recensioni rendo visibile il bottone per rispondere
+                        btnReply.setVisibility(View.VISIBLE);
+                    }
+
+                    btnReply.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openDialogReplyFeedback(mFeedback);
+                        }
+                    });
+                }
             }
 
-            btnReply.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openDialogReplyFeedback(mFeedback);
-                }
-            });
-
-            ratingBar.setRating(mFeedback.voteFeedback);
-            nameTW.setText(mFeedback.clientNameFeedback);
-            dateTW.setText(mFeedback.dateFeedback);
-            textTW.setText(mFeedback.textFeedback);
-        }
         return convertView;
     }
 

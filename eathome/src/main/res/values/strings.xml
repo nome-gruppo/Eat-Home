@@ -48,7 +48,7 @@
     <string name="enter_price">Enter price</string>
     <string name="delivery_expected">Delivery is available at the cost of</string>
     <string name="booking_expected">Booking available</string>
-    <string name="confirmation">Are you sure you want to cancel </string>
+    <string name="cancelConfirmation">Are you sure you want to cancel </string>
     <string name="action_order">Order</string>
     <string name="action_book">Book</string>
     <string name="order_summary">Order summary</string>
@@ -144,5 +144,6 @@
     <string name="impossibleOrder">Sorry, this place does not delivery to your city</string>
     <string name="noInternetConnection">No internet connection</string>
     <string name="emailSent">Email sent</string>
+    <string name="confirmation">Confirmation</string>
 
 </resources>

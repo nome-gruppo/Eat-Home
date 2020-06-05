@@ -8,14 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
+public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction> {
 
     private final List<AutocompletePrediction> list;      //lista per controllare che non vengano mostrate repliche
 
@@ -25,9 +24,9 @@ public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
     }
 
     @Override
-    public void add(AutocompletePrediction prediction){
+    public void add(AutocompletePrediction prediction) {
 
-        if(!list.contains(prediction)) {
+        if (!list.contains(prediction)) {
             list.add(prediction);
             super.add(prediction);
         }
@@ -35,17 +34,18 @@ public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
-        if(convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.dropdown_list_layout, null);
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (inflater != null) {
+            convertView = inflater.inflate(R.layout.dropdown_list_layout, parent, false);
 
             final TextView item = convertView.findViewById(R.id.list_item);
+            final AutocompletePrediction prediction = getItem(position);
 
-            if(getItem(position) != null) {
-                item.setText(getItem(position).getFullText(null));
+            if (prediction != null) {
+                item.setText(prediction.getFullText(null));
             }
         }
 

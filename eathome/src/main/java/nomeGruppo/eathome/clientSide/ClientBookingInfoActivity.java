@@ -74,7 +74,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
                         listBooking.add(booking);//aggiungo la prenotazione alla lista collegata all'adapter
                     }
                 }else{//se non ci sono prenotazioni
-                    Toast.makeText(ClientBookingInfoActivity.this,getResources().getString(R.string.no_booking),Toast.LENGTH_LONG);
+                    Toast.makeText(ClientBookingInfoActivity.this,getResources().getString(R.string.no_booking),Toast.LENGTH_LONG).show();
                 }
                 bookingInfoAdapter.notifyDataSetChanged();
             }

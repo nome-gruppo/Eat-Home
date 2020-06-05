@@ -35,20 +35,22 @@ public class AddressAdapter extends ArrayAdapter<Address> {
 
     AddressAdapter(@NonNull Context context, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
         super(context, R.layout.listitem_my_address, list);
-        this.idClient=idClient;
-        this.list=list;
+        this.idClient = idClient;
+        this.list = list;
         this.callingActivity = callingActivity;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
-        Holder holder = null;
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if(convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.listitem_my_address, null);
+        Holder holder;
+
+        if (inflater != null) {
+            convertView = inflater.inflate(R.layout.listitem_my_address, parent, false);
 
             holder = new Holder();
 
@@ -58,13 +60,13 @@ public class AddressAdapter extends ArrayAdapter<Address> {
 
             convertView.setTag(holder);
 
-        }else{
+        } else {
             holder = (Holder) convertView.getTag();
         }
 
-        final Address addressObj= getItem(position);
+        final Address addressObj = getItem(position);
 
-        if(addressObj != null){
+        if (addressObj != null) {
             final String address = addressObj.getFullAddress();
             holder.addressET.setText(address);
 
@@ -83,9 +85,9 @@ public class AddressAdapter extends ArrayAdapter<Address> {
                 public void onClick(View view) {
                     list.remove(addressObj);
                     notifyDataSetChanged();
-                    helper.deleteAdd(mDB,addressObj.getIdAddress(),idClient);
+                    helper.deleteAdd(mDB, addressObj.getIdAddress(), idClient);
 
-                    if(list.isEmpty()){
+                    if (list.isEmpty()) {
                         callingActivity.getNoAddressTW().setVisibility(View.VISIBLE);
                     }
                 }
@@ -112,16 +114,16 @@ public class AddressAdapter extends ArrayAdapter<Address> {
     }
 
 
-    private void openDialog(final Address addressObj){ //creo un alert dialogo
-        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+    private void openDialog(final Address addressObj) { //creo un alert dialogo
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         Activity activity = (Activity) getContext();
-        LayoutInflater inflater=activity.getLayoutInflater();
-        View view=inflater.inflate(R.layout.dialog_insert_address,null);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_insert_address, null);
 
-        final EditText editAddress=view.findViewById(R.id.editAddressClient);
-        final EditText editCity=view.findViewById(R.id.editCityClient);
-        final EditText editNumberAddress=view.findViewById(R.id.editNumberAddressClient);
+        final EditText editAddress = view.findViewById(R.id.editAddressClient);
+        final EditText editCity = view.findViewById(R.id.editCityClient);
+        final EditText editNumberAddress = view.findViewById(R.id.editNumberAddressClient);
 
         editCity.setText(addressObj.getCity());
         editAddress.setText(addressObj.getStreet());
@@ -130,11 +132,11 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         builder.setView(view).setTitle(getContext().getResources().getString(R.string.enterAddress)).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Address newAddress=new Address(addressObj.getIdAddress(),editAddress.getText().toString(),
-                        editNumberAddress.getText().toString(),editCity.getText().toString());
+                Address newAddress = new Address(addressObj.getIdAddress(), editAddress.getText().toString(),
+                        editNumberAddress.getText().toString(), editCity.getText().toString());
                 list.remove(addressObj);
                 list.add(newAddress);
-                helper.updateAdd(mDB, newAddress,idClient);
+                helper.updateAdd(mDB, newAddress, idClient);
                 notifyDataSetChanged();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -147,7 +149,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         alert.show();
     }
 
-    private class Holder{
+    private static class Holder {
         EditText addressET;
         ImageButton editBtn;
         ImageButton deleteBtn;
