@@ -145,5 +145,8 @@
     <string name="noInternetConnection">No internet connection</string>
     <string name="emailSent">Email sent</string>
     <string name="confirmation">Confirmation</string>
+    <string name="launcher" translatable="false">launcher</string>
+    <string name="ops_c_stato_un_errore">Ops. There\'s an error</string>
+    <string name="no_address">There ins\'t any saved address</string>
 
 </resources>

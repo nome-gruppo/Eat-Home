@@ -129,6 +129,8 @@
     <string name="noChangedPassword">Scusa, non è stato possibilie modificare la tua email</string>
     <string name="emailSent">Email inviata</string>
     <string name="confirmation">Conferma</string>
+    <string name="ops_c_stato_un_errore">Ops. C\'è stato un errore</string>
+    <string name="no_address">Non ci sono indirizzi salvati</string>
 
 
 </resources>

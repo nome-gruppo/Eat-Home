@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
@@ -11,7 +10,7 @@
         android:id="@+id/activity_my_address_et_noAddresses"
         android:layout_width="150dp"
         android:layout_height="51dp"
-        android:text="Non hai indirizzi salvati"
+        android:text="@string/no_address"
         android:visibility="gone"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,6 +40,10 @@
         android:layout_marginBottom="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:tint="@color/colorPrimaryDark"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
