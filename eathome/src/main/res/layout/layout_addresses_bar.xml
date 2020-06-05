@@ -16,7 +16,8 @@
         android:padding="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="36dp" />
+        tools:layout_editor_absoluteY="36dp"
+        android:hint="@string/search_button"/>
 
     <ImageButton
         android:id="@+id/search_button"
@@ -28,6 +29,6 @@
         app:layout_constraintEnd_toEndOf="@id/activity_homepage_autoTV"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_search"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/search_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
