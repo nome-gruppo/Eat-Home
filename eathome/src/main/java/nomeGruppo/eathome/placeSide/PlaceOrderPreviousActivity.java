@@ -124,7 +124,7 @@ public class PlaceOrderPreviousActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Order order = snapshot.getValue(Order.class);
-                        Date dateOrder = null;
+                        Date dateOrder;
                         try {
                             if(order != null) {
                                 dateOrder = simpleDateFormat.parse(order.dateOrder);//faccio il cast della stringa dateOrder in formato Date

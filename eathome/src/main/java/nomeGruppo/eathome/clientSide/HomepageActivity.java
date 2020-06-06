@@ -188,9 +188,8 @@ public class HomepageActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-
 
         if (firstLogin && user != null) {
 
@@ -279,13 +278,8 @@ public class HomepageActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                // TODO: Handle the error.
-                Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i(TAG, status.getStatusMessage());
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-            }
+            }  // The user canceled the operation.
+
         } else if (requestCode == SEARCH_FILTER_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 setFilter = true;//setto la variabile filtri a true
@@ -293,7 +287,6 @@ public class HomepageActivity extends AppCompatActivity {
                 //prendo l'arrayList restiuita da PlaceFilterActivity
 
                 filterBundle = data.getBundleExtra("outState");
-
 
                 ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
@@ -387,21 +380,25 @@ public class HomepageActivity extends AppCompatActivity {
                     listPlace.clear();
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if(snapshot.exists()) {
+                            final nomeGruppo.eathome.actors.Place mPlace = snapshot.getValue(nomeGruppo.eathome.actors.Place.class);
 
-                            String mPlaceId = snapshot.getValue(nomeGruppo.eathome.actors.Place.class).idPlace;
-                            boolean mFound = false;
+                            if (mPlace != null) {
+                                String mPlaceId = mPlace.idPlace;
+                                boolean mFound = false;
 
-                            //controlla locale non sia già mostrato
-                            for (nomeGruppo.eathome.actors.Place item : listPlace) {
-                                if (item.idPlace.equals(mPlaceId)) {
-                                    mFound = true;
-                                    break;
+                                //controlla locale non sia già mostrato
+                                for (nomeGruppo.eathome.actors.Place item : listPlace) {
+                                    if (item.idPlace.equals(mPlaceId)) {
+                                        mFound = true;
+                                        break;
+                                    }
+                                }
+                                if (!mFound) {
+                                    listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
                                 }
                             }
-                            if (!mFound) {
-                                listPlace.add(snapshot.getValue(nomeGruppo.eathome.actors.Place.class));
-                            }
-
+                        }
                     }
 
                     Collections.sort(listPlace, new PlacesByName());
@@ -555,18 +552,19 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                final AutocompletePrediction mPrediction = addressesBarAdapter.getItem(position);
+                if(mPrediction != null) {
+                    final String mAddress = mPrediction.getFullText(null).toString();
+                    addressesBar.setText(mAddress);
 
-                String mAddress = addressesBarAdapter.getItem(position).getFullText(null).toString();
-                addressesBar.setText(mAddress);
+                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
-                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-
-                try {
-                    userCity = geocoder.getFromLocationName(mAddress, 1).get(0).getLocality();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    try {
+                        userCity = geocoder.getFromLocationName(mAddress, 1).get(0).getLocality();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-
             }
         });
 
@@ -604,7 +602,7 @@ public class HomepageActivity extends AppCompatActivity {
         public void onLocationChanged(Location location) {
 
             Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-            List<Address> list = null;
+            List<Address> list;
             try {
                 list = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 

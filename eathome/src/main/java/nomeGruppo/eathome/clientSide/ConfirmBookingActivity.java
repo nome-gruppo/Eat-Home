@@ -172,7 +172,9 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         //se nel giorno selezioanto è stato impostato in orario quindi il locale non è chiuso
         if(place.openingTime.get(dayOfWeek) != null) {
             if (place.openingTime.get(dayOfWeek).length() > 8) {
-                txtDateBooking.setText(String.format(Locale.getDefault(), String.format("%0" + 2 + "d", dayOfMonth).concat(SLASH).concat(String.format("%0" + 2 + "d", month++)).concat(SLASH).concat(Integer.toString(year))));//setto la data in base alla scelta dell'utente.
+                txtDateBooking.setText(String.format(Locale.getDefault(),"%0" + 2 + "d", dayOfMonth).concat(SLASH)
+                        .concat(String.format(Locale.getDefault(),"%0" + 2 + "d", month++))
+                        .concat(SLASH).concat(Integer.toString(year)));//setto la data in base alla scelta dell'utente.
                 openDialogChooseHour();//una volta selezionata la data apro il dialog per scegliere l'ora
             } else {//se il locale è chiuso nel giorno selezionato
                 //mostra messaggio
@@ -193,26 +195,31 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
         String openingTime=place.openingTime.get(dayOfWeek);
         SimpleDateFormat parser = new SimpleDateFormat(getString(R.string.hourFormat), Locale.getDefault());
-        Date hourOpening=null;
-        Date hourClosed=null;
-        Date hourBooking=null;
+        Date hourOpening;
+        Date hourClosed;
+        Date hourBooking;
 
         try {
-            hourOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);
-            hourClosed=openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);
-            hourBooking=parser.parse(hour+":"+minutes);
+            if(openingTime != null) {
+                hourOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);
+                hourClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);
+                hourBooking = parser.parse(hour + ":" + minutes);
 
-            //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
-            if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
-                dateBooking.set(Calendar.HOUR_OF_DAY,hour);
-                dateBooking.set(Calendar.MINUTE,minutes);
-                txtHourBooking.setText(String.format("%0" + 2 + "d", hour)+":"+String.format("%0" + 2 + "d", minutes));//setto l'ora della prenotazione
-            }else{//se il locale è chiuso nell'ora selezionata
-                //mostra messaggio
-                Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
-                openDialogChooseHour();//riapri il dialog per scegliere l'ora
+                if (hourBooking != null) {
+
+                    //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
+                    if (hourBooking.after(hourOpening) && hourBooking.before(hourClosed)) {
+                        dateBooking.set(Calendar.HOUR_OF_DAY, hour);
+                        dateBooking.set(Calendar.MINUTE, minutes);
+                        txtHourBooking.setText(String.format(Locale.getDefault(), "%0" + 2 + "d", hour) + ":"
+                                + String.format(Locale.getDefault(), "%0" + 2 + "d", minutes));//setto l'ora della prenotazione
+                    } else {//se il locale è chiuso nell'ora selezionata
+                        //mostra messaggio
+                        Toast.makeText(ConfirmBookingActivity.this, ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();
+                        openDialogChooseHour();//riapri il dialog per scegliere l'ora
+                    }
+                }
             }
-
         } catch (NullPointerException | ParseException e) {
             e.printStackTrace();
         }
@@ -234,7 +241,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
                     finish();
                 }
             }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //se clicca su no non succede nulla e l'alert di chiude

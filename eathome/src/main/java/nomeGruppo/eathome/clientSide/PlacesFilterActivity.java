@@ -295,7 +295,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
     }
     private ArrayList<Place> applyFilters() {
 
-        ArrayList<Place> result = null;
+        ArrayList<Place> result;
 
         if (someChanged) {
 

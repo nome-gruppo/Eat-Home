@@ -26,25 +26,26 @@ public class ShowAnswerPlace extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater=getActivity().getLayoutInflater();
-        View view=inflater.inflate(R.layout.dialog_reply_feedback, (ViewGroup) getActivity().getCurrentFocus(),false);
+        if(getActivity() != null) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View view = inflater.inflate(R.layout.dialog_reply_feedback, (ViewGroup) getActivity().getCurrentFocus(), false);
 
-        final EditText editReply=view.findViewById(R.id.editReplyFeedback);
-        editReply.setEnabled(false);
-        editReply.setText(reply);
+            final EditText editReply = view.findViewById(R.id.editReplyFeedback);
+            editReply.setEnabled(false);
+            editReply.setText(reply);
 
-        builder.setTitle(R.string.reply).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            builder.setTitle(R.string.reply).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-
+                }
+            });
+        }
         return builder.create();
     }
 }

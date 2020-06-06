@@ -178,7 +178,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                openDialogChooseAddress(nameFood, finalTot, place);//se clicca su ok va avanti al successivo dialogo
+                openDialogChooseAddress(place);//se clicca su ok va avanti al successivo dialogo
 
             }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -192,7 +192,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     }
 
     //dialog per selezionare l'indirizzo di spedizione
-    private void openDialogChooseAddress(final ArrayList<String> nameFood, final float finalTot, final Place place) {
+    private void openDialogChooseAddress(final Place place) {
 
         final LayoutInflater inflater = PlaceListFoodOrderActivity.this.getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_choose_address, (ViewGroup) getCurrentFocus(),false);
