@@ -71,10 +71,10 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         final FloatingActionButton btnAddMenu = findViewById(R.id.place_homepage_btnAddMenu);
         final ListView listViewMenu = findViewById(R.id.place_homepage_listMenu);
         final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlace);
-
         imgPlace= findViewById(R.id.place_homepage_placeImg);
-        menuNavigationItemSelected=new MenuNavigationItemSelected();
         progressBar=findViewById(R.id.progressBarPlaceHome);
+
+        menuNavigationItemSelected=new MenuNavigationItemSelected();
         listFood=new LinkedList<>();
         mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
 
