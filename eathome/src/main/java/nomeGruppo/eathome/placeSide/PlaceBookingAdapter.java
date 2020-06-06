@@ -21,7 +21,7 @@ import nomeGruppo.eathome.actions.Booking;
 
 public class PlaceBookingAdapter extends ArrayAdapter<Booking> {
 
-    private Resources res;
+    private final Resources res;
     public PlaceBookingAdapter(@NonNull Context context, int resource, @NonNull List<Booking> listBooking) {
         super(context, resource, listBooking);
         this.res = context.getResources();

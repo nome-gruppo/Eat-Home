@@ -91,9 +91,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseConnection connection = new FirebaseConnection();
-                if(emailET.getText() == null) {
+                if (emailET.getText() == null) {
                     Toast.makeText(getApplicationContext(), getString(R.string.enterEmailToContinue), Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     connection.resetPassword(mAuth, emailET.getText().toString().trim(), LoginActivity.this);
                 }
             }
@@ -119,8 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             user = mAuth.getCurrentUser();
-                            assert user != null;
-                            connection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_NODE, progressBar, LoginActivity.this);
+                            if (user != null) {
+                                connection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_NODE, progressBar, LoginActivity.this);
+                            }
                         } else {
                             progressBar.setVisibility(View.INVISIBLE);
                             // If sign in fails, display a message to the user.

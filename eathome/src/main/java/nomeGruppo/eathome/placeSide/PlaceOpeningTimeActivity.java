@@ -40,10 +40,6 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     private Button editMondayClosed, editTuesdayClosed, editWednesdayClosed, editThursdayClosed, editFridayClosed, editSaturdayClosed, editSundayClosed;
     private HashMap<String, String> openingTime;
 
-
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +74,6 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         final Button btnEdit = findViewById(R.id.btnEditOpeningTime);
         this.openingTime = new HashMap<>(7);
         this.openingTimeUtility = new OpeningTime();
-
-        this.mAuth = FirebaseAuth.getInstance();
 
         if (place.openingTime != null) {
             btnSignIn.setVisibility(View.INVISIBLE);
@@ -338,8 +332,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
 
         FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
@@ -358,6 +352,9 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     }
 
     private void createAccount(String email, String password) {
+
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser[] user = new FirebaseUser[1];
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -365,9 +362,9 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            user = mAuth.getCurrentUser();
+                            user[0] = mAuth.getCurrentUser();
 
-                            place.setIdPlace(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
+                            place.setIdPlace(user[0].getUid()); //assegno come id l'user id generato da Firebase Authentication
 
                             Intent placeOpeningTimeIntent = new Intent(PlaceOpeningTimeActivity.this, PlaceHomeActivity.class);
                             placeOpeningTimeIntent.putExtra(FirebaseConnection.PLACE, place);

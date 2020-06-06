@@ -19,7 +19,7 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 
 public class PlaceOrderAdapter extends ArrayAdapter<Order> {
 
-    private Resources res;
+    private final Resources res;
 
     public PlaceOrderAdapter(@NonNull Context context, int resource, @NonNull List<Order> listOrder) {
         super(context, resource, listOrder);
