@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
@@ -156,35 +157,24 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         openCalendar();
     }
 
-    private void openCalendar(){
-        DialogFragment datePicker=new DatePickerFragment();//apro il calendario
-        datePicker.show(getSupportFragmentManager(),"Date picker");
-    }
-
-
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-        dateBooking.set(year,month,dayOfMonth);//month++ perchè i mesi partono da 0 e non da 1
+        dateBooking.set(year,month,dayOfMonth);//imposto la data
 
         //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendar.DAY_OF_WEEk nella stringa corrispondente al giorno della settimana
         String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
 
-        //se nel giorno selezioanto è stato impostato in orario quindi il locale non è chiuso
-        if(place.openingTime.get(dayOfWeek) != null) {
-            if (place.openingTime.get(dayOfWeek).length() > 8) {
-                txtDateBooking.setText(String.format(Locale.getDefault(), String.format("%0" + 2 + "d", dayOfMonth).concat(SLASH).concat(String.format("%0" + 2 + "d", month++)).concat(SLASH).concat(Integer.toString(year))));//setto la data in base alla scelta dell'utente.
+        //se nel giorno selezioanto è stato impostato un orario quindi il locale non è chiuso
+            if (Objects.requireNonNull(place.openingTime.get(dayOfWeek)).length() > 8) {
+                txtDateBooking.setText(String.format(Locale.getDefault(),"%0" + 2 + "d", dayOfMonth).concat(SLASH)
+                        .concat(String.format(Locale.getDefault(),"%0" + 2 + "d", month))
+                        .concat(SLASH).concat(Integer.toString(year)));//setto la data in base alla scelta dell'utente.
                 openDialogChooseHour();//una volta selezionata la data apro il dialog per scegliere l'ora
             } else {//se il locale è chiuso nel giorno selezionato
                 //mostra messaggio
                 Toast.makeText(ConfirmBookingActivity.this, ConfirmBookingActivity.this.getResources().getString(R.string.invalid_date), Toast.LENGTH_SHORT).show();
                 openCalendar();//riapri il dialog per scegliere la data
             }
-        }
-    }
-
-    private void openDialogChooseHour(){
-        DialogFragment timePicker=new TimePickerFragment();
-        timePicker.show(getSupportFragmentManager(),"Time picker");
     }
 
     @Override
@@ -193,30 +183,45 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
         String openingTime=place.openingTime.get(dayOfWeek);
         SimpleDateFormat parser = new SimpleDateFormat(getString(R.string.hourFormat), Locale.getDefault());
-        Date hourOpening=null;
-        Date hourClosed=null;
-        Date hourBooking=null;
+        Date hourOpening;
+        Date hourClosed;
+        Date hourBooking;
 
         try {
-            hourOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);
-            hourClosed=openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);
-            hourBooking=parser.parse(hour+":"+minutes);
+            if(openingTime != null) {
+                hourOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);
+                hourClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);
+                hourBooking = parser.parse(hour + ":" + minutes);
 
-            //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
-            if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
-                dateBooking.set(Calendar.HOUR_OF_DAY,hour);
-                dateBooking.set(Calendar.MINUTE,minutes);
-                txtHourBooking.setText(String.format("%0" + 2 + "d", hour)+":"+String.format("%0" + 2 + "d", minutes));//setto l'ora della prenotazione
-            }else{//se il locale è chiuso nell'ora selezionata
-                //mostra messaggio
-                Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time),Toast.LENGTH_SHORT).show();
-                openDialogChooseHour();//riapri il dialog per scegliere l'ora
+                if (hourBooking != null) {
+
+                    //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
+                    if (hourBooking.after(hourOpening) && hourBooking.before(hourClosed)) {
+                        dateBooking.set(Calendar.HOUR_OF_DAY, hour);
+                        dateBooking.set(Calendar.MINUTE, minutes);
+                        txtHourBooking.setText(String.format(Locale.getDefault(), "%0" + 2 + "d", hour) + ":"
+                                + String.format(Locale.getDefault(), "%0" + 2 + "d", minutes));//setto l'ora della prenotazione
+                    } else {//se il locale è chiuso nell'ora selezionata
+                        //mostra messaggio
+                        Toast.makeText(ConfirmBookingActivity.this, ConfirmBookingActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();
+                        openDialogChooseHour();//riapri il dialog per scegliere l'ora
+                    }
+                }
             }
-
         } catch (NullPointerException | ParseException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void openDialogChooseHour(){
+        DialogFragment timePicker=new TimePickerFragment();
+        timePicker.show(getSupportFragmentManager(),"Time picker");
+    }
+
+    private void openCalendar(){
+        DialogFragment datePicker=new DatePickerFragment();//apro il calendario
+        datePicker.show(getSupportFragmentManager(),"Date picker");
     }
 
     private void openDialogConfirm(){//dialog  di conferma
@@ -226,15 +231,14 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(addBookingFirebase()){//se la prenotazione è stata inserita correttamente nel database
+                    addBookingFirebase();//inserisco la prenotazione nel database
                     //mostra messaggio
                     Toast.makeText(ConfirmBookingActivity.this,ConfirmBookingActivity.this.getResources().getString(R.string.reservation_confirmed),Toast.LENGTH_SHORT).show();
                     Intent homePage=new Intent(ConfirmBookingActivity.this, HomepageActivity.class);
                     startActivity(homePage);//apro la homepage
                     finish();
                 }
-            }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //se clicca su no non succede nulla e l'alert di chiude
@@ -245,7 +249,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         alert.show();
     }
 
-    private boolean addBookingFirebase(){
+    private void addBookingFirebase(){
         //assegno all'oggetto booking i valori
         final Address mAddress = new Address(place.cityPlace, place.addressPlace, place.addressNumPlace);
 
@@ -262,7 +266,6 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         firebaseConnection.writeObject(FirebaseConnection.BOOKING_NODE,booking);//inserisco booking all'interno del Db
 
         mDBHelper.addInfo(mDB,place.idPlace,place.namePlace,txtDateBooking.getText().toString(), mUser.getUid());//inserisco l'informazione della prenotazione del db interno
-        return true;
     }
 
 }

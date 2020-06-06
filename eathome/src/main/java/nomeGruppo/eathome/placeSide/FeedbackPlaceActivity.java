@@ -3,7 +3,6 @@ package nomeGruppo.eathome.placeSide;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import nomeGruppo.eathome.FeedbackAdapter;
 import nomeGruppo.eathome.R;
@@ -36,7 +36,7 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
     private ListView listView;
 
 
-    @SuppressLint("DefaultLocale")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
         if(mPlace != null){
 
             ratingBar.setRating(mPlace.valuation);
-            averageTW.setText(String.format("%.1f", mPlace.valuation));
+            averageTW.setText(String.format(Locale.getDefault(),"%.1f", mPlace.valuation));
 
             numFeedbackTW.setText(mPlace.numberReview + getResources().getQuantityString(R.plurals.numFeedback,mPlace.numberReview));
 

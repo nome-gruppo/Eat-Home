@@ -32,9 +32,8 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
     private final Place place;
     private final List<Food>list;
 
-    MyMenuAdapter(Context context, int textViewResourceId,
-                  List<Food> food, Place place) {
-        super(context, textViewResourceId, food);
+    MyMenuAdapter(Context context, List<Food> food, Place place) {
+        super(context, R.layout.listitem_menu, food);
         this.place=place;
         this.list=food;
     }

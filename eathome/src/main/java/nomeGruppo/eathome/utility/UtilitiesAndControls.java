@@ -19,7 +19,6 @@ public class UtilitiesAndControls {
     /**metodo che ontrolla la validità della mail
      * l'input inserito deve aver il pattern di un indirizzo mail
      * @param email email da controllare
-     * @return
      */
     public boolean isEmailValid(String email) {
         if (email == null) {
@@ -34,8 +33,6 @@ public class UtilitiesAndControls {
 
     /** metodo controlla la validità della password
      * la password non deve essere minore di 6 caratteri
-     * @param password
-     * @return
      */
     public boolean isPasswordValid(String password) {
         return password != null && password.trim().length() >= MIN_PASSWORD_LENGTH;
@@ -47,9 +44,6 @@ public class UtilitiesAndControls {
      * la stringa deve iniziare e finire con un numero, eve contenere numeri (può contenere anche spazi, punti, trattini)
      * opzionalmente può essere preceduta da un +
      * opzionalmente alcni numeri possono essere contenuti tra parentesi
-     *
-     * @param phone
-     * @return
      */
     public boolean isPhoneValid(String phone){
         return Patterns.PHONE.matcher(phone).matches();

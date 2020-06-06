@@ -132,7 +132,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Order order = snapshot.getValue(Order.class);
-                        Date dateOrder = null;
+                        Date dateOrder;
 
                         try {
                             if (order != null) {

@@ -21,8 +21,6 @@
 
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_password">Password must be >6 characters</string>
     <string name="placeName">Enter name activity</string>
     <string name="enterAddress">Enter address</string>
     <string name="enterPhone">Enter phone number</string>
@@ -39,13 +37,10 @@
     <string name="either">Either</string>
     <string name="actions">Choose actions</string>
     <string name="deliveryCost">Insert delivery cost</string>
-    <string name="btn_go">Go</string>
-    <string name="weAreAlmostThere">We are almost there</string>
     <string name="tw_signUp">Sign up</string>
     <string name="tw_restaurantOwner">Restaurant owner? Sign up here</string>
     <string name="pizzeriaRestaurant">Restaurant-pizzeria</string>
     <string name="name">Enter name</string>
-    <string name="surname">Enter surname</string>
     <string name="nameFood">Enter food</string>
     <string name="ingredientsFood">Enter ingredients</string>
     <string name="my_account">My account</string>
@@ -53,7 +48,6 @@
     <string name="delivery_expected">Delivery is available at the cost of</string>
     <string name="booking_expected">Booking available</string>
     <string name="cancelConfirmation">Are you sure you want to cancel </string>
-    <string name="action_order">Order</string>
     <string name="action_book">Book</string>
     <string name="order_summary">Order summary</string>
     <string name="choose_address">Choose your address</string>
@@ -84,7 +78,6 @@
     <string name="send">Send</string>
     <string name="enterReview">Enter a review</string>
     <string name="choose_number_person">Select number of people</string>
-    <string name="assign_rating">Assign a rating</string>
     <string name="enter_feedback">Enter feedback</string>
     <string name="no_feedback">Sorry! There are no feedback</string>
     <string name="fill_all_fields">Fill in all fields</string>
@@ -102,7 +95,6 @@
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="phone">Phone</string>
     <string name="my_address">My address</string>
     <string name="delete_account">Delete account</string>
     <string name="save">Save</string>
@@ -135,7 +127,6 @@
     <string name="add_note">Add note</string>
     <string name="no_note">No note added</string>
     <string name="note_success">Note added successfully</string>
-    <string name="read_note">Show note</string>
     <string name="cancel">Cancel</string>
     <string name="successfulRegistration">Successful Registration</string>
     <string name="yes">Yes</string>

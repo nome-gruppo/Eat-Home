@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
@@ -39,10 +40,6 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     private Button editMonday, editTuesday, editWednesday, editThursday, editFriday, editSaturday, editSunday;
     private Button editMondayClosed, editTuesdayClosed, editWednesdayClosed, editThursdayClosed, editFridayClosed, editSaturdayClosed, editSundayClosed;
     private HashMap<String, String> openingTime;
-
-
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,60 +76,58 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.openingTime = new HashMap<>(7);
         this.openingTimeUtility = new OpeningTime();
 
-        this.mAuth = FirebaseAuth.getInstance();
-
         if (place.openingTime != null) {
             btnSignIn.setVisibility(View.INVISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
 
-            if (place.openingTime.get(Days.MONDAY.toString()).equals(CLOSED)) {
+            if (Objects.equals(place.openingTime.get(Days.MONDAY.toString()), CLOSED)) {
                 switchMonday.setChecked(false);
                 openingTimeUtility.setSwitch(editMonday, editMondayClosed);
             } else {
-                editMonday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.MONDAY.toString())));
-                editMondayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.MONDAY.toString())));
+                editMonday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.MONDAY.toString()))));
+                editMondayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.MONDAY.toString()))));
             }
-            if (place.openingTime.get(Days.TUESDAY.toString()).equals(CLOSED)) {
+            if (Objects.equals(place.openingTime.get(Days.TUESDAY.toString()), CLOSED)) {
                 switchTuesday.setChecked(false);
                 openingTimeUtility.setSwitch(editTuesday, editTuesdayClosed);
             } else {
-                editTuesday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.TUESDAY.toString())));
-                editTuesdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.TUESDAY.toString())));
+                editTuesday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.TUESDAY.toString()))));
+                editTuesdayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.TUESDAY.toString()))));
             }
-            if (place.openingTime.get(Days.WEDNESDAY.toString()).equals(CLOSED)) {
+            if (Objects.equals(place.openingTime.get(Days.WEDNESDAY.toString()), CLOSED)) {
                 switchWednesday.setChecked(false);
                 openingTimeUtility.setSwitch(editWednesday, editWednesdayClosed);
             } else {
-                editWednesday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.WEDNESDAY.toString())));
-                editWednesdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.WEDNESDAY.toString())));
+                editWednesday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.WEDNESDAY.toString()))));
+                editWednesdayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.WEDNESDAY.toString()))));
             }
-            if (place.openingTime.get(Days.THURSDAY.toString()).equals(CLOSED)) {
+            if (Objects.equals(place.openingTime.get(Days.THURSDAY.toString()), CLOSED)) {
                 switchThursday.setChecked(false);
                 openingTimeUtility.setSwitch(editThursday, editThursdayClosed);
             } else {
-                editThursday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.THURSDAY.toString())));
-                editThursdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.THURSDAY.toString())));
+                editThursday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.THURSDAY.toString()))));
+                editThursdayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.THURSDAY.toString()))));
             }
-            if (place.openingTime.get(Days.FRIDAY.toString()).equals(CLOSED)) {
+            if (Objects.equals(place.openingTime.get(Days.FRIDAY.toString()), CLOSED)) {
                 switchFriday.setChecked(false);
                 openingTimeUtility.setSwitch(editFriday, editFridayClosed);
             } else {
-                editFriday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.FRIDAY.toString())));
-                editFridayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.FRIDAY.toString())));
+                editFriday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.FRIDAY.toString()))));
+                editFridayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.FRIDAY.toString()))));
             }
-            if (place.openingTime.get(Days.SATURDAY.toString()).equals(CLOSED)) {
+            if (Objects.equals(place.openingTime.get(Days.SATURDAY.toString()), CLOSED)) {
                 switchSaturday.setChecked(false);
                 openingTimeUtility.setSwitch(editSaturday, editSaturdayClosed);
             } else {
-                editSaturday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.SATURDAY.toString())));
-                editSaturdayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.SATURDAY.toString())));
+                editSaturday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.SATURDAY.toString()))));
+                editSaturdayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.SATURDAY.toString()))));
             }
-            if (place.openingTime.get(Days.SUNDAY.toString()).equals(CLOSED)) {
+            if (Objects.equals(place.openingTime.get(Days.SUNDAY.toString()), CLOSED)) {
                 switchSunday.setChecked(false);
                 openingTimeUtility.setSwitch(editSunday, editSundayClosed);
             } else {
-                editSunday.setText(openingTimeUtility.getOpening(place.openingTime.get(Days.SUNDAY.toString())));
-                editSundayClosed.setText(openingTimeUtility.getClosed(place.openingTime.get(Days.SUNDAY.toString())));
+                editSunday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.SUNDAY.toString()))));
+                editSundayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.SUNDAY.toString()))));
             }
         }
 
@@ -338,8 +333,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
 
         FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
@@ -358,6 +353,9 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
     }
 
     private void createAccount(String email, String password) {
+
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser[] user = new FirebaseUser[1];
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -365,9 +363,10 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            user = mAuth.getCurrentUser();
+                            user[0] = mAuth.getCurrentUser();
 
-                            place.setIdPlace(user.getUid()); //assegno come id l'user id generato da Firebase Authentication
+                            assert user[0] != null;
+                            place.setIdPlace(user[0].getUid()); //assegno come id l'user id generato da Firebase Authentication
 
                             Intent placeOpeningTimeIntent = new Intent(PlaceOpeningTimeActivity.this, PlaceHomeActivity.class);
                             placeOpeningTimeIntent.putExtra(FirebaseConnection.PLACE, place);

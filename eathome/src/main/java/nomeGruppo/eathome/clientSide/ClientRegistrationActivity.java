@@ -90,8 +90,8 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     }//fine onCreate
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
 
         if(accountCreated) {
             FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db

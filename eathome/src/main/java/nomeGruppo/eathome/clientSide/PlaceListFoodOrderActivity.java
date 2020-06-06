@@ -135,6 +135,58 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         }
     }
 
+    //dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
+    public void openDialogOrder(final HashMap<Food, Integer> listFoodOrder, final Place place) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(this.getResources().getString(R.string.order_summary));
+        float tot = 0;
+        StringBuilder message = new StringBuilder();
+        for (Map.Entry<Food, Integer> entry : listFoodOrder.entrySet()) {//scorro l'hashMap per prendere il nome dei cibi e la quantità
+            Food key = entry.getKey();
+            nameFood.add("X " + entry.getValue() + " " + key.nameFood);//aggiungo alla lista dei cibi il nome con la relativa quantità
+            int number = entry.getValue();//prendo la quantità
+            float totParz = key.priceFood * number;//moltiplico il prezzo per la quantità per avere il costo di un cibo ordinato
+            tot += totParz;//sommo il costo del cibo con il totale finale
+            message.append(number).append("X ").append(key.nameFood).append(" ").append(totParz).append(" €").append("\n");//imposto il messaggio con il riepilogo della quantità del nome e del costo parziale del cibo
+        }
+        message.append("Tot ").append(tot).append(" €");//imposto nel messaggio il totale finale
+        builder.setMessage(message.toString());//mostro il messaggio
+        finalTot = tot;
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                openDialogChooseAddress(place);//se clicca su ok va avanti al successivo dialogo
+
+            }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //se clicca su no non succede nulla e l'alert di chiude
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void applyTexts(Address address) {
+        addressAdapter.add(address);
+        addressAdapter.notifyDataSetChanged();
+        mDBHelper.addAddress(mDB, address, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
+
+//        if(city.toLowerCase().equals(place.cityPlace.toLowerCase())) {
+//            Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
+//            final Address mAddress = new Address(city, address, numberAddress);
+//            order = setOrder(mAddress);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
+//            orderActivity.putExtra(FirebaseConnection.ORDER, order);
+//            orderActivity.putExtra(FirebaseConnection.PLACE, place);
+//            orderActivity.putExtra(FirebaseConnection.CLIENT, client);
+//            startActivity(orderActivity);//apro l'activity per confermare l'ordine
+//        }else{
+//
+//        }
+    }
+
     private void loadFood() {
         listFood.clear();
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
@@ -158,41 +210,8 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         });
     }
 
-    //dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
-    public void openDialogOrder(final HashMap<Food, Integer> listFoodOrder, final Place place) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(this.getResources().getString(R.string.order_summary));
-        float tot = 0;
-        StringBuilder message = new StringBuilder();
-        for (Map.Entry<Food, Integer> entry : listFoodOrder.entrySet()) {//scorro l'hashMap per prendere il nome dei cibi e la quantità
-            Food key = entry.getKey();
-            nameFood.add("X " + entry.getValue() + " " + key.nameFood);//aggiungo alla lista dei cibi il nome con la relativa quantità
-            int number = entry.getValue();//prendo la quantità
-            float totParz = key.priceFood * number;//moltiplico il prezzo per la quantità per avere il costo di un cibo ordinato
-            tot += totParz;//sommo il costo del cibo con il totale finale
-            message.append(number).append("X ").append(key.nameFood).append(" ").append(totParz).append(" €").append("\n");//imposto il messaggio con il riepilogo della quantità del nome e del costo parziale del cibo
-        }
-        message.append("Tot ").append(tot).append(" €");//imposto nel messaggio il totale finale
-        builder.setMessage(message.toString());//mostro il messaggio
-        finalTot = tot;
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                openDialogChooseAddress(nameFood, finalTot, place);//se clicca su ok va avanti al successivo dialogo
-
-            }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //se clicca su no non succede nulla e l'alert di chiude
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     //dialog per selezionare l'indirizzo di spedizione
-    private void openDialogChooseAddress(final ArrayList<String> nameFood, final float finalTot, final Place place) {
+    private void openDialogChooseAddress(final Place place) {
 
         final LayoutInflater inflater = PlaceListFoodOrderActivity.this.getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_choose_address, (ViewGroup) getCurrentFocus(),false);
@@ -271,9 +290,9 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         return order;
     }
 
-    private class AddressAdapter extends ArrayAdapter<Address> {
+    private static class AddressAdapter extends ArrayAdapter<Address> {
 
-        public AddressAdapter(@NonNull Context context, int resource, List<Address> list) {
+        private AddressAdapter(@NonNull Context context, int resource, List<Address> list) {
             super(context, resource, list);
         }
 
@@ -305,24 +324,5 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         }
     }
 
-
-    @Override
-    public void applyTexts(Address address) {
-        addressAdapter.add(address);
-        addressAdapter.notifyDataSetChanged();
-        mDBHelper.addAddress(mDB, address, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
-
-//        if(city.toLowerCase().equals(place.cityPlace.toLowerCase())) {
-//            Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
-//            final Address mAddress = new Address(city, address, numberAddress);
-//            order = setOrder(mAddress);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
-//            orderActivity.putExtra(FirebaseConnection.ORDER, order);
-//            orderActivity.putExtra(FirebaseConnection.PLACE, place);
-//            orderActivity.putExtra(FirebaseConnection.CLIENT, client);
-//            startActivity(orderActivity);//apro l'activity per confermare l'ordine
-//        }else{
-//
-//        }
-    }
 
 }

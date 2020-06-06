@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -47,7 +46,6 @@ activity homepage per Place
 public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener{
 
     private static final int GET_FROM_GALLERY = 3;
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
 
     private ImageView imgPlace;
     private Place place;
@@ -76,7 +74,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
         menuNavigationItemSelected=new MenuNavigationItemSelected();
         listFood=new LinkedList<>();
-        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
+        mAdapter=new MyMenuAdapter(this, listFood,place);
 
         txtNamePlace.setText(place.namePlace);
         listViewMenu.setAdapter(mAdapter);
@@ -183,42 +181,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             }
         }
     }
-
-    //metodo per dimensionare l'immagine all'interno del riquadro
-    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
-        return resizedBitmap;
-    }
-
-//    //TODO a che serve?
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        switch (requestCode) {
-//            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
-//                // If request is cancelled, the result arrays are empty.
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    // permission was granted, yay! Do the
-//                    // contacts-related task you need to do.
-//                } else {
-//                    // permission denied, boo! Disable the
-//                    // functionality that depends on this permission.
-//                }
-//            }
-//            return;
-//        }
-//    }
 
     @Override
     public void applyTexts(String nameFood, String ingredientsFood,float priceFood) {

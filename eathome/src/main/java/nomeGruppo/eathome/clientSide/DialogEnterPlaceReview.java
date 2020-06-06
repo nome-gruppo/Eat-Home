@@ -53,6 +53,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         this.nameClient=nameClient;
         this.mDB=mDB;
         this.mDBHelper=mDBHelper;
+        this.date = Calendar.getInstance();
         this.firebaseConnection=new FirebaseConnection();
     }
 

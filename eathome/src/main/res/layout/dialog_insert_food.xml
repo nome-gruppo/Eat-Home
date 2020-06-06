@@ -18,7 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="@string/nameFood"/>
 
     <EditText
         android:id="@+id/editIngredientsFood"
@@ -35,7 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editNameFood" />
+        app:layout_constraintTop_toBottomOf="@+id/editNameFood"
+        android:autofillHints="@string/ingredientsFood"/>
 
     <EditText
         android:id="@+id/editPriceFood"
@@ -50,6 +52,7 @@
         android:drawableStart="@drawable/ic_euro_symbol_black_24dp"
         android:hint="@string/enter_price"
         app:layout_constraintStart_toStartOf="@+id/editIngredientsFood"
-        app:layout_constraintTop_toBottomOf="@+id/editIngredientsFood" />
+        app:layout_constraintTop_toBottomOf="@+id/editIngredientsFood"
+        android:autofillHints="@string/enter_price"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

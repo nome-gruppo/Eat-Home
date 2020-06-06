@@ -135,8 +135,8 @@ public class ClientProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
 
         if(editFinished){
             FirebaseConnection connection = new FirebaseConnection();
@@ -144,8 +144,6 @@ public class ClientProfileActivity extends AppCompatActivity {
 
             Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     public void initEditTextsListeners() {

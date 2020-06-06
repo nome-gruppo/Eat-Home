@@ -32,8 +32,8 @@ public class DialogAddMenu extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_insert_food, (ViewGroup) getActivity().getCurrentFocus(),false);
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_insert_food, (ViewGroup) requireActivity().getCurrentFocus(),false);
 
         editNameFood = view.findViewById(R.id.editNameFood);
         editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
@@ -48,9 +48,9 @@ public class DialogAddMenu extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (editNameFood.getText().toString().trim().length() == 0 || editIngredientsFood.getText().toString().trim().length() == 0 || editPriceFood.getText().toString().trim().length() == 0) {
-                    Toast.makeText(getContext(), getActivity().getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),requireActivity().getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
                     DialogAddMenu dialogAddMenu = new DialogAddMenu();
-                    dialogAddMenu.show(getActivity().getSupportFragmentManager(), "Dialog add menu");
+                    dialogAddMenu.show(requireActivity().getSupportFragmentManager(), "Dialog add menu");
                 } else {
                     String nameFood = editNameFood.getText().toString();
                     String ingredientsFood = editIngredientsFood.getText().toString();
