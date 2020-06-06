@@ -263,7 +263,7 @@
     <TextView
         android:id="@+id/activity_place_registration_tw_status"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="20dp"
         android:text="@string/emailAlreadyExists"
         android:textSize="24sp"
         android:visibility="invisible" />
