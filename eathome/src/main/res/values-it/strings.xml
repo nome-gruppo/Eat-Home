@@ -2,12 +2,12 @@
 <resources>
 
     <string name="placeName">Inserisci nome attività</string>
-    <string name="enterAddress">Inserisci indirizzo</string>
-    <string name="enterPhone">Inserisci numero di telefono</string>
-    <string name="enterEmail">Inserisci indirizzo mail</string>
+    <string name="enterAddress">Indirizzo</string>
+    <string name="enterPhone">Numero di telefono</string>
+    <string name="enterEmail">Email</string>
     <string name="enterPassword">Inserisci password</string>
     <string name="enterCity">Inserisci città</string>
-    <string name="enterAddressNumber">Inserisci numero civico</string>
+    <string name="enterAddressNumber">n civico</string>
     <string name="pizzeria">Pizzeria</string>
     <string name="italianRestaurant">Ristorante italiano</string>
     <string name="sushi">Sushi</string>
