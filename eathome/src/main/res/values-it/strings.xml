@@ -147,6 +147,23 @@
     <string name="valuation">Valutazione</string>
     <string name="distance">Distanza</string>
     <string name="order_categories">Categorie</string>
+    <string name="date_order">Data Ordine</string>
+    <string name="address_order_info">Indirizzo ordine</string>
+    <string name="phone_number">Numero di telefono</string>
+    <string name="total_order">Ordine totale</string>
+    <string name="ingredients_info">Ingredienti</string>
+    <string name="feedback_date">Data recensione</string>
+    <string name="feedback_name">Nome recensione</string>
+    <string name="feedback_text">Testo recensione</string>
+    <string name="sei_sicuro_di_voler_eliminare_l_account">Sei sicuro di voler eliminare l\'account?</string>
+    <string name="email">Email</string>
+    <string name="date_booking">Data prenotazione</string>
+    <string name="address_booking">Indirizzo prenotazione</string>
+    <string name="numer_people_booking">"Numero di persone "</string>
+    <string name="phone_place">"Numero di telefono "</string>
+    <string name="address_place">Indirizzo</string>
+    <string name="type_place">Tipologia</string>
+    <string name="place_area">"Zona "</string>
 
 
 </resources>

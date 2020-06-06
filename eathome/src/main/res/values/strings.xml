@@ -168,6 +168,25 @@
     <string name="valuation">Valuation</string>
     <string name="distance">Distance</string>
     <string name="order_categories">Categories</string>
+    <string name="date_order">Date order</string>
+    <string name="address_order_info">Address order</string>
+    <string name="phone_number">Phone number</string>
+    <string name="total_order">Total order</string>
+    <string name="ingredients_info">Ingredients</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="feedback_date">Feedback date</string>
+    <string name="feedback_name">Feedback name</string>
+    <string name="feedback_text">Feedback text</string>
+    <string name="date_booking">Booking date</string>
+    <string name="address_booking">Booking address</string>
+    <string name="numer_people_booking">Number of people booking</string>
+    <string name="phone_place">"Place phone number "</string>
+    <string name="email">Email</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="address_place">Address place</string>
+    <string name="type_place">Type place</string>
+    <string name="place_area">Place area</string>
+    <string name="sei_sicuro_di_voler_eliminare_l_account">Do you want to delete?</string>
 
 
 </resources>
