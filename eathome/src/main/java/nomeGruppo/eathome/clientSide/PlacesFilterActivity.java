@@ -42,7 +42,6 @@ import nomeGruppo.eathome.db.FirebaseConnection;
  */
 public class PlacesFilterActivity extends AppCompatActivity {
 
-
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
 
     //costanti usate per il bundle
@@ -153,7 +152,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         }
     }// end onCreate
-
 
     @Override
     protected void onResume() {
@@ -271,6 +269,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
         });
 
     }
+
     private void search(String userCity) {
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
@@ -293,6 +292,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
             }
         });
     }
+
     private ArrayList<Place> applyFilters() {
 
         ArrayList<Place> result;
@@ -449,7 +449,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
         }
         typeChanged = true;
     }
-
 
     public void orderByOnRadioButtonClicked(View view) {
 

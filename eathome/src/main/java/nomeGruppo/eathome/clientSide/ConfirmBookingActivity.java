@@ -156,12 +156,6 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         openCalendar();
     }
 
-    private void openCalendar(){
-        DialogFragment datePicker=new DatePickerFragment();//apro il calendario
-        datePicker.show(getSupportFragmentManager(),"Date picker");
-    }
-
-
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         dateBooking.set(year,month,dayOfMonth);//month++ perchè i mesi partono da 0 e non da 1
@@ -182,11 +176,6 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
                 openCalendar();//riapri il dialog per scegliere la data
             }
         }
-    }
-
-    private void openDialogChooseHour(){
-        DialogFragment timePicker=new TimePickerFragment();
-        timePicker.show(getSupportFragmentManager(),"Time picker");
     }
 
     @Override
@@ -224,6 +213,16 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
             e.printStackTrace();
         }
 
+    }
+
+    private void openDialogChooseHour(){
+        DialogFragment timePicker=new TimePickerFragment();
+        timePicker.show(getSupportFragmentManager(),"Time picker");
+    }
+
+    private void openCalendar(){
+        DialogFragment datePicker=new DatePickerFragment();//apro il calendario
+        datePicker.show(getSupportFragmentManager(),"Date picker");
     }
 
     private void openDialogConfirm(){//dialog  di conferma

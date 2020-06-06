@@ -261,8 +261,8 @@ public class HomepageActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString("address", addressesBar.getText().toString());
         editor.putString("city", userCity);

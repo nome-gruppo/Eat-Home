@@ -40,13 +40,6 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
     private FirebaseConnection firebaseConnection;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        readOrder();
-    }
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_order_info);
@@ -79,6 +72,13 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        readOrder();
     }
 
     private void openDialogOrderSummary(Order order){

@@ -135,29 +135,6 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         }
     }
 
-    private void loadFood() {
-        listFood.clear();
-        final FirebaseConnection firebaseConnection = new FirebaseConnection();
-
-        //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        listFood.add(snapshot.getValue(Food.class));
-                    }
-                }
-                menuAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     //dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
     public void openDialogOrder(final HashMap<Food, Integer> listFoodOrder, final Place place) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -189,6 +166,48 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public void applyTexts(Address address) {
+        addressAdapter.add(address);
+        addressAdapter.notifyDataSetChanged();
+        mDBHelper.addAddress(mDB, address, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
+
+//        if(city.toLowerCase().equals(place.cityPlace.toLowerCase())) {
+//            Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
+//            final Address mAddress = new Address(city, address, numberAddress);
+//            order = setOrder(mAddress);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
+//            orderActivity.putExtra(FirebaseConnection.ORDER, order);
+//            orderActivity.putExtra(FirebaseConnection.PLACE, place);
+//            orderActivity.putExtra(FirebaseConnection.CLIENT, client);
+//            startActivity(orderActivity);//apro l'activity per confermare l'ordine
+//        }else{
+//
+//        }
+    }
+
+    private void loadFood() {
+        listFood.clear();
+        final FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+        //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        listFood.add(snapshot.getValue(Food.class));
+                    }
+                }
+                menuAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //dialog per selezionare l'indirizzo di spedizione
@@ -305,24 +324,5 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         }
     }
 
-
-    @Override
-    public void applyTexts(Address address) {
-        addressAdapter.add(address);
-        addressAdapter.notifyDataSetChanged();
-        mDBHelper.addAddress(mDB, address, user.getUid());//aggiungo l'indirizzo appena scritto dall'utente al db interno
-
-//        if(city.toLowerCase().equals(place.cityPlace.toLowerCase())) {
-//            Intent orderActivity = new Intent(PlaceListFoodOrderActivity.this, ConfirmOrderActivity.class);
-//            final Address mAddress = new Address(city, address, numberAddress);
-//            order = setOrder(mAddress);//imposto l'indirizzo appena scritto dall'utente come indirizzo di consegna
-//            orderActivity.putExtra(FirebaseConnection.ORDER, order);
-//            orderActivity.putExtra(FirebaseConnection.PLACE, place);
-//            orderActivity.putExtra(FirebaseConnection.CLIENT, client);
-//            startActivity(orderActivity);//apro l'activity per confermare l'ordine
-//        }else{
-//
-//        }
-    }
 
 }
