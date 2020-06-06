@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import java.util.Objects;
+
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.utility.City;
@@ -30,7 +32,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) getActivity().getCurrentFocus(),false);
 
         final EditText editAddress = view.findViewById(R.id.editAddressClient);
@@ -55,9 +57,9 @@ public class DialogAddAddress extends AppCompatDialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (editCity.getText().toString().trim().length() == 0 || editAddress.getText().toString().trim().length() == 0 ||
                         editNumberAddress.getText().toString().trim().length() == 0) {
-                    Toast.makeText(getContext(), getActivity().getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), requireActivity().getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
                     DialogAddAddress dialogAddAddress = new DialogAddAddress();
-                    dialogAddAddress.show(getActivity().getSupportFragmentManager(), "Dialog add address");
+                    dialogAddAddress.show(requireActivity().getSupportFragmentManager(), "Dialog add address");
                 } else {
 
                     final Address mAddress = new Address(editCity.getText().toString(),editAddress.getText().toString(),editNumberAddress.getText().toString());

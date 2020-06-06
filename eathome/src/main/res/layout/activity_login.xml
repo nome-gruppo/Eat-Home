@@ -23,7 +23,8 @@
         android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="@string/prompt_email"/>
 
     <EditText
         android:id="@+id/activity_login_et_password"
@@ -42,7 +43,8 @@
         android:drawableStart="@drawable/ic_vpn_key_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_email" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_email"
+        android:autofillHints="@string/prompt_password"/>
 
     <ProgressBar
         android:id="@+id/activity_login_pb_loading"

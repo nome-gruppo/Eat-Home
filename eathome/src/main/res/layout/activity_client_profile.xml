@@ -75,7 +75,8 @@
                             android:hint="@string/edit_name"
                             android:inputType="textPersonName"
                             android:textAlignment="center"
-                            tools:layout_editor_absoluteX="136dp" />
+                            tools:layout_editor_absoluteX="136dp"
+                            android:autofillHints="@string/edit_name" />
 
                         <ImageButton
                             android:id="@+id/activity_client_profile_imBtn_name"
@@ -109,7 +110,8 @@
                             android:inputType="textEmailAddress"
                             android:textAlignment="center"
                             tools:layout_editor_absoluteX="134dp"
-                            tools:layout_editor_absoluteY="57dp" />
+                            tools:layout_editor_absoluteY="57dp"
+                            android:autofillHints="@string/enterEmail" />
 
                         <ImageButton
                             android:id="@+id/activity_client_profile_imBtn_email"
@@ -134,7 +136,7 @@
                             android:id="@+id/activity_client_et_oldPassword"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
+                            android:autofillHints="@string/old_password"
                             android:background="@drawable/edit_text_border"
                             android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
@@ -161,6 +163,7 @@
                             android:background="@drawable/edit_text_border"
                             android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
+                            android:autofillHints="@string/new_password"
                             android:hint="@string/new_password"
                             android:inputType="textPassword"
                             android:textAlignment="center" />
@@ -183,6 +186,7 @@
                             android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/confirm_password"
+                            android:autofillHints="@string/confirm_password"
                             android:inputType="textPassword"
                             android:textAlignment="center"
                             tools:layout_editor_absoluteX="131dp"

@@ -193,16 +193,19 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         String dayOfWeek=openingTimeUtility.getDayOfWeek(dateBooking.get(Calendar.DAY_OF_WEEK));
         String openingTime=place.openingTime.get(dayOfWeek);
         SimpleDateFormat parser = new SimpleDateFormat(getString(R.string.hourFormat), Locale.getDefault());
-        Date hourOpening=null;
-        Date hourClosed=null;
-        Date hourBooking=null;
+
 
         try {
-            hourOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);
-            hourClosed=openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);
-            hourBooking=parser.parse(hour+":"+minutes);
-
+            Date hourOpening=null;
+            Date hourClosed=null;
+            if(openingTime!=null) {//se l'orario del locale è stato impostato
+                hourOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);
+                hourClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);
+            }
+            Date hourBooking = parser.parse(hour + ":" + minutes);
             //se l'ora della prenotazione è compresa tra l'ora di apertura e l'ora di chiusura
+
+            assert hourBooking != null;
             if(hourBooking.after(hourOpening)&&hourBooking.before(hourClosed)){
                 dateBooking.set(Calendar.HOUR_OF_DAY,hour);
                 dateBooking.set(Calendar.MINUTE,minutes);

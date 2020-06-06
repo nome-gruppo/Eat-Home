@@ -32,8 +32,8 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final LayoutInflater inflater = getActivity().getLayoutInflater();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        final LayoutInflater inflater = requireActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, (ViewGroup) getActivity().getCurrentFocus(),false);
 
         final EditText emailEt = dialogView.findViewById(R.id.dialog_delete_account_et_email);
@@ -42,6 +42,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
         final FirebaseConnection connection = new FirebaseConnection();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+        assert mUser != null;
         userId = mUser.getUid();
 
         builder.setView(dialogView).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -76,8 +77,8 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
         if(deleted) {
 
-            Client mClient = (Client)getActivity().getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
-            Place mPlace = (Place)getActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+            Client mClient = (Client)requireActivity().getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+            Place mPlace = (Place)requireActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
             //elimina ordinazioni e prenotazioni
             if(mClient != null){
 
@@ -88,7 +89,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                     e.printStackTrace();
                 }
 
-                SharedPreferences.Editor mEditor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+                SharedPreferences.Editor mEditor = requireActivity().getPreferences(Context.MODE_PRIVATE).edit();
                 mEditor.clear();
                 mEditor.apply();
 

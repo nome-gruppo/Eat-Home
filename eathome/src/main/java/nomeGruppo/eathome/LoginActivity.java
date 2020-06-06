@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             user = mAuth.getCurrentUser();
+                            assert user != null;
                             connection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_NODE, progressBar, LoginActivity.this);
                         } else {
                             progressBar.setVisibility(View.INVISIBLE);

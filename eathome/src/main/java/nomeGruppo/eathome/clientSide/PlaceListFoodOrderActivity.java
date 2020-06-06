@@ -273,7 +273,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
     private class AddressAdapter extends ArrayAdapter<Address> {
 
-        public AddressAdapter(@NonNull Context context, int resource, List<Address> list) {
+        private AddressAdapter(@NonNull Context context, int resource, List<Address> list) {
             super(context, resource, list);
         }
 

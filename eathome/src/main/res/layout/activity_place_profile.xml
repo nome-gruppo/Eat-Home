@@ -130,6 +130,7 @@
                             android:background="@drawable/edit_text_border"
                             android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
+                            android:autofillHints="@string/old_password"
                             android:hint="@string/old_password"
                             android:inputType="textPassword" />
 
@@ -150,6 +151,7 @@
                             android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/new_password"
+                            android:autofillHints="@string/new_password"
                             android:inputType="textPassword" />
 
                     </TableRow>
@@ -169,7 +171,8 @@
                             android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/confirm_password"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:autofillHints="@string/confirm_password"/>
 
                         <ImageButton
                             android:id="@+id/activity_place_profile_imBtn_password"

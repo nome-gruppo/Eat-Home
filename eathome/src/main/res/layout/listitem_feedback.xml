@@ -43,7 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="44dp"
-                android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="@+id/listitem_feedback_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/listitem_feedback_name" />
@@ -55,7 +54,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="11dp"
                 android:layout_marginBottom="12dp"
-                android:text="TextView"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/listitem_feedback_ratingBar"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +65,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

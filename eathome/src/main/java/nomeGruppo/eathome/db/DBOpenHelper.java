@@ -77,11 +77,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     public int getLastIdAddresses(SQLiteDatabase db){
-        Cursor c = db.query(TABLE_ADDRESSES,null,null,null,null,null,null);
-
-        c.moveToLast();
-
-        return c.getInt(c.getColumnIndexOrThrow(ID_ADDRESS));
+        try (Cursor c = db.query(TABLE_ADDRESSES, null, null, null, null, null, null)) {
+            c.moveToLast();
+            return c.getInt(c.getColumnIndexOrThrow(ID_ADDRESS));
+        }
     }
 
     public void updateAdd(SQLiteDatabase db, Address address,String idClient){

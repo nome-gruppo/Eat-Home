@@ -187,6 +187,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         String openingTime = place.openingTime.get(day);
 
         Date localTime = parser.parse(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+        assert openingTime != null;
         if (openingTime.length() > 8) {//se è stato impostato un orario di apertura e chiusura
             Date timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'ora di apertura
             Date timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'ora di chiusura
@@ -199,6 +200,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
             }
 
             //se localTime si trova tra timeOpening e timeClosed
+            assert localTime != null;
             if (localTime.after(timeOpening) && localTime.before(timeClosed)) {
                 txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + parser.format(timeClosed));
                 txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillagreenA400));
