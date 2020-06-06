@@ -290,7 +290,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         return order;
     }
 
-    private class AddressAdapter extends ArrayAdapter<Address> {
+    private static class AddressAdapter extends ArrayAdapter<Address> {
 
         private AddressAdapter(@NonNull Context context, int resource, List<Address> list) {
             super(context, resource, list);

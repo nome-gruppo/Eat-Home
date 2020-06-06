@@ -34,7 +34,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         final LayoutInflater inflater = requireActivity().getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, (ViewGroup) getActivity().getCurrentFocus(),false);
+        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, (ViewGroup) requireActivity().getCurrentFocus(),false);
 
         final EditText emailEt = dialogView.findViewById(R.id.dialog_delete_account_et_email);
         final EditText passwordEt = dialogView.findViewById(R.id.dialog_delete_account_et_password);

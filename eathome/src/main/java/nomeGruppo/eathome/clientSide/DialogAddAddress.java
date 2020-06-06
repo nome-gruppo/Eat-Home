@@ -17,8 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import java.util.Objects;
-
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.utility.City;
@@ -33,7 +31,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) getActivity().getCurrentFocus(),false);
+        View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) requireActivity().getCurrentFocus(),false);
 
         final EditText editAddress = view.findViewById(R.id.editAddressClient);
         final AutoCompleteTextView editCity = view.findViewById(R.id.editCityClient);

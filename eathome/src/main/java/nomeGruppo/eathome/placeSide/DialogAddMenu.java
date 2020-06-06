@@ -33,7 +33,7 @@ public class DialogAddMenu extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_insert_food, (ViewGroup) getActivity().getCurrentFocus(),false);
+        View view = inflater.inflate(R.layout.dialog_insert_food, (ViewGroup) requireActivity().getCurrentFocus(),false);
 
         editNameFood = view.findViewById(R.id.editNameFood);
         editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
