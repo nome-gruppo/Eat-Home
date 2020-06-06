@@ -36,7 +36,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/txtAddressPlaceFragment"
                 app:layout_constraintEnd_toEndOf="@+id/txtNamePlaceFragment"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txtTypePlaceFragment" />
+                app:layout_constraintTop_toTopOf="@+id/txtTypePlaceFragment"
+                android:contentDescription="@string/image" />
 
             <TextView
                 android:id="@+id/txtNamePlaceFragment"
@@ -44,8 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="7dp"
-                android:text="TextView"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -81,7 +81,8 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_menu_booking" />
+                app:srcCompat="@drawable/ic_menu_booking"
+                android:contentDescription="@string/image" />
 
             <ImageView
                 android:id="@+id/list_places_delivery_icon"
@@ -92,7 +93,8 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_menu_scooter" />
+                app:srcCompat="@drawable/ic_menu_scooter"
+                android:contentDescription="@string/image" />
 
             <RatingBar
                 android:id="@+id/ratingBarPlaceFragment"

@@ -195,7 +195,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     private void openDialogChooseAddress(final ArrayList<String> nameFood, final float finalTot, final Place place) {
 
         final LayoutInflater inflater = PlaceListFoodOrderActivity.this.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.dialog_choose_address, null);
+        final View view = inflater.inflate(R.layout.dialog_choose_address, (ViewGroup) getCurrentFocus(),false);
 
         final ListView listViewAddress = view.findViewById(R.id.listViewChooseAddress);
         final FloatingActionButton btnAddAddress = view.findViewById(R.id.btnAddAddress);

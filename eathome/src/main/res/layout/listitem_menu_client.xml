@@ -35,13 +35,14 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="226dp"
-                android:backgroundTint="@color/cardview_light_background"
+                android:backgroundTint="@color/quantum_white_100"
                 android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/txtCounterFoodPlaceInfo"
                 app:layout_constraintEnd_toStartOf="@+id/txtCounterFoodPlaceInfo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/txtCounterFoodPlaceInfo"
-                app:srcCompat="@drawable/ic_remove_shopping_cart_black_24dp" />
+                app:srcCompat="@drawable/ic_remove_shopping_cart_black_24dp"
+                android:contentDescription="@string/image_button" />
 
             <TextView
                 android:id="@+id/txtIngredientsFoodPlaceInfo"
@@ -61,10 +62,9 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="22dp"
-                android:drawableLeft="@drawable/ic_restaurant_menu_black_24dp"
-                android:text="TextView"
+                android:drawableStart="@drawable/ic_restaurant_menu_black_24dp"
                 android:textColor="#040404"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/txtIngredientsFoodPlaceInfo"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,12 +74,10 @@
                 android:id="@+id/txtPriceFoodPlaceInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="14dp"
-                android:text="TextView"
                 android:textColor="#343434"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,7 +89,7 @@
                 android:layout_marginBottom="9dp"
                 android:text="0"
                 android:textAlignment="center"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnAddFoodPlaceInfo"
@@ -102,13 +100,14 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/cardview_light_background"
+                android:backgroundTint="@color/quantum_white_100"
                 android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/txtCounterFoodPlaceInfo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txtCounterFoodPlaceInfo"
                 app:layout_constraintTop_toTopOf="@+id/txtCounterFoodPlaceInfo"
-                app:srcCompat="@drawable/ic_add_shopping_cart_black_24dp" />
+                app:srcCompat="@drawable/ic_add_shopping_cart_black_24dp"
+                android:contentDescription="@string/image_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

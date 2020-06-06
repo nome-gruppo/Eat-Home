@@ -18,7 +18,6 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:hint="Nome locale"
         app:layout_constraintBottom_toTopOf="@+id/place_homepage_placeImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +33,8 @@
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+        android:contentDescription="@string/image" />
 
     <ProgressBar
         android:id="@+id/progressBarPlaceHome"
@@ -109,6 +109,7 @@
         app:layout_constraintHorizontal_bias="0.295"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/place_homepage_placeImg"
-        app:srcCompat="@drawable/ic_button_add_menu" />
+        app:srcCompat="@drawable/ic_button_add_menu"
+        android:focusable="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

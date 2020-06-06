@@ -70,7 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_menu_login"
+                            android:drawableStart="@drawable/ic_menu_login"
                             android:ems="10"
                             android:hint="@string/edit_name"
                             android:inputType="textPersonName"
@@ -83,7 +83,8 @@
                             android:layout_height="40dp"
                             android:background="@color/quantum_white_100"
                             android:src="@drawable/ic_profile_edit"
-                            tools:layout_editor_absoluteX="350dp" />
+                            tools:layout_editor_absoluteX="350dp"
+                            android:contentDescription="@string/image_button" />
                     </TableRow>
 
                     <TableRow
@@ -93,7 +94,7 @@
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="20dp"
                         android:layout_marginStart="15dp"
-                        android:hint="Email">
+                        android:hint="@string/enterEmail">
 
 
                         <EditText
@@ -102,9 +103,9 @@
                             android:layout_height="43dp"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_email_black_24dp"
+                            android:drawableStart="@drawable/ic_email_black_24dp"
                             android:ems="10"
-                            android:hint="Email"
+                            android:hint="@string/enterEmail"
                             android:inputType="textEmailAddress"
                             android:textAlignment="center"
                             tools:layout_editor_absoluteX="134dp"
@@ -117,7 +118,8 @@
                             android:background="@color/quantum_white_100"
                             android:src="@drawable/ic_profile_edit"
                             tools:layout_editor_absoluteX="350dp"
-                            tools:layout_editor_absoluteY="48dp" />
+                            tools:layout_editor_absoluteY="48dp"
+                            android:contentDescription="@string/image_button" />
                     </TableRow>
 
                     <TableRow
@@ -134,7 +136,7 @@
                             android:layout_height="wrap_content"
 
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/old_password"
                             android:inputType="textPassword"
@@ -157,7 +159,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/new_password"
                             android:inputType="textPassword"
@@ -178,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
                             android:ems="10"
                             android:hint="@string/confirm_password"
                             android:inputType="textPassword"
@@ -193,7 +195,8 @@
                             android:background="@color/quantum_white_100"
                             android:src="@drawable/ic_profile_edit"
                             tools:layout_editor_absoluteX="348dp"
-                            tools:layout_editor_absoluteY="190dp" />
+                            tools:layout_editor_absoluteY="190dp"
+                            android:contentDescription="@string/image_button" />
                     </TableRow>
 
                     <TableRow
@@ -209,11 +212,13 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+                            android:drawableStart="@drawable/ic_local_phone_black_24dp"
                             android:ems="10"
                             android:inputType="phone"
                             tools:layout_editor_absoluteX="131dp"
-                            tools:layout_editor_absoluteY="265dp" />
+                            tools:layout_editor_absoluteY="265dp"
+                            android:importantForAutofill="no"
+                            tools:ignore="LabelFor" />
 
                         <ImageButton
                             android:id="@+id/activity_client_profile_imBtn_phone"
@@ -222,7 +227,8 @@
                             android:background="@color/quantum_white_100"
                             android:src="@drawable/ic_profile_edit"
                             tools:layout_editor_absoluteX="347dp"
-                            tools:layout_editor_absoluteY="241dp" />
+                            tools:layout_editor_absoluteY="241dp"
+                            android:contentDescription="@string/image_button" />
                     </TableRow>
 
 

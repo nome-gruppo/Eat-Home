@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
+        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, (ViewGroup) getActivity().getCurrentFocus(),false);
 
         final EditText emailEt = dialogView.findViewById(R.id.dialog_delete_account_et_email);
         final EditText passwordEt = dialogView.findViewById(R.id.dialog_delete_account_et_password);

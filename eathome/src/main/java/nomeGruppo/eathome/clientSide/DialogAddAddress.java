@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_insert_address, null);
+        View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) getActivity().getCurrentFocus(),false);
 
         final EditText editAddress = view.findViewById(R.id.editAddressClient);
         final AutoCompleteTextView editCity = view.findViewById(R.id.editCityClient);

@@ -119,7 +119,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
 
         Activity activity = (Activity) getContext();
         LayoutInflater inflater = activity.getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_insert_address, null);
+        View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) ((Activity) getContext()).getCurrentFocus(),false);
 
         final EditText editAddress = view.findViewById(R.id.editAddressClient);
         final EditText editCity = view.findViewById(R.id.editCityClient);

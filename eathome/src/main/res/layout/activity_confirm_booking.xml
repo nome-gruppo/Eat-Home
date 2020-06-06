@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="53dp"
-                android:hint="Date"
+                android:hint="@string/date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +69,8 @@
                 android:background="@color/quantum_white_100"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
                 app:layout_constraintTop_toBottomOf="@+id/textView13"
-                app:srcCompat="@drawable/ic_button_add_menu" />
+                app:srcCompat="@drawable/ic_button_add_menu"
+                android:contentDescription="@string/image_button" />
 
             <ImageButton
                 android:id="@+id/btnDeletePersonBooking"
@@ -83,7 +84,8 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_less" />
+                app:srcCompat="@drawable/ic_less"
+                android:contentDescription="@string/image_button" />
 
             <EditText
                 android:id="@+id/editNameClientBooking"

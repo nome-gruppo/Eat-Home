@@ -19,7 +19,7 @@
         android:textAlignment="center"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
-        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:drawableStart="@drawable/ic_email_black_24dp"
         android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         android:background="@drawable/edit_text_border"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_et_email" />
@@ -82,14 +82,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_btn_login"
-        tools:ignore="OnClick" />
+        tools:ignore="OnClick"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/activity_login_tw_resetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Hai dimenticato la password?"
+        android:text="@string/forgot_password"
         android:textColor="@color/quantum_white_100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -108,6 +109,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_login_tw_resetPassword" />
+        app:layout_constraintTop_toBottomOf="@id/activity_login_tw_resetPassword"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

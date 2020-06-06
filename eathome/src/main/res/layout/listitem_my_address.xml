@@ -37,7 +37,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/fragment_address_btn_edit"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor"/>
 
 
             <ImageButton
@@ -49,7 +51,8 @@
                 android:background="@color/quantum_white_100"
                 android:src="@drawable/ic_delete"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/image_button" />
 
             <ImageButton
                 android:id="@+id/fragment_address_btn_edit"
@@ -60,7 +63,8 @@
                 android:src="@drawable/ic_profile_edit"
 
                 app:layout_constraintEnd_toStartOf="@id/fragment_address_btn_delete"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/image_button" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"

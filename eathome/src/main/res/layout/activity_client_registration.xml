@@ -17,9 +17,10 @@
         android:layout_marginBottom="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:drawableLeft="@drawable/ic_menu_login"
+        android:drawableStart="@drawable/ic_menu_login"
         android:textAlignment="center"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/editMailClient"
@@ -31,9 +32,10 @@
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:drawableStart="@drawable/ic_email_black_24dp"
         android:textAlignment="center"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/editPasswordClient"
@@ -45,9 +47,10 @@
         android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
         android:textAlignment="center"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:importantForAutofill="no"/>
 
     <Button
         android:id="@+id/btnSignInClient"
@@ -56,7 +59,8 @@
         android:text="@string/action_sign_in"
         android:background="@drawable/button_border"
         android:layout_marginVertical="10dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/activity_client_registration_tw_status"

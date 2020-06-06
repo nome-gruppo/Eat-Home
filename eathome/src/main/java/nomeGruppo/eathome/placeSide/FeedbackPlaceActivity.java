@@ -3,6 +3,7 @@ package nomeGruppo.eathome.placeSide;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,6 +36,7 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
     private ListView listView;
 
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,8 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
 
             ratingBar.setRating(mPlace.valuation);
             averageTW.setText(String.format("%.1f", mPlace.valuation));
-            numFeedbackTW.setText(mPlace.numberReview + " recensioni");
+
+            numFeedbackTW.setText(mPlace.numberReview + getResources().getQuantityString(R.plurals.numFeedback,mPlace.numberReview));
 
             if(mPlace.numberReview == 0){
 

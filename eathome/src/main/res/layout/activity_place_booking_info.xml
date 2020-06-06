@@ -57,6 +57,7 @@
         app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="@+id/txtNoBookingPlace"
         app:layout_constraintTop_toBottomOf="@+id/listViewPlaceBookingInfo"
-        app:srcCompat="@drawable/ic_emoticon_sad" />
+        app:srcCompat="@drawable/ic_emoticon_sad"
+        android:contentDescription="@string/image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
