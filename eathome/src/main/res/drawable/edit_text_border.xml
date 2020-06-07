@@ -4,8 +4,7 @@
     <!-- Background Color -->
     <solid android:color="@color/quantum_white_100" />
 
-    <!-- Border Color -->
-    <stroke android:width="2dp" android:color="@color/colorPrimary" />
+
 
     <!-- Round Corners -->
     <corners android:radius="6dp" />

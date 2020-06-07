@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/background">
 
     <include
         android:id="@+id/activity_homepage_addressesBar"
@@ -104,7 +104,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu"
-        style="@style/BottomNavigation"/>
+        style="@style/BottomNavigation"
+        android:background="@drawable/bottom_navigation"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
