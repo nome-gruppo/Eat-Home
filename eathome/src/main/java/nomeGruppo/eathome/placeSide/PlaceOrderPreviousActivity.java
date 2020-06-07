@@ -33,6 +33,10 @@ import nomeGruppo.eathome.utility.DialogListFoodOrder;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.PlaceOrderAdapter;
 
+/**
+ * activity per visualizzare gli ordini precedenti alla data odierna
+ */
+
 public class PlaceOrderPreviousActivity extends AppCompatActivity {
 
     private Place place;
@@ -54,9 +58,9 @@ public class PlaceOrderPreviousActivity extends AppCompatActivity {
         this.listOrderPrevious = new LinkedList<>();
         this.placeOrderAdapter = new PlaceOrderAdapter(this, R.layout.listitem_order_info, listOrderPrevious);
 
-        this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero l'oggetto Place
 
-        tabLayout.selectTab(tabLayout.getTabAt(1));
+        tabLayout.selectTab(tabLayout.getTabAt(1));//imposto il tabLayout in posizione 1
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -64,15 +68,15 @@ public class PlaceOrderPreviousActivity extends AppCompatActivity {
                 int position = tab.getPosition();
                 // Switch to view for this tab
                 switch (position) {
-                    case 0:
+                    case 0://se in posizione ordiniOdierni
                         Intent orderInfoToday = new Intent(PlaceOrderPreviousActivity.this, PlaceOrderInfoActivity.class);
                         orderInfoToday.putExtra(FirebaseConnection.PLACE, place);
-                        startActivity(orderInfoToday);
+                        startActivity(orderInfoToday);//avvio PlaceOrderInfoActivity
                         break;
-                    case 1:
+                    case 1://se in posizione ordini precedenti
                         Intent orderInfoPrevious = new Intent(PlaceOrderPreviousActivity.this, PlaceOrderPreviousActivity.class);
                         orderInfoPrevious.putExtra(FirebaseConnection.PLACE, place);
-                        startActivity(orderInfoPrevious);
+                        startActivity(orderInfoPrevious);//avvio PlaceOrderPreviousActivity
                         break;
                 }
             }
@@ -88,17 +92,17 @@ public class PlaceOrderPreviousActivity extends AppCompatActivity {
             }
         });
 
-        bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {//navigazione nel bottom menu
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 return menuNavigationItemSelected.menuNavigationPlace(item, place, PlaceOrderPreviousActivity.this);
             }
         });
 
-        listViewOrderPrevious.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewOrderPrevious.setOnItemClickListener(new AdapterView.OnItemClickListener() {//se clicca su un ordine mella lista
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Order order = (Order) adapterView.getItemAtPosition(i);
+                Order order = (Order) adapterView.getItemAtPosition(i);//recupero l'oggetto Order nella posizione corrispondente
                 showDialogListFood(order);
             }
         });
@@ -111,6 +115,10 @@ public class PlaceOrderPreviousActivity extends AppCompatActivity {
         loadOrder();
 
     }
+
+    /**
+     * metodo per visualizzare gli ordini
+     */
 
     private void loadOrder() {
         listOrderPrevious.clear();
@@ -129,10 +137,11 @@ public class PlaceOrderPreviousActivity extends AppCompatActivity {
                             if(order != null) {
                                 dateOrder = simpleDateFormat.parse(order.dateOrder);//faccio il cast della stringa dateOrder in formato Date
 
+                                //se la data odierna è antecedente alla data dell'ordine
                                 if (curDate.compareTo(dateOrder) >= 1) {
-                                    listOrderPrevious.add(order);
-                                } else {
-                                    Toast.makeText(PlaceOrderPreviousActivity.this, getResources().getString(R.string.no_order), Toast.LENGTH_LONG).show();
+                                    listOrderPrevious.add(order);//aggiungo l'ordine alla lista
+                                } else {//se non è antecedente
+                                    Toast.makeText(PlaceOrderPreviousActivity.this, getResources().getString(R.string.no_order), Toast.LENGTH_LONG).show();//messaggio di avviso
                                 }
                                 placeOrderAdapter.notifyDataSetChanged();
 
@@ -153,6 +162,11 @@ public class PlaceOrderPreviousActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * metodo per aprire dialogListFoodOrder per visualizzare i dettagli dell'ordine
+     * @param order
+     */
 
     private void showDialogListFood(Order order) {
         DialogListFoodOrder dialogListFoodOrder = new DialogListFoodOrder(order);

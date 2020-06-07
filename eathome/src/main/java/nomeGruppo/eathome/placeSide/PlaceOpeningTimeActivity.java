@@ -83,12 +83,12 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             btnSignIn.setVisibility(View.INVISIBLE);//rendo invisibile il pulsante registrati
             btnEdit.setVisibility(View.VISIBLE);//rendo visibile il pulsante modifica
 
-            if (Objects.equals(place.openingTime.get(Days.MONDAY.toString()), CLOSED)) {
-                switchMonday.setChecked(false);
-                openingTimeUtility.setSwitch(editMonday, editMondayClosed);
-            } else {
-                editMonday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.MONDAY.toString()))));
-                editMondayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.MONDAY.toString()))));
+            if (Objects.equals(place.openingTime.get(Days.MONDAY.toString()), CLOSED)) {//se place è chiuso
+                switchMonday.setChecked(false);//setto lo switch false
+                openingTimeUtility.setSwitch(editMonday, editMondayClosed);//imposto non modificabili le edit corrispondenti al girno di chiusura
+            } else {//se Place è aperto
+                editMonday.setText(openingTimeUtility.getOpening(Objects.requireNonNull(place.openingTime.get(Days.MONDAY.toString()))));//imposto orario di apertura
+                editMondayClosed.setText(openingTimeUtility.getClosed(Objects.requireNonNull(place.openingTime.get(Days.MONDAY.toString()))));//imposto orario di chiusura
             }
             if (Objects.equals(place.openingTime.get(Days.TUESDAY.toString()), CLOSED)) {
                 switchTuesday.setChecked(false);
@@ -136,11 +136,11 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
         switchMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (!isChecked) {
-                    openingTimeUtility.setSwitch(editMonday, editMondayClosed);
-                } else {
-                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editMonday, editMondayClosed);
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {//se clicca sullo switch
+                if (!isChecked) {//se switch è false
+                    openingTimeUtility.setSwitch(editMonday, editMondayClosed);//rendo non modificabili le edit corrispondenti al giorno di chiusura
+                } else {//se switch è true
+                    openingTimeUtility.setSwitchChecked(getApplicationContext(), editMonday, editMondayClosed);//rendo modificabili le edit corrispondenti
                 }
             }
         });
@@ -312,23 +312,23 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {//se è Place è in fase di registrazione e quindi clicca su registra
 
-                place.setOpeningTime(putOpeningTime(openingTime));
+                place.setOpeningTime(putOpeningTime(openingTime));//setto openingTime nell'oggetto Place con il metodo putOpeningTime
 
-                createAccount(place.emailPlace, getIntent().getStringExtra("password"));
+                createAccount(place.emailPlace, getIntent().getStringExtra("password"));//chiamo il metodo crea account
 
             }
         });
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                place.setOpeningTime(putOpeningTime(openingTime));
-                Toast.makeText(PlaceOpeningTimeActivity.this, getResources().getString(R.string.success_save), Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {//se clicca su modifica
+                place.setOpeningTime(putOpeningTime(openingTime));//setto openingTime nell'oggetto Place con il metodo putOpeningTime
+                Toast.makeText(PlaceOpeningTimeActivity.this, getResources().getString(R.string.success_save), Toast.LENGTH_SHORT).show();//messaggio di successo
                 Intent otherActivity = new Intent(PlaceOpeningTimeActivity.this, OtherActivity.class);
                 otherActivity.putExtra(FirebaseConnection.PLACE, place);
-                startActivity(otherActivity);
+                startActivity(otherActivity);//avvio l'activity other
                 finish();
             }
         });
@@ -344,6 +344,11 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         db.write(FirebaseConnection.PLACE_NODE, place.idPlace, place);
     }
 
+    /**
+     * metodo per impostare gli orari e i giorni di apertura nell'hashMap
+     * @param openingTime HashMap
+     * @return hashMap openingTime
+     */
     private HashMap<String, String> putOpeningTime(HashMap<String, String> openingTime) {
         openingTime.put(Days.MONDAY.toString(), editMonday.getText().toString() + "-" + editMondayClosed.getText().toString());
         openingTime.put(Days.TUESDAY.toString(), editTuesday.getText().toString() + "-" + editTuesdayClosed.getText().toString());
@@ -354,6 +359,12 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         openingTime.put(Days.SUNDAY.toString(), editSunday.getText().toString() + "-" + editSundayClosed.getText().toString());
         return openingTime;
     }
+
+    /**
+     * metodo per la creazione dell'account Place
+     * @param email
+     * @param password
+     */
 
     private void createAccount(String email, String password) {
 
