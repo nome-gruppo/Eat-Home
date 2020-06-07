@@ -42,6 +42,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     public static final String SELECTION_BY_USER_ID_INFO = USER_ID_INFO + "= ?";
 
+    //stringa di creazione tabella indirizzi cliente
     private static final String CREATE_ADDRESSES = "CREATE TABLE " + TABLE_ADDRESSES + "("
             + ID_ADDRESS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CITY + " VARCHAR(100) NOT NULL,"
@@ -49,6 +50,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             + NUM_ADDRESS + " VARCHAR(10) NOT NULL,"
             + USER_ID_ADDRESS + " VARCHAR(255) NOT NULL)";
 
+    //stringa creazione tabella per conservare la data di prenotazione/ordinazione del cliente per permetterli il giorno seguente di lasciare una recensione
     private static final String CREATE_INFO = "CREATE TABLE " + TABLE_INFO + "("
             + ID_INFO + " VARCHAR(20) PRIMARY KEY, "
             + NAME_PLACE + " VARCHAR(50),"

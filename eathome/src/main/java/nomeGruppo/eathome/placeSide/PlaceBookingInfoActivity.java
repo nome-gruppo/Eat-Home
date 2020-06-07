@@ -27,6 +27,7 @@ import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 /*
 activity per far visualizzare a Place il riepilogo delle sue prenotazioni
  */
+
 public class PlaceBookingInfoActivity extends AppCompatActivity {
 
     private Place place;

@@ -45,6 +45,10 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.utility.MenuAdapterForClient;
 
+/*
+activity per visualizzare e interagire con la lista dei cibi da ordinare
+ */
+
 public class PlaceListFoodOrderActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
 
     private static final int TO_LOGIN_ACTIVITY = 51;

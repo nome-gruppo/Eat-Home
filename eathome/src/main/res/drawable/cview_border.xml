@@ -2,9 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <gradient
-        android:startColor="@color/colorPrimaryDark"
-        android:angle="270"/>
+    <!-- Border Color -->
+    <stroke android:width="3dp" android:color="@color/colorAccent" />
 
     <!-- Round Corners -->
     <corners android:radius="6dp" />

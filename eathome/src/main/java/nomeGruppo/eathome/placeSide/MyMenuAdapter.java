@@ -12,22 +12,20 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.List;
 import java.util.Locale;
-
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
 
-
+/*
+adapter per la gestione del menu da parte di Place
+ */
 public class MyMenuAdapter extends ArrayAdapter<Food> {
     private final Place place;
     private final List<Food>list;
@@ -52,22 +50,22 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
             TextView ingredients = convertView.findViewById(R.id.txtIngredientsFood);
             ImageButton btnDelete = convertView.findViewById(R.id.btnDeleteFood);
             ImageButton btnEdit = convertView.findViewById(R.id.btnEditFood);
-            final Food food = getItem(position);
+            final Food food = getItem(position);//recupero l'oggetto food
 
-            if (food != null) {
-                title.setText(food.nameFood);
-                price.setText(getContext().getResources().getString(R.string.euro, food.priceFood));
-                ingredients.setText(food.ingredientsFood);
+            if (food != null) {//se esiste l'oggetto food
+                title.setText(food.nameFood);//imposto come titolo il nome del cibo
+                price.setText(getContext().getResources().getString(R.string.euro, food.priceFood));//imposto il prezzo
+                ingredients.setText(food.ingredientsFood);//imposto ingredienti
                 btnDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        openDialog(food, place);
+                    public void onClick(View view) {//se clicca su cancella
+                        openDialog(food);//chiama openDialog passando il food corrispondente alla posizione
                     }
                 });
                 btnEdit.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        openDialogEditFood(food);
+                    public void onClick(View view) {//se clicca su modifica
+                        openDialogEditFood(food);//chiama openDialogEditFood passando il food corrispondente alla posizione
                     }
                 });
             }
@@ -75,7 +73,8 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         return convertView;
     }
 
-    private void openDialog(final Food food,final Place place){ //creo un alert dialogo per chiedere conferma all'utente della cancellazione
+
+    private void openDialog(final Food food){ //creo un alert dialogo per chiedere conferma all'utente della cancellazione
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.confirmation);
         builder.setMessage(getContext().getResources().getString(R.string.cancelConfirmation)+" "
@@ -83,7 +82,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                deleteFoodFirebase(food,place);//se clicca su ok allora cancello il cibo dalla tabella foods del database
+                deleteFoodFirebase(food);//se clicca su ok allora cancello il cibo dalla tabella foods del database
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -96,7 +95,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
 
     }
 
-    private void deleteFoodFirebase(final Food food, final Place place) {
+    private void deleteFoodFirebase(final Food food) {
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
         //ordino i cibi in base al nome e poi seleziono il cibo con lo stesso nome del cibo da rimuovere
         firebaseConnection.getmDatabase().child("Foods").child(place.idPlace).orderByChild("nameFood").equalTo(food.nameFood).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -113,10 +112,10 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         });
         Intent homePage=new Intent(getContext(), PlaceHomeActivity.class);
         homePage.putExtra(FirebaseConnection.PLACE,place);
-        getContext().startActivity(homePage);
+        getContext().startActivity(homePage);//torno alla homePage
     }
 
-    private void openDialogEditFood(final Food food){
+    private void openDialogEditFood(final Food food){// dialog per modificare il cibo selezionato
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
 
         Activity activity = (Activity) getContext();
@@ -136,7 +135,7 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
             }
         }).setPositiveButton(getContext().getResources().getString(R.string.edit), new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(DialogInterface dialogInterface, int i) {//se clicca su modifica
                 String nameFood = editNameFood.getText().toString();
                 String ingredientsFood = editIngredientsFood.getText().toString();
                 float priceFood = Float.parseFloat(editPriceFood.getText().toString());
@@ -144,10 +143,10 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
                 editFood.setName(nameFood);
                 editFood.setIngredients(ingredientsFood);
                 editFood.setPrice(priceFood);
-                list.remove(food);
-                list.add(editFood);
+                list.remove(food);//rimuovo il vecchio cibo selezionato per la modifica
+                list.add(editFood);//aggiungo il cibo modificato
                 notifyDataSetChanged();
-                editFoodFirebase(food,editFood);
+                editFoodFirebase(food,editFood);//chiamo editFoodFirebase
             }
         });
 
@@ -155,13 +154,13 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         alert.show();
     }
 
-    private void editFoodFirebase(Food oldFood, Food editFood){
+    private void editFoodFirebase(Food oldFood, Food editFood){//funzione per modificare il cibo all'interno del db firebase
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
         //seleziono il cibo con lo stesso nome del cibo da modificare
         firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(oldFood.idFood).setValue(editFood);
 
         Intent homePage=new Intent(getContext(), PlaceHomeActivity.class);
         homePage.putExtra(FirebaseConnection.PLACE,place);
-        getContext().startActivity(homePage);
+        getContext().startActivity(homePage);//avvio nuovamene la PlaceHome
     }
 }
