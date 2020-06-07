@@ -10,15 +10,12 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Locale;
-
 import nomeGruppo.eathome.FeedbackAdapter;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.ShowAnswerPlace;
@@ -47,42 +44,42 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
         final TextView numFeedbackTW = findViewById(R.id.feedback_tw_numReview);
         listView = findViewById(R.id.feedback_listview);
 
-        mPlace = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        mPlace = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero oggetto Place
 
-        if(mPlace != null){
+        if(mPlace != null){//se esiste oggetto Place
 
             ratingBar.setRating(mPlace.valuation);
             averageTW.setText(String.format(Locale.getDefault(),"%.1f", mPlace.valuation));
 
             numFeedbackTW.setText(mPlace.numberReview + getResources().getQuantityString(R.plurals.numFeedback,mPlace.numberReview));
 
-            if(mPlace.numberReview == 0){
+            if(mPlace.numberReview == 0){//se numero di recensioni=0
 
                 TextView noReviews = findViewById(R.id.my_feedback_place_noFeedback);
 
-                noReviews.setVisibility(View.VISIBLE);
-            }else{
-                loadFeedback();
+                noReviews.setVisibility(View.VISIBLE);//rendo visibile il messaggio nessuna recensione
+            }else{//se ci sono recensioni
+                loadFeedback();//chiamo la funzione
             }
 
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//se clicca su una recensione
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Feedback feedback=(Feedback)adapterView.getItemAtPosition(i);
-                if(feedback.replyPlace.trim().length()==0){
-                    Toast.makeText(FeedbackPlaceActivity.this,getResources().getString(R.string.no_reply),Toast.LENGTH_SHORT).show();
-                }else {
+                if(feedback.replyPlace.trim().length()==0){//se non esite una risposta
+                    Toast.makeText(FeedbackPlaceActivity.this,getResources().getString(R.string.no_reply),Toast.LENGTH_SHORT).show();//mostra messaggio di avviso
+                }else {//se il ristorante ha risposto
                     ShowAnswerPlace showAnswerPlace = new ShowAnswerPlace(feedback.replyPlace);
-                    showAnswerPlace.show(getSupportFragmentManager(), "Show answer");
+                    showAnswerPlace.show(getSupportFragmentManager(), "Show answer");//mostra risposta chiamando showAnswerPlace
                 }
             }
         });
 
     }
 
-    private void loadFeedback(){
+    private void loadFeedback(){//funzione per visualizzare le recensioni presenti
 
         final FirebaseConnection connection = new FirebaseConnection();
         final DatabaseReference mDB = connection.getmDatabase();

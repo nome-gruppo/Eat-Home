@@ -30,12 +30,15 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.Days;
 import nomeGruppo.eathome.utility.OpeningTime;
 
+/*
+activity per la gestione degli orari di apertura Place
+ */
+
 public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
     private static final String TAG = "PlaceOpeningTime";
     private static final String CLOSED = "-";
     private Place place;
-    private TimePickerDialog picker;
     private OpeningTime openingTimeUtility;
     private Button editMonday, editTuesday, editWednesday, editThursday, editFriday, editSaturday, editSunday;
     private Button editMondayClosed, editTuesdayClosed, editWednesdayClosed, editThursdayClosed, editFridayClosed, editSaturdayClosed, editSundayClosed;
@@ -76,9 +79,9 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         this.openingTime = new HashMap<>(7);
         this.openingTimeUtility = new OpeningTime();
 
-        if (place.openingTime != null) {
-            btnSignIn.setVisibility(View.INVISIBLE);
-            btnEdit.setVisibility(View.VISIBLE);
+        if (place.openingTime != null) {//se sono stati impostati orari di apertura
+            btnSignIn.setVisibility(View.INVISIBLE);//rendo invisibile il pulsante registrati
+            btnEdit.setVisibility(View.VISIBLE);//rendo visibile il pulsante modifica
 
             if (Objects.equals(place.openingTime.get(Days.MONDAY.toString()), CLOSED)) {
                 switchMonday.setChecked(false);

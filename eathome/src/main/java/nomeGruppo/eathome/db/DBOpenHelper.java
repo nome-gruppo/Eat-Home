@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import nomeGruppo.eathome.actions.Address;
 
+/*
+classe di utilità per db interno
+ */
 public class DBOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "eathome.db";
@@ -33,6 +36,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     public static final String SELECTION_BY_USER_ID_INFO = USER_ID_INFO + "= ?";
 
+    //stringa di creazione tabella indirizzi cliente
     private static final String CREATE_ADDRESSES = "CREATE TABLE " + TABLE_ADDRESSES + "("
             + ID_ADDRESS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CITY + " VARCHAR(100) NOT NULL,"
@@ -40,6 +44,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             + NUM_ADDRESS + " VARCHAR(10) NOT NULL,"
             + USER_ID_ADDRESS + " VARCHAR(255) NOT NULL)";
 
+    //stringa creazione tabella per conservare la data di prenotazione/ordinazione del cliente per permetterli il giorno seguente di lasciare una recensione
     private static final String CREATE_INFO="CREATE TABLE " + TABLE_INFO + "("
             + ID_INFO + " VARCHAR(20) PRIMARY KEY, "
             + NAME_PLACE + " VARCHAR(50),"
@@ -66,6 +71,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         mContext.deleteDatabase(DB_NAME);
     }
 
+    //metodo per aggiungere un indirizzo a tabella address
     public void addAddress(SQLiteDatabase db, Address address, String userId){
         ContentValues values=new ContentValues();
 
@@ -76,6 +82,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.insert(TABLE_ADDRESSES,null,values);
     }
 
+    //metodo per recuperare l'ultimo indirizzo nella tabella address
     public int getLastIdAddresses(SQLiteDatabase db){
         try (Cursor c = db.query(TABLE_ADDRESSES, null, null, null, null, null, null)) {
             c.moveToLast();
@@ -83,17 +90,20 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         }
     }
 
+    //metodo per modificare l'indirizzo in address
     public void updateAdd(SQLiteDatabase db, Address address,String idClient){
         String sql="UPDATE "+TABLE_ADDRESSES+" SET "+ADDRESS+ "= '"+address.getStreet()+"', "+NUM_ADDRESS+ "= '"+address.getNumberAddress()+"', "+CITY+"= '"+address.getCity()+"' "+
                 " WHERE "+ ID_ADDRESS +"= '"+address.getIdAddress()+"' AND "+USER_ID_ADDRESS +"= '"+idClient+"';";
         db.execSQL(sql);
     }
 
+    //metodo per eliminare indirizzo da address
     public void deleteAdd(SQLiteDatabase db,int idAddress,String idClient){
         String sql = "DELETE FROM "+ TABLE_ADDRESSES +" WHERE "+ ID_ADDRESS +"= '"+idAddress+"' AND "+USER_ID_ADDRESS +"= '"+idClient+"';";
         db.execSQL(sql);
     }
 
+    //metodo per aggiungere informazioni alla tabella info
     public void addInfo(SQLiteDatabase db, String idPlace, String place, String date, String userId){
         ContentValues values=new ContentValues();
 
@@ -104,6 +114,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.insert(TABLE_INFO,null,values);
     }
 
+    //metodo per cancellare l'informazione una volta che l'utente ha accettato/rifiutato la recensione
     public void deleteInfo(SQLiteDatabase db,String id){
         String sql = "DELETE FROM "+ TABLE_INFO +" WHERE "+ ID_INFO +"= '"+id+"' ;";
         db.execSQL(sql);
