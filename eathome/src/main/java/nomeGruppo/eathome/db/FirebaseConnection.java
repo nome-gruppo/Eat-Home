@@ -31,8 +31,8 @@ import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 
-/**FIrebaseConnection contiene costanti e metodi per la gestione del database Firebase e di FirebaseAuthentication
- *
+/**
+ * FIrebaseConnection contiene costanti e metodi per la gestione del database Firebase Realtime e di FirebaseAuthentication
  */
 public class FirebaseConnection {
 
@@ -47,7 +47,7 @@ public class FirebaseConnection {
     public static final String FEEDBACK_NODE = "Feedback";
 
     //stringhe usate negli intent
-    public static final String FROM_ANOTHER_ACTIVITY  = "fromActivity";
+    public static final String FROM_ANOTHER_ACTIVITY = "fromActivity";
     public static final String PLACE = "Place";
     public static final String CLIENT = "Client";
     public static final String ORDER = "Order";
@@ -69,39 +69,42 @@ public class FirebaseConnection {
         return operationSuccess;
     }
 
-    /**Scrive una variabile nel database Firebase
+    /**
+     * Scrive una variabile nel database Firebase
      *
-     * @param node  nodo principale contenente variabili tutte dello stesso tipo.
-     *              Corrisponde ad una delle costanti *_NODE elencate sopra
-     * @param nodeId    sotto-nodo di node identificato da un'id assegnato precedentemente da firebase
-     * @param obj   variabile da scrivere in corrispondenza di node-nodeId
+     * @param node   nodo principale contenente variabili tutte dello stesso tipo.
+     *               Corrisponde ad una delle costanti *_NODE elencate sopra
+     * @param nodeId sotto-nodo di node identificato da un'id assegnato precedentemente da firebase
+     * @param obj    variabile da scrivere in corrispondenza di node-nodeId
      */
     public void write(String node, String nodeId, Object obj) {
         mDatabase.child(node).child(nodeId).setValue(obj);
     }
 
-    /**Scrive una variabile nel database Firebase
+    /**
+     * Scrive una variabile nel database Firebase
      *
-     * @param node  nodo principale contenente variabili tutte dello stesso tipo.
-     *              Corrisponde ad una delle costanti *_NODE elencate sopra
-     * @param obj variabile da inserire in node
+     * @param node nodo principale contenente variabili tutte dello stesso tipo.
+     *             Corrisponde ad una delle costanti *_NODE elencate sopra
+     * @param obj  variabile da inserire in node
      */
     public void writeObject(String node, Object obj) {
         mDatabase.child(node).push().setValue(obj);
     }
 
 
-    /**metodo per ricerca utente nel database Firebase nei nodi Clients e Places
-     * NB: per funzionare correttamente il parametro node passato deve essere Firebase.CLIENT_NODE
+    /**
+     * Il metodo cerca ricorsivamente l'utente identificato da userId nelle tabelle CLIENT_NODE e PLACE_NODE
+     * Per funzionare correttamente alla prima chiamata deve essere passato il parametro CLIENT_NODE come parametro node
      *
-     * @param userId      codice id dell'utente
-     * @param node        nodo FirebaseConnection.CLIENT_NODE
-     * @param progressBar progressbar presente nell'activity chiamante. null se non presente
-     * @param activity    activity chiamante
+     * @param userId      cfr. searchUserInDb
+     * @param node        nodo in cui effettuare la ricerca nel database
+     * @param progressBar cfr. searchUserInDb
+     * @param activity    cfr. searchUserInDb
      */
-    private void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
+    private void searchUser(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
 
-        final boolean fromAnotherActivity = activity.getIntent().getBooleanExtra(FROM_ANOTHER_ACTIVITY ,false);
+        final boolean fromAnotherActivity = activity.getIntent().getBooleanExtra(FROM_ANOTHER_ACTIVITY, false);
 
         mDatabase.child(node).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -116,13 +119,13 @@ public class FirebaseConnection {
                     if (node.equals(FirebaseConnection.CLIENT_NODE)) {
                         final Client client = dataSnapshot.getValue(Client.class);
 
-                        if(!fromAnotherActivity){
+                        if (!fromAnotherActivity) {
                             final Intent intent = new Intent(activity, HomepageActivity.class);
                             intent.putExtra(CLIENT, client);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             activity.startActivity(intent);
-                        }else{
+                        } else {
                             final Intent intent = new Intent();
                             final Place place = (Place) activity.getIntent().getSerializableExtra(PLACE);
                             final Order order = (Order) activity.getIntent().getSerializableExtra(ORDER);
@@ -144,7 +147,7 @@ public class FirebaseConnection {
                     activity.finish();
                     //se non è stato trovato l'id nel nodo clienti cerca in places
                 } else if (!dataSnapshot.exists() && node.equals(FirebaseConnection.CLIENT_NODE)) {
-                    searchUserInDb(userId, PLACE_NODE, progressBar, activity);
+                    searchUser(userId, PLACE_NODE, progressBar, activity);
                 }
             }
 
@@ -155,12 +158,21 @@ public class FirebaseConnection {
         });
     }// end searchUserInDb
 
-    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity){
-        this.searchUserInDb(userId, CLIENT_NODE, progressBar, activity);
-    }
     /**
-     * metodo che serve per riautenticare l'utente in Firebase.
-     * Questa operazione è necessaria per poter eseguire correttamente proceure di modifica e eliminazione dell'account
+     * metodo per ricerca utente nel database Firebase.
+     * Chiama il metodo ricorsivo searchUser
+     *
+     * @param userId      codice id dell'utente da ricercare nek database
+     * @param progressBar progressBar, che indica l'operazione di ricerca, presente nell'activity chiamante
+     * @param activity    activity chiamante il metodo
+     */
+    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity) {
+        this.searchUser(userId, CLIENT_NODE, progressBar, activity);
+    }
+
+    /**
+     * metodo che serve per riautenticare l'utente in Firebase Authentication
+     * Questa operazione è necessaria per poter eseguire correttamente procedure sensibili quali modifica e eliminazione dell'account
      *
      * @param user     variabile contenente l'account  dell'utente che deve essere riautenticato
      * @param email    email dell'utente user che deve essere riautenticato
@@ -172,8 +184,10 @@ public class FirebaseConnection {
 
         operationSuccess = true;
 
-        // il listener è innescato solo quando l'utente non è più autenticato
-        // questo capita quando l'utente non inserisce le sue credenziali da molto tempo
+        /* il listener è innescato solo quando l'utente non è più autenticato
+        questo capita quando l'utente non inserisce le sue credenziali da molto tempo.
+        Non viene innescato quando l'utente è ancora autenticato, perciò in questo caso l'operazione ha avuto comunque successo
+         */
         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -189,28 +203,36 @@ public class FirebaseConnection {
         });
     }
 
-    /**
-     * metodo per la modifica della mail di un utente.
+    /**metodo per la modifica della mail di un utente.
+     * La ricerca avviene dapprima in Firebase Authentication, poi nel database RealTime
      * Controlla che non ci siano mail uguali già esistenti
      *
-     * @param firebaseAuth variabile FirebaseAuth usata nell'activity
-     * @param user         variabile contenente l'account dell'utente che deve essere riautenticato
-     * @param email        email dell'utente user che deve essere riautenticato
-     * @param activity     activity chiamante il metodo
+     * @param firebaseAuth istanza FirebaseAuth usata nell'activity chiamante
+     * @param user         istanza di FirebaseUser contenente l'account dell'utente la cui password deve essere aggiornata
+     * @param node
+     * @param email        nuova email da assegnare all'utente user
+     * @param activity     activity chiamante
      */
-    public void updateEmail(FirebaseAuth firebaseAuth, final FirebaseUser user, final String email, final Activity activity) {
+    public void updateEmail(FirebaseAuth firebaseAuth, final FirebaseUser user,final String node, final String email, final Activity activity) {
 
         //controllo che la mail non sia già presente
         firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
 
-                if(task.getResult() != null && task.getResult().getSignInMethods() != null) {
-                    if (task.getResult().getSignInMethods().size() == 0) {
+                if (task.getResult() != null && task.getResult().getSignInMethods() != null) {
+                    //se la lista è vuota non ci sono account con quella email
+                    if (task.getResult().getSignInMethods().isEmpty()) {
                         user.updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+                                    //modifica email in Firebase Realtime
+                                    if(node.equals(CLIENT_NODE)) {
+                                        mDatabase.child(node).child(user.getUid()).child(Client.ID_FIELD).setValue(email);
+                                    }else{
+                                        mDatabase.child(node).child(user.getUid()).child(Place.ID_FIELD).setValue(email);
+                                    }
                                     Toast.makeText(activity, activity.getString(R.string.emailChangedCorrectly), Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(activity, activity.getString(R.string.noChangedEmail), Toast.LENGTH_LONG).show();

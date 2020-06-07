@@ -50,7 +50,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             + NUM_ADDRESS + " VARCHAR(10) NOT NULL,"
             + USER_ID_ADDRESS + " VARCHAR(255) NOT NULL)";
 
-    //stringa creazione tabella per conservare la data di prenotazione/ordinazione del cliente per permetterli il giorno seguente di lasciare una recensione
+    //stringa creazione tabella per conservare la data di prenotazione/ordinazione del cliente per permettergli il giorno seguente di lasciare una recensione
     private static final String CREATE_INFO = "CREATE TABLE " + TABLE_INFO + "("
             + ID_INFO + " VARCHAR(20) PRIMARY KEY, "
             + NAME_PLACE + " VARCHAR(50),"
@@ -135,6 +135,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     *
+     * @param db
+     * @param idPlace
+     * @param place
+     * @param date
+     * @param userId
+     */
     public void addInfo(SQLiteDatabase db, String idPlace, String place, String date, String userId) {
         ContentValues values = new ContentValues();
 
@@ -145,6 +153,11 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.insert(TABLE_INFO, null, values);
     }
 
+    /**
+     *
+     * @param db
+     * @param id
+     */
     public void deleteInfo(SQLiteDatabase db, String id) {
         String sql = "DELETE FROM " + TABLE_INFO + " WHERE " + ID_INFO + "= '" + id + "' ;";
         db.execSQL(sql);
