@@ -32,6 +32,9 @@ import java.util.Locale;
 import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
+/**
+ * activity per la registrazione di Place
+ */
 
 public class PlaceRegistrationActivity extends AppCompatActivity {
 
