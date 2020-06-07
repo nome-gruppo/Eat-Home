@@ -89,7 +89,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
             public void onClick(View view) {
                 int i=Integer.parseInt(txtNumberPersonBooking.getText().toString());//trasformo in intero il numero letto dalla TextView
                 i++;//aggiungo un posto
-                txtNumberPersonBooking.setText(Integer.toString(i));//imposto il numero aggiornato nella TextView
+                txtNumberPersonBooking.setText(String.format(Locale.getDefault(),"%d", i));//imposto il numero aggiornato nella TextView
             }
         });
 
@@ -100,7 +100,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
                 int i=Integer.parseInt(txtNumberPersonBooking.getText().toString());//trasformo in intero il numero letto dalla TextView
                 if(i>1){//se il numero letto è maggiore di 1
                     i--;//sottraggo di un posto
-                    txtNumberPersonBooking.setText(Integer.toString(i));//imposto il numero aggiornato nella TextView
+                    txtNumberPersonBooking.setText(String.format(Locale.getDefault(),"%d", i));//imposto il numero aggiornato nella TextView
                 }
             }
         });
