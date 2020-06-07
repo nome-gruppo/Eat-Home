@@ -31,9 +31,13 @@ import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 
+/**FIrebaseConnection contiene costanti e metodi per la gestione del database Firebase e di FirebaseAuthentication
+ *
+ */
 public class FirebaseConnection {
 
     private static final String TAG = "FirebaseConnection";
+    private static final String DB_ADDRESS = "https://eathome-bc890.firebaseio.com/";
 
     public static final String PLACE_NODE = "Places";
     public static final String CLIENT_NODE = "Clients";
@@ -43,42 +47,59 @@ public class FirebaseConnection {
     public static final String FEEDBACK_NODE = "Feedback";
 
     //stringhe usate negli intent
-    public final static String FROM_ANOTHER_ACTIVITY  = "fromActivity";
+    public static final String FROM_ANOTHER_ACTIVITY  = "fromActivity";
     public static final String PLACE = "Place";
     public static final String CLIENT = "Client";
     public static final String ORDER = "Order";
 
     private static DatabaseReference mDatabase;
 
+    //variabile usata nei metodi reauthenticateUser e updatePassword
     private boolean operationSuccess = false;
 
     public FirebaseConnection() {
-        mDatabase = FirebaseDatabase.getInstance("https://eathome-bc890.firebaseio.com/").getReference();
-    }
-
-    public void write(String table, String column, Object value) {
-        mDatabase.child(table).child(column).setValue(value);
-    }
-
-    public void writeObject(String table, Object obj) {
-        mDatabase.child(table).push().setValue(obj);
+        mDatabase = FirebaseDatabase.getInstance(DB_ADDRESS).getReference();
     }
 
     public DatabaseReference getmDatabase() {
         return mDatabase;
     }
 
+    public boolean getOperationSuccess() {
+        return operationSuccess;
+    }
 
-    /**
-     * metodo per ricerca utente nel database Firebase nei nodi Clients e Places
-     * NB: per funzionare correttamente il parametro node passato deve essere Firebase.CLIENT_TABLE
+    /**Scrive una variabile nel database Firebase
+     *
+     * @param node  nodo principale contenente variabili tutte dello stesso tipo.
+     *              Corrisponde ad una delle costanti *_NODE elencate sopra
+     * @param nodeId    sotto-nodo di node identificato da un'id assegnato precedentemente da firebase
+     * @param obj   variabile da scrivere in corrispondenza di node-nodeId
+     */
+    public void write(String node, String nodeId, Object obj) {
+        mDatabase.child(node).child(nodeId).setValue(obj);
+    }
+
+    /**Scrive una variabile nel database Firebase
+     *
+     * @param node  nodo principale contenente variabili tutte dello stesso tipo.
+     *              Corrisponde ad una delle costanti *_NODE elencate sopra
+     * @param obj variabile da inserire in node
+     */
+    public void writeObject(String node, Object obj) {
+        mDatabase.child(node).push().setValue(obj);
+    }
+
+
+    /**metodo per ricerca utente nel database Firebase nei nodi Clients e Places
+     * NB: per funzionare correttamente il parametro node passato deve essere Firebase.CLIENT_NODE
      *
      * @param userId      codice id dell'utente
      * @param node        nodo FirebaseConnection.CLIENT_NODE
      * @param progressBar progressbar presente nell'activity chiamante. null se non presente
      * @param activity    activity chiamante
      */
-    public void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
+    private void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
 
         final boolean fromAnotherActivity = activity.getIntent().getBooleanExtra(FROM_ANOTHER_ACTIVITY ,false);
 
@@ -94,7 +115,6 @@ public class FirebaseConnection {
                     //ricerca nel nodo clienti
                     if (node.equals(FirebaseConnection.CLIENT_NODE)) {
                         final Client client = dataSnapshot.getValue(Client.class);
-
 
                         if(!fromAnotherActivity){
                             final Intent intent = new Intent(activity, HomepageActivity.class);
@@ -135,10 +155,9 @@ public class FirebaseConnection {
         });
     }// end searchUserInDb
 
-    public boolean getOperationSuccess() {
-        return operationSuccess;
+    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity){
+        this.searchUserInDb(userId, CLIENT_NODE, progressBar, activity);
     }
-
     /**
      * metodo che serve per riautenticare l'utente in Firebase.
      * Questa operazione è necessaria per poter eseguire correttamente proceure di modifica e eliminazione dell'account
@@ -150,7 +169,6 @@ public class FirebaseConnection {
     public void reauthenticateUser(FirebaseUser user, String email, String password) {
         AuthCredential credential = EmailAuthProvider
                 .getCredential(email, password);
-
 
         operationSuccess = true;
 
@@ -222,6 +240,7 @@ public class FirebaseConnection {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(activity, R.string.passwordChangedCorrectly, Toast.LENGTH_LONG).show();
+                            operationSuccess = true;
                         } else {
                             Toast.makeText(activity, R.string.noChangedPassword, Toast.LENGTH_LONG).show();
                         }

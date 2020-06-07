@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             user = mAuth.getCurrentUser();
                             if (user != null) {
-                                connection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_NODE, progressBar, LoginActivity.this);
+                                connection.searchUserInDb(user.getUid(), progressBar, LoginActivity.this);
                             }
                         } else {
                             progressBar.setVisibility(View.INVISIBLE);
