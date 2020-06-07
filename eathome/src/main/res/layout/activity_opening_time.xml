@@ -9,12 +9,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+
+
         android:layout_marginTop="20dp"
         app:cardCornerRadius="7dp"
         app:cardElevation="10dp">
@@ -22,6 +25,7 @@
         <LinearLayout
             android:layout_width="388dp"
             android:layout_height="match_parent"
+            android:background="@drawable/cview_border"
             android:orientation="vertical"
             android:scrollbars="vertical"
             android:layout_gravity="center">
@@ -44,6 +48,7 @@
             <TableLayout
                 android:id="@+id/tableLayout"
                 android:layout_width="match_parent"
+                android:background="@drawable/cview_border"
                 android:layout_height="wrap_content">
 
                 <TableRow
@@ -340,6 +345,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:background="@drawable/button_border"
+                android:layout_marginTop="10dp"
                 android:text="@string/tw_signUp" />
 
             <Button
