@@ -99,7 +99,7 @@ public class FirebaseConnection {
      * @param progressBar progressbar presente nell'activity chiamante. null se non presente
      * @param activity    activity chiamante
      */
-    public void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
+    private void searchUserInDb(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
 
         final boolean fromAnotherActivity = activity.getIntent().getBooleanExtra(FROM_ANOTHER_ACTIVITY ,false);
 
@@ -155,7 +155,7 @@ public class FirebaseConnection {
         });
     }// end searchUserInDb
 
-    public void searchUserInDB(final String userId, final ProgressBar progressBar, final Activity activity){
+    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity){
         this.searchUserInDb(userId, CLIENT_NODE, progressBar, activity);
     }
     /**
