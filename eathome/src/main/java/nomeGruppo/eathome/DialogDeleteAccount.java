@@ -3,6 +3,7 @@ package nomeGruppo.eathome;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
@@ -110,6 +112,24 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
                 accountThread.start();
                 feedbackThread.start();
+
+                try {
+                    accountThread.join();
+                    feedbackThread.join();
+
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
+                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(homeIntent);
+                    getActivity().finish();
+                }
+
+
+
             }
         }
     }

@@ -15,7 +15,8 @@ import nomeGruppo.eathome.actions.Address;
  * - myAddresses contiene gli indirizzi di spedizione dell'utente Client
  *
  * - myInfo contiene le informazioni riguardanti il locale da cui il cliente ha ordinato o
- *   prenotato ma che non ha recensito
+ *   prenotato ma che non ha recensito. Le informazioni sono mostrate all'utente alla successiva
+ *   apertura dell'app
  */
 public class DBOpenHelper extends SQLiteOpenHelper {
 
@@ -50,7 +51,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             + NUM_ADDRESS + " VARCHAR(10) NOT NULL,"
             + USER_ID_ADDRESS + " VARCHAR(255) NOT NULL)";
 
-    //stringa creazione tabella per conservare la data di prenotazione/ordinazione del cliente per permettergli il giorno seguente di lasciare una recensione
+    //stringa creazione tabella per conservare la data di prenotazione/ordinazione del cliente per permettergli di lasciare una recensione
     private static final String CREATE_INFO = "CREATE TABLE " + TABLE_INFO + "("
             + ID_INFO + " VARCHAR(20) PRIMARY KEY, "
             + NAME_PLACE + " VARCHAR(50),"
@@ -135,13 +136,13 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
-    /**
+    /**Aggiunge un campo info nella tabella myInfo
      *
-     * @param db
-     * @param idPlace
-     * @param place
-     * @param date
-     * @param userId
+     * @param db    istanza di SQLiteDatabase in cui aggiungere le info
+     * @param idPlace   codice id del locale da recensire
+     * @param place     nome del locale da recensire
+     * @param date      data in cui è avvenuta l'ordinazione/prenotazione
+     * @param userId    codice id (di FirebaseAuth) dell'utente client
      */
     public void addInfo(SQLiteDatabase db, String idPlace, String place, String date, String userId) {
         ContentValues values = new ContentValues();
@@ -153,10 +154,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.insert(TABLE_INFO, null, values);
     }
 
-    /**
+    /**Rimuove un campo info dalla tabella myInfo
      *
-     * @param db
-     * @param id
+     * @param db    stanza di SQLiteDatabase in cui è presente il campo info da rimuovere
+     * @param id    chiave generata da SQLite che identifica la tupla nel database interno
      */
     public void deleteInfo(SQLiteDatabase db, String id) {
         String sql = "DELETE FROM " + TABLE_INFO + " WHERE " + ID_INFO + "= '" + id + "' ;";

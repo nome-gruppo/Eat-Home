@@ -203,17 +203,19 @@ public class FirebaseConnection {
         });
     }
 
-    /**metodo per la modifica della mail di un utente.
+    /**
+     * metodo per la modifica della mail di un utente.
      * La ricerca avviene dapprima in Firebase Authentication, poi nel database RealTime
      * Controlla che non ci siano mail uguali già esistenti
      *
      * @param firebaseAuth istanza FirebaseAuth usata nell'activity chiamante
-     * @param user         istanza di FirebaseUser contenente l'account dell'utente la cui password deve essere aggiornata
-     * @param node
+     * @param user         istanza di FirebaseUser contenente l'account dell'utente la cui email deve essere aggiornata
+     * @param node         nodo di Firebase Realtime in cui sono presenti le informazioni dell'utente user
+     *                     equivale a CLIENT_NODE o PLACE_NODE
      * @param email        nuova email da assegnare all'utente user
      * @param activity     activity chiamante
      */
-    public void updateEmail(FirebaseAuth firebaseAuth, final FirebaseUser user,final String node, final String email, final Activity activity) {
+    public void updateEmail(FirebaseAuth firebaseAuth, final FirebaseUser user, final String node, final String email, final Activity activity) {
 
         //controllo che la mail non sia già presente
         firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
@@ -228,9 +230,9 @@ public class FirebaseConnection {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     //modifica email in Firebase Realtime
-                                    if(node.equals(CLIENT_NODE)) {
+                                    if (node.equals(CLIENT_NODE)) {
                                         mDatabase.child(node).child(user.getUid()).child(Client.ID_FIELD).setValue(email);
-                                    }else{
+                                    } else {
                                         mDatabase.child(node).child(user.getUid()).child(Place.ID_FIELD).setValue(email);
                                     }
                                     Toast.makeText(activity, activity.getString(R.string.emailChangedCorrectly), Toast.LENGTH_LONG).show();
@@ -254,6 +256,13 @@ public class FirebaseConnection {
 
     }//fine updateEmail
 
+    /**
+     * metodo che aggiorna la password di un utente in Firebase Authentiation
+     *
+     * @param user        istanza di FirebaseUser contenente l'account dell'utente la cui password deve essere aggiornata
+     * @param newPassword nuova password da inserire in Firebase Authentiation
+     * @param activity    activity chiamante il metodo
+     */
     public void updatePassword(final FirebaseUser user, final String newPassword, final Activity activity) {
         operationSuccess = false;
         user.updatePassword(newPassword)
@@ -270,8 +279,16 @@ public class FirebaseConnection {
                 });
     }
 
-    public void resetPassword(FirebaseAuth auth, String emailAddress, final Activity activity) {
-        auth.sendPasswordResetEmail(emailAddress)
+    /**
+     * metodo per il reset della password di Firebase Authentication nel caso in cui venga eliminata dall'utente.
+     * Il metodo invia una mail all'utente che permette il reset della password
+     *
+     * @param firebaseAuth istanza FirebaseAuth usata nell'activity chiamante
+     * @param emailAddress email dell'utente che vuole resettare la password
+     * @param activity     activity chiamante il metodo
+     */
+    public void resetPassword(FirebaseAuth firebaseAuth, String emailAddress, final Activity activity) {
+        firebaseAuth.sendPasswordResetEmail(emailAddress)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -282,6 +299,12 @@ public class FirebaseConnection {
                 });
     }
 
+    /**
+     * DeleteAccount è la classe che esegue su un thread secondario l'eliminazione dell'account.
+     * <p>
+     * Vengono cancellate le informazioni personali dell'utente (sia Client che Place) da Firebase Authentication
+     * e da Firebase Realtime
+     */
     public static class DeleteAccount implements Runnable {
 
         private final FirebaseUser user;
@@ -304,19 +327,12 @@ public class FirebaseConnection {
                 public void onComplete(@NonNull Task<Void> task) {
 
                     if (task.isSuccessful()) {
-
-
                         mDatabase.child(table).child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     dataSnapshot.getRef().removeValue();
 
-                                    Intent homeIntent = new Intent(activity, HomepageActivity.class);
-                                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    activity.startActivity(homeIntent);
-                                    activity.finish();
                                 }
                             }
 
@@ -331,7 +347,10 @@ public class FirebaseConnection {
         }
     }
 
-
+    /**
+     * DeleteAccount è la classe che esegue su un thread secondario l'eliminazione delle recensioni
+     * rilasciate dal cliente che decide di eliminare l'account
+     */
     public static class DeleteFeedback implements Runnable {
 
         private final String uID;
