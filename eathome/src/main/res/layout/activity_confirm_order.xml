@@ -20,12 +20,12 @@
         android:layout_marginHorizontal="20dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="6dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/trasparent2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/cview_border">
+            android:layout_height="200dp">
 
             <TextView
                 android:id="@+id/textView"
@@ -113,7 +113,7 @@
         android:layout_marginHorizontal="20dp"
         app:cardCornerRadius="2dp"
         app:cardElevation="6dp"
-        app:cardBackgroundColor="@color/colorSecondary"
+        app:cardBackgroundColor="@color/colorThird"
         android:layout_marginVertical="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -142,7 +142,7 @@
         android:background="@drawable/edit_text_border"
         android:drawableStart="@drawable/ic_menu_login"
         android:ems="10"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="10dp"
         android:layout_gravity="center"
         android:hint="@string/name"
         android:inputType="textPersonName"
@@ -156,7 +156,7 @@
         android:background="@drawable/edit_text_border"
         android:drawableStart="@drawable/ic_local_phone_black_24dp"
         android:ems="10"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="10dp"
         android:layout_gravity="center"
         android:hint="@string/enterPhone"
         android:inputType="phone"
@@ -167,34 +167,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:background="@drawable/edit_text_border"
+        android:background="@drawable/button_style"
         android:drawableStart="@drawable/ic_access_time_black_24dp"
         android:ems="10"
-        android:layout_marginVertical="20dp"
-        android:layout_gravity="center"
+        android:layout_marginVertical="10dp"
+        android:drawablePadding="5dp"
+        android:textAlignment="textStart"
         android:text="@string/choose_time" />
 
             <Button
                 android:id="@+id/btnAddNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:textAlignment="textStart"
                 android:layout_marginHorizontal="20dp"
-                android:background="@drawable/edit_text_border"
+                android:layout_marginVertical="00dp"
+                android:background="@drawable/button_style"
                 android:drawableStart="@drawable/ic_profile_edit"
                 android:ems="10"
-                android:layout_marginVertical="20dp"
-                android:layout_gravity="center"
                 android:text="@string/add_note" />
 
 
             <Button
-        android:id="@+id/btnConfirmOrder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="40dp"
-        android:background="@drawable/button_border"
-        android:text="@string/confirm" />
+                android:id="@+id/btnConfirmOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="40dp"
+                android:background="@drawable/button_border"
+                android:text="@string/confirm" />
 
         </LinearLayout>
 
