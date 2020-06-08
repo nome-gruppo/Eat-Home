@@ -6,36 +6,57 @@
     android:background="@drawable/background">
 
 
+    <ImageView
+        android:id="@+id/activity_launcher_logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/button_style"
+        android:contentDescription="@string/launcher"
+        android:elevation="15dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/editNameClient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/name"
-        android:background="@drawable/edit_text_border"
-        android:layout_marginTop="180dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginVertical="8dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_text_border"
         android:drawableStart="@drawable/ic_menu_login"
-        android:textAlignment="center"
-        android:inputType="textPersonName"
-        android:importantForAutofill="no" />
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="@string/name"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editMailClient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/ic_email_black_24dp"
+        android:drawablePadding="5dp"
         android:ems="10"
         android:hint="@string/enterEmail"
-        android:background="@drawable/edit_text_border"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:drawableStart="@drawable/ic_email_black_24dp"
-        android:textAlignment="center"
-        android:inputType="textEmailAddress"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/editPasswordClient"
@@ -44,11 +65,13 @@
         android:ems="10"
         android:hint="@string/enterPassword"
         android:background="@drawable/edit_text_border"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="8dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
         android:drawableStart="@drawable/ic_vpn_key_black_24dp"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
+        android:drawablePadding="5dp"
         android:inputType="textPassword"
         android:importantForAutofill="no"/>
 
@@ -57,8 +80,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/action_sign_in"
-        android:background="@drawable/button_border"
-        android:layout_marginVertical="10dp"
+        android:background="@drawable/button_style"
+        android:layout_marginVertical="30dp"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"/>
 
