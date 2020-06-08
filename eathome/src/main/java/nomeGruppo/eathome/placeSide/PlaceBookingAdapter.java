@@ -21,6 +21,7 @@ import nomeGruppo.eathome.actions.Booking;
 /*
 adapter per visualizzare le prenotazioni
  */
+
 public class PlaceBookingAdapter extends ArrayAdapter<Booking> {
 
     private final Resources res;

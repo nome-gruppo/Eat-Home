@@ -33,6 +33,7 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 /*
 dialog per l'inserimento delle recensioni da parte del cliente
  */
+
 public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private RatingBar ratingBar;
     private final String idPlace;
@@ -92,6 +93,9 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         return builder.create();
     }
 
+    /**
+     * metodo per inserire la recensione in db firebase
+     */
     private void sendReview(){
         Feedback feedback=new Feedback();
         if(editFeedback.getText().toString().trim().length()==0){
@@ -111,6 +115,9 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         firebaseConnection.write(FirebaseConnection.FEEDBACK_NODE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
     }
 
+    /**
+     * metodo per aggiornare la media della valutazione del locale
+     */
     private void updateValuationPlace(){
 
         //leggo il Place corrispondente all'id all'interno di firebase

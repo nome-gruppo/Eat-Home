@@ -2,7 +2,6 @@ package nomeGruppo.eathome.placeSide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +25,7 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 /*
 activity per far visualizzare a Place le proprie recensioni
  */
+
 public class FeedbackPlaceActivity extends AppCompatActivity {
 
     private Place mPlace;
@@ -79,7 +79,11 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
 
     }
 
-    private void loadFeedback(){//funzione per visualizzare le recensioni presenti
+    /**
+     * metodo per visualizzare le recensioni presenti
+     */
+
+    private void loadFeedback(){
 
         final FirebaseConnection connection = new FirebaseConnection();
         final DatabaseReference mDB = connection.getmDatabase();

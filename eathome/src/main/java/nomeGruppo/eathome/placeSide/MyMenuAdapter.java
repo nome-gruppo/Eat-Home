@@ -26,6 +26,7 @@ import nomeGruppo.eathome.foods.Food;
 /*
 adapter per la gestione del menu da parte di Place
  */
+
 public class MyMenuAdapter extends ArrayAdapter<Food> {
     private final Place place;
     private final List<Food>list;
@@ -73,8 +74,13 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         return convertView;
     }
 
+    /**
+     * creo un alert dialogo per chiedere conferma all'utente della cancellazione
+     * @param food cibo da cancellare
+     */
 
-    private void openDialog(final Food food){ //creo un alert dialogo per chiedere conferma all'utente della cancellazione
+
+    private void openDialog(final Food food){
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.confirmation);
         builder.setMessage(getContext().getResources().getString(R.string.cancelConfirmation)+" "
@@ -94,6 +100,11 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         alert.show();
 
     }
+
+    /**
+     * metodo per cancellare food dal db firebase
+     * @param food cibo da cancellare
+     */
 
     private void deleteFoodFirebase(final Food food) {
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
@@ -115,7 +126,12 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         getContext().startActivity(homePage);//torno alla homePage
     }
 
-    private void openDialogEditFood(final Food food){// dialog per modificare il cibo selezionato
+    /**
+     * dialog per modificare il cibo selezionato
+     * @param food cibo da modificare
+     */
+
+    private void openDialogEditFood(final Food food){
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
 
         Activity activity = (Activity) getContext();
@@ -154,7 +170,13 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         alert.show();
     }
 
-    private void editFoodFirebase(Food oldFood, Food editFood){//funzione per modificare il cibo all'interno del db firebase
+    /**
+     * metodo per modificare il cibo all'interno del db firebase
+     * @param oldFood cibo prima della modifica
+     * @param editFood cibo dopo la modifica
+     */
+
+    private void editFoodFirebase(Food oldFood, Food editFood){
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
         //seleziono il cibo con lo stesso nome del cibo da modificare
         firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(oldFood.idFood).setValue(editFood);

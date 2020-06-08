@@ -146,16 +146,29 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         });
     }
 
+    /**
+     * metodo per aprire il dialog per aggiungere voci al menu
+     */
+
     private void openDialog(){
         DialogAddMenu dialogAddMenu=new DialogAddMenu();
         dialogAddMenu.show(getSupportFragmentManager(),"Dialog add menu");
     }
 
+    /**
+     * metodo per aprire la galleria del dispositivo
+     */
     private void openGallery(){
         //intent per accedere alla galleria
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
     }
 
+    /**
+     * metodo per prendere l'immagine dalla galleria dell'utente e caricarla sull'app
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -181,6 +194,13 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             }
         }
     }
+
+    /**
+     * metodo per inserire la nuova voce del menu al db firebase
+     * @param nameFood nome del cibo da aggiungere
+     * @param ingredientsFood ingredienti del cibo da aggiungere
+     * @param priceFood prezzo del cibo da aggiungere
+     */
 
     @Override
     public void applyTexts(String nameFood, String ingredientsFood,float priceFood) {

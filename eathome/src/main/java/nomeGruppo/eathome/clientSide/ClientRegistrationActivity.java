@@ -101,6 +101,12 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * metodo per creare l'account cliente
+     * @param email
+     * @param password
+     */
+
     public void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
