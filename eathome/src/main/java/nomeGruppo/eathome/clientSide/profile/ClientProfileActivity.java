@@ -265,7 +265,7 @@ public class ClientProfileActivity extends AppCompatActivity {
                     if (controls.isEmailValid(email)) {
 
                         //cambia email in firebase authentication
-                        connection.updateEmail(mAuth, user, email, ClientProfileActivity.this);
+                        connection.updateEmail(mAuth, user, FirebaseConnection.CLIENT_NODE, email, ClientProfileActivity.this);
 
                         //controllo se l'email è stata cambiata, allora modifica le informazioni da inserire nel database
                         if (email.equals(user.getEmail())) {

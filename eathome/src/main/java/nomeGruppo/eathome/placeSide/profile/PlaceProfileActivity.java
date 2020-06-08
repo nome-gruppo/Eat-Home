@@ -375,7 +375,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
                     //controllo validità formato mail
                     if (controls.isEmailValid(email)) {
 
-                        connection.updateEmail(mAuth, user, email, PlaceProfileActivity.this);
+                        connection.updateEmail(mAuth, user,FirebaseConnection.PLACE_NODE, email, PlaceProfileActivity.this);
 
                         //controllo se l'email è stata cambiata, allora modifica le informazioni da inserire nel database
                         if (email.equals(user.getEmail())) {
