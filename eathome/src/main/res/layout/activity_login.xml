@@ -8,23 +8,42 @@
     tools:context=".LoginActivity">
     <!-- TODO l'id precedente era container-->
 
+
+    <ImageView
+        android:id="@+id/activity_launcher_logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="203dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="203dp"
+        android:background="@drawable/button_style"
+        android:contentDescription="@string/launcher"
+        android:elevation="15dp"
+        android:foregroundGravity="center"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/activity_login_et_email"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="240dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints="@string/prompt_email"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/ic_email_black_24dp"
+        android:drawablePadding="5dp"
         android:hint="@string/prompt_email"
-        android:textAlignment="center"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
-        android:drawableStart="@drawable/ic_email_black_24dp"
-        android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="@string/prompt_email"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/activity_login_et_password"
@@ -33,18 +52,19 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints="@string/prompt_password"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+        android:drawablePadding="5dp"
         android:hint="@string/prompt_password"
-        android:textAlignment="center"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
-        android:background="@drawable/edit_text_border"
-        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_email"
-        android:autofillHints="@string/prompt_password"/>
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_email" />
 
     <ProgressBar
         android:id="@+id/activity_login_pb_loading"
@@ -57,61 +77,70 @@
         app:layout_constraintStart_toStartOf="@+id/activity_login_et_password"
         app:layout_constraintTop_toBottomOf="@id/activity_login_et_password" />
 
+
     <Button
         android:id="@+id/activity_login_btn_login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="65dp"
         android:layout_marginHorizontal="20dp"
-        android:background="@drawable/button_border"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/button_style"
         android:enabled="false"
         android:text="@string/action_sign_in"
+        android:textAlignment="center"
+        android:textColor="@color/quantum_white_100"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_et_password" />
-
-
 
     <TextView
         android:id="@+id/activity_login_tw_signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="136dp"
         android:clickable="true"
+        android:focusable="true"
         android:text="@string/tw_signUp"
+        android:textAlignment="center"
         android:textColor="@color/quantum_white_100"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_login_btn_login"
-        tools:ignore="OnClick"
-        android:focusable="true" />
+        tools:ignore="OnClick" />
 
     <TextView
         android:id="@+id/activity_login_tw_resetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
         android:text="@string/forgot_password"
         android:textColor="@color/quantum_white_100"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_login_btn_login"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_login_tw_signIn"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_password"
+        app:layout_constraintVertical_bias="0.181" />
 
     <TextView
         android:id="@+id/activity_login_tw_signInPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="31dp"
         android:clickable="true"
-        android:textColor="@color/quantum_white_100"
+        android:focusable="true"
+        android:gravity="center"
         android:text="@string/tw_restaurantOwner"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/quantum_white_100"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_login_tw_resetPassword"
-        android:focusable="true" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_tw_signIn"
+        app:layout_constraintVertical_bias="0.024" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
