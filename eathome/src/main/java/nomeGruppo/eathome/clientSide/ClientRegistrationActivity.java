@@ -101,6 +101,12 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * metodo per creare l'account cliente
+     * @param email
+     * @param password
+     */
+
     public void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -120,8 +126,8 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
                             Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, HomepageActivity.class);
                             clientHomeIntent.putExtra(FirebaseConnection.CLIENT, client);
-                            Toast.makeText(ClientRegistrationActivity.this, R.string.successfulRegistration, DURATION).show();
-                            startActivity(clientHomeIntent);
+                            Toast.makeText(ClientRegistrationActivity.this, R.string.successfulRegistration, DURATION).show();//mostro messaggio di successo
+                            startActivity(clientHomeIntent);//avvio homePage
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

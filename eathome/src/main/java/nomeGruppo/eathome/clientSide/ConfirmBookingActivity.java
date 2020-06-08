@@ -157,6 +157,14 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         openCalendar();
     }
 
+    /**
+     * metodo per impostare la data della prenotazione
+     * @param datePicker calendario di default
+     * @param year anno prenotazione
+     * @param month mese prenotazione
+     * @param dayOfMonth giorno prenotazione
+     */
+
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         dateBooking.set(year,month,dayOfMonth);//imposto la data
@@ -177,6 +185,12 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
             }
     }
 
+    /**
+     * metodo per impostare l'ora della prenotazione
+     * @param timePicker orologio di default
+     * @param hour ora prenotazione
+     * @param minutes minuti prenotazione
+     */
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
         //uso la funzione getDayOfWeek per convertire il valore numerico restituito da Calendra.DAY_OF_WEEk nella stringa corrispondente al giorno della settimana
@@ -214,17 +228,29 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
     }
 
+    /**
+     * metodo per visualizzare l'orologio di default
+     */
+
     private void openDialogChooseHour(){
         DialogFragment timePicker=new TimePickerFragment();
         timePicker.show(getSupportFragmentManager(),"Time picker");
     }
+
+    /**
+     * metodo per visualizzare il calendario di default
+     */
 
     private void openCalendar(){
         DialogFragment datePicker=new DatePickerFragment();//apro il calendario
         datePicker.show(getSupportFragmentManager(),"Date picker");
     }
 
-    private void openDialogConfirm(){//dialog  di conferma
+    /**
+     * dialog  di conferma della prenotazione
+     */
+
+    private void openDialogConfirm(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle(this.getResources().getString(R.string.confirm));
         builder.setMessage(this.getResources().getString(R.string.are_you_sure));
@@ -248,6 +274,10 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    /**
+     * metodo per inserire la prenotazione nel db Firebase
+     */
 
     private void addBookingFirebase(){
         //assegno all'oggetto booking i valori

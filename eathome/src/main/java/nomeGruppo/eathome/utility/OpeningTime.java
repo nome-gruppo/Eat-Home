@@ -24,6 +24,11 @@ public class OpeningTime {
 
     }
 
+    /**
+     * metodo per impostare l'ora di apertura di place
+     * @param context contesto dell'activity chiamante
+     * @param edit bottone cliccato dall'utente per la modifica dell'orario di apertura
+     */
     public void setOpeningTime(final Context context, final Button edit){
         final Calendar cldr = Calendar.getInstance();
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
@@ -41,6 +46,12 @@ public class OpeningTime {
 
     }
 
+    /**
+     * metodo per impostare l'ora di chiusura di place
+     * @param context contesto dell'activity chiamante
+     * @param editOpen bottone che visualizza l'ora di apertura
+     * @param editClosed bottone cliccato dall'utente per la modifica dell'ora di chiusura
+     */
     public void setOpeningTimeClose(final Context context, final Button editOpen, final Button editClosed){
         String hourMonday=editOpen.getText().toString();
         final Calendar cldr = Calendar.getInstance();
@@ -62,6 +73,11 @@ public class OpeningTime {
         picker.show();
     }
 
+    /**
+     *metodo per gestire lo switch in caso di place chiuso
+     * @param editOpen bottone per impostare l'ora di apertura
+     * @param editClosed bottone per impostare l'ora di chiusura
+     */
     public void setSwitch(final Button editOpen, final Button editClosed){
         editOpen.setEnabled(false);
         editClosed.setEnabled(false);
@@ -69,6 +85,12 @@ public class OpeningTime {
         editClosed.setText("");
     }
 
+    /**
+     * metodo per gestire lo switch in caso di place aperto
+     * @param context contesto dell'activity chiamante
+     * @param editOpen bottone per impostare l'ora di apertura
+     * @param editClosed bottone per impostare l'ora di chiusura
+     */
     public void setSwitchChecked(Context context, final Button editOpen,final Button editClosed){
         editOpen.setEnabled(true);
         editClosed.setEnabled(true);
@@ -76,7 +98,12 @@ public class OpeningTime {
         editClosed.setText(context.getResources().getString(R.string.to));
     }
 
-    public String getDayOfWeek(int value) {//funzione per convertire DAY_OF_WEEK restituito da Calendar da formato numerico a String
+    /**
+     * funzione per convertire DAY_OF_WEEK restituito da Calendar da formato numerico a String
+     * @param value valore numerico restituito da Calendar
+     * @return la stringa con il giorno corrispondente
+     */
+    public String getDayOfWeek(int value) {
         String day = "";
         switch (value) {
             case 1:
@@ -104,22 +131,47 @@ public class OpeningTime {
         return day;
     }
 
+    /**
+     * metodo per recuperare l'orario di apertura in formato Date
+     * @param context
+     * @param openingTime orario di apertura+chiusura
+     * @return orario di apertura in formato Date
+     * @throws ParseException
+     */
     public Date getTimeOpening(Context context, String openingTime) throws ParseException {
         SimpleDateFormat parser = new SimpleDateFormat(context.getResources().getString(R.string.hourFormat), Locale.getDefault());
         String[] result=openingTime.split(DASH);
         return parser.parse(result[0]);
     }
 
+    /**
+     * metodo per recuperare l'orario di chiusura in formato Date
+     * @param context
+     * @param openingTime orario di apertura+chiusura
+     * @return orario di chisura in formato Date
+     * @throws ParseException
+     */
     public Date getTimeClosed(Context context, String openingTime) throws ParseException {
         SimpleDateFormat parser = new SimpleDateFormat(context.getResources().getString(R.string.hourFormat), Locale.getDefault());
         String[] result=openingTime.split(DASH);
         return parser.parse(result[1]);
     }
 
+    /**
+     *  metodo per recuperare l'orario di apertura in formato String
+     * @param openingTime orario di apertura+chiusura
+     * @return orario di apertura in formato String
+     */
     public String getOpening(String openingTime){
         String[] result=openingTime.split(DASH);
         return result[0];
     }
+
+    /**
+     *  metodo per recuperare l'orario di chiusura in formato String
+     * @param openingTime orario di apertura+chiusura
+     * @return orario di chisura in formato String
+     */
     public String getClosed(String openingTime){
         String[]result=openingTime.split(DASH);
         return result[1];

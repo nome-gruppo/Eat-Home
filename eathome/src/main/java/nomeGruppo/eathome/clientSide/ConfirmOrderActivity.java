@@ -14,20 +14,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Client;
@@ -40,6 +36,7 @@ import nomeGruppo.eathome.utility.TimePickerFragment;
 /*
 activity per completare e confermare un ordine
  */
+
 public class ConfirmOrderActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private Order order;
@@ -127,6 +124,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     }
 
+    /**
+     * metodo per aggiungere eventuali note all'ordinazione
+     */
+
     private void openDialogAddNote(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ConfirmOrderActivity.this.getLayoutInflater();
@@ -159,6 +160,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         alert.show();
     }
 
+    /**
+     * dialog di conferma ordinazione
+     */
+
     private void openDialogConfirm() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -190,6 +195,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     }
 
+    /**
+     * metodo per aggiungere l'ordinazione in db firebase
+     */
     private void addOrderFirebase() {
         order.setNameClientOrder(editName.getText().toString());
         order.setPhoneClientOrder(editPhone.getText().toString());
@@ -206,6 +214,13 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         //inserisco l'informazione dell'ordinazione nel db interno
         mDBHelper.addInfo(mDB, order.idPlaceOrder, order.namePlaceOrder, new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(new Date()), mUser.getUid());
     }
+
+    /**
+     * metodo per impostare l'ora di consegna dell'ordinazione
+     * @param timePicker orologio di default
+     * @param hourOfDay ora consegna
+     * @param minutes minuti consegna
+     */
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {

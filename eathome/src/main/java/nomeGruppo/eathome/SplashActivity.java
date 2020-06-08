@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-public class LauncherActivity extends AppCompatActivity{
+public class SplashActivity extends AppCompatActivity{
 
     private ProgressBar progressBar;
     private FirebaseUser user;
@@ -29,7 +29,7 @@ public class LauncherActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launcher);
+        setContentView(R.layout.activity_splash);
 
         progressBar =findViewById(R.id.activity_launcher_progressBar);
         errorTv = findViewById(R.id.activity_launcher_tv_error);
@@ -54,7 +54,7 @@ public class LauncherActivity extends AppCompatActivity{
                 final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
                 try {
-                    firebaseConnection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_NODE, progressBar, this);
+                    firebaseConnection.searchUserInDb(user.getUid(), progressBar, this);
                 } catch (Resources.NotFoundException e) {
                     errorTv.setVisibility(View.VISIBLE);
                     e.printStackTrace();
@@ -69,7 +69,7 @@ public class LauncherActivity extends AppCompatActivity{
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    LauncherActivity.this.finish();
+                    SplashActivity.this.finish();
                     System.exit(0);
                 }
             }, 4000);

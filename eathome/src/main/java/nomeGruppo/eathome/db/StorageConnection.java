@@ -11,6 +11,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
+/*
+classe di utilità per lo storage di firebase
+ */
 public class StorageConnection {
     private final StorageReference mStorageRef;
 
@@ -19,27 +22,7 @@ public class StorageConnection {
         this.mStorageRef = firebaseStorage.getReference();
     }
 
-//    public void uploadImage(String imagePath, String idPlace) {
-//        Uri file = Uri.fromFile(new File(imagePath));
-//        StorageReference riversRef = this.mStorageRef.child("images/" + idPlace + ".jpg");
-//        UploadTask uploadTask = riversRef.putFile(file);
-//
-//// Register observers to listen for when the download is done or if it fails
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                // Handle unsuccessful uploads
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-//                // ...
-//            }
-//        });
-//
-//    }
-
+    //metodo per caricare l'immagine nello storage
     public void uploadImageBitmap(ByteArrayOutputStream stream, String idPlace){
         byte[] image = stream.toByteArray();
 
@@ -59,6 +42,7 @@ public class StorageConnection {
 
     }
 
+    //metodo per ottenere il riferimento all'immagine corrispondente al Place
     public StorageReference storageReference(String idPlace){
         return this.mStorageRef.child("images/" + idPlace + ".jpg");
     }

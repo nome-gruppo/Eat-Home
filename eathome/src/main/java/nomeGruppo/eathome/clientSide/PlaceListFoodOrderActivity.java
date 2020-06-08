@@ -16,24 +16,20 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
@@ -44,6 +40,10 @@ import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.foods.Food;
 import nomeGruppo.eathome.utility.MenuAdapterForClient;
+
+/*
+activity per visualizzare e interagire con la lista dei cibi da ordinare
+ */
 
 public class PlaceListFoodOrderActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
 
@@ -135,7 +135,10 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         }
     }
 
-    //dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
+    /**
+     *  dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
+     */
+
     public void openDialogOrder(final HashMap<Food, Integer> listFoodOrder, final Place place) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(this.getResources().getString(R.string.order_summary));
@@ -187,6 +190,9 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 //        }
     }
 
+    /**
+     * metodo per visualizzare la lista dei cibi ordinabili presenti
+     */
     private void loadFood() {
         listFood.clear();
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
@@ -210,7 +216,9 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         });
     }
 
-    //dialog per selezionare l'indirizzo di spedizione
+    /**
+     *    dialog per selezionare l'indirizzo di spedizione
+     */
     private void openDialogChooseAddress(final Place place) {
 
         final LayoutInflater inflater = PlaceListFoodOrderActivity.this.getLayoutInflater();
@@ -275,7 +283,12 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         });
     }
 
-    private Order setOrder(Address addressOrder) {//funzione per settare i valore di order
+    /**
+     * metodo per settare i valore di order
+     * @param addressOrder indirizzo di spedizione
+     * @return
+     */
+    private Order setOrder(Address addressOrder) {
         Address mAddress = new Address(place.cityPlace, place.addressPlace, place.addressNumPlace);
         order.setIdClientOrder(user.getUid());
         order.setIdPlaceOrder(place.idPlace);
@@ -290,6 +303,9 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         return order;
     }
 
+    /**
+     * adapter per gli indirizzi
+     */
     private static class AddressAdapter extends ArrayAdapter<Address> {
 
         private AddressAdapter(@NonNull Context context, int resource, List<Address> list) {

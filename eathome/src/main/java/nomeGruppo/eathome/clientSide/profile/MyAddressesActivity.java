@@ -21,6 +21,10 @@ import nomeGruppo.eathome.clientSide.DialogAddAddress;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
+/*
+activity per la gestione degli indirizzi
+ */
+
 public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
 
     private AddressAdapter mAdapter;
@@ -47,20 +51,21 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
         addressList = new ArrayList<>();
         addressesLW = findViewById(R.id.activity_my_addresses_listView);
-        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);//recupero oggetto cliente passato
 
-        if (client != null) {
-            mAdapter = new AddressAdapter(this, addressList, client.idClient, MyAddressesActivity.this);
+        if (client != null) {//se esiste un oggetto cliente
+            mAdapter = new AddressAdapter(this, addressList, client.idClient, MyAddressesActivity.this);//imposto l'adapter
 
+            //cursor per leggere nel db interno
             Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES, DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID_ADDRESS, new String[]{client.idClient}, null, null, null);
 
-            final int rows = c.getCount();
+            final int rows = c.getCount();//recupero numero di righe
 
             //recupero indirizzi dal database
-            if (rows == 0) {
-                noAddressesTW.setVisibility(View.VISIBLE);
-            } else {
-                while (c.moveToNext()) {
+            if (rows == 0) {//se numero di righe=0
+                noAddressesTW.setVisibility(View.VISIBLE);//mostro testo nessun indirizzo
+            } else {//se esiste almeno una riga
+                while (c.moveToNext()) {//muovo il cursore
 
                     int idAddress = c.getInt(c.getColumnIndexOrThrow(DBOpenHelper.ID_ADDRESS));
                     String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS));
@@ -68,16 +73,16 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
                     String city = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY));
 
                     Address addressObj = new Address(idAddress, city, address, numAddress);
-                    addressList.add(addressObj);
+                    addressList.add(addressObj);//aggiungo l'indirizzo alla lista collegata all'adapter
                 }
                 addressesLW.setAdapter(mAdapter);
-                c.close();
+                c.close();//chiuso il cursor
             }
 
-            addAddressBtn.setOnClickListener(new View.OnClickListener() {
+            addAddressBtn.setOnClickListener(new View.OnClickListener() {//se clicca sul bottono aggiungi indirizzo
                 @Override
                 public void onClick(View view) {
-                    openDialog();
+                    openDialog();//chiama funzione openDialog()
                 }
             });
         }
@@ -85,7 +90,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     public void openDialog() {
         DialogAddAddress dialogAddAddress = new DialogAddAddress();
-        dialogAddAddress.show(getSupportFragmentManager(), "Dialog add address");
+        dialogAddAddress.show(getSupportFragmentManager(), "Dialog add address");//mostra dialogAddAddress
     }
 
     public TextView getNoAddressTW() {

@@ -180,6 +180,10 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         }
     }
 
+    /**
+     * metodo per leggere e visualizzare gli orari di apertura di place
+     * @throws ParseException
+     */
     public void openingTime() throws ParseException {
         final Calendar calendar = Calendar.getInstance();
         SimpleDateFormat parser = new SimpleDateFormat(getString(R.string.hourFormat), Locale.getDefault());

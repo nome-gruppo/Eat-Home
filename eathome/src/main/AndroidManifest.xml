@@ -40,7 +40,7 @@
         <activity android:name=".clientSide.profile.ClientProfileActivity"
             android:label="@string/my_account"/>
 
-        <activity android:name=".LauncherActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

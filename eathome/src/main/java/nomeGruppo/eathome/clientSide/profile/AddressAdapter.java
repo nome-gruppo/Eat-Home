@@ -21,6 +21,9 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.db.DBOpenHelper;
 
+/*
+adapter per la gestione degli indirizzi dell'utente
+*/
 
 public class AddressAdapter extends ArrayAdapter<Address> {
 
@@ -36,7 +39,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
     AddressAdapter(@NonNull Context context, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
         super(context, R.layout.listitem_my_address, list);
         this.idClient = idClient;
-        this.list = list;
+        this.list = list;//lista indirizzi
         this.callingActivity = callingActivity;
     }
 
@@ -85,7 +88,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
                 public void onClick(View view) {
                     list.remove(addressObj);
                     notifyDataSetChanged();
-                    helper.deleteAdd(mDB, addressObj.getIdAddress(), idClient);
+                    helper.deleteAddress(mDB, addressObj.getIdAddress(), idClient);
 
                     if (list.isEmpty()) {
                         callingActivity.getNoAddressTW().setVisibility(View.VISIBLE);
@@ -136,7 +139,7 @@ public class AddressAdapter extends ArrayAdapter<Address> {
                         editNumberAddress.getText().toString(), editCity.getText().toString());
                 list.remove(addressObj);
                 list.add(newAddress);
-                helper.updateAdd(mDB, newAddress, idClient);
+                helper.updateAddress(mDB, newAddress, idClient);
                 notifyDataSetChanged();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {

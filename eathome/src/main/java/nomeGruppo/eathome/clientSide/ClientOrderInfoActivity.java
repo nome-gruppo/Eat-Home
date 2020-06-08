@@ -81,13 +81,21 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
         readOrder();
     }
 
+    /**
+     * metodo per aprire il dialog per visualizzare i dettagli dell'ordine
+     */
+
     private void openDialogOrderSummary(Order order){
         DialogListFoodOrder dialogListFoodOrder=new DialogListFoodOrder(order);
-        dialogListFoodOrder.show(getSupportFragmentManager(),"Dialog list food");
+        dialogListFoodOrder.show(getSupportFragmentManager(),"Dialog list food");//mostro dialogListFoodOrder
     }
 
+    /**
+     * metodo per leggere gli ordini del cliente dal db firebase
+     */
+
     private void readOrder(){
-        listOrder.clear();
+        listOrder.clear();//cancello la lista ordini
 
         //leggo in firebase gli ordini in base all'id del cliente
         firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_NODE).orderByChild("idClientOrder").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {

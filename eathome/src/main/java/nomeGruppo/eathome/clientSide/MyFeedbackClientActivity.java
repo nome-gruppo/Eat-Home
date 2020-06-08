@@ -67,6 +67,9 @@ public class MyFeedbackClientActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * metodo per visualizzare le recensioni date dal cliente
+     */
     private void loadFeedback(){
 
         final FirebaseConnection connection = new FirebaseConnection();

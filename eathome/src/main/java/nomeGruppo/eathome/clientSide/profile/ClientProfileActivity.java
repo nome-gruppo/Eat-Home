@@ -23,6 +23,9 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.DialogDeleteAccount;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
+/*
+activity per la gestione del profilo del cliente
+ */
 public class ClientProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -57,7 +60,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_profile);
 
 
-        this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);//ricevo l'oggetto cliente dall'activity chiamante
 
         final Toolbar toolBarClientProfile = findViewById(R.id.tlbClientProfile);
         setSupportActionBar(toolBarClientProfile);
@@ -65,10 +68,10 @@ public class ClientProfileActivity extends AppCompatActivity {
         toolBarClientProfile.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
         toolBarClientProfile.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//se clicca sul pulsante indietro della toolbar
                 Intent otherActivityIntent=new Intent(ClientProfileActivity.this, OtherActivity.class);
                 otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
-                startActivity(otherActivityIntent);
+                startActivity(otherActivityIntent);//avvio l'activity precedente(other activity)
                 finish();
             }
         });
@@ -88,17 +91,17 @@ public class ClientProfileActivity extends AppCompatActivity {
         deleteAccountBtn = findViewById(R.id.activity_client_btn_deleteAccount);
         final Button btnSave = findViewById(R.id.activity_client_btn_save);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {//se clicca su salva
             @Override
             public void onClick(View view) {
-                if(edit){
-                    editFinished = true;
+                if(edit){//se c'è stata una modifica
+                    editFinished = true;//imposto il falg modifica a true
                     Intent otherActivityIntent=new Intent(ClientProfileActivity.this, OtherActivity.class);
                     otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
-                    startActivity(otherActivityIntent);
+                    startActivity(otherActivityIntent);//avvio l'activity predecente(other activity)
                     finish();
-                }else{
-                    Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.no_change),Toast.LENGTH_SHORT).show();
+                }else{//se non c'è stata alcuna modifica
+                    Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.no_change),Toast.LENGTH_SHORT).show();//messaggio nessuna modifica
                 }
             }
         });
@@ -138,11 +141,11 @@ public class ClientProfileActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if(editFinished){
+        if(editFinished){//se c'è stata una modifica
             FirebaseConnection connection = new FirebaseConnection();
             connection.write(FirebaseConnection.CLIENT_NODE, user.getUid(), client);
 
-            Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();
+            Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();//messaggio modica avvenuta con successo
         }
     }
 
@@ -262,7 +265,7 @@ public class ClientProfileActivity extends AppCompatActivity {
                     if (controls.isEmailValid(email)) {
 
                         //cambia email in firebase authentication
-                        connection.updateEmail(mAuth, user, email, ClientProfileActivity.this);
+                        connection.updateEmail(mAuth, user, FirebaseConnection.CLIENT_NODE, email, ClientProfileActivity.this);
 
                         //controllo se l'email è stata cambiata, allora modifica le informazioni da inserire nel database
                         if (email.equals(user.getEmail())) {

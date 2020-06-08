@@ -18,6 +18,9 @@ import java.util.Locale;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;
 
+/*
+adapter per visualizzare le prenotazioni
+ */
 
 public class PlaceBookingAdapter extends ArrayAdapter<Booking> {
 
@@ -41,11 +44,12 @@ public class PlaceBookingAdapter extends ArrayAdapter<Booking> {
             final Booking booking = getItem(position);
 
             if(booking != null) {
-                title.setText(booking.nameBooking);
-                address.setVisibility(View.INVISIBLE);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(booking.dateBooking);
-                date.setText(new SimpleDateFormat("EEEE," + res.getString(R.string.dateFormat) + ", " + res.getString(R.string.hourFormat), Locale.getDefault()).format(calendar));
+                title.setText(booking.nameBooking);//imposto come titolo il nome del cliente che ha prenotato
+                address.setVisibility(View.INVISIBLE);//rendo invisibile la textView per l'indirizzo
+                Calendar calendar = Calendar.getInstance();//istanzio Calendar
+                calendar.setTimeInMillis(booking.dateBooking);//imposto la data in formato long
+                //imposto la data in formato dd/mm/yyyy, hh:mm
+                date.setText(new SimpleDateFormat(res.getString(R.string.dateFormat) + ", " + res.getString(R.string.hourFormat), Locale.getDefault()).format(calendar));
                 number.setText(booking.personNumBooking);
             }
         }
