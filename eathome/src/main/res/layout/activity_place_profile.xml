@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/background">
+   >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbPlaceProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:background="@drawable/toolbar_border"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
@@ -327,8 +327,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/bookings"
-                                    tools:layout_editor_absoluteX="49dp"
-                                    tools:layout_editor_absoluteY="557dp" />
+                                     />
 
                             </TableRow>
 
@@ -392,7 +391,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="10dp"
-                        android:background="@drawable/button_border"
+                        android:background="@drawable/button_style"
                         android:text="@string/set_opening" />
 
                     <Button
@@ -401,7 +400,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="10dp"
-                        android:background="@drawable/button_border"
+                        android:background="@drawable/button_style"
                         android:text="@string/save" />
 
                     <Button
@@ -410,7 +409,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="10dp"
-                        android:background="@drawable/button_border"
+                        android:background="@drawable/button_style"
                         android:text="@string/delete_account" />
 
                 </TableLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
 
     <TextView
@@ -27,13 +27,13 @@
         android:layout_width="200dp"
         android:layout_height="115dp"
         android:layout_gravity="center"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="72dp"
+        android:contentDescription="@string/image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
-        android:contentDescription="@string/image" />
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
 
     <ProgressBar
         android:id="@+id/progressBarPlaceHome"
@@ -95,7 +95,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlace"
         style="@style/BottomNavigation"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
