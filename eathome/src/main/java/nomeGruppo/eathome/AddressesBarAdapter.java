@@ -45,7 +45,7 @@ public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction> {
             final AutocompletePrediction prediction = getItem(position);
 
             if (prediction != null) {
-                item.setText(prediction.getFullText(null));
+                item.setText(prediction.getPrimaryText(null));
             }
         }
 

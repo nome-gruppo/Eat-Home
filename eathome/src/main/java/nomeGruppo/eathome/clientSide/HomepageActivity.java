@@ -548,7 +548,7 @@ public class HomepageActivity extends AppCompatActivity {
 
                 final AutocompletePrediction mPrediction = addressesBarAdapter.getItem(position);
                 if(mPrediction != null) {
-                    final String mAddress = mPrediction.getFullText(null).toString();
+                    final String mAddress = mPrediction.getPrimaryText(null).toString();
                     addressesBar.setText(mAddress);
 
                     Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
