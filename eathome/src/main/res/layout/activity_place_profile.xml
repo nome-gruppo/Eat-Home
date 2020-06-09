@@ -326,8 +326,7 @@
                                     android:id="@+id/activity_place_profile_cb_booking"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/bookings"
-                                     />
+                                    android:text="@string/bookings"/>
 
                             </TableRow>
 
