@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import nomeGruppo.eathome.utility.MyExceptions;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actions.Order;
@@ -102,7 +103,7 @@ public class FirebaseConnection {
      * @param progressBar cfr. searchUserInDb
      * @param activity    cfr. searchUserInDb
      */
-    private void searchUser(final String userId, final String node, final ProgressBar progressBar, final Activity activity) {
+    private void searchUser(final String userId, final String node, final ProgressBar progressBar, final Activity activity) throws MyExceptions{
 
         final boolean fromAnotherActivity = activity.getIntent().getBooleanExtra(FROM_ANOTHER_ACTIVITY, false);
 
@@ -111,7 +112,7 @@ public class FirebaseConnection {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
+                    operationSuccess = true;
                     if (progressBar != null) {
                         progressBar.setVisibility(View.INVISIBLE);
                     }
@@ -148,12 +149,15 @@ public class FirebaseConnection {
                     //se non è stato trovato l'id nel nodo clienti cerca in places
                 } else if (!dataSnapshot.exists() && node.equals(FirebaseConnection.CLIENT_NODE)) {
                     searchUser(userId, PLACE_NODE, progressBar, activity);
+                }else{
+                    throw new MyExceptions(MyExceptions.FIREBASE_NOT_FOUND, "Not found in Firebase");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, "searchUserInDb:onCancelled", databaseError.toException());
+                throw new MyExceptions(MyExceptions.FIREBASE_NOT_FOUND, "Not found in Firebase");
             }
         });
     }// end searchUserInDb
@@ -166,7 +170,7 @@ public class FirebaseConnection {
      * @param progressBar progressBar, che indica l'operazione di ricerca, presente nell'activity chiamante
      * @param activity    activity chiamante il metodo
      */
-    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity) {
+    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity) throws MyExceptions{
         this.searchUser(userId, CLIENT_NODE, progressBar, activity);
     }
 
@@ -310,13 +314,11 @@ public class FirebaseConnection {
         private final FirebaseUser user;
         private final String uID;
         private final String table;
-        private final Activity activity;
 
-        public DeleteAccount(FirebaseUser user, String uID, String table, Activity callingActivity) {
+        public DeleteAccount(FirebaseUser user, String uID, String table) {
             this.user = user;
             this.uID = uID;
             this.table = table;
-            this.activity = callingActivity;
         }
 
         @Override

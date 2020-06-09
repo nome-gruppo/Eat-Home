@@ -19,6 +19,9 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.utility.City;
 
+/**dialog per aggiungere un nuovo indirizzo che verrà salvato nel database locale
+ *
+ */
 public class DialogAddAddress extends AppCompatDialogFragment {
 
     private DialogAddAddress.DialogAddAddressListener listener;
@@ -59,7 +62,6 @@ public class DialogAddAddress extends AppCompatDialogFragment {
                 } else {
 
                     final Address mAddress = new Address(editCity.getText().toString(),editAddress.getText().toString(),editNumberAddress.getText().toString());
-
 
                     listener.applyTexts(mAddress);
                 }

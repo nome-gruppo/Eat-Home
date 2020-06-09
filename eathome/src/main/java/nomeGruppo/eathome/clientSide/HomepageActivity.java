@@ -17,6 +17,7 @@ import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,9 +28,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +52,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,6 +63,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
 import nomeGruppo.eathome.AddressesBarAdapter;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.OtherActivity;
@@ -70,12 +75,11 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.PlaceAdapter;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
-/*
-activity homepage dei clienti
+/**Homepage dell'app
  */
 public class HomepageActivity extends AppCompatActivity {
 
-    private static final String TAG = "HomepageActivity";
+    private static final String TAG = HomepageActivity.class.getName();
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
@@ -117,7 +121,7 @@ public class HomepageActivity extends AppCompatActivity {
     private Bundle filterBundle;
     private static boolean firstLogin = true;
 
-    private ProgressBar mBar;
+    private ProgressBar progressBar;
 
     private MyLocationListener myLocationListener;
 
@@ -141,7 +145,7 @@ public class HomepageActivity extends AppCompatActivity {
         listViewPlace = findViewById(R.id.listViewPlace);
         searchBtn = findViewById(R.id.search_button);
         findPlacesBtn = findViewById(R.id.activity_homepage_btn_find_places);
-        mBar = findViewById(R.id.homepage_progressBar);
+        progressBar = findViewById(R.id.homepage_progressBar);
 
         myLocationListener = new MyLocationListener();
 
@@ -219,6 +223,7 @@ public class HomepageActivity extends AppCompatActivity {
 
             }
         }
+
         //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
         if (!setFilter && userCity != null) {
             search(userCity);
@@ -290,7 +295,7 @@ public class HomepageActivity extends AppCompatActivity {
                     if (listPlaceFilter.isEmpty()) {
                         noPlacesTw.setVisibility(View.VISIBLE);
                         findPlacesBtn.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         noPlacesTw.setVisibility(View.GONE);
                         findPlacesBtn.setVisibility(View.GONE);
                     }
@@ -339,6 +344,12 @@ public class HomepageActivity extends AppCompatActivity {
         });
     }//end loadAddresses
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        addressesBar.dismissDropDown();
+    }
 
     //TODO SERVE?
     @Override
@@ -363,7 +374,11 @@ public class HomepageActivity extends AppCompatActivity {
 
     private void search(String city) {
 
+
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+        progressBar.setVisibility(View.VISIBLE);
+
 
         //cerca nel database i locali nella città dell'utente
         firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).orderByChild("cityPlace").equalTo(city).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -376,7 +391,7 @@ public class HomepageActivity extends AppCompatActivity {
                     listPlace.clear();
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if(snapshot.exists()) {
+                        if (snapshot.exists()) {
                             final nomeGruppo.eathome.actors.Place mPlace = snapshot.getValue(nomeGruppo.eathome.actors.Place.class);
 
                             if (mPlace != null) {
@@ -405,7 +420,6 @@ public class HomepageActivity extends AppCompatActivity {
                     filterFab.setClickable(true);
 
                     listViewPlace.setAdapter(placeAdapter);
-//                        placeAdapter.notifyDataSetChanged();
                 } else {
 
                     noPlacesTw.setVisibility(View.VISIBLE);
@@ -414,7 +428,7 @@ public class HomepageActivity extends AppCompatActivity {
                     filterFab.setVisibility(View.GONE);
 
                 }
-                //placeAdapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -451,26 +465,6 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
 
-        addressesBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                loadAddresses(addressesBar.getText().toString());
-                addressesBarAdapter.notifyDataSetChanged();
-                addressesBar.setAdapter(addressesBarAdapter);
-            }
-        });
-
         findPlacesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -489,7 +483,7 @@ public class HomepageActivity extends AppCompatActivity {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
                     } else {
-                        mBar.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
                         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000000L, 0, myLocationListener);
                     }
                 }
@@ -543,12 +537,32 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
 
+        addressesBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                loadAddresses(addressesBar.getText().toString());
+                addressesBarAdapter.notifyDataSetChanged();
+                addressesBar.setAdapter(addressesBarAdapter);
+            }
+        });
+
         addressesBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 final AutocompletePrediction mPrediction = addressesBarAdapter.getItem(position);
-                if(mPrediction != null) {
+                if (mPrediction != null) {
                     final String mAddress = mPrediction.getPrimaryText(null).toString();
                     addressesBar.setText(mAddress);
 
@@ -560,6 +574,20 @@ public class HomepageActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+            }
+        });
+
+        addressesBar.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        addressesBar.dismissDropDown();
+                        searchBtn.performClick();
+                        return true;
+                    }
+                }
+                return false;
             }
         });
 
@@ -608,7 +636,7 @@ public class HomepageActivity extends AppCompatActivity {
                 userCity = list.get(0).getLocality();
                 findPlacesBtn.setVisibility(View.GONE);
                 search(userCity);
-                mBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 listViewPlace.setVisibility(View.VISIBLE);
 
             } catch (IOException e) {
