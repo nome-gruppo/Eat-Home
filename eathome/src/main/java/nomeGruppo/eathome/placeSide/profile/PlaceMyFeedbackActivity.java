@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.placeSide;
+package nomeGruppo.eathome.placeSide.profile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,18 +26,16 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 activity per far visualizzare a Place le proprie recensioni
  */
 
-public class FeedbackPlaceActivity extends AppCompatActivity {
+public class PlaceMyFeedbackActivity extends AppCompatActivity {
 
     private Place mPlace;
 
     private ListView listView;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_feedback_place);
+        setContentView(R.layout.activity_place_my_feedback);
 
         final RatingBar ratingBar = findViewById(R.id.feedback_ratingBar);
         final TextView averageTW = findViewById(R.id.feedback_tw_average);
@@ -51,7 +49,7 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
             ratingBar.setRating(mPlace.valuation);
             averageTW.setText(String.format(Locale.getDefault(),"%.1f", mPlace.valuation));
 
-            numFeedbackTW.setText(mPlace.numberReview + getResources().getQuantityString(R.plurals.numFeedback,mPlace.numberReview));
+            numFeedbackTW.setText(getResources().getQuantityString(R.plurals.numFeedback,mPlace.numberReview, mPlace.numberReview));
 
             if(mPlace.numberReview == 0){//se numero di recensioni=0
 
@@ -69,7 +67,7 @@ public class FeedbackPlaceActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Feedback feedback=(Feedback)adapterView.getItemAtPosition(i);
                 if(feedback.replyPlace.trim().length()==0){//se non esite una risposta
-                    Toast.makeText(FeedbackPlaceActivity.this,getResources().getString(R.string.no_reply),Toast.LENGTH_SHORT).show();//mostra messaggio di avviso
+                    Toast.makeText(PlaceMyFeedbackActivity.this,getResources().getString(R.string.no_reply),Toast.LENGTH_SHORT).show();//mostra messaggio di avviso
                 }else {//se il ristorante ha risposto
                     ShowAnswerPlace showAnswerPlace = new ShowAnswerPlace(feedback.replyPlace);
                     showAnswerPlace.show(getSupportFragmentManager(), "Show answer");//mostra risposta chiamando showAnswerPlace

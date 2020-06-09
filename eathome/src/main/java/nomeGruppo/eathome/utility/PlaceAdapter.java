@@ -43,7 +43,7 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(inflater != null) {
-            convertView = inflater.inflate(R.layout.fragment_place_info_homepage_activity, parent, false);
+            convertView = inflater.inflate(R.layout.listitem_place_homepage, parent, false);
             final TextView title = convertView.findViewById(R.id.txtNamePlaceFragment);
             final TextView type = convertView.findViewById(R.id.txtTypePlaceFragment);
             final TextView address = convertView.findViewById(R.id.txtAddressPlaceFragment);

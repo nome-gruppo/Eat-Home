@@ -149,7 +149,7 @@ public class HomepageActivity extends AppCompatActivity {
 
         //lista dei locali mostrati
         listPlace = new ArrayList<>();
-        placeAdapter = new PlaceAdapter(this, R.layout.fragment_place_info_homepage_activity, listPlace);
+        placeAdapter = new PlaceAdapter(this, R.layout.listitem_place_homepage, listPlace);
         listViewPlace.setAdapter(placeAdapter);
 
         mPreferences = getPreferences(Context.MODE_PRIVATE);

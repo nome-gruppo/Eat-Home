@@ -21,7 +21,7 @@ import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.clientSide.MyFeedbackClientActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.clientSide.profile.ClientProfileActivity;
-import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
+import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 import nomeGruppo.eathome.placeSide.profile.PlaceProfileActivity;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 
@@ -74,7 +74,7 @@ public class OtherActivity extends AppCompatActivity {
             btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this, FeedbackPlaceActivity.class);
+                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this, PlaceMyFeedbackActivity.class);
                     feedbackPlaceIntent.putExtra(FirebaseConnection.PLACE,place);
                     startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
