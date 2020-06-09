@@ -18,7 +18,7 @@ import java.util.Locale;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;
 
-/*
+/**
 adapter per il riepilogo delle prenotazioni
  */
 public class BookingInfoAdapter extends ArrayAdapter<Booking> {

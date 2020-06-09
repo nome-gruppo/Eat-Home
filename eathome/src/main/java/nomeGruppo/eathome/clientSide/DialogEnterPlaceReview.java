@@ -30,7 +30,7 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-/*
+/**
 dialog per l'inserimento delle recensioni da parte del cliente
  */
 

@@ -20,7 +20,7 @@
         android:contentDescription="@string/launcher"
         android:elevation="15dp"
         android:foregroundGravity="center"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"

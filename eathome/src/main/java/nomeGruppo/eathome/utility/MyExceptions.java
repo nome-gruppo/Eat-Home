@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.utility;
 
 /**La classe MyException contiene le eccezioni personalizzate sollevate a runtime
  *

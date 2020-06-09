@@ -2,25 +2,20 @@ package nomeGruppo.eathome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.MyExceptions;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class SplashActivity extends AppCompatActivity {
@@ -49,7 +44,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
 
         if (UtilitiesAndControls.isNetworkAvailable(this)) {
 
