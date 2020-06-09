@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Locale;
 
 import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
+import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
@@ -98,7 +98,7 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
             numFeedbackTW.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(PlaceInfoActivity.this, FeedbackPlaceActivity.class);
+                    Intent intent = new Intent(PlaceInfoActivity.this, PlaceMyFeedbackActivity.class);
                     intent.putExtra(FirebaseConnection.PLACE, place);
                     startActivity(intent);
                 }

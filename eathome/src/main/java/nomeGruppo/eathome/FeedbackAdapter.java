@@ -20,7 +20,7 @@ import java.util.List;
 
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
+import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 
 /*
 adapter per le recensioni
@@ -56,7 +56,7 @@ public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
                     dateTW.setText(mFeedback.dateFeedback);
                     textTW.setText(mFeedback.textFeedback);
 
-                    if (getContext().getClass() == FeedbackPlaceActivity.class) {//se è un place che visualizza le recensioni rendo visibile il bottone per rispondere
+                    if (getContext().getClass() == PlaceMyFeedbackActivity.class) {//se è un place che visualizza le recensioni rendo visibile il bottone per rispondere
                         btnReply.setVisibility(View.VISIBLE);
                     }
 

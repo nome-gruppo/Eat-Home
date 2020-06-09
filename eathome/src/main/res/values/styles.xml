@@ -15,7 +15,6 @@
     </style>
 
     <style name="BottomNavigation">
-
         <item name="itemIconTint">@color/colorPrimaryDark</item>
         <item name="itemTextColor">@color/colorPrimaryDark</item>
 

@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class SplashActivity extends AppCompatActivity{
 
@@ -43,7 +44,7 @@ public class SplashActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
 
-        if(isNetworkAvailable()) {
+        if(UtilitiesAndControls.isNetworkAvailable(this)) {
             if (user == null) {
                 //utente non ha effettuato il login
                 Intent homePageIntent = new Intent(this, HomepageActivity.class);
@@ -63,26 +64,15 @@ public class SplashActivity extends AppCompatActivity{
             }
         }else{
             progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(this, R.string.noInternetConnection, Toast.LENGTH_LONG).show();
 
-            //chiudi l'app dopo 4 secondi se non c'è connessione ad internet
+            //chiudi l'app dopo 4.5 secondi se non c'è connessione ad internet
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
                     SplashActivity.this.finish();
                     System.exit(0);
                 }
-            }, 4000);
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager != null) {
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        }else{
-            return false;
+            }, 4500);
         }
     }
 

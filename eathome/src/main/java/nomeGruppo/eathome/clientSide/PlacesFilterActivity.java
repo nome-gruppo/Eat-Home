@@ -160,7 +160,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
         final String userCity = getIntent().getStringExtra("userCity");
 
         /*Il metodo ottiene la città ricercata nella barra degli indirizzi
-        il button per visualizzare i locali non è cliccavile finché non sono caricati tutti i locali della città
+        il button per visualizzare i locali non è cliccabile finché non sono caricati tutti i locali della città
         */
         showBtn.setClickable(false);
         if (userCity != null) {
@@ -174,7 +174,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PERMISSION_LOCATION_REQUEST_CODE) {
-
 
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 //gps attivato
@@ -214,7 +213,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
                 someChanged = true;
-                freeDeliverySet = true;
+                freeDeliverySet = b;
             }
         });
 

@@ -104,7 +104,6 @@
     <string name="no_change">No change</string>
     <string name="edit">Edit</string>
 
-
     <string name="authenticationFailed">Authentication Failed</string>
     <string name="enterEmailToContinue">Enter your email to continue</string>
     <string name="enterOldPasswordToChangeEmail">Enter old password to change your email</string>

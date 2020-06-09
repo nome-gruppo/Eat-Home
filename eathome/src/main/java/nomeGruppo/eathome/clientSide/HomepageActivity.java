@@ -68,6 +68,7 @@ import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.PlaceAdapter;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 /*
 activity homepage dei clienti
@@ -125,7 +126,6 @@ public class HomepageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-
         //null se l'utente non ha effettuato il login
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
@@ -149,7 +149,7 @@ public class HomepageActivity extends AppCompatActivity {
 
         //lista dei locali mostrati
         listPlace = new ArrayList<>();
-        placeAdapter = new PlaceAdapter(this, R.layout.fragment_place_info_homepage_activity, listPlace);
+        placeAdapter = new PlaceAdapter(this, R.layout.listitem_place_homepage, listPlace);
         listViewPlace.setAdapter(placeAdapter);
 
         mPreferences = getPreferences(Context.MODE_PRIVATE);
@@ -186,7 +186,6 @@ public class HomepageActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         if (firstLogin && user != null) {
-
 
             //leggo la tabella myInfo per verificare se ci sono locali da recensire
             Cursor c = mDB.query(DBOpenHelper.TABLE_INFO, DBOpenHelper.COLUMNS_INFO, DBOpenHelper.SELECTION_BY_USER_ID_INFO, new String[]{user.getUid()}, null, null, null);
@@ -291,6 +290,9 @@ public class HomepageActivity extends AppCompatActivity {
                     if (listPlaceFilter.isEmpty()) {
                         noPlacesTw.setVisibility(View.VISIBLE);
                         findPlacesBtn.setVisibility(View.VISIBLE);
+                    }else{
+                        noPlacesTw.setVisibility(View.GONE);
+                        findPlacesBtn.setVisibility(View.GONE);
                     }
                 }
             }
@@ -429,24 +431,23 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if (UtilitiesAndControls.isNetworkAvailable(getApplicationContext())) {
+                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    List<Address> list;
 
-                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                List<Address> list;
+                    try {
+                        list = geocoder.getFromLocationName(addressesBar.getText().toString(), 1);
 
-                try {
-                    list = geocoder.getFromLocationName(addressesBar.getText().toString(), 1);
+                        userCity = list.get(0).getLocality();
 
-                    userCity = list.get(0).getLocality();
+                        search(userCity);
+                    } catch (IndexOutOfBoundsException | IOException e) {
 
-                    search(userCity);
-                } catch (IndexOutOfBoundsException | IOException e) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.locationNotFound), Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
 
-                    Toast.makeText(getApplicationContext(), getString(R.string.locationNotFound), Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-
+                    }
                 }
-
-
             }
         });
 
@@ -548,7 +549,7 @@ public class HomepageActivity extends AppCompatActivity {
 
                 final AutocompletePrediction mPrediction = addressesBarAdapter.getItem(position);
                 if(mPrediction != null) {
-                    final String mAddress = mPrediction.getFullText(null).toString();
+                    final String mAddress = mPrediction.getPrimaryText(null).toString();
                     addressesBar.setText(mAddress);
 
                     Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
