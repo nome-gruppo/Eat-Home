@@ -101,6 +101,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                android:thumbTint="@color/colorAccent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -320,7 +321,6 @@
                 android:layout_width="333dp"
                 android:layout_height="66dp"
                 android:max="5"
-                android:progress="0"
                 app:layout_constraintBottom_toTopOf="@+id/cardView14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.181"
