@@ -22,10 +22,10 @@ import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-/*
-activity per far visualizzare a Place le proprie recensioni
- */
 
+/**PlaceMyFeedbackActivity mostra al locale le proprie recensioni
+ *
+ */
 public class PlaceMyFeedbackActivity extends AppCompatActivity {
 
     private Place mPlace;

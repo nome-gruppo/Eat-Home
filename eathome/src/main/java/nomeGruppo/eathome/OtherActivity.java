@@ -3,6 +3,8 @@ package nomeGruppo.eathome;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +41,6 @@ public class OtherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_other);
-
 
         final Button btnProfile = findViewById(R.id.btnMyProfile);
         final Button btnFeedback = findViewById(R.id.btnMyFeedback);
@@ -124,10 +125,11 @@ public class OtherActivity extends AppCompatActivity {
                 mEditor.clear();
                 mEditor.apply();
 
+                //svuoto backstack e ritorna alla Home
                 Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
                 homepageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 homepageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(homepageIntent);//faccio il logout e ritorna alla Home
+                startActivity(homepageIntent);
                 finish();
             }
         });

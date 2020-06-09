@@ -16,7 +16,7 @@ import java.util.List;
 
 public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction> {
 
-    private final List<AutocompletePrediction> list;      //lista per controllare che non vengano mostrate repliche
+    private final List<String> list;      //lista per controllare che non vengano mostrate repliche
 
     public AddressesBarAdapter(@NonNull Context context, int resource) {
         super(context, resource);
@@ -26,8 +26,9 @@ public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction> {
     @Override
     public void add(AutocompletePrediction prediction) {
 
-        if (!list.contains(prediction)) {
-            list.add(prediction);
+        String address = prediction.getPrimaryText(null).toString();
+        if (!list.contains(address)) {
+            list.add(address);
             super.add(prediction);
         }
     }

@@ -1,6 +1,13 @@
 package nomeGruppo.eathome.utility;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Patterns;
+import android.widget.Toast;
+
+import nomeGruppo.eathome.R;
+
 /*Classe contenente tutti i controlli utili in più activities
  */
 public class UtilitiesAndControls {
@@ -31,7 +38,7 @@ public class UtilitiesAndControls {
         }
     }
 
-    /** metodo controlla la validità della password
+    /**il metodo controlla la validità della password
      * la password non deve essere minore di 6 caratteri
      */
     public boolean isPasswordValid(String password) {
@@ -49,4 +56,25 @@ public class UtilitiesAndControls {
         return Patterns.PHONE.matcher(phone).matches();
     }
 
+    /**metodo che controlla se è disponibile una connessione ad internet
+     *
+     * @param context contesto dell'app
+     * @return true se è disponibile una connessione, altrimenti false
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean result;
+        if(connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            result = activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
+        }else{
+            result = false;
+        }
+
+        if(!result){
+            Toast.makeText(context, R.string.noInternetConnection, Toast.LENGTH_LONG).show();
+        }
+        return result;
+    }
 }
