@@ -320,7 +320,7 @@
                 android:layout_width="333dp"
                 android:layout_height="66dp"
                 android:max="5"
-                android:progress="1"
+                android:progress="0"
                 app:layout_constraintBottom_toTopOf="@+id/cardView14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.181"
