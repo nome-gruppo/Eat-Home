@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Process;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,7 +23,11 @@ import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
-public class SplashActivity extends AppCompatActivity{
+public class SplashActivity extends AppCompatActivity {
+
+    private static final long MIN_TIME_INTERVAL = 2000L;
+    private static final long MAX_TIME_INTERVAL = 10000L;
+    private static final long NO_CONNECTION_INTERVAL = 4500L;
 
     private ProgressBar progressBar;
     private FirebaseUser user;
@@ -32,7 +38,7 @@ public class SplashActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        progressBar =findViewById(R.id.activity_launcher_progressBar);
+        progressBar = findViewById(R.id.activity_launcher_progressBar);
         errorTv = findViewById(R.id.activity_launcher_tv_error);
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -41,39 +47,72 @@ public class SplashActivity extends AppCompatActivity{
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
-        if(UtilitiesAndControls.isNetworkAvailable(this)) {
+
+        if (UtilitiesAndControls.isNetworkAvailable(this)) {
+
             if (user == null) {
-                //utente non ha effettuato il login
-                Intent homePageIntent = new Intent(this, HomepageActivity.class);
-                startActivity(homePageIntent);
-                finish();
-            } else {
+                final Handler noLoginHandler = new Handler();
+                noLoginHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        //utente non ha effettuato il login
+                        Intent homePageIntent = new Intent(SplashActivity.this, HomepageActivity.class);
+                        startActivity(homePageIntent);
+                        finish();
+                    }
+                }, MIN_TIME_INTERVAL);
 
+            } else {
+                final ClosingTimerThread timerThread = new ClosingTimerThread();
+                final Thread mThread = new Thread(timerThread);
                 final FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+                mThread.start();
 
                 try {
                     firebaseConnection.searchUserInDb(user.getUid(), progressBar, this);
-                } catch (Resources.NotFoundException e) {
-                    errorTv.setVisibility(View.VISIBLE);
-                    e.printStackTrace();
+                }catch (MyExceptions e){
+                    if(e.getExceptionType() == MyExceptions.FIREBASE_NOT_FOUND){
+                        errorTv.setVisibility(View.VISIBLE);
+                    }
                 }
-
             }
-        }else{
+        } else {
             progressBar.setVisibility(View.INVISIBLE);
 
             //chiudi l'app dopo 4.5 secondi se non c'è connessione ad internet
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            final Handler noConnectionHandler = new Handler();
+            noConnectionHandler.postDelayed(new Runnable() {
                 public void run() {
                     SplashActivity.this.finish();
                     System.exit(0);
                 }
-            }, 4500);
+            }, NO_CONNECTION_INTERVAL);
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Process.killProcess(Process.myPid());
+    }
+
+    private class ClosingTimerThread extends Thread {
+
+        @Override
+        public void run() {
+            super.run();
+
+            try {
+                Thread.sleep(MAX_TIME_INTERVAL);
+
+                SplashActivity.this.finish();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
