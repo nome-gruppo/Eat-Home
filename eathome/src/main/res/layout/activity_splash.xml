@@ -17,17 +17,17 @@
         android:layout_marginEnd="182dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_launcher_logo"
+        app:layout_constraintTop_toBottomOf="@+id/app_logo"
         android:elevation="15dp"/>
 
     <ImageView
-        android:id="@+id/activity_launcher_logo"
+        android:id="@+id/app_logo"
         android:layout_width="155dp"
         android:layout_height="155dp"
         android:layout_marginStart="128dp"
         android:layout_marginTop="224dp"
         android:layout_marginEnd="128dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@mipmap/ic_launcher"
         android:background="@drawable/button_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,5 +48,5 @@
         app:layout_constraintBottom_toTopOf="@+id/activity_launcher_progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_launcher_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
