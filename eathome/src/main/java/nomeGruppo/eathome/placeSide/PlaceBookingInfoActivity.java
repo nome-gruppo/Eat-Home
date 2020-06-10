@@ -5,12 +5,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -32,10 +35,9 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
 
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
-    private List<Booking> listBooking;
-    private PlaceBookingAdapter placeBookingAdapter;
-    private TextView txtNoBooking;
-    private ImageView impNoBooking;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
 
 
     @Override
@@ -44,13 +46,13 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_place_booking_info);
 
         final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceBookingInfo);
-        this.txtNoBooking = findViewById(R.id.txtNoBookingPlace);
-        this.impNoBooking = findViewById(R.id.imgNoBookingPlace);
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
-        this.listBooking = new LinkedList<>();
-        this.placeBookingAdapter = new PlaceBookingAdapter(this, R.layout.listitem_booking_info, listBooking);
+        this.tabLayout=findViewById(R.id.tabLayoutPlaceBookingInfo);
+        this.viewPager=findViewById(R.id.viewPagerBooking);
+        this.pagerAdapter=new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),place);
+        viewPager.setAdapter(pagerAdapter);
 
         //mostro il menu sottostante
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -60,36 +62,25 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        listBooking.clear();
-
-        FirebaseConnection firebaseConnection = new FirebaseConnection();
-
-        //leggo in firebase le prenotazioni con id place corrispondente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_NODE).orderByChild("idPlaceBooking").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        //tabLoyout per switchare tra le prenotazioni odierne e precedenti
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {//se esiste almeno una prenotazione
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Booking booking = snapshot.getValue(Booking.class);
-                        listBooking.add(booking);//aggiungo la prenotazione alla lista a cui è stato impostato l'adapter
-                    }
-                } else {//se non c'è alcuna prenotazione
-                    txtNoBooking.setVisibility(View.VISIBLE);//mostro il messaggio 'siamo spiacenti'
-                    impNoBooking.setVisibility(View.VISIBLE);//mostro la smile triste
-                }
-                placeBookingAdapter.notifyDataSetChanged();
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
+
+
 
     }
 }

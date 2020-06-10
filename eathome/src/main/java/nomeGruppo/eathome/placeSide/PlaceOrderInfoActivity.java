@@ -141,7 +141,6 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Order order = snapshot.getValue(Order.class);//recupero l'Order letto
                         Date dateOrder;
-
                         try {
                             if (order != null) {
                                 dateOrder = simpleDateFormat.parse(order.dateOrder);//faccio il cast della stringa dateOrder in formato Date
