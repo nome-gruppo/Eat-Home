@@ -2,12 +2,12 @@
 <resources>
 
     <string name="placeName">Inserisci nome attività</string>
-    <string name="enterAddress">Inserisci indirizzo</string>
-    <string name="enterPhone">Inserisci numero di telefono</string>
-    <string name="enterEmail">Inserisci indirizzo mail</string>
+    <string name="enterAddress">Indirizzo</string>
+    <string name="enterPhone">Numero di telefono</string>
+    <string name="enterEmail">Email</string>
     <string name="enterPassword">Inserisci password</string>
     <string name="enterCity">Inserisci città</string>
-    <string name="enterAddressNumber">Inserisci numero civico</string>
+    <string name="enterAddressNumber">n civico</string>
     <string name="pizzeria">Pizzeria</string>
     <string name="italianRestaurant">Ristorante italiano</string>
     <string name="sushi">Sushi</string>
@@ -17,25 +17,19 @@
     <string name="either">Entrambe</string>
     <string name="actions">Scegli azione</string>
     <string name="deliveryCost">Inserisci costo spedizione</string>
-    <string name="btn_go">Vai</string>
-    <string name="weAreAlmostThere">Ci siamo quasi</string>
     <string name="tw_signUp">Registrati</string>
     <string name="action_sign_in">Accedi</string>
     <string name="action_sign_in_short">Accedi</string>
-    <string name="welcome">Benvenuto!</string>
-    <string name="invalid_password">La password deve essere più lunda di 6 caratteri</string>
     <string name="tw_restaurantOwner">"Sei il titolare di un ristorante? Registrati qui "</string>
     <string name="pizzeriaRestaurant">Ristorante-pizzeria</string>
     <string name="name">Inserisci nome</string>
-    <string name="surname">Inserisci cognome</string>
     <string name="nameFood">Inserisci voce menu</string>
     <string name="ingredientsFood">Inserisci ingredienti</string>
     <string name="my_account">Profilo</string>
     <string name="enter_price">Inserisci prezzo</string>
     <string name="delivery_expected">Consegna disponibile, costo: </string>
     <string name="booking_expected">Prenotazione disponibile</string>
-    <string name="confirmation">Sei sicuro di voler cancellare </string>
-    <string name="action_order">Ordina</string>
+    <string name="cancelConfirmation">Sei sicuro di voler cancellare </string>
     <string name="action_book">Prenota</string>
     <string name="order_summary">Riepilogo ordine</string>
     <string name="choose_address">Scegli indirizzo di spedizione</string>
@@ -66,7 +60,6 @@
     <string name="send">Invia</string>
     <string name="enterReview">Inserisci una recensione</string>
     <string name="choose_number_person">Seleziona numero di persone</string>
-    <string name="assign_rating">Assegna prima una valutazione</string>
     <string name="enter_feedback">Scrivi qui recensione</string>
     <string name="no_feedback">Spiacenti! Non ci sono recensioni</string>
     <string name="fill_all_fields">Compila tutti i campi</string>
@@ -84,7 +77,6 @@
     <string name="old_password">Vecchia password</string>
     <string name="new_password">Nuova password</string>
     <string name="confirm_password">Conferma password</string>
-    <string name="phone">Telefono</string>
     <string name="my_address">I miei indirizzi</string>
     <string name="delete_account">Cancella account</string>
     <string name="save">Salva</string>
@@ -97,7 +89,7 @@
     <string name="enterEmailToContinue">Inserisci la tua email per continuare</string>
     <string name="enterOldPasswordToChangeEmail">Inserisci la vecchia password per cambiare la tua mail</string>
     <string name="incorrectPasswordFormat">Formato password non corretto</string>
-    <string name="emailChangedCorrectly">Email cambiata correttamente</string>
+    <string name="emailChangedCorrectly">Email modificata correttamente</string>
     <string name="notValidEmail">Email non valida</string>
     <string name="incorrectPassword">Password non corretta</string>
     <string name="enteredDifferentPasswords">Inserite password diverse</string>
@@ -114,13 +106,57 @@
     <string name="add_note">Aggiungi note</string>
     <string name="no_note">Nessuna nota aggiunta</string>
     <string name="note_success">Nota aggiunta con successo</string>
-    <string name="read_note">Mostra note</string>
     <string name="cancel">Cancella</string>
     <string name="successfulRegistration">Registrazione effettuata con successo</string>
     <string name="yes">Sì</string>
-    <string name="sorry_there_are_no_booking">Spiacenti! Non ci sono prenotazioni.</string>
-    <string name="sorry_there_are_no_orders">Spiacenti! Non ci sono ordini.</string>
+    <plurals name="numFeedback">
+        <item quantity="one">%d recensione</item>
+        <item quantity="other">%d recensioni</item>
+    </plurals>
+    <string name="noChangedEmail">Spiacenti, non è stato possibilie modificare la tua email</string>
+    <string name="impossibleOrder">Ci dispiace, questo locale non consegna nella tua città</string>
+    <string name="noInternetConnection">Nessuna connessiona internet</string>
+    <string name="passwordChangedCorrectly">Password modificata correttamente</string>
+    <string name="noChangedPassword">Spiacenti, non è stato possibilie modificare la tua password</string>
+    <string name="emailSent">Email inviata</string>
+    <string name="confirmation">Conferma</string>
+    <string name="ops_c_stato_un_errore">Ops. C\'è stato un errore</string>
+    <string name="no_address">Non ci sono indirizzi salvati</string>
+    <string name="search_button">Ricerca città</string>
+    <string name="date">Data</string>
+    <string name="no_place">Spiacenti, non sono stati trovati locali</string>
+    <string name="search_place">Trova i tuoi locali preferiti</string>
+    <string name="forgot_password">Password dimenticata?</string>
+    <string name="delivery">Consegna a domicilio</string>
+    <string name="other">Altro</string>
+    <string name="all">Tutto</string>
+    <string name="free_delivery">Solo consegna gratis</string>
+    <string name="show_place">Mostra locali</string>
+    <string name="average_valuation">Valutazione media</string>
+    <string name="order_by">Ordina per</string>
+    <string name="order_name">Nome</string>
+    <string name="valuation">Valutazione</string>
+    <string name="distance">Distanza</string>
+    <string name="order_categories">Categorie</string>
+    <string name="date_order">Data Ordine</string>
+    <string name="address_order_info">Indirizzo ordine</string>
+    <string name="phone_number">Numero di telefono</string>
+    <string name="total_order">Ordine totale</string>
+    <string name="ingredients_info">Ingredienti</string>
+    <string name="feedback_date">Data recensione</string>
+    <string name="feedback_name">Nome recensione</string>
+    <string name="feedback_text">Testo recensione</string>
+    <string name="sei_sicuro_di_voler_eliminare_l_account">Sei sicuro di voler eliminare l\'account?</string>
     <string name="email">Email</string>
+    <string name="date_booking">Data prenotazione</string>
+    <string name="address_booking">Indirizzo prenotazione</string>
+    <string name="numer_people_booking">"Numero di persone "</string>
+    <string name="phone_place">"Numero di telefono "</string>
+    <string name="address_place">Indirizzo</string>
+    <string name="type_place">Tipologia</string>
+    <string name="place_area">"Zona "</string>
+    <string name="filter_by">Filtra per</string>
+
 
 
 </resources>

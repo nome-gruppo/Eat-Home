@@ -12,10 +12,8 @@ import java.util.Locale;
 
 public class PlacesByDistance implements Comparator<Place> {
 
-    private static final String SEPARATOR = ", ";
-
-    private Location userLocation;
-    private Context context;
+    private final Location userLocation;
+    private final Context context;
 
 
     public PlacesByDistance(double latitude, double longitude, Context context) {
@@ -29,9 +27,8 @@ public class PlacesByDistance implements Comparator<Place> {
     public int compare(Place place1, Place place2) {
 
         int result = 0;
-
-        final String stringAddress1 = place1.addressPlace + SEPARATOR + place1.addressNumPlace + SEPARATOR + place1.cityPlace;
-        final String stringAddress2 = place2.addressPlace + SEPARATOR + place2.addressNumPlace + SEPARATOR + place2.cityPlace;
+        final String stringAddress1 = new nomeGruppo.eathome.actions.Address(place1.cityPlace, place1.addressPlace, place1.addressNumPlace).getFullAddress();
+        final String stringAddress2 = new nomeGruppo.eathome.actions.Address(place2.cityPlace, place2.addressPlace, place2.addressNumPlace).getFullAddress();
 
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         Location location1 = new Location("");

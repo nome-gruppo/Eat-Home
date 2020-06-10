@@ -1,7 +1,5 @@
 package nomeGruppo.eathome.actions;
 
-import java.util.Calendar;
-
 public class Booking {
 
 
@@ -14,6 +12,8 @@ public class Booking {
     public String namePlaceBooking;
     public String addressPlaceBooking;
     public String phonePlaceBooking;
+
+    public static final String ID_CLIENT_FIELD = "idClientBooking";
 
     public Booking(){
 

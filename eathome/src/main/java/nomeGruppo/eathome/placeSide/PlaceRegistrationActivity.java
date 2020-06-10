@@ -27,16 +27,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
+import java.util.Locale;
+
 import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
+/**
+ * activity per la registrazione di Place
+ */
 
 public class PlaceRegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "PlaceRegistration";
     private static final int DURATION = Toast.LENGTH_SHORT;
-
-    private City city;
 
     private EditText namePlaceET;
     private AutoCompleteTextView cityPlaceET;
@@ -60,12 +63,8 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_registration);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        place = new Place();
-        control = new UtilitiesAndControls();
-
-        namePlaceET =findViewById(R.id.editNamePlace);
+        final Button signInBtn = findViewById(R.id.btnSignin);
+        namePlaceET = findViewById(R.id.editNamePlace);
         namePlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT); //passa automaticamente nella EditText successiva appena l'utente preme invio sulla tastiera
         cityPlaceET = findViewById(R.id.editCityPlace);
         cityPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -81,13 +80,17 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         emailPlaceET = findViewById(R.id.editMailPlace);
         emailPlaceET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         passwordPlaceET = findViewById(R.id.editPasswordPlace);
-        final Button signInBtn = findViewById(R.id.btnSignin);
         deliveryCostTV = findViewById(R.id.txtDeliveryCost);
         statusTV = findViewById(R.id.activity_place_registration_tw_status);
 
-        this.city=new City();//classe che contiene l'elenco delle città
+        mAuth = FirebaseAuth.getInstance();
+        place = new Place();
+        control = new UtilitiesAndControls();
+
+        final City city = new City();//classe che contiene l'elenco delle città
+
         //creo un adapter che conterrà l'elenco delle città per l'autocompletetext
-        ArrayAdapter<String>adapterCity=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,city.getListCity());
+        ArrayAdapter<String> adapterCity = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, city.getListCity());
         cityPlaceET.setAdapter(adapterCity);//setto l'adapter in editCity
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
@@ -118,13 +121,13 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(this, new OnCompleteListener<SignInMethodQueryResult>() {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                if(task.isSuccessful()) {
-                    if (task.getResult().getSignInMethods().isEmpty()) {
+                if (task.isSuccessful()) {
+                    if (task.getResult() != null && task.getResult().getSignInMethods() != null && task.getResult().getSignInMethods().isEmpty()) {
 
                         place.setAddressNumPlace(numberAddressPlaceET.getText().toString().trim());
                         place.setAddressPlace(addressPlaceET.getText().toString().trim());
-                        place.setCityPlace(cityPlaceET.getText().toString().trim().substring(0,1).toUpperCase());
-                        place.setNamePlace(namePlaceET.getText().toString().trim().substring(0,1).toUpperCase());
+                        place.setCityPlace(cityPlaceET.getText().toString().trim().substring(0, 1).toUpperCase());
+                        place.setNamePlace(namePlaceET.getText().toString().trim().substring(0, 1).toUpperCase());
                         place.setPhonePlace(phonePlaceET.getText().toString().trim());
                         place.setEmailPlace(emailPlaceET.getText().toString().trim());
 
@@ -136,10 +139,10 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(PlaceRegistrationActivity.this, "Authentication failed.",
+                        Toast.makeText(PlaceRegistrationActivity.this, R.string.authenticationFailed,
                                 Toast.LENGTH_SHORT).show();
 
-                        statusTV.setText("Email già presente");
+                        statusTV.setText(R.string.emailAlreadyExists);
                         statusTV.setVisibility(View.VISIBLE);
 
                         emailPlaceET.setText("");
@@ -152,12 +155,12 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
 
     }
 
-    private SeekBar.OnSeekBarChangeListener customSeekBarDelivery =
+    private final SeekBar.OnSeekBarChangeListener customSeekBarDelivery =
             new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     currentDeliveryCost = seekBar.getProgress();
-                    deliveryCostTV.setText(Integer.toString(currentDeliveryCost));
+                    deliveryCostTV.setText(String.format(Locale.getDefault(), "%d", currentDeliveryCost));
                 }
 
                 @Override
@@ -189,11 +192,11 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
                     place.setCategories(PlaceCategories.SUSHI.toString());
                 break;
             case R.id.radioPizzeriaRestaurant:
-                if(checked)
+                if (checked)
                     place.setCategories(PlaceCategories.PIZZERIA_RISTORANTE.toString());
                 break;
             case R.id.radioOther:
-                if(checked)
+                if (checked)
                     place.setCategories(PlaceCategories.ALTRO.toString());
                 break;
 

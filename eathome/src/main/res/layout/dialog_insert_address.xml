@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     >
 
 
@@ -17,7 +18,7 @@
         android:hint="@string/enterCity"
         android:completionHint="@string/enterCity"
         android:completionThreshold="2"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
+        android:drawableStart="@drawable/ic_place_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/edit_text_border" />
@@ -30,11 +31,12 @@
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
+        android:drawableStart="@drawable/ic_place_black_24dp"
         android:hint="@string/enterAddress"
         android:inputType="textPostalAddress"
         app:layout_constraintStart_toStartOf="@+id/editCityClient"
-        app:layout_constraintTop_toBottomOf="@+id/editCityClient" />
+        app:layout_constraintTop_toBottomOf="@+id/editCityClient"
+        android:autofillHints="@string/enterAddress"/>
 
     <EditText
         android:id="@+id/editNumberAddressClient"
@@ -44,11 +46,13 @@
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
+        android:drawableStart="@drawable/ic_place_black_24dp"
         android:hint="@string/enterAddressNumber"
         android:inputType="textPostalAddress"
         app:layout_constraintStart_toStartOf="@+id/editAddressClient"
-        app:layout_constraintTop_toBottomOf="@+id/editAddressClient" />
+        app:layout_constraintTop_toBottomOf="@+id/editAddressClient"
+        tools:ignore="TextFields"
+        android:autofillHints="@string/enterAddressNumber"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

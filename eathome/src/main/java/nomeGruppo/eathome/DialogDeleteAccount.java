@@ -6,9 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -16,18 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
-import nomeGruppo.eathome.clientSide.HomepageActivity;
-import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
@@ -36,29 +30,29 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     private String userId;
     private FirebaseUser mUser;
     private boolean deleted;
-    private FirebaseAuth mAuth;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, null);
-
-        final FirebaseConnection connection = new FirebaseConnection();
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-        userId = mUser.getUid();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        final LayoutInflater inflater = requireActivity().getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, (ViewGroup) requireActivity().getCurrentFocus(),false);
 
         final EditText emailEt = dialogView.findViewById(R.id.dialog_delete_account_et_email);
         final EditText passwordEt = dialogView.findViewById(R.id.dialog_delete_account_et_password);
+
+        final FirebaseConnection connection = new FirebaseConnection();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        assert mUser != null;
+        userId = mUser.getUid();
 
         builder.setView(dialogView).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //onClick return back
             }
-        }).setPositiveButton("Sì", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -85,8 +79,8 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
         if(deleted) {
 
-            Client mClient = (Client)getActivity().getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
-            Place mPlace = (Place)getActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+            Client mClient = (Client)requireActivity().getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+            Place mPlace = (Place)requireActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
             //elimina ordinazioni e prenotazioni
             if(mClient != null){
 
@@ -97,22 +91,20 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                     e.printStackTrace();
                 }
 
-                SharedPreferences.Editor mEditor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+                SharedPreferences.Editor mEditor = requireActivity().getPreferences(Context.MODE_PRIVATE).edit();
                 mEditor.clear();
                 mEditor.apply();
 
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_TABLE, getActivity());
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_NODE);
 
                 Thread accountThread = new Thread(deleteAccount);
-                Log.e("diaolg", "a");
                 accountThread.start();
-                Log.e("diaolg", "b");
 
 
             }else if(mPlace != null){
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_TABLE, getActivity());
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_NODE);
                 final FirebaseConnection.DeleteFeedback deleteFeedback = new FirebaseConnection.DeleteFeedback(userId);
 
                 Thread accountThread = new Thread(deleteAccount);
@@ -120,6 +112,24 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
                 accountThread.start();
                 feedbackThread.start();
+
+                try {
+                    accountThread.join();
+                    feedbackThread.join();
+
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
+                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(homeIntent);
+                    getActivity().finish();
+                }
+
+
+
             }
         }
     }

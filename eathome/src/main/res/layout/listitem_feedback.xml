@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:background="@android:color/transparent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView8"
@@ -24,6 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/button_border"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintTop_toTopOf="@+id/button">
 
@@ -43,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="44dp"
-                android:text="TextView"
+                android:text="@string/feedback_date"
                 app:layout_constraintBottom_toBottomOf="@+id/listitem_feedback_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/listitem_feedback_name" />
@@ -55,7 +57,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="11dp"
                 android:layout_marginBottom="12dp"
-                android:text="TextView"
+                android:text="@string/feedback_name"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/listitem_feedback_ratingBar"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="TextView"
+                android:text="@string/feedback_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

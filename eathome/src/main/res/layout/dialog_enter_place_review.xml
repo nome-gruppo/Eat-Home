@@ -4,53 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
 
     >
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:id="@+id/cardView11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="431dp"
+        android:layout_height="256dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="282dp">
+            android:layout_height="234dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:id="@+id/txtNamePlaceReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:layout_marginTop="20dp"
                 android:visibility="visible"
+                android:textColor="@color/quantum_white_100"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
             <RatingBar
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="48dp"
                 android:background="@color/quantum_white_100"
+                android:backgroundTint="@color/trasparent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtNamePlaceReview" />
-
 
             <EditText
                 android:id="@+id/editTextFeedback"
@@ -58,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="24dp"
+                android:autofillHints="@string/enter_feedback"
                 android:elevation="7dp"
                 android:ems="10"
                 android:gravity="start|top"
@@ -67,6 +68,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

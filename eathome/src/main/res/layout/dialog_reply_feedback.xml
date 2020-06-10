@@ -5,20 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editReplyFeedback"
+    <RelativeLayout
+        android:id="@+id/activity_place_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/edit_text_border"
-        android:gravity="start|top"
-        android:hint="@string/reply"
-        android:inputType="textMultiLine"
+        android:layout_height="190dp"
+        android:background="@color/colorPrimaryDark"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <EditText
+            android:id="@+id/editReplyFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginEnd="20dp"
+            android:autofillHints="@string/reply"
+            android:background="@drawable/edit_text_border"
+            android:gravity="start|top"
+            android:layout_centerInParent="true"
+            android:hint="@string/reply"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

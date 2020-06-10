@@ -3,6 +3,8 @@ package nomeGruppo.eathome;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +23,7 @@ import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.clientSide.MyFeedbackClientActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.clientSide.profile.ClientProfileActivity;
-import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
+import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 import nomeGruppo.eathome.placeSide.profile.PlaceProfileActivity;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 
@@ -29,7 +31,7 @@ import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 activity dove sono presenti il mio profilo le mie recensioni e il logout
  */
 public class OtherActivity extends AppCompatActivity {
-    private MenuNavigationItemSelected menuNavigationItemSelected=new MenuNavigationItemSelected();
+    private final MenuNavigationItemSelected menuNavigationItemSelected=new MenuNavigationItemSelected();
     private Place place;
     private Client client;
     private FirebaseAuth mAuth;
@@ -39,7 +41,6 @@ public class OtherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_other);
-
 
         final Button btnProfile = findViewById(R.id.btnMyProfile);
         final Button btnFeedback = findViewById(R.id.btnMyFeedback);
@@ -74,7 +75,7 @@ public class OtherActivity extends AppCompatActivity {
             btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this, FeedbackPlaceActivity.class);
+                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this, PlaceMyFeedbackActivity.class);
                     feedbackPlaceIntent.putExtra(FirebaseConnection.PLACE,place);
                     startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
@@ -124,10 +125,11 @@ public class OtherActivity extends AppCompatActivity {
                 mEditor.clear();
                 mEditor.apply();
 
+                //svuoto backstack e ritorna alla Home
                 Intent homepageIntent = new Intent(OtherActivity.this, HomepageActivity.class);
                 homepageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 homepageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(homepageIntent);//faccio il logout e ritorna alla Home
+                startActivity(homepageIntent);
                 finish();
             }
         });

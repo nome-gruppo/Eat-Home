@@ -3,36 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/background">
 
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/button_style"
+        android:contentDescription="@string/launcher"
+        android:elevation="15dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editNameClient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/name"
-        android:background="@drawable/edit_text_border"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginVertical="8dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:drawableLeft="@drawable/ic_menu_login"
-        android:textAlignment="center"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/ic_menu_login"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="@string/name"
+        android:importantForAutofill="no"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editMailClient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/ic_email_black_24dp"
+        android:drawablePadding="5dp"
         android:ems="10"
         android:hint="@string/enterEmail"
-        android:background="@drawable/edit_text_border"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:drawableLeft="@drawable/ic_email_black_24dp"
-        android:textAlignment="center"
+        android:importantForAutofill="no"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -42,21 +65,25 @@
         android:ems="10"
         android:hint="@string/enterPassword"
         android:background="@drawable/edit_text_border"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="8dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-        android:textAlignment="center"
-        android:inputType="textPassword" />
+        android:layout_marginBottom="8dp"
+        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+        android:textAlignment="textStart"
+        android:drawablePadding="5dp"
+        android:inputType="textPassword"
+        android:importantForAutofill="no"/>
 
     <Button
         android:id="@+id/btnSignInClient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/action_sign_in"
-        android:background="@drawable/button_border"
-        android:layout_marginVertical="10dp"
-        android:layout_gravity="center_horizontal" />
+        android:background="@drawable/button_style"
+        android:layout_marginVertical="30dp"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/activity_client_registration_tw_status"

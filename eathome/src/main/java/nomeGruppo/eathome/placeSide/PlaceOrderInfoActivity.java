@@ -6,19 +6,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
@@ -38,50 +34,48 @@ import nomeGruppo.eathome.utility.DialogListFoodOrder;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 import nomeGruppo.eathome.utility.PlaceOrderAdapter;
 
+/**
+ * activity per visualizzare le informazioni sulle ordinazioni
+ */
 public class PlaceOrderInfoActivity extends AppCompatActivity {
 
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
-    private BottomNavigationView bottomMenuPlace;
-    private ListView listViewOrderInfo;
     private List<Order> listOrder;
     private PlaceOrderAdapter placeOrderAdapter;
-    private TabLayout tabLayout;
-    private ImageButton restore;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order_info);
 
-        this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceOrderInfo);
+        final ListView listViewOrderInfo = findViewById(R.id.listViewPlaceOrderInfo);
+        final ImageButton restore = findViewById(R.id.btnRestore);
+        final TabLayout tabLayout = findViewById(R.id.tabLayoutPlaceOrderInfo);
 
-        this.menuNavigationItemSelected=new MenuNavigationItemSelected();
-        this.bottomMenuPlace=findViewById(R.id.bottom_navigationPlaceOrderInfo);
-        this.listViewOrderInfo=findViewById(R.id.listViewPlaceOrderInfo);
-        this.restore=findViewById(R.id.btnRestore);
-        this.listOrder=new LinkedList<>();
-        this.placeOrderAdapter=new PlaceOrderAdapter(this,R.layout.listitem_order_info,listOrder);
+        this.menuNavigationItemSelected = new MenuNavigationItemSelected();
+        this.listOrder = new LinkedList<>();
+        this.placeOrderAdapter = new PlaceOrderAdapter(this, R.layout.listitem_order_info, listOrder);
 
+        this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero l'oggetto Place
 
-
-        this.tabLayout=findViewById(R.id.tabLayoutPlaceOrderInfo);
-
-        this.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        //tabLoyout per switchare tra gli ordini odierni e precedenti
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 // Switch to view for this tab
-                switch (position){
-                    case 0:
-                        Intent orderInfoToday=new Intent(PlaceOrderInfoActivity.this,PlaceOrderInfoActivity.class);
-                        orderInfoToday.putExtra(FirebaseConnection.PLACE,place);
-                        startActivity(orderInfoToday);
+                switch (position) {
+                    case 0://se in posizione ordiniOdierni
+                        Intent orderInfoToday = new Intent(PlaceOrderInfoActivity.this, PlaceOrderInfoActivity.class);
+                        orderInfoToday.putExtra(FirebaseConnection.PLACE, place);
+                        startActivity(orderInfoToday);//avvio PlaceOrderInfoActivity
                         break;
-                    case 1:
-                        Intent orderInfoPrevious=new Intent(PlaceOrderInfoActivity.this,PlaceOrderPreviousActivity.class);
-                        orderInfoPrevious.putExtra(FirebaseConnection.PLACE,place);
-                        startActivity(orderInfoPrevious);
+                    case 1://se in posizione ordini precedenti
+                        Intent orderInfoPrevious = new Intent(PlaceOrderInfoActivity.this, PlaceOrderPreviousActivity.class);
+                        orderInfoPrevious.putExtra(FirebaseConnection.PLACE, place);
+                        startActivity(orderInfoPrevious);//avvio PlaceOrderPreviousActivity
                         break;
                 }
             }
@@ -98,25 +92,25 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
         });
 
 
-        this.bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return menuNavigationItemSelected.menuNavigationPlace(item,place,PlaceOrderInfoActivity.this);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {//navigazione nel bottom menu
+                return menuNavigationItemSelected.menuNavigationPlace(item, place, PlaceOrderInfoActivity.this);
             }
         });
 
-        this.listViewOrderInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewOrderInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Order order=(Order)adapterView.getItemAtPosition(i);
-                showDialogListFood(order);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {//se clicca su un ordine nella lista
+                Order order = (Order) adapterView.getItemAtPosition(i);//recupero l'ordine cliccato
+                showDialogListFood(order);//mostro dialog chiamando showDialogListFood
             }
         });
 
-        this.restore.setOnClickListener(new View.OnClickListener() {
+        restore.setOnClickListener(new View.OnClickListener() {//se clicco sul bottone ricarica
             @Override
             public void onClick(View view) {
-                loadOrder();
+                loadOrder();//chiamo loadOrder
             }
         });
     }
@@ -129,33 +123,42 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
 
     }
 
-    private void loadOrder(){
+    /**
+     * metodo per visualizzare gli ordini
+     */
+
+    private void loadOrder() {
         listOrder.clear();
 
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");//imposto il formato della data
-        final Date curDate=new Date();
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("idPlaceOrder").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault());//imposto il formato della data
+        final Date curDate = new Date();
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
+        //leggo gli ordini corrispondenti a idPlace dal db
+        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_NODE).orderByChild("idPlaceOrder").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Order order = snapshot.getValue(Order.class);
-                        Date dateOrder = null;
+                        Order order = snapshot.getValue(Order.class);//recupero l'Order letto
+                        Date dateOrder;
+
                         try {
-                            dateOrder = simpleDateFormat.parse(order.dateOrder);//faccio il cast della stringa dateOrder in formato Date
+                            if (order != null) {
+                                dateOrder = simpleDateFormat.parse(order.dateOrder);//faccio il cast della stringa dateOrder in formato Date
+                                if (curDate.compareTo(dateOrder) < 1) {//se l'ordine è odierno
+                                    listOrder.add(order);//aggiungo l'ordine alla lista
+                                } else {//se non ci sono ordini odierni
+                                    Toast.makeText(PlaceOrderInfoActivity.this, getResources().getString(R.string.no_order), Toast.LENGTH_SHORT).show();//messaggio di avviso
+                                }
+
+                                placeOrderAdapter.notifyDataSetChanged();
+                            }
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        if (curDate.compareTo(dateOrder) < 1) {
-                            listOrder.add(order);
-                        }else{
-                            Toast.makeText(PlaceOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_SHORT).show();
-                        }
-                        placeOrderAdapter.notifyDataSetChanged();
                     }
-                }else{
-                    Toast.makeText(PlaceOrderInfoActivity.this,getResources().getString(R.string.no_order),Toast.LENGTH_SHORT).show();
+                } else {//se non ci sono ordini per il Place
+                    Toast.makeText(PlaceOrderInfoActivity.this, getResources().getString(R.string.no_order), Toast.LENGTH_SHORT).show();//messagio di avviso
                 }
             }
 
@@ -166,8 +169,12 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void showDialogListFood(Order order){
-        DialogListFoodOrder dialogListFoodOrder=new DialogListFoodOrder(order);
-        dialogListFoodOrder.show(getSupportFragmentManager(),"Dialog list food");
+    /**
+     * metodo per aprire dialogListFoodOrder per visualizzare i dettagli dell'ordine
+     * @param order
+     */
+    private void showDialogListFood(Order order) {
+        DialogListFoodOrder dialogListFoodOrder = new DialogListFoodOrder(order);
+        dialogListFoodOrder.show(getSupportFragmentManager(), "Dialog list food");
     }
 }

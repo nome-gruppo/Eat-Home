@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -47,7 +46,6 @@ activity homepage per Place
 public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener{
 
     private static final int GET_FROM_GALLERY = 3;
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1;
 
     private ImageView imgPlace;
     private Place place;
@@ -71,12 +69,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         final FloatingActionButton btnAddMenu = findViewById(R.id.place_homepage_btnAddMenu);
         final ListView listViewMenu = findViewById(R.id.place_homepage_listMenu);
         final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlace);
-
         imgPlace= findViewById(R.id.place_homepage_placeImg);
-        mAdapter=new MyMenuAdapter(this,R.layout.listitem_menu,listFood,place);
-        menuNavigationItemSelected=new MenuNavigationItemSelected();
         progressBar=findViewById(R.id.progressBarPlaceHome);
+
+        menuNavigationItemSelected=new MenuNavigationItemSelected();
         listFood=new LinkedList<>();
+        mAdapter=new MyMenuAdapter(this, listFood,place);
 
         txtNamePlace.setText(place.namePlace);
         listViewMenu.setAdapter(mAdapter);
@@ -130,7 +128,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         final FirebaseConnection firebaseConnection=new FirebaseConnection();
 
         //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -148,16 +146,29 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         });
     }
 
+    /**
+     * metodo per aprire il dialog per aggiungere voci al menu
+     */
+
     private void openDialog(){
         DialogAddMenu dialogAddMenu=new DialogAddMenu();
         dialogAddMenu.show(getSupportFragmentManager(),"Dialog add menu");
     }
 
+    /**
+     * metodo per aprire la galleria del dispositivo
+     */
     private void openGallery(){
         //intent per accedere alla galleria
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
     }
 
+    /**
+     * metodo per prendere l'immagine dalla galleria dell'utente e caricarla sull'app
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -184,41 +195,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         }
     }
 
-    //metodo per dimensionare l'immagine all'interno del riquadro
-    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
-        return resizedBitmap;
-    }
-
-//    //TODO a che serve?
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        switch (requestCode) {
-//            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
-//                // If request is cancelled, the result arrays are empty.
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    // permission was granted, yay! Do the
-//                    // contacts-related task you need to do.
-//                } else {
-//                    // permission denied, boo! Disable the
-//                    // functionality that depends on this permission.
-//                }
-//            }
-//            return;
-//        }
-//    }
+    /**
+     * metodo per inserire la nuova voce del menu al db firebase
+     * @param nameFood nome del cibo da aggiungere
+     * @param ingredientsFood ingredienti del cibo da aggiungere
+     * @param priceFood prezzo del cibo da aggiungere
+     */
 
     @Override
     public void applyTexts(String nameFood, String ingredientsFood,float priceFood) {
@@ -227,7 +209,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         food.setIngredients(ingredientsFood);
         food.setPrice(priceFood);
         food.setIdFood(firebaseConnection.getmDatabase().push().getKey());
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_TABLE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
 
         listFood.add(food);//aggiungo food alla lista
         mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi

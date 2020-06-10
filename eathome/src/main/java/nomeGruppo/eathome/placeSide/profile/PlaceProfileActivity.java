@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import nomeGruppo.eathome.OtherActivity;
-import nomeGruppo.eathome.clientSide.profile.ClientProfileActivity;
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.placeSide.PlaceOpeningTimeActivity;
 import nomeGruppo.eathome.R;
@@ -31,6 +30,9 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.DialogDeleteAccount;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
+/*
+activity per la gestione del profilo di Place
+ */
 public class PlaceProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -74,7 +76,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_profile);
 
-        mPlace = (Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        mPlace = (Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero oggetto Place passato
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -82,12 +84,12 @@ public class PlaceProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolBarPlaceProfile);
         toolBarPlaceProfile.setTitle(getResources().getString(R.string.my_account));
         toolBarPlaceProfile.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
-        toolBarPlaceProfile.setNavigationOnClickListener(new View.OnClickListener() {
+        toolBarPlaceProfile.setNavigationOnClickListener(new View.OnClickListener() {//se clicca sul tasto indietro nella toolbar
             @Override
             public void onClick(View v) {
                 Intent otherActivityIntent=new Intent(PlaceProfileActivity.this, OtherActivity.class);
                 otherActivityIntent.putExtra(FirebaseConnection.PLACE,mPlace);
-                startActivity(otherActivityIntent);
+                startActivity(otherActivityIntent);//avvia acitivity precedente(other activity)
                 finish();
             }
         });
@@ -117,39 +119,39 @@ public class PlaceProfileActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.activity_place_profile_btn_save);
         deleteAccountBtn = findViewById(R.id.activity_client_btn_deleteAccount);
 
-        if(mPlace != null) {
+        if(mPlace != null) {//se esiste un oggetto Place
             nameEt.setHint(mPlace.namePlace);
             emailEt.setHint(mPlace.emailPlace);
             addressEt.setHint(mPlace.addressPlace);
             addressNumEt.setHint(mPlace.addressNumPlace);
             cityEt.setHint(mPlace.cityPlace);
 
-            if(mPlace.phonePlace != null) {
-                phoneEt.setHint(mPlace.phonePlace);
-            }else{
-                phoneEt.setHint("Inserisci un recapito telefonico");
+            if(mPlace.phonePlace != null) {//se esiste il numero di telefono
+                phoneEt.setHint(mPlace.phonePlace);//imposto il numero
+            }else{//se non c'è alcun numero di telefono
+                phoneEt.setHint(getResources().getString(R.string.enterPhone));//imposto il messaggio di richiesta
             }
 
-            deliveryCostSb.setProgress(mPlace.deliveryCost);
-            deliveryCb.setChecked(mPlace.takesOrderPlace);
-            deliveryCb.setChecked(mPlace.takesBookingPlace);
+            deliveryCostSb.setProgress(mPlace.deliveryCost);//imposto il costo della spezione nella seekbar
+            deliveryCb.setChecked(mPlace.takesOrderPlace);//imposto il check se Place accetta ordinazioni
+            deliveryCb.setChecked(mPlace.takesBookingPlace);//imposto il check se Place accetta prenotazioni
 
-            String category = mPlace.categories;
+            String category = mPlace.categories;//recupero la categoria
 
             //match categoria locale
-            if(category.equals(PlaceCategories.SUSHI.toString())){
+            if(category.equals(PlaceCategories.SUSHI.toString())){//se categoria =sushi
                 categoryRb = findViewById(R.id.activity_place_profile_rb_sushi);
 
-            }else if(category.equals(PlaceCategories.PIZZERIA.toString())){
+            }else if(category.equals(PlaceCategories.PIZZERIA.toString())){//se categoria=pizzeria
                 categoryRb = findViewById(R.id.activity_place_profile_rb_pizzeria);
 
-            }else if(category.equals(PlaceCategories.PIZZERIA_RISTORANTE.toString())){
+            }else if(category.equals(PlaceCategories.PIZZERIA_RISTORANTE.toString())){//se categoria=pizzeria/ristorante
                 categoryRb = findViewById(R.id.activity_place_profile_rb_restaurant);
 
-            }else if(category.equals(PlaceCategories.RISTORANTE_ITALIANO.toString())){
+            }else if(category.equals(PlaceCategories.RISTORANTE_ITALIANO.toString())){//se categoria=ristorante
                 categoryRb = findViewById(R.id.activity_place_profile_rb_italianRestaurant);
 
-            }else if(category.equals(PlaceCategories.ALTRO.toString())){
+            }else if(category.equals(PlaceCategories.ALTRO.toString())){//se categoria=altro
                 categoryRb = findViewById(R.id.activity_place_profile_rb_other);
 
             }
@@ -373,7 +375,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
                     //controllo validità formato mail
                     if (controls.isEmailValid(email)) {
 
-                        connection.updateEmail(mAuth, user, email, PlaceProfileActivity.this);
+                        connection.updateEmail(mAuth, user,FirebaseConnection.PLACE_NODE, email, PlaceProfileActivity.this);
 
                         //controllo se l'email è stata cambiata, allora modifica le informazioni da inserire nel database
                         if (email.equals(user.getEmail())) {
@@ -392,10 +394,10 @@ public class PlaceProfileActivity extends AppCompatActivity {
         });
 
         passwordBtn.setOnClickListener(new View.OnClickListener() {
-            String email = emailEt.getText().toString().trim();
-            String oldPassword = oldPasswordEt.getText().toString();
-            String newPassword = newPasswordEt.getText().toString();
-            String confirmPassword = confirmPasswordEt.getText().toString();
+            final String email = emailEt.getText().toString().trim();
+            final String oldPassword = oldPasswordEt.getText().toString();
+            final String newPassword = newPasswordEt.getText().toString();
+            final String confirmPassword = confirmPasswordEt.getText().toString();
 
             @Override
             public void onClick(View view) {
@@ -516,7 +518,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
                 if(edit) {
                     //modifica database solo se qualche campo è stato editato
                     FirebaseConnection connection = new FirebaseConnection();
-                    connection.write(FirebaseConnection.PLACE_TABLE, user.getUid(), mPlace);
+                    connection.write(FirebaseConnection.PLACE_NODE, user.getUid(), mPlace);
 
                     Intent intent = new Intent(PlaceProfileActivity.this, PlaceHomeActivity.class);
                     intent.putExtra(FirebaseConnection.PLACE, mPlace);

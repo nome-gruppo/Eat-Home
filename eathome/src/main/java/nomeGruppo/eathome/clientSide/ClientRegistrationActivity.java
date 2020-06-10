@@ -90,16 +90,22 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     }//fine onCreate
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
 
         if(accountCreated) {
             FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
             //assegno come chiave del db l'user id generato da Firebase Authentication
-            db.write(FirebaseConnection.CLIENT_TABLE, user.getUid(), client);
+            db.write(FirebaseConnection.CLIENT_NODE, user.getUid(), client);
         }
     }
+
+    /**
+     * metodo per creare l'account cliente
+     * @param email
+     * @param password
+     */
 
     public void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -120,8 +126,8 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
                             Intent clientHomeIntent = new Intent(ClientRegistrationActivity.this, HomepageActivity.class);
                             clientHomeIntent.putExtra(FirebaseConnection.CLIENT, client);
-                            Toast.makeText(ClientRegistrationActivity.this, R.string.successfulRegistration, DURATION).show();
-                            startActivity(clientHomeIntent);
+                            Toast.makeText(ClientRegistrationActivity.this, R.string.successfulRegistration, DURATION).show();//mostro messaggio di successo
+                            startActivity(clientHomeIntent);//avvio homePage
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

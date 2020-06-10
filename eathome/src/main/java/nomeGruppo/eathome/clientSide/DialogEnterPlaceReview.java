@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -29,17 +30,21 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
-/*
+/**
 dialog per l'inserimento delle recensioni da parte del cliente
  */
+
 public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private RatingBar ratingBar;
-    private String idPlace,namePlace,idClient,nameClient;
-    private SQLiteDatabase mDB;
-    private DBOpenHelper mDBHelper;
+    private final String idPlace;
+    private final String namePlace;
+    private final String idClient;
+    private final String nameClient;
+    private final SQLiteDatabase mDB;
+    private final DBOpenHelper mDBHelper;
     private EditText editFeedback;
     private Calendar date;
-    private FirebaseConnection firebaseConnection;
+    private final FirebaseConnection firebaseConnection;
 
 
     DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
@@ -49,42 +54,48 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         this.nameClient=nameClient;
         this.mDB=mDB;
         this.mDBHelper=mDBHelper;
+        this.date = Calendar.getInstance();
         this.firebaseConnection=new FirebaseConnection();
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View view = inflater.inflate(R.layout.dialog_enter_place_review, null);
+        if(getActivity() != null) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            final View view = inflater.inflate(R.layout.dialog_enter_place_review, (ViewGroup) getActivity().getCurrentFocus(),false);
 
-        final TextView txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
-        this.ratingBar = view.findViewById(R.id.ratingBar);
-        this.editFeedback=view.findViewById(R.id.editTextFeedback);
+            final TextView txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
+            this.ratingBar = view.findViewById(R.id.ratingBar);
+            this.editFeedback = view.findViewById(R.id.editTextFeedback);
 
-        txtNamePlaceReview.setText(namePlace);
+            txtNamePlaceReview.setText(namePlace);
 
 
-        builder.setView(view).setTitle(getActivity().getResources().getString(R.string.enterReview)).setNegativeButton(getActivity().getResources().getString(R.string.notNow), new DialogInterface.OnClickListener() {//se il cliente clicca 'non ora'
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                mDBHelper.deleteInfo(mDB,idPlace);//cancello la riga corrispondente all'interno del db
-            }
-        }).setPositiveButton(getActivity().getResources().getString(R.string.send), new DialogInterface.OnClickListener() { //se il cliente clicca su 'invia'
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(ratingBar.getRating() == 0.0){ //se è stata data una valutazione TODO controlla se funzione uguaglianza
-                    sendReview();//inserisco la recensione in Firebase
-                    updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
+            builder.setView(view).setTitle(getActivity().getResources().getString(R.string.enterReview)).setNegativeButton(getActivity().getResources().getString(R.string.notNow), new DialogInterface.OnClickListener() {//se il cliente clicca 'non ora'
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mDBHelper.deleteInfo(mDB, idPlace);//cancello la riga corrispondente all'interno del db
                 }
-                mDBHelper.deleteInfo(mDB,idPlace);
-            }
-        });
-
+            }).setPositiveButton(getActivity().getResources().getString(R.string.send), new DialogInterface.OnClickListener() { //se il cliente clicca su 'invia'
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (ratingBar.getRating() == 0.0) { //se è stata data una valutazione TODO controlla se funzione uguaglianza
+                        sendReview();//inserisco la recensione in Firebase
+                        updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
+                    }
+                    mDBHelper.deleteInfo(mDB, idPlace);
+                }
+            });
+        }
         return builder.create();
     }
 
+    /**
+     * metodo per inserire la recensione in db firebase
+     */
     private void sendReview(){
         Feedback feedback=new Feedback();
         if(editFeedback.getText().toString().trim().length()==0){
@@ -99,15 +110,18 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         String dateFeedback = formatData.format(date.getTime());//setto la data nel formato corretto
         feedback.setDateFeedback(dateFeedback);
         //prelevo la chiave assegnata in automatico da Firebase
-        String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).push().getKey();
+        String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_NODE).push().getKey();
         feedback.setIdFeedback(idFeedback);
-        firebaseConnection.write(FirebaseConnection.FEEDBACK_TABLE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
+        firebaseConnection.write(FirebaseConnection.FEEDBACK_NODE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
     }
 
+    /**
+     * metodo per aggiornare la media della valutazione del locale
+     */
     private void updateValuationPlace(){
 
         //leggo il Place corrispondente all'id all'interno di firebase
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {//se è stato trovato Place
@@ -118,7 +132,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
                         if(place != null) {
                             place.newValuation(ratingBar.getRating());//assegno la valutazione data dal cliente al Place corrispondente
 
-                            firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).child(idPlace).setValue(place);//aggiorno il valore in firebase
+                            firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).child(idPlace).setValue(place);//aggiorno il valore in firebase
                         }
                     }
                 }

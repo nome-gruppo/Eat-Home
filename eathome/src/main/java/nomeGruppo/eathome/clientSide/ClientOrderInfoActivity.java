@@ -1,32 +1,21 @@
 package nomeGruppo.eathome.clientSide;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.internal.$Gson$Preconditions;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,13 +38,6 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
     private OrderInfoAdapter orderInfoAdapter;
     private List<Order>listOrder;
     private FirebaseConnection firebaseConnection;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        readOrder();
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,22 +68,37 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Order order=(Order)adapterView.getItemAtPosition(i);
-                opendDialogOrderSummary(order);
+                openDialogOrderSummary(order);
             }
         });
 
     }
 
-    private void opendDialogOrderSummary(Order order){
-        DialogListFoodOrder dialogListFoodOrder=new DialogListFoodOrder(order);
-        dialogListFoodOrder.show(getSupportFragmentManager(),"Dialog list food");
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        readOrder();
     }
 
+    /**
+     * metodo per aprire il dialog per visualizzare i dettagli dell'ordine
+     */
+
+    private void openDialogOrderSummary(Order order){
+        DialogListFoodOrder dialogListFoodOrder=new DialogListFoodOrder(order);
+        dialogListFoodOrder.show(getSupportFragmentManager(),"Dialog list food");//mostro dialogListFoodOrder
+    }
+
+    /**
+     * metodo per leggere gli ordini del cliente dal db firebase
+     */
+
     private void readOrder(){
-        listOrder.clear();
+        listOrder.clear();//cancello la lista ordini
 
         //leggo in firebase gli ordini in base all'id del cliente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).orderByChild("idClientOrder").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_NODE).orderByChild("idClientOrder").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {//se esiste almeno un ordine

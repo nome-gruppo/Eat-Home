@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+
     android:orientation="vertical">
 
 
@@ -40,12 +40,14 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:background="@color/colorPrimary"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/image_button"
         app:layout_constraintBottom_toTopOf="@+id/tabLayoutPlaceOrderInfo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lin"
-        app:layout_constraintVertical_bias="0.785"
+        app:layout_constraintVertical_bias="0.801"
         app:srcCompat="@drawable/ic_restore_black_24dp" />
 
     <LinearLayout
@@ -68,6 +70,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlaceOrderInfo"
         style="@style/BottomNavigation"
+        android:background="@drawable/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

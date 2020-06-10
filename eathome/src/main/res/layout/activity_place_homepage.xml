@@ -4,43 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/place_homepage_txtNamePlace"
-        android:layout_width="371dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/edit_text_border"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:hint="Nome locale"
-        app:layout_constraintBottom_toTopOf="@+id/place_homepage_placeImg"
+    <RelativeLayout
+        android:id="@+id/activity_place_info"
+        android:layout_width="match_parent"
+        android:layout_height="265dp"
+        android:background="@color/colorPrimaryDark"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/place_homepage_txtNamePlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edit_text_border"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/place_homepage_placeImg"
         android:layout_width="200dp"
         android:layout_height="115dp"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="90dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+        android:contentDescription="@string/image" />
 
     <ProgressBar
         android:id="@+id/progressBarPlaceHome"
         style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="27dp"
+        android:layout_height="31dp"
         android:visibility="gone"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="192dp"
@@ -49,8 +57,9 @@
     <LinearLayout
         android:id="@+id/place_homepage_linearLayout_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="434dp"
         android:layout_marginTop="10dp"
+        android:background="@color/quantum_white_100"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlace"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,33 +69,25 @@
         <ListView
             android:id="@+id/place_homepage_listMenu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
-
+            android:layout_height="418dp"
+            android:background="@color/quantum_white_100" />
 
     </LinearLayout>
 
-    <!--    <ScrollView-->
-    <!--        android:id="@+id/scrollView4"-->
-    <!--        android:layout_width="355dp"-->
-    <!--        android:layout_height="390dp"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:fillViewport="true"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/btnAddMenu">-->
-
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="vertical">-->
-
-    <!--            <ListView-->
-    <!--                android:id="@+id/listMenu"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content" />-->
-    <!--        </LinearLayout>-->
-    <!--    </ScrollView>-->
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/place_homepage_btnAddMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_homepage_placeImg"
+        app:srcCompat="@drawable/ic_button_add_menu"
+        android:focusable="true"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlace"
@@ -96,19 +97,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/place_homepage_btnAddMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.295"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_homepage_placeImg"
-        app:srcCompat="@drawable/ic_button_add_menu" />
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@drawable/bottom_navigation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

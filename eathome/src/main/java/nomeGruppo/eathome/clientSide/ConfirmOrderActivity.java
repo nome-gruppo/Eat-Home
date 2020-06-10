@@ -8,27 +8,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.security.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Client;
@@ -41,6 +36,7 @@ import nomeGruppo.eathome.utility.TimePickerFragment;
 /*
 activity per completare e confermare un ordine
  */
+
 public class ConfirmOrderActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private Order order;
@@ -72,16 +68,15 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.editPhone = findViewById(R.id.editPhoneClientOrder);
         this.chooseTime = findViewById(R.id.editChooseTime);
 
-        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f", order.totalOrder));
-        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder));
-        txtTotDelivery.setText(String.format(Locale.getDefault(),"%.2f",order.deliveryCost));
-        txtTotal.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder + order.deliveryCost));
-        txtAddressOrder.setText(order.addressOrder);
-
-
         this.order = (Order) getIntent().getSerializableExtra(FirebaseConnection.ORDER);
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.openingTimeUtility = new OpeningTime();
+
+        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f", order.totalOrder));
+        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder));
+        txtTotDelivery.setText(String.format(Locale.getDefault(),"%d",order.deliveryCost));
+        txtTotal.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder + order.deliveryCost));
+        txtAddressOrder.setText(order.addressOrder);
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getReadableDatabase();
@@ -129,10 +124,14 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     }
 
+    /**
+     * metodo per aggiungere eventuali note all'ordinazione
+     */
+
     private void openDialogAddNote(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ConfirmOrderActivity.this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_reply_feedback, null);
+        View view = inflater.inflate(R.layout.dialog_reply_feedback, (ViewGroup) getCurrentFocus(),false);
         final EditText note=view.findViewById(R.id.editReplyFeedback);
         if(order.note==null){
             note.setHint(getResources().getString(R.string.add_note));
@@ -161,13 +160,17 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         alert.show();
     }
 
+    /**
+     * dialog di conferma ordinazione
+     */
+
     private void openDialogConfirm() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
         builder.setTitle(this.getResources().getString(R.string.confirm));
         builder.setMessage(this.getResources().getString(R.string.are_you_sure));
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 addOrderFirebase();//dopo che l'ordine è stato inserito correttamente all'interno del database
@@ -180,7 +183,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
                 startActivity(homePage);//apri homepage
                 finish();
             }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //se clicca su no non succede nulla e l'alert di chiude
@@ -192,6 +195,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     }
 
+    /**
+     * metodo per aggiungere l'ordinazione in db firebase
+     */
     private void addOrderFirebase() {
         order.setNameClientOrder(editName.getText().toString());
         order.setPhoneClientOrder(editPhone.getText().toString());
@@ -201,36 +207,47 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //prelevo la chiave assegnata in automatico da Firebase
-        String idOrder = firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_TABLE).push().getKey();
+        String idOrder = firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_NODE).push().getKey();
         order.setIdOrder(idOrder);
-        firebaseConnection.write(FirebaseConnection.ORDER_TABLE, idOrder, order);
+        firebaseConnection.write(FirebaseConnection.ORDER_NODE, idOrder, order);
 
         //inserisco l'informazione dell'ordinazione nel db interno
         mDBHelper.addInfo(mDB, order.idPlaceOrder, order.namePlaceOrder, new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(new Date()), mUser.getUid());
     }
+
+    /**
+     * metodo per impostare l'ora di consegna dell'ordinazione
+     * @param timePicker orologio di default
+     * @param hourOfDay ora consegna
+     * @param minutes minuti consegna
+     */
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
         SimpleDateFormat parser = new SimpleDateFormat(getString(R.string.hourFormat), Locale.getDefault());
         //leggo l'orario di apertura chiusura del locale
         String openingTime = place.openingTime.get(openingTimeUtility.getDayOfWeek(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
-        Date timeOpening = null;
-        Date timeClosed = null;
-        Date timeOrder = null;
+        Date timeOpening;
+        Date timeClosed;
+        Date timeOrder;
         try {
-            timeOrder = parser.parse(hourOfDay + ":" + minutes);
-            timeClosed = openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'orario di chiusura
-            timeOpening = openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'orario di apertura
+            if(openingTime != null) {
+                timeOrder = parser.parse(hourOfDay + ":" + minutes);
+                timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'orario di chiusura
+                timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'orario di apertura
 
-            //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
-            if (timeOrder.after(timeOpening) && timeOrder.before(timeClosed)) {
-                Button editChooseTime = findViewById(R.id.editChooseTime);
-                editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
-            } else {//se il locale è chiuso nell'ora selezionata
-                //mostra messaggio
-                Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();
+                if (timeOrder != null) {
+                    //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
+                    if (timeOrder.after(timeOpening) && timeOrder.before(timeClosed)) {
+                        Button editChooseTime = findViewById(R.id.editChooseTime);
+                        editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
+                    } else {//se il locale è chiuso nell'ora selezionata
+                        //mostra messaggio
+                        Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
-        } catch (NullPointerException | ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }

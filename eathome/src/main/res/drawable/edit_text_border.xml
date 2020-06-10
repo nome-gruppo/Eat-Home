@@ -2,14 +2,12 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Background Color -->
-    <solid android:color="@color/cardview_light_background" />
-
-    <!-- Border Color -->
-    <stroke android:width="2dp" android:color="@color/colorPrimary" />
+    <solid android:color="@color/colorThird" />
+    
 
     <!-- Round Corners -->
     <corners android:radius="6dp" />
 
-    <padding android:bottom="8dp" android:top="8dp" android:left="8dp"/>
+    <padding android:bottom="8dp" android:top="8dp" android:left="10dp"/>
 
 </shape>

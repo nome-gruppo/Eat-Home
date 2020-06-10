@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LauncherActivity">
+    android:background="@drawable/background"
+    tools:context=".SplashActivity">
 
     <ProgressBar
         android:id="@+id/activity_launcher_progressBar"
@@ -16,22 +17,23 @@
         android:layout_marginEnd="182dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_launcher_logo"
+        app:layout_constraintTop_toBottomOf="@+id/app_logo"
         android:elevation="15dp"/>
 
     <ImageView
-        android:id="@+id/activity_launcher_logo"
+        android:id="@+id/app_logo"
         android:layout_width="155dp"
         android:layout_height="155dp"
         android:layout_marginStart="128dp"
         android:layout_marginTop="224dp"
         android:layout_marginEnd="128dp"
         android:src="@mipmap/ic_launcher"
-        android:background="@drawable/button_border"
+        android:background="@drawable/button_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:elevation="15dp"/>
+        android:elevation="15dp"
+        android:contentDescription="@string/launcher" />
 
     <TextView
         android:id="@+id/activity_launcher_tv_error"
@@ -40,11 +42,11 @@
         android:layout_centerInParent="true"
         android:layout_margin="30dp"
         android:layout_marginBottom="1dp"
-        android:text=" Ops. C'è stato un errore"
+        android:text="@string/ops_c_stato_un_errore"
         android:textSize="25sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/activity_launcher_progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_launcher_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

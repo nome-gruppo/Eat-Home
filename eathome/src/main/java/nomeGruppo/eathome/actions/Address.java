@@ -1,28 +1,43 @@
 package nomeGruppo.eathome.actions;
 
-public class Address {
-    private int idAddress;
-    private String address;
-    private String numberAddress;
-    private String city;
+import androidx.annotation.Nullable;
 
-    public Address(int idAddress,String address,String numberAddress,String city){
-        this.idAddress=idAddress;
-        this.address=address;
-        this.numberAddress=numberAddress;
-        this.city=city;
+public class Address {
+
+    private static final String DIVIDER = ", ";
+
+    private int idAddress;
+    private final String city;
+    private final String street;
+    private final String numberAddress;
+
+    public Address(String city, String street, String numberAddress) {
+        this.city = city.trim();
+        this.street = street.trim();
+        this.numberAddress = numberAddress.trim();
     }
+
+    public Address(int idAddress, String city, String street, String numberAddress) {
+        this(city, street, numberAddress);
+        this.idAddress = idAddress;
+    }
+
+    public Address(int idAddress, Address address){
+        this(address.getCity(), address.getStreet(), address.getNumberAddress());
+        this.idAddress = idAddress;
+    }
+
+    public String getFullAddress() {
+        return city + DIVIDER + street + DIVIDER + numberAddress;
+    }
+
 
     public int getIdAddress() {
         return idAddress;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public String getStreet() {
+        return street;
     }
 
     public String getNumberAddress() {
@@ -31,5 +46,20 @@ public class Address {
 
     public String getCity() {
         return city;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+
+        if(obj instanceof Address){
+            final String objCity = ((Address) obj).getCity().toLowerCase();
+            final String objStreet = ((Address) obj).getStreet().toLowerCase();
+            final String objAddressNum = ((Address) obj).getNumberAddress().toLowerCase();
+
+            return objCity.equals(this.city.toLowerCase()) && objStreet.equals(this.street.toLowerCase()) && objAddressNum.equals(this.numberAddress.toLowerCase());
+        }else{
+            return false;
+        }
+
     }
 }

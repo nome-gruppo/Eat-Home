@@ -1,12 +1,12 @@
 package nomeGruppo.eathome.actors;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.HashMap;
 
-import nomeGruppo.eathome.utility.Days;
-
 public class Place implements Serializable{
+
+    public static final String ID_FIELD = "idPlace";
+
     //gli attributi sono public così che il DataSnapshot di ritorno dal firebase possa accedere a questi campi
     public String idPlace;
     public String addressNumPlace;

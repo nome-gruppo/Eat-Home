@@ -2,6 +2,8 @@
     <string name="api_key" translatable="false">AIzaSyD16nICsy8YDrIUIt_CXfoGgPpIJRNDeSI</string>
 
     <string name="app_name" translatable="false">Eat Home</string>
+    <string name="image_button" translatable="false">ImageButton</string>
+    <string name="image" translatable="false">Image</string>
     <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="menu_logout" translatable="false">Logout</string>
     <string name="menu_home" translatable="false">Home</string>
@@ -12,11 +14,13 @@
     <string name="hourFormat" translatable="false">HH:mm</string>
     <string name="hourPrinted" translatable="false">%1$02d:%2$02d</string>
     <string name="addressPrinted" translatable="false">%1$s, %2$s, %3$s</string>
+    <string name="euro" translatable="false">€ %.02f</string>
+    <string name="one" translatable="false">1</string>
+    <string name="zero" translatable="false">0</string>
+
 
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_password">Password must be >6 characters</string>
     <string name="placeName">Enter name activity</string>
     <string name="enterAddress">Enter address</string>
     <string name="enterPhone">Enter phone number</string>
@@ -33,21 +37,17 @@
     <string name="either">Either</string>
     <string name="actions">Choose actions</string>
     <string name="deliveryCost">Insert delivery cost</string>
-    <string name="btn_go">Go</string>
-    <string name="weAreAlmostThere">We are almost there</string>
     <string name="tw_signUp">Sign up</string>
     <string name="tw_restaurantOwner">Restaurant owner? Sign up here</string>
     <string name="pizzeriaRestaurant">Restaurant-pizzeria</string>
     <string name="name">Enter name</string>
-    <string name="surname">Enter surname</string>
     <string name="nameFood">Enter food</string>
     <string name="ingredientsFood">Enter ingredients</string>
     <string name="my_account">My account</string>
     <string name="enter_price">Enter price</string>
     <string name="delivery_expected">Delivery is available at the cost of</string>
     <string name="booking_expected">Booking available</string>
-    <string name="confirmation">Are you sure you want to cancel </string>
-    <string name="action_order">Order</string>
+    <string name="cancelConfirmation">Are you sure you want to cancel </string>
     <string name="action_book">Book</string>
     <string name="order_summary">Order summary</string>
     <string name="choose_address">Choose your address</string>
@@ -78,7 +78,6 @@
     <string name="send">Send</string>
     <string name="enterReview">Enter a review</string>
     <string name="choose_number_person">Select number of people</string>
-    <string name="assign_rating">Assign a rating</string>
     <string name="enter_feedback">Enter feedback</string>
     <string name="no_feedback">Sorry! There are no feedback</string>
     <string name="fill_all_fields">Fill in all fields</string>
@@ -96,7 +95,6 @@
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="phone">Phone</string>
     <string name="my_address">My address</string>
     <string name="delete_account">Delete account</string>
     <string name="save">Save</string>
@@ -105,7 +103,6 @@
     <string name="success_save">Information changed successfully</string>
     <string name="no_change">No change</string>
     <string name="edit">Edit</string>
-    <string name="euro" translatable="false">€ %.02f</string>
 
     <string name="authenticationFailed">Authentication Failed</string>
     <string name="enterEmailToContinue">Enter your email to continue</string>
@@ -116,6 +113,7 @@
     <string name="incorrectPassword">Incorrect password</string>
     <string name="enteredDifferentPasswords">Entered different passwords</string>
     <string name="oldIncorrectPassword">Old incorrect password</string>
+    <string name="passwordChangedCorrectly">Password changed correctly</string>
     <string name="phoneNumberChangedCorrectly">Phone number changed correctly</string>
     <string name="notValidPhoneNumber">Not valid phone number</string>
     <string name="emailAlreadyExists">Email already exists</string>
@@ -128,13 +126,57 @@
     <string name="add_note">Add note</string>
     <string name="no_note">No note added</string>
     <string name="note_success">Note added successfully</string>
-    <string name="read_note">Show note</string>
     <string name="cancel">Cancel</string>
     <string name="successfulRegistration">Successful Registration</string>
     <string name="yes">Yes</string>
-    <string name="sorry_there_are_no_booking">Sorry! There are no booking.</string>
-    <string name="sorry_there_are_no_orders">Sorry! There are no orders.</string>
+    <plurals name="numFeedback">
+        <item quantity="one">%d feedback</item>
+        <item quantity="other">%d feedback</item>
+    </plurals>
+    <string name="noChangedEmail">Sorry, it was not possible to change your email</string>
+    <string name="noChangedPassword">Sorry, it was not possible to change your password</string>
+    <string name="impossibleOrder">Sorry, this place does not delivery to your city</string>
+    <string name="noInternetConnection">No internet connection</string>
+    <string name="emailSent">Email sent</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="launcher" translatable="false">launcher</string>
+    <string name="ops_c_stato_un_errore">Ops. There\'s an error</string>
+    <string name="no_address">There ins\'t any saved address</string>
+    <string name="search_button">Search city</string>
+    <string name="date">Date</string>
+    <string name="no_place">Sorry, there aren\'t places</string>
+    <string name="search_place">Search place</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="delivery">Delivery</string>
+    <string name="other">Other</string>
+    <string name="all">All</string>
+    <string name="free_delivery">Only free delivery</string>
+    <string name="show_place">Show place</string>
+    <string name="average_valuation">Average valuation</string>
+    <string name="order_by">Order by</string>
+    <string name="order_name">Name</string>
+    <string name="valuation">Valuation</string>
+    <string name="distance">Distance</string>
+    <string name="order_categories">Categories</string>
+    <string name="date_order">Date order</string>
+    <string name="address_order_info">Address order</string>
+    <string name="phone_number">Phone number</string>
+    <string name="total_order">Total order</string>
+    <string name="ingredients_info">Ingredients</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="feedback_date">Feedback date</string>
+    <string name="feedback_name">Feedback name</string>
+    <string name="feedback_text">Feedback text</string>
+    <string name="date_booking">Booking date</string>
+    <string name="address_booking">Booking address</string>
+    <string name="numer_people_booking">Number of people booking</string>
+    <string name="phone_place">"Place phone number "</string>
     <string name="email">Email</string>
-
+    <string name="password" translatable="false">Password</string>
+    <string name="address_place">Address place</string>
+    <string name="type_place">Type place</string>
+    <string name="place_area">Place area</string>
+    <string name="sei_sicuro_di_voler_eliminare_l_account">Do you want to delete?</string>
+    <string name="filter_by">Filter by</string>
 
 </resources>

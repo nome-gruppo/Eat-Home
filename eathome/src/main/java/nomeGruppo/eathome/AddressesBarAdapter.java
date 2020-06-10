@@ -8,16 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
+public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction> {
 
-    private List<AutocompletePrediction> list;      //lista per controllare che non vengano mostrate repliche
+    private final List<String> list;      //lista per controllare che non vengano mostrate repliche
 
     public AddressesBarAdapter(@NonNull Context context, int resource) {
         super(context, resource);
@@ -25,25 +24,30 @@ public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction>{
     }
 
     @Override
-    public void add(AutocompletePrediction prediction){
+    public void add(AutocompletePrediction prediction) {
 
-        if(!list.contains(prediction)) {
-            list.add(prediction);
+        String address = prediction.getPrimaryText(null).toString();
+        if (!list.contains(address)) {
+            list.add(address);
             super.add(prediction);
         }
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
-        if(convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.dropdown_list_layout, null);
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (inflater != null) {
+            convertView = inflater.inflate(R.layout.dropdown_list_layout, parent, false);
 
             final TextView item = convertView.findViewById(R.id.list_item);
-            item.setText(getItem(position).getFullText(null));
+            final AutocompletePrediction prediction = getItem(position);
+
+            if (prediction != null) {
+                item.setText(prediction.getPrimaryText(null));
+            }
         }
 
 

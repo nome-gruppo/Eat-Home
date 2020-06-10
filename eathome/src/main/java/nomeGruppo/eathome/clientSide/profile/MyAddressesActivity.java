@@ -21,6 +21,10 @@ import nomeGruppo.eathome.clientSide.DialogAddAddress;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
+/*
+activity per la gestione degli indirizzi
+ */
+
 public class MyAddressesActivity extends AppCompatActivity implements DialogAddAddress.DialogAddAddressListener {
 
     private AddressAdapter mAdapter;
@@ -29,6 +33,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     private SQLiteDatabase mDB;
 
     private Client client;
+    private ArrayList<Address> addressList;
 
     private ListView addressesLW;
     private TextView noAddressesTW;
@@ -39,47 +44,45 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         setContentView(R.layout.activity_my_addresses);
 
         final FloatingActionButton addAddressBtn = findViewById(R.id.activity_my_address_btn_add);
-        final ArrayList<Address> addressList = new ArrayList<>();
-
-        addressesLW = findViewById(R.id.activity_my_addresses_listView);
-
-        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        noAddressesTW = findViewById(R.id.activity_my_address_et_noAddresses);
 
         mDBHelper = new DBOpenHelper(this);
         mDB = mDBHelper.getWritableDatabase();
-        noAddressesTW = findViewById(R.id.activity_my_address_et_noAddresses);
 
+        addressList = new ArrayList<>();
+        addressesLW = findViewById(R.id.activity_my_addresses_listView);
+        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);//recupero oggetto cliente passato
 
-        if (client != null) {
-            mAdapter = new AddressAdapter(this, R.layout.listitem_my_address, addressList, client.idClient, MyAddressesActivity.this);
+        if (client != null) {//se esiste un oggetto cliente
+            mAdapter = new AddressAdapter(this, addressList, client.idClient, MyAddressesActivity.this);//imposto l'adapter
 
-
+            //cursor per leggere nel db interno
             Cursor c = mDB.query(DBOpenHelper.TABLE_ADDRESSES, DBOpenHelper.COLUMNS_ADDRESSES, DBOpenHelper.SELECTION_BY_USER_ID_ADDRESS, new String[]{client.idClient}, null, null, null);
 
-            final int rows = c.getCount();
+            final int rows = c.getCount();//recupero numero di righe
 
             //recupero indirizzi dal database
-            if (rows == 0) {
-                noAddressesTW.setVisibility(View.VISIBLE);
-            } else {
-                while (c.moveToNext()) {
+            if (rows == 0) {//se numero di righe=0
+                noAddressesTW.setVisibility(View.VISIBLE);//mostro testo nessun indirizzo
+            } else {//se esiste almeno una riga
+                while (c.moveToNext()) {//muovo il cursore
 
                     int idAddress = c.getInt(c.getColumnIndexOrThrow(DBOpenHelper.ID_ADDRESS));
                     String address = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ADDRESS));
                     String numAddress = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NUM_ADDRESS));
                     String city = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.CITY));
 
-                    Address addressObj = new Address(idAddress, address, numAddress, city);
-                    addressList.add(addressObj);
+                    Address addressObj = new Address(idAddress, city, address, numAddress);
+                    addressList.add(addressObj);//aggiungo l'indirizzo alla lista collegata all'adapter
                 }
                 addressesLW.setAdapter(mAdapter);
-                c.close();
+                c.close();//chiuso il cursor
             }
 
-            addAddressBtn.setOnClickListener(new View.OnClickListener() {
+            addAddressBtn.setOnClickListener(new View.OnClickListener() {//se clicca sul bottono aggiungi indirizzo
                 @Override
                 public void onClick(View view) {
-                    openDialog();
+                    openDialog();//chiama funzione openDialog()
                 }
             });
         }
@@ -87,7 +90,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
 
     public void openDialog() {
         DialogAddAddress dialogAddAddress = new DialogAddAddress();
-        dialogAddAddress.show(getSupportFragmentManager(), "Dialog add address");
+        dialogAddAddress.show(getSupportFragmentManager(), "Dialog add address");//mostra dialogAddAddress
     }
 
     public TextView getNoAddressTW() {
@@ -95,14 +98,27 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     }
 
     @Override
-    public void applyTexts(String address, String numberAddress, String city) {
-        mDBHelper.addAddress(mDB, address, numberAddress, city, client.idClient);
-        Address temp = new Address(mDBHelper.getLastIdAddresses(mDB), address, numberAddress, city);
-        mAdapter.add(temp);
-        mAdapter.notifyDataSetChanged();
-        noAddressesTW.setVisibility(View.GONE);
-        addressesLW.setAdapter(mAdapter);
+    public void applyTexts(Address address) {
+        //ricerca che l'address non sia già presente nella lista
+        boolean found = false;
+        for(Address item: addressList){
+            if (item.equals(address)) {
+                found = true;
+                break;
+            }
+        }
 
+        //se non trovato aggiungilo nella lista
+        if(!found){
+
+                mDBHelper.addAddress(mDB, address, client.idClient);
+                Address mAddress = new Address(mDBHelper.getLastIdAddresses(mDB), address);
+                addressList.add(mAddress);
+                mAdapter.notifyDataSetChanged();
+                noAddressesTW.setVisibility(View.GONE);
+                addressesLW.setAdapter(mAdapter);
+
+        }
     }
 
     @Override

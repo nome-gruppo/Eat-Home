@@ -21,36 +21,39 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.db.DBOpenHelper;
 
+/*
+adapter per la gestione degli indirizzi dell'utente
+*/
 
 public class AddressAdapter extends ArrayAdapter<Address> {
-
-    private static final String SPLIT=", ";
 
     private DBOpenHelper helper;
     private SQLiteDatabase mDB;
 
-    private String idClient;
+    private final String idClient;
 
-    private ArrayList<Address> list;
-    private MyAddressesActivity callingActivity;
+    private final ArrayList<Address> list;
+    private final MyAddressesActivity callingActivity;
 
 
-    AddressAdapter(@NonNull Context context, int resource, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
-        super(context, resource, list);
-        this.idClient=idClient;
-        this.list=list;
+    AddressAdapter(@NonNull Context context, ArrayList<Address> list, String idClient, MyAddressesActivity callingActivity) {
+        super(context, R.layout.listitem_my_address, list);
+        this.idClient = idClient;
+        this.list = list;//lista indirizzi
         this.callingActivity = callingActivity;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
-        Holder holder = null;
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if(convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.listitem_my_address, null);
+        Holder holder;
+
+        if (inflater != null) {
+            convertView = inflater.inflate(R.layout.listitem_my_address, parent, false);
 
             holder = new Holder();
 
@@ -60,36 +63,34 @@ public class AddressAdapter extends ArrayAdapter<Address> {
 
             convertView.setTag(holder);
 
-        }else{
+        } else {
             holder = (Holder) convertView.getTag();
         }
 
-        helper = new DBOpenHelper(getContext());
-        mDB = helper.getWritableDatabase();
+        final Address addressObj = getItem(position);
 
-        final Address addressObj= getItem(position);
-
-        if(addressObj != null){
-            final String address=addressObj.getCity()+SPLIT+addressObj.getAddress()+SPLIT+addressObj.getNumberAddress()+SPLIT;
+        if (addressObj != null) {
+            final String address = addressObj.getFullAddress();
             holder.addressET.setText(address);
 
             holder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    openDialog(addressObj,position);
-
+                    openDialog(addressObj);
                 }
             });
 
+            helper = new DBOpenHelper(getContext());
+            mDB = helper.getWritableDatabase();
             holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     list.remove(addressObj);
                     notifyDataSetChanged();
-                    helper.deleteAdd(mDB,addressObj.getIdAddress(),idClient);
+                    helper.deleteAddress(mDB, addressObj.getIdAddress(), idClient);
 
-                    if(list.isEmpty()){
+                    if (list.isEmpty()) {
                         callingActivity.getNoAddressTW().setVisibility(View.VISIBLE);
                     }
                 }
@@ -115,34 +116,30 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         return list.indexOf(getItem(position));
     }
 
-    private class Holder{
-        EditText addressET;
-        ImageButton editBtn;
-        ImageButton deleteBtn;
-    }
 
-    private void openDialog(final Address addressObj, final int position){ //creo un alert dialogo
-        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+    private void openDialog(final Address addressObj) { //creo un alert dialogo
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         Activity activity = (Activity) getContext();
-        LayoutInflater inflater=activity.getLayoutInflater();
-        View view=inflater.inflate(R.layout.dialog_insert_address,null);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) ((Activity) getContext()).getCurrentFocus(),false);
 
-        final EditText editAddress=view.findViewById(R.id.editAddressClient);
-        final EditText editCity=view.findViewById(R.id.editCityClient);
-        final EditText editNumberAddress=view.findViewById(R.id.editNumberAddressClient);
+        final EditText editAddress = view.findViewById(R.id.editAddressClient);
+        final EditText editCity = view.findViewById(R.id.editCityClient);
+        final EditText editNumberAddress = view.findViewById(R.id.editNumberAddressClient);
 
         editCity.setText(addressObj.getCity());
-        editAddress.setText(addressObj.getAddress());
+        editAddress.setText(addressObj.getStreet());
         editNumberAddress.setText(addressObj.getNumberAddress());
 
-        builder.setView(view).setTitle(getContext().getResources().getString(R.string.enterAddress)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle(getContext().getResources().getString(R.string.enterAddress)).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Address newAddress=new Address(addressObj.getIdAddress(),editAddress.getText().toString(),editNumberAddress.getText().toString(),editCity.getText().toString());
+                Address newAddress = new Address(addressObj.getIdAddress(), editAddress.getText().toString(),
+                        editNumberAddress.getText().toString(), editCity.getText().toString());
                 list.remove(addressObj);
                 list.add(newAddress);
-                helper.updateAdd(mDB, newAddress.getIdAddress(),newAddress.getAddress(),newAddress.getNumberAddress(),newAddress.getCity(),idClient);
+                helper.updateAddress(mDB, newAddress, idClient);
                 notifyDataSetChanged();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -153,5 +150,11 @@ public class AddressAdapter extends ArrayAdapter<Address> {
         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private static class Holder {
+        EditText addressET;
+        ImageButton editBtn;
+        ImageButton deleteBtn;
     }
 }

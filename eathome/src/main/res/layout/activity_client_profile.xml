@@ -3,277 +3,252 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".clientSide.profile.ClientProfileActivity"
-    android:orientation="vertical"
-    android:layout_marginHorizontal="5dp"
-    android:background="@color/colorPrimary">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbClientProfile"
-        android:layout_width="450dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/toolbar_border"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="?attr/actionBarTheme"
 
-    <ScrollView
+    />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:autofillHints="true">
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_border">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
-            android:layout_width="300dp"
+        <TableLayout
+            android:id="@+id/tableLayout2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="0dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            >
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="4dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="300dp"
-                android:layout_height="770dp"
-                android:layout_gravity="center">
-
-                <TableLayout
-                    android:id="@+id/tableLayout2"
+                <EditText
+                    android:id="@+id/activity_client_et_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="68dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_gravity="center"
+                    android:autofillHints="@string/edit_name"
 
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginVertical="20dp"
-                        android:layout_marginStart="15dp">
+                    android:drawableStart="@drawable/ic_menu_login"
+                    android:drawablePadding="5dp"
+                    android:ems="10"
+                    android:hint="@string/edit_name"
+                    android:inputType="textPersonName" />
 
-                        <EditText
-                            android:id="@+id/activity_client_et_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_menu_login"
-                            android:ems="10"
-                            android:hint="@string/edit_name"
-                            android:inputType="textPersonName"
-                            android:textAlignment="center"
-                            tools:layout_editor_absoluteX="136dp" />
+                <ImageButton
+                    android:id="@+id/activity_client_profile_imBtn_name"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/colorSecondary"
+                    android:contentDescription="@string/image_button"
+                    android:src="@drawable/ic_profile_edit"
+                    tools:layout_editor_absoluteX="350dp" />
+            </TableRow>
 
-                        <ImageButton
-                            android:id="@+id/activity_client_profile_imBtn_name"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit"
-                            tools:layout_editor_absoluteX="350dp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp"
-                        android:layout_marginStart="15dp"
-                        android:hint="@string/email">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="4dp"
+                android:layout_marginStart="1dp"
+                android:hint="@string/enterEmail">
 
 
-                        <EditText
-                            android:id="@+id/activity_client_et_email"
-                            android:layout_width="194dp"
-                            android:layout_height="43dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableStart="@drawable/ic_email_black_24dp"
-                            android:ems="10"
-                            android:hint="@string/email"
-                            android:inputType="textEmailAddress"
-                            android:textAlignment="center"
-                            tools:layout_editor_absoluteX="134dp"
-                            tools:layout_editor_absoluteY="57dp"
-                            android:autofillHints="Email" />
+                <EditText
+                    android:id="@+id/activity_client_et_email"
+                    android:layout_width="194dp"
+                    android:layout_height="43dp"
+                    android:autofillHints="@string/enterEmail"
 
-                        <ImageButton
-                            android:id="@+id/activity_client_profile_imBtn_email"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit"
-                            tools:layout_editor_absoluteX="350dp"
-                            tools:layout_editor_absoluteY="48dp" />
-                    </TableRow>
+                    android:drawableStart="@drawable/ic_email_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:ems="10"
+                    android:hint="@string/enterEmail"
+                    android:inputType="textEmailAddress" />
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp"
-                        android:layout_marginStart="20dp">
+                <ImageButton
+                    android:id="@+id/activity_client_profile_imBtn_email"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/colorSecondary"
+                    android:contentDescription="@string/image_button"
+                    android:src="@drawable/ic_profile_edit"
+                    tools:layout_editor_absoluteX="350dp"
+                    tools:layout_editor_absoluteY="48dp" />
+            </TableRow>
 
-
-                        <EditText
-                            android:id="@+id/activity_client_et_oldPassword"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:background="@drawable/edit_text_border"
-                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
-                            android:ems="10"
-                            android:hint="@string/old_password"
-                            android:inputType="textPassword"
-                            android:textAlignment="center"
-                            tools:layout_editor_absoluteX="133dp"
-                            tools:layout_editor_absoluteY="99dp"
-                            android:autofillHints="" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp"
-                        android:layout_marginStart="20dp">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp">
 
 
-                        <EditText
-                            android:id="@+id/activity_client_et_newPassword"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-                            android:ems="10"
-                            android:hint="@string/new_password"
-                            android:inputType="textPassword"
-                            android:textAlignment="center"
-                            android:autofillHints="" />
-                    </TableRow>
+                <EditText
+                    android:id="@+id/activity_client_et_oldPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/old_password"
+                    android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:ems="10"
+                    android:hint="@string/old_password"
+                    android:inputType="textPassword" />
+            </TableRow>
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp"
-                        android:layout_marginStart="20dp">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="0dp"
+                android:layout_marginStart="0dp">
 
 
-                        <EditText
-                            android:id="@+id/activity_client_et_password_confirm"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-                            android:ems="10"
-                            android:hint="@string/confirm_password"
-                            android:inputType="textPassword"
-                            android:textAlignment="center"
-                            tools:layout_editor_absoluteX="131dp"
-                            tools:layout_editor_absoluteY="190dp" />
+                <EditText
+                    android:id="@+id/activity_client_et_newPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:autofillHints="@string/new_password"
+                    android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:ems="10"
+                    android:hint="@string/new_password"
+                    android:inputType="textPassword" />
+            </TableRow>
 
-                        <ImageButton
-                            android:id="@+id/activity_client_profile_imBtn_password_confirm"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit"
-                            tools:layout_editor_absoluteX="348dp"
-                            tools:layout_editor_absoluteY="190dp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="383dp"
-                        android:layout_height="57dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="0dp"
+                android:layout_marginStart="0dp">
 
 
-                        <EditText
-                            android:id="@+id/activity_client_et_phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
-                            android:ems="10"
-                            android:inputType="phone"
-                            tools:layout_editor_absoluteX="131dp"
-                            tools:layout_editor_absoluteY="265dp"
-                            android:autofillHints="" />
+                <EditText
+                    android:id="@+id/activity_client_et_password_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:autofillHints="@string/confirm_password"
+                    android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                    android:ems="10"
+                    android:hint="@string/confirm_password"
+                    android:inputType="textPassword"
+                    android:textAlignment="center"
+                    tools:layout_editor_absoluteX="131dp"
+                    tools:layout_editor_absoluteY="190dp" />
 
-                        <ImageButton
-                            android:id="@+id/activity_client_profile_imBtn_phone"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@color/quantum_white_100"
-                            android:src="@drawable/ic_profile_edit"
-                            tools:layout_editor_absoluteX="347dp"
-                            tools:layout_editor_absoluteY="241dp" />
-                    </TableRow>
+                <ImageButton
+                    android:id="@+id/activity_client_profile_imBtn_password_confirm"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/colorSecondary"
+                    android:contentDescription="@string/image_button"
+                    android:src="@drawable/ic_profile_edit"
+                    tools:layout_editor_absoluteX="348dp"
+                    tools:layout_editor_absoluteY="190dp" />
+            </TableRow>
 
-
-                </TableLayout>
-
-                <Button
-                    android:id="@+id/activity_client_btn_myAddresses"
-                    android:layout_width="258dp"
-                    android:layout_height="47dp"
-
-                    android:layout_marginVertical="20dp"
-                    android:layout_marginTop="18dp"
-                    android:background="@drawable/button_border"
-                    android:text="@string/my_address"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
-
-                <Button
-                    android:id="@+id/activity_client_btn_save"
-                    android:layout_width="258dp"
-                    android:layout_height="47dp"
-
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/button_border"
-                    android:text="@string/save"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_client_btn_myAddresses" />
-
-                <Button
-                    android:id="@+id/activity_client_btn_deleteAccount"
-                    android:layout_width="258dp"
-                    android:layout_height="47dp"
-
-                    android:layout_marginTop="17dp"
-                    android:background="@drawable/button_border"
-                    android:text="@string/delete_account"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_client_btn_save" />
+            <TableRow
+                android:layout_width="383dp"
+                android:layout_height="57dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="0dp"
+                android:layout_marginStart="0dp">
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/activity_client_et_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_local_phone_black_24dp"
+                    android:ems="10"
+                    android:importantForAutofill="no"
+                    android:inputType="phone"
+                    tools:ignore="LabelFor"
+                    tools:layout_editor_absoluteX="131dp"
+                    tools:layout_editor_absoluteY="265dp" />
 
-        </androidx.cardview.widget.CardView>
+                <ImageButton
+                    android:id="@+id/activity_client_profile_imBtn_phone"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/colorSecondary"
+                    android:contentDescription="@string/image_button"
+                    android:src="@drawable/ic_profile_edit"
+                    tools:layout_editor_absoluteX="347dp"
+                    tools:layout_editor_absoluteY="241dp" />
+            </TableRow>
 
-    </ScrollView>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/activity_client_btn_myAddresses"
+            android:layout_width="158dp"
+            android:layout_height="47dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_style"
+            android:text="@string/my_address"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.039"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/activity_client_btn_save"
+        android:layout_width="258dp"
+        android:layout_height="47dp"
+    android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/button_style"
+        android:text="@string/save" />
+
+    <Button
+        android:id="@+id/activity_client_btn_deleteAccount"
+        android:layout_width="258dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="2dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_style"
+        android:text="@string/delete_account" />
+
 
 </LinearLayout>

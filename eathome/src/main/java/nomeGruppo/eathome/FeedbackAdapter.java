@@ -20,8 +20,7 @@ import java.util.List;
 
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.foods.Food;
-import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
+import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 
 /*
 adapter per le recensioni
@@ -33,38 +32,43 @@ public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
         super(context, resource, list);
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView,@NonNull ViewGroup parent) {
 
-        if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.listitem_feedback, null);
 
-            final Button btnReply=convertView.findViewById(R.id.btnReplyFeedback);
-            final RatingBar ratingBar = convertView.findViewById(R.id.listitem_feedback_ratingBar);
-            final TextView nameTW = convertView.findViewById(R.id.listitem_feedback_name);
-            final TextView dateTW = convertView.findViewById(R.id.listitem_feedback_date);
-            final TextView textTW = convertView.findViewById(R.id.listitem_feedback_tw_text);
+            if(inflater != null) {
+                convertView = inflater.inflate(R.layout.listitem_feedback, parent, false);
 
-            final Feedback mFeedback = getItem(position);
+                final Button btnReply = convertView.findViewById(R.id.btnReplyFeedback);
+                final RatingBar ratingBar = convertView.findViewById(R.id.listitem_feedback_ratingBar);
+                final TextView nameTW = convertView.findViewById(R.id.listitem_feedback_name);
+                final TextView dateTW = convertView.findViewById(R.id.listitem_feedback_date);
+                final TextView textTW = convertView.findViewById(R.id.listitem_feedback_tw_text);
 
-            if(getContext().getClass()==FeedbackPlaceActivity.class){//se è un place che visualizza le recensioni rendo visibile il bottone per rispondere
-                btnReply.setVisibility(View.VISIBLE);
+                final Feedback mFeedback = getItem(position);
+
+                if (mFeedback != null) {
+                    ratingBar.setRating(mFeedback.voteFeedback);
+                    nameTW.setText(mFeedback.clientNameFeedback);
+                    dateTW.setText(mFeedback.dateFeedback);
+                    textTW.setText(mFeedback.textFeedback);
+
+                    if (getContext().getClass() == PlaceMyFeedbackActivity.class) {//se è un place che visualizza le recensioni rendo visibile il bottone per rispondere
+                        btnReply.setVisibility(View.VISIBLE);
+                    }
+
+                    btnReply.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openDialogReplyFeedback(mFeedback);
+                        }
+                    });
+                }
             }
 
-            btnReply.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openDialogReplyFeedback(mFeedback);
-                }
-            });
-
-            ratingBar.setRating(mFeedback.voteFeedback);
-            nameTW.setText(mFeedback.clientNameFeedback);
-            dateTW.setText(mFeedback.dateFeedback);
-            textTW.setText(mFeedback.textFeedback);
-        }
         return convertView;
     }
 
@@ -73,7 +77,7 @@ public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
 
         Activity activity = (Activity) getContext();
         LayoutInflater inflater=activity.getLayoutInflater();
-        View view=inflater.inflate(R.layout.dialog_reply_feedback,null);
+        View view=inflater.inflate(R.layout.dialog_reply_feedback, (ViewGroup) ((Activity) getContext()).getCurrentFocus(),false);
 
         final EditText editReply=view.findViewById(R.id.editReplyFeedback);
 
@@ -98,7 +102,7 @@ public class FeedbackAdapter  extends ArrayAdapter<Feedback> {
 
     private void addReplyOnFirebase(String reply, String id){
         FirebaseConnection firebaseConnection=new FirebaseConnection();
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_TABLE).child(id).child("replyPlace").setValue(reply);
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_NODE).child(id).child("replyPlace").setValue(reply);
     }
 
 }

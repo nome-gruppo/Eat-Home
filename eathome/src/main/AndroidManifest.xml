@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".placeSide.FeedbackPlaceActivity"
+        <activity android:name=".placeSide.profile.PlaceMyFeedbackActivity"
             android:label="@string/my_feedback"/>
 
         <activity android:name=".clientSide.PlacesFilterActivity"
@@ -40,7 +40,7 @@
         <activity android:name=".clientSide.profile.ClientProfileActivity"
             android:label="@string/my_account"/>
 
-        <activity android:name=".LauncherActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -58,38 +58,34 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".placeSide.PlaceRegistrationActivity"
+        <activity android:name=".placeSide.PlaceRegistrationActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:largeHeap="true" />
+
         <activity
             android:name=".clientSide.ClientRegistrationActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:largeHeap="true" />
+
         <activity
             android:name=".placeSide.PlaceHomeActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".clientSide.HomepageActivity"
+        <activity android:name=".clientSide.HomepageActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
+
         <activity
             android:name=".LoginActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:largeHeap="true" />
         <activity
             android:name=".clientSide.PlaceInfoActivity"
             android:hardwareAccelerated="false"
@@ -99,27 +95,23 @@
             android:name=".clientSide.ConfirmOrderActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:largeHeap="true" />
         <activity
             android:name=".clientSide.ConfirmBookingActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:largeHeap="true" />
         <activity
             android:name=".clientSide.ClientBookingInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".clientSide.ClientOrderInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
@@ -127,7 +119,6 @@
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
@@ -135,7 +126,6 @@
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
@@ -143,20 +133,17 @@
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".placeSide.PlaceOpeningTimeActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:largeHeap="true" />
         <activity
             android:name=".OtherActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
             android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
@@ -169,8 +156,7 @@
             android:name=".clientSide.PlaceListFoodOrderActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:largeHeap="true"/>
     </application>
 
 </manifest>

@@ -31,7 +31,7 @@ import nomeGruppo.eathome.placeSide.PlaceRegistrationActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String TAG = "LoginFragment";
+    private static final String TAG = LoginActivity.class.getName();
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -91,9 +91,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseConnection connection = new FirebaseConnection();
-                if(emailET.getText() == null) {
+                if (emailET.getText() == null) {
                     Toast.makeText(getApplicationContext(), getString(R.string.enterEmailToContinue), Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     connection.resetPassword(mAuth, emailET.getText().toString().trim(), LoginActivity.this);
                 }
             }
@@ -119,7 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             user = mAuth.getCurrentUser();
-                            connection.searchUserInDb(user.getUid(), FirebaseConnection.CLIENT_TABLE, progressBar, LoginActivity.this);
+                            if (user != null) {
+                                connection.searchUserInDb(user.getUid(), progressBar, LoginActivity.this);
+                            }
                         } else {
                             progressBar.setVisibility(View.INVISIBLE);
                             // If sign in fails, display a message to the user.
@@ -132,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    TextWatcher afterTextChangedListener = new TextWatcher() {
+    final TextWatcher afterTextChangedListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             // ignore

@@ -3,15 +3,12 @@ package nomeGruppo.eathome.clientSide;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -25,18 +22,13 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.TreeSet;
 
-import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.actors.PlacesByDistance;
@@ -45,8 +37,10 @@ import nomeGruppo.eathome.actors.PlacesByValuation;
 import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
+/**
+ * Questa activity è chiamata quando l'utente clicca sul FAB che gli permette di filtrare i locali visulazzati
+ */
 public class PlacesFilterActivity extends AppCompatActivity {
-
 
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
 
@@ -60,9 +54,8 @@ public class PlacesFilterActivity extends AppCompatActivity {
     private static final String BOOKING_RB = "bookingRB";
     private static final String ORDER_BY_VALUATION_RB = "orderByValuationRB";
     private static final String ORDER_BY_DISTANCE_RB = "orderByDistanceRB";
-
-
-
+    private static final String FREE_DELIVERY_SWITCH = "freeDeliverySwitch";
+    private static final String VALUATION_SB = "valuationSB";
 
     private CheckBox pizzeriaCB;
     private CheckBox restaurantCB;
@@ -81,7 +74,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private SeekBar valuationSB;
 
-
     private boolean categoryChanged = false;
     private boolean typeChanged = false;
     private boolean freeDeliverySet = false;
@@ -98,8 +90,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private MyLocationListener myLocationListener;
     private LocationManager mLocationManager;
-
-    private Bundle bundle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,18 +119,15 @@ public class PlacesFilterActivity extends AppCompatActivity {
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         outState = new Bundle();
-
+        places = new ArrayList<>();
 
         userLatitude = getIntent().getDoubleExtra("userLatitude", 0);
         userLongitude = getIntent().getDoubleExtra("userLongitude", 0);
 
-
+        //inizializza i listener delle varie view
         initCheckListener();
 
-        places = new ArrayList<>();
-
-
-        bundle = getIntent().getBundleExtra("outState");
+        final Bundle bundle = getIntent().getBundleExtra("outState");
 
         if (bundle != null) {
             pizzeriaCB.setChecked(bundle.getBoolean(PIZZERIA_CB, true));
@@ -159,9 +146,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
             orderByValuationRB.setChecked(bundle.getBoolean(ORDER_BY_VALUATION_RB, false));
             orderByDistanceRB.setChecked(bundle.getBoolean(ORDER_BY_DISTANCE_RB, false));
 
-            freeDeliverySwitch.setChecked(bundle.getBoolean("freeDeliverySwitch", false));
+            freeDeliverySwitch.setChecked(bundle.getBoolean(FREE_DELIVERY_SWITCH, false));
 
-            valuationSB.setProgress(bundle.getInt("valuationSB"));
+            valuationSB.setProgress(bundle.getInt(VALUATION_SB));
 
         }
     }// end onCreate
@@ -172,6 +159,9 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         final String userCity = getIntent().getStringExtra("userCity");
 
+        /*Il metodo ottiene la città ricercata nella barra degli indirizzi
+        il button per visualizzare i locali non è cliccabile finché non sono caricati tutti i locali della città
+        */
         showBtn.setClickable(false);
         if (userCity != null) {
             search(userCity);
@@ -179,36 +169,11 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     }
 
-    private void search(String userCity) {
-        final FirebaseConnection firebaseConnection = new FirebaseConnection();
-
-        //cerca nel database i locali nella città dell'utente
-        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_TABLE).orderByChild("cityPlace").equalTo(userCity).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                        places.add(snapshot.getValue(Place.class));
-                    }
-                }
-
-                showBtn.setClickable(true);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PERMISSION_LOCATION_REQUEST_CODE) {
-
 
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 //gps attivato
@@ -219,7 +184,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
             } else {
                 //gps disabilitato
 
-               orderByNameRB.setChecked(true);
+                orderByNameRB.setChecked(true);
 
             }
         }
@@ -248,7 +213,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
                 someChanged = true;
-                freeDeliverySet = true;
+                freeDeliverySet = b;
             }
         });
 
@@ -284,12 +249,12 @@ public class PlacesFilterActivity extends AppCompatActivity {
                 outState.putBoolean(DELIVERY_RB, deliveryRB.isChecked());
                 outState.putBoolean(BOOKING_RB, bookingRB.isChecked());
 
-                outState.putBoolean("orderByValuationRB", orderByValuationRB.isChecked());
-                outState.putBoolean("orderByDistanceRB", orderByDistanceRB.isChecked());
+                outState.putBoolean(ORDER_BY_VALUATION_RB, orderByValuationRB.isChecked());
+                outState.putBoolean(ORDER_BY_DISTANCE_RB, orderByDistanceRB.isChecked());
 
-                outState.putBoolean("freeDeliverySwitch", freeDeliverySwitch.isChecked());
+                outState.putBoolean(FREE_DELIVERY_SWITCH, freeDeliverySwitch.isChecked());
 
-                outState.putInt("valuationSB", valuationSB.getProgress());
+                outState.putInt(VALUATION_SB, valuationSB.getProgress());
 
 
                 Intent resultIntent = new Intent();
@@ -304,9 +269,32 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     }
 
+    private void search(String userCity) {
+        final FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+        //cerca nel database i locali nella città dell'utente
+        firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).orderByChild("cityPlace").equalTo(userCity).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        places.add(snapshot.getValue(Place.class));
+                    }
+                }
+                showBtn.setClickable(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private ArrayList<Place> applyFilters() {
 
-        ArrayList<Place> result = null;
+        ArrayList<Place> result;
 
         if (someChanged) {
 
@@ -415,7 +403,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     }// end applyFilters
 
-    private void locationPermissionRequest(){
+    private void locationPermissionRequest() {
         //richiedo permessi
         if (ActivityCompat.checkSelfPermission(PlacesFilterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(PlacesFilterActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -428,7 +416,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
             //permessi concessi
 
             if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS),PERMISSION_LOCATION_REQUEST_CODE);
+                startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), PERMISSION_LOCATION_REQUEST_CODE);
 
             } else {
                 orderByDistanceRB.setClickable(true);
@@ -461,26 +449,12 @@ public class PlacesFilterActivity extends AppCompatActivity {
         typeChanged = true;
     }
 
-    //TODO elimina
     public void orderByOnRadioButtonClicked(View view) {
-//        // Is the button now checked?
-//        boolean checked = ((RadioButton) view).isChecked();
-//
-////        // Check which radio button was clicked
-////        if (view.getId() == R.id.activity_places_filter_rb_valuation_order) {
-////            if (checked) {
-////                orderChanged = true;
-////            }
-////        } else {
-////            if (checked) {
-////                orderChanged = false;
-////            }
-////        }
-//        orderChanged = true;
+
         boolean checked = ((RadioButton) view).isChecked();
 
-        if(view.getId() == R.id.activity_places_filter_rb_distance_order){
-            if(checked) {
+        if (view.getId() == R.id.activity_places_filter_rb_distance_order) {
+            if (checked) {
                 locationPermissionRequest();
             }
         }
@@ -495,13 +469,10 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     private class MyLocationListener implements LocationListener {
 
-        private double latitude;
-        private double longitude;
-
         public void onLocationChanged(Location location) {
 
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
+            PlacesFilterActivity.this.userLatitude = location.getLatitude();
+            PlacesFilterActivity.this.userLongitude = location.getLongitude();
 
         }
 

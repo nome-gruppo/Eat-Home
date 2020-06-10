@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:background="?attr/colorPrimary">
+    android:layout_height="match_parent">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:cardCornerRadius="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="347dp"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="2dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
             <TextView
                 android:id="@+id/txtNumberPersonBooking"
                 android:layout_width="32dp"
                 android:layout_height="37dp"
                 android:layout_marginTop="36dp"
-                android:text=" 1"
+                android:text="@string/one"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -44,18 +38,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="53dp"
-                android:hint="Date"
+                android:autofillHints="@string/date"
+                android:hint="@string/date"
+                android:inputType="date"
+
+                android:background="@drawable/edit_text_border"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/txtHourBooking"
-                android:layout_width="123dp"
+                android:layout_width="wrap_content"
                 android:layout_height="46dp"
                 android:layout_marginTop="52dp"
                 android:layout_marginEnd="30dp"
+                android:autofillHints="@string/choose_time"
                 android:hint="@string/choose_time"
+                android:inputType="datetime"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/edit_text_border"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/txtDateBooking"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +67,8 @@
                 android:layout_width="51dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="28dp"
-                android:background="@color/quantum_white_100"
+                android:background="@color/trasparent"
+                android:contentDescription="@string/image_button"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
                 app:layout_constraintTop_toBottomOf="@+id/textView13"
                 app:srcCompat="@drawable/ic_button_add_menu" />
@@ -78,7 +80,8 @@
                 android:layout_marginStart="76dp"
                 android:layout_marginTop="188dp"
                 android:layout_marginEnd="77dp"
-                android:background="@color/quantum_white_100"
+                android:background="@color/trasparent"
+                android:contentDescription="@string/image_button"
                 app:layout_constraintEnd_toStartOf="@+id/txtNumberPersonBooking"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,13 +90,16 @@
 
             <EditText
                 android:id="@+id/editNameClientBooking"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="56dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="30dp"
+                android:autofillHints="@string/name"
                 android:ems="10"
                 android:hint="@string/name"
                 android:inputType="textPersonName"
+                android:background="@drawable/edit_text_border"
                 app:layout_constraintEnd_toEndOf="@+id/btnAddPersonBooking"
                 app:layout_constraintTop_toBottomOf="@+id/btnDeletePersonBooking" />
 
@@ -127,7 +133,7 @@
         android:layout_width="320dp"
         android:layout_height="56dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/button_style"
         android:text="@string/confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

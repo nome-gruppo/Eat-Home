@@ -5,70 +5,61 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/colorPrimary">
+   >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbPlaceProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
         android:background="@drawable/toolbar_border"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:autofillHints="true"
         tools:layout_editor_absoluteX="1dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
 
-            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="540dp"
+                    android:layout_marginTop="332dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="36dp"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp">
+                        android:layout_marginVertical="8dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_menu_login"
+                            android:background="@color/trasparent"
+                            android:drawableStart="@drawable/ic_menu_login"
+                            android:drawablePadding="10dp"
                             android:ems="10"
+                            android:importantForAutofill="no"
                             android:inputType="textPersonName"
+                            tools:ignore="LabelFor"
                             tools:layout_editor_absoluteX="100dp"
                             tools:layout_editor_absoluteY="25dp" />
 
@@ -77,7 +68,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@color/quantum_white_100"
+                            android:background="@color/trasparent"
+                            android:layout_marginStart="50dp"
+                            android:contentDescription="@string/image_button"
                             android:src="@drawable/ic_profile_edit" />
 
                     </TableRow>
@@ -86,17 +79,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp">
+                        android:layout_marginVertical="8dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_email_black_24dp"
+                            android:background="@color/trasparent"
+                            android:drawableStart="@drawable/ic_email_black_24dp"
+                            android:drawablePadding="10dp"
                             android:ems="10"
+                            android:importantForAutofill="no"
                             android:inputType="textEmailAddress"
+                            tools:ignore="LabelFor"
                             tools:layout_editor_absoluteX="104dp"
                             tools:layout_editor_absoluteY="91dp" />
 
@@ -105,7 +101,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@color/quantum_white_100"
+                            android:background="@color/trasparent"
+                            android:layout_marginStart="50dp"
+                            android:contentDescription="@string/image_button"
                             android:src="@drawable/ic_profile_edit" />
 
                     </TableRow>
@@ -114,15 +112,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp">
+                        android:layout_marginVertical="8dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_oldPassword"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:autofillHints="@string/old_password"
+                            android:background="@color/trasparent"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                            android:drawablePadding="10dp"
                             android:ems="10"
                             android:hint="@string/old_password"
                             android:inputType="textPassword" />
@@ -133,15 +133,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp">
+                        android:layout_marginVertical="8dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_newPassword"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:autofillHints="@string/new_password"
+                            android:background="@color/trasparent"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                            android:drawablePadding="10dp"
                             android:ems="10"
                             android:hint="@string/new_password"
                             android:inputType="textPassword" />
@@ -152,15 +154,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp">
+                        android:layout_marginVertical="8dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_confirmPassword"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                            android:autofillHints="@string/confirm_password"
+                            android:background="@color/trasparent"
+                            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                            android:drawablePadding="10dp"
                             android:ems="10"
                             android:hint="@string/confirm_password"
                             android:inputType="textPassword" />
@@ -170,7 +174,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@color/quantum_white_100"
+                            android:layout_marginStart="50dp"
+                            android:background="@color/trasparent"
+                            android:contentDescription="@string/image_button"
                             android:src="@drawable/ic_profile_edit" />
 
                     </TableRow>
@@ -179,17 +185,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp">
+                        android:layout_marginVertical="8dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_place_black_24dp"
+                            android:background="@color/trasparent"
+                            android:drawableStart="@drawable/ic_place_black_24dp"
+                            android:drawablePadding="10dp"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:importantForAutofill="no"
+                            android:inputType="textPersonName"
+                            tools:ignore="LabelFor" />
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_numAddress"
@@ -198,13 +207,17 @@
                             android:layout_gravity="center"
                             android:background="@drawable/edit_text_border"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:importantForAutofill="no"
+                            android:inputType="textPersonName"
+                            tools:ignore="LabelFor" />
 
                         <ImageButton
                             android:id="@+id/activity_place_profile_imBtn_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:background="@color/trasparent"
+                            android:contentDescription="@string/image_button"
                             android:src="@drawable/ic_profile_edit" />
 
                     </TableRow>
@@ -213,8 +226,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp"
-                        android:background="@color/quantum_white_100">
+                        android:layout_marginVertical="8dp">
 
 
                         <EditText
@@ -222,10 +234,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_place_black_24dp"
+                            android:background="@color/trasparent"
+                            android:drawableStart="@drawable/ic_place_black_24dp"
+                            android:drawablePadding="10dp"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:importantForAutofill="no"
+                            android:inputType="textPersonName"
+                            tools:ignore="LabelFor" />
 
 
                         <ImageButton
@@ -233,7 +248,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@color/quantum_white_100"
+                            android:background="@color/trasparent"
+                            android:layout_marginStart="50dp"
+                            android:contentDescription="@string/image_button"
                             android:src="@drawable/ic_profile_edit" />
 
                     </TableRow>
@@ -242,138 +259,172 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="20dp">
+                        android:layout_marginVertical="8dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/edit_text_border"
-                            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+                            android:background="@color/trasparent"
+                            android:drawableStart="@drawable/ic_local_phone_black_24dp"
+                            android:drawablePadding="10dp"
                             android:ems="10"
-                            android:inputType="phone" />
+                            android:importantForAutofill="no"
+                            android:inputType="phone"
+                            tools:ignore="LabelFor" />
 
                         <ImageButton
                             android:id="@+id/activity_place_profile_imBtn_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@color/quantum_white_100"
+                            android:background="@color/trasparent"
+                            android:layout_marginStart="50dp"
+                            android:contentDescription="@string/image_button"
                             android:src="@drawable/ic_profile_edit" />
 
                     </TableRow>
 
-                    <androidx.cardview.widget.CardView
+                    <View
+                        android:id="@+id/divider2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="20dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="12dp">
+                        android:layout_height="0.5dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="?android:attr/listDivider" />
 
-                        <LinearLayout
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:scrollbars="vertical">
+
+
+                        <TextView
+                            android:id="@+id/textView14"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:scrollbars="vertical">
+                            android:layout_height="wrap_content"
+                            android:text="@string/deliveryCost"
+                            android:layout_marginStart="20dp"/>
 
 
-                            <SeekBar
-                                android:id="@+id/activity_place_profile_sb_deliveryCost"
-                                android:layout_width="219dp"
-                                android:layout_height="31dp"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginVertical="10dp"
-                                android:max="5" />
 
-                            <TableRow
-                                android:layout_width="220dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:layout_marginVertical="10dp">
+                        <SeekBar
+                            android:id="@+id/activity_place_profile_sb_deliveryCost"
+                            android:layout_width="219dp"
+                            android:layout_height="31dp"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginVertical="25dp"
+                            android:max="5" />
 
-                                <CheckBox
-                                    android:id="@+id/activity_place_profile_cb_delivery"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Delivery"
-                                    tools:layout_editor_absoluteX="165dp"
-                                    tools:layout_editor_absoluteY="560dp" />
 
-                                <CheckBox
-                                    android:id="@+id/activity_place_profile_cb_booking"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Booking"
-                                    tools:layout_editor_absoluteX="49dp"
-                                    tools:layout_editor_absoluteY="557dp" />
+                        <View
+                            android:id="@+id/divider1"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="?android:attr/listDivider" />
 
-                            </TableRow>
+                        <CheckBox
+                            android:id="@+id/activity_place_profile_cb_booking"
+                            android:layout_width="211dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:gravity="start"
+                            android:text="@string/bookings" />
 
-                            <RadioGroup
-                                android:id="@+id/radioGroup"
+                        <CheckBox
+                            android:id="@+id/activity_place_profile_cb_delivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_marginVertical="0dp"
+                            android:layout_marginStart="20dp"
+                            android:text="@string/delivery" />
+
+
+                        <View
+                            android:id="@+id/divider3"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginVertical="9dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/categories"
+                            android:layout_marginStart="20dp"/>
+
+                        <RadioGroup
+                            android:id="@+id/radioGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginVertical="15dp"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/activity_place_profile_rb_sushi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="20dp"
-                                android:orientation="vertical">
+                                android:onClick="onRadioButtonClicked"
+                                android:text="@string/sushi" />
 
-                                <RadioButton
-                                    android:id="@+id/activity_place_profile_rb_sushi"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:onClick="onRadioButtonClicked"
-                                    android:text="@string/sushi" />
+                            <RadioButton
+                                android:id="@+id/activity_place_profile_rb_restaurant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClicked"
+                                android:text="@string/pizzeriaRestaurant">
 
-                                <RadioButton
-                                    android:id="@+id/activity_place_profile_rb_restaurant"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:onClick="onRadioButtonClicked"
-                                    android:text="@string/pizzeriaRestaurant">
-
-                                </RadioButton>
+                            </RadioButton>
 
 
-                                    <RadioButton
-                                        android:id="@+id/activity_place_profile_rb_pizzeria"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                            <RadioButton
+                                android:id="@+id/activity_place_profile_rb_pizzeria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
 
-                                        android:onClick="onRadioButtonClicked"
-                                        android:text="@string/pizzeria"/>
-
-
+                                android:onClick="onRadioButtonClicked"
+                                android:text="@string/pizzeria" />
 
 
-                                    <RadioButton
-                                        android:id="@+id/activity_place_profile_rb_italianRestaurant"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:onClick="onRadioButtonClicked"
-                                        android:text="@string/italianRestaurant" />
+                            <RadioButton
+                                android:id="@+id/activity_place_profile_rb_italianRestaurant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClicked"
+                                android:text="@string/italianRestaurant" />
 
 
-                                <RadioButton
-                                    android:id="@+id/activity_place_profile_rb_other"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="42dp"
-                                    android:onClick="onRadioButtonClicked"
-                                    android:text="Altro" />
+                            <RadioButton
+                                android:id="@+id/activity_place_profile_rb_other"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:onClick="onRadioButtonClicked"
+                                android:text="@string/other" />
 
-                            </RadioGroup>
+                        </RadioGroup>
 
-                        </LinearLayout>
+                    </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    <View
+                        android:id="@+id/divider4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginVertical="2dp"
+                        android:background="?android:attr/listDivider" />
+
 
                     <Button
                         android:id="@+id/activity_place_profile_btn_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="10dp"
-                        android:background="@drawable/button_border"
+                    android:layout_marginTop="5dp"
+                        android:background="@drawable/button_style"
                         android:text="@string/set_opening" />
 
                     <Button
@@ -381,8 +432,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="10dp"
-                        android:background="@drawable/button_border"
+                        android:background="@drawable/button_style"
                         android:text="@string/save" />
 
                     <Button
@@ -390,14 +440,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="10dp"
-                        android:background="@drawable/button_border"
-                        android:text="@string/delete_account" />
+                        android:background="@drawable/button_style"
+                        android:text="@string/delete_account"
+                />
 
                 </TableLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
 
     </ScrollView>
 

@@ -37,9 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.placeSide.FeedbackPlaceActivity;
+import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
@@ -62,7 +61,6 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
     private OpeningTime openingTimeUtility;
 
     private FirebaseUser user;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,91 +70,86 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         final TextView txtDeliveryPlaceInfo = findViewById(R.id.txtDeliveryPlaceInfo);
         final TextView txtBookingPlaceInfo = findViewById(R.id.txtBookingPlaceInfo);
         final TextView txtAddressPlaceInfo = findViewById(R.id.txtAddressPlaceInfo);
-        final TextView txtNamePlaceInfo =findViewById(R.id.txtNamePlaceInfo);
-        final Button btnBook =  findViewById(R.id.btnBook);
-
-        this.imgPlaceInfo= findViewById(R.id.imgPlaceInfo);
-        this.txtOpeningTime=findViewById(R.id.txtOpeningTime);
-        this.btnOrder= findViewById(R.id.btnOrder);
-
-        this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-
-        this.openingTimeUtility=new OpeningTime();
-
-        txtNamePlaceInfo.setText(this.place.namePlace);
-        txtAddressPlaceInfo.setText(getString(R.string.addressPrinted, this.place.addressPlace,
-                this.place.addressNumPlace, this.place.cityPlace));
-
-
+        final TextView txtNamePlaceInfo = findViewById(R.id.txtNamePlaceInfo);
+        final Button btnBook = findViewById(R.id.btnBook);
         final RatingBar ratingBar = findViewById(R.id.activity_place_info_ratingBar);
         final TextView numFeedbackTW = findViewById(R.id.activity_place_info_numFeedback);
 
-        final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        imgPlaceInfo = findViewById(R.id.imgPlaceInfo);
+        txtOpeningTime = findViewById(R.id.txtOpeningTime);
+        btnOrder = findViewById(R.id.btnOrder);
 
-        ratingBar.setRating(place.valuation);
+        openingTimeUtility = new OpeningTime();
 
-        numFeedbackTW.setText(place.numberReview + " recensioni");
+        place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
-        numFeedbackTW.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PlaceInfoActivity.this, FeedbackPlaceActivity.class);
-                intent.putExtra(FirebaseConnection.PLACE, place);
-                startActivity(intent);
-            }
-        });
+        if (place != null) {
 
-//        MapFragment mMapFragment = MapFragment.newInstance();
-//        FragmentTransaction fragmentTransaction =
-//                getFragmentManager().beginTransaction();
-//        fragmentTransaction.add(R.id.activity_place_info, mMapFragment);
-//        fragmentTransaction.commit();
+            txtNamePlaceInfo.setText(place.namePlace);
+            txtAddressPlaceInfo.setText(getString(R.string.addressPrinted, this.place.addressPlace,
+                    this.place.addressNumPlace, this.place.cityPlace));
+            ratingBar.setRating(place.valuation);
 
-        MapFragment mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mMapFragment.getMapAsync(this);
+            numFeedbackTW.setText(getResources().getQuantityString(R.plurals.numFeedback, place.numberReview, place.numberReview));
 
 
+            final Client client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
-        //se il locale accetta prenotazioni
-        if(this.place.takesBookingPlace){
-            txtBookingPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta prenotazioni'
-            btnBook.setEnabled(true);//rendo il bottone prenota cliccabile
-        }
-
-        //se il locale accetta ordinazioni
-        if(this.place.takesOrderPlace){
-            txtDeliveryPlaceInfo.setText(getResources().getString(R.string.delivery_expected)+ " "+this.place.deliveryCost+" €");
-            txtDeliveryPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta ordinazioni'
-            this.btnOrder.setEnabled(true);//rendo cliccabile il bottone ordina
-        }
-
-        //se clicca su ordina
-        btnOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent orderActivity=new Intent(PlaceInfoActivity.this, PlaceListFoodOrderActivity.class);
-                orderActivity.putExtra(FirebaseConnection.CLIENT, client);
-                orderActivity.putExtra(FirebaseConnection.PLACE,place);
-                startActivity(orderActivity);
-            }
-        });
-
-        //se clicca su ordina
-        btnBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(user != null) {//se l'utente è loggato
-                    Intent bookingActivity = new Intent(PlaceInfoActivity.this,ConfirmBookingActivity.class);
-                    bookingActivity.putExtra(FirebaseConnection.PLACE,place);
-                    bookingActivity.putExtra(FirebaseConnection.CLIENT,client);
-                    bookingActivity.putExtra("UserID",user.getUid());
-                    startActivity(bookingActivity);//apri activity di conferma ordinazione
-                }else{//se l'utente non è loggato
-                    Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
-                    startActivity(loginIntent);//apri login
+            numFeedbackTW.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(PlaceInfoActivity.this, PlaceMyFeedbackActivity.class);
+                    intent.putExtra(FirebaseConnection.PLACE, place);
+                    startActivity(intent);
                 }
+            });
+
+            //TODO controllo sa queste rihìghe di codice si possono rimuovere
+            MapFragment mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+            mMapFragment.getMapAsync(this);
+
+
+            //se il locale accetta prenotazioni
+            if (place.takesBookingPlace) {
+                txtBookingPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta prenotazioni'
+                btnBook.setEnabled(true);//rendo il bottone prenota cliccabile
             }
-        });
+
+            //se il locale accetta ordinazioni
+            if (place.takesOrderPlace) {
+                txtDeliveryPlaceInfo.setText(getResources().getString(R.string.delivery_expected) + " " + this.place.deliveryCost + " €");
+                txtDeliveryPlaceInfo.setVisibility(View.VISIBLE);//mostro messaggio 'il locale accetta ordinazioni'
+                this.btnOrder.setEnabled(true);//rendo cliccabile il bottone ordina
+            }
+
+            //se clicca su ordina
+            btnOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent orderActivity = new Intent(PlaceInfoActivity.this, PlaceListFoodOrderActivity.class);
+                    orderActivity.putExtra(FirebaseConnection.CLIENT, client);
+                    orderActivity.putExtra(FirebaseConnection.PLACE, place);
+                    startActivity(orderActivity);
+                }
+            });
+
+            //se clicca su ordina
+            btnBook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (user != null) {//se l'utente è loggato
+                        Intent bookingActivity = new Intent(PlaceInfoActivity.this, ConfirmBookingActivity.class);
+                        bookingActivity.putExtra(FirebaseConnection.PLACE, place);
+                        bookingActivity.putExtra(FirebaseConnection.CLIENT, client);
+                        bookingActivity.putExtra("UserID", user.getUid());
+                        startActivity(bookingActivity);//apri activity di conferma ordinazione
+                    } else {//se l'utente non è loggato
+                        Intent loginIntent = new Intent(PlaceInfoActivity.this, LoginActivity.class);
+                        startActivity(loginIntent);//apri login
+                    }
+                }
+            });
+        }
 
     }
 
@@ -165,18 +158,17 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
     protected void onStart() {
         super.onStart();
 
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
-        StorageConnection storageConnection=new StorageConnection();//apro la connessione allo Storage di Firebase
-        StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
+        StorageConnection storageConnection = new StorageConnection();//apro la connessione allo Storage di Firebase
+        StorageReference storageReference = storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
 
         //metodo di lettura immagine tramite byte
         storageReference.getBytes(PICT_SIZE_MAX * PICT_SIZE_MAX)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {
-                        Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         imgPlaceInfo.setImageBitmap(bitmap);
                     }
                 });
@@ -188,31 +180,43 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         }
     }
 
+    /**
+     * metodo per leggere e visualizzare gli orari di apertura di place
+     * @throws ParseException
+     */
     public void openingTime() throws ParseException {
         final Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat parser = new SimpleDateFormat(getString(R.string.hourFormat), Locale.getDefault());
         String day = openingTimeUtility.getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
         String openingTime = place.openingTime.get(day);
-        Date localTime=parser.parse(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
-        if (openingTime.length()>8) {//se è stato impostato un orario di apertura e chiusura
-            Date timeOpening=openingTimeUtility.getTimeOpening(openingTime);//estrapolo l'ora di apertura
-            Date timeClosed=openingTimeUtility.getTimeClosed(openingTime);//estrapolo l'ora di chiusura
+
+        Date localTime = parser.parse(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+        assert openingTime != null;
+        if (openingTime.length() > 8) {//se è stato impostato un orario di apertura e chiusura
+            Date timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'ora di apertura
+            Date timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'ora di chiusura
+
+            //se timeClosed.before(timeOpening) allora il locale chiude dopo la mezzanotte
+            if(timeClosed.before(timeOpening)){
+                calendar.setTime(timeClosed);
+                calendar.add(Calendar.DAY_OF_MONTH,1);
+                timeClosed = calendar.getTime();
+            }
+
             //se localTime si trova tra timeOpening e timeClosed
-            if (localTime.after(timeOpening)&&localTime.before(timeClosed)){
+            assert localTime != null;
+            if (localTime.after(timeOpening) && localTime.before(timeClosed)) {
                 txtOpeningTime.setText(getResources().getString(R.string.opening_time) + " " + parser.format(timeClosed));
                 txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillagreenA400));
-                return;
-            } else{//se l'ora corrente non è tra l'ora di apertura e l'ora di chiusura
+            } else {//se l'ora corrente non è tra l'ora di apertura e l'ora di chiusura
                 txtOpeningTime.setText(getResources().getString(R.string.closed_time) + " " + parser.format(timeOpening));
                 txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillaredA700));
                 btnOrder.setEnabled(false);//non è possibile ordinare
-                return;
             }
         } else {//se non è stato impostato alcun orario per il giorno corrente
             txtOpeningTime.setText(getResources().getString(R.string.closed_place));
             txtOpeningTime.setTextColor(getResources().getColor(R.color.quantum_vanillaredA700));
             btnOrder.setEnabled(false);//non è possibile ordinare
-            return;
         }
     }
 
@@ -229,20 +233,18 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
 
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+        final double OFFSET = 0.001;
 
         try {
-            List<Address> mList = geocoder.getFromLocationName(place.addressPlace + ", "+ place.addressNumPlace + ", " + place.cityPlace, 1);
+            List<Address> mList = geocoder.getFromLocationName(place.addressPlace + ", " + place.addressNumPlace + ", " + place.cityPlace, 1);
 
             LatLng placeLatLng = new LatLng(mList.get(0).getLatitude(), mList.get(0).getLongitude());
-            LatLngBounds bounds = new LatLngBounds(new LatLng(placeLatLng.latitude-0.001, placeLatLng.longitude -0.001),
-                    new LatLng(placeLatLng.latitude+0.001, placeLatLng.longitude+0.001));
+            LatLngBounds bounds = new LatLngBounds(new LatLng(placeLatLng.latitude - OFFSET, placeLatLng.longitude - OFFSET),
+                    new LatLng(placeLatLng.latitude + OFFSET, placeLatLng.longitude + OFFSET));
             googleMap.addMarker(new MarkerOptions().position(placeLatLng));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,0));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        mAddress.setAddressLine();
-
-        // Add a marker in Sydney and move the camera
     }
 }
