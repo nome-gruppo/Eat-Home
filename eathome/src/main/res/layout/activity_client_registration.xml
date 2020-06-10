@@ -7,7 +7,7 @@
 
 
     <ImageView
-        android:id="@+id/activity_launcher_logo"
+        android:id="@+id/app_logo"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_gravity="center"

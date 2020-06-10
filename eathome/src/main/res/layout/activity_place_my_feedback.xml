@@ -4,23 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+
     android:orientation="vertical"
     tools:context=".placeSide.profile.PlaceMyFeedbackActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView7"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
+        android:layout_height="190dp"
+        android:background="@color/colorPrimaryDark"
+        android:padding="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/cview_border">
+            android:layout_height="match_parent">
 
             <RatingBar
                 android:id="@+id/feedback_ratingBar"
@@ -56,7 +53,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/my_feedback_place_noFeedback"
