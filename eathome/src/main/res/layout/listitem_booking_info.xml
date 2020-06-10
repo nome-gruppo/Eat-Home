@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent">
+    >
 
 
     <androidx.cardview.widget.CardView
@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginHorizontal="20dp"
+        android:background="@drawable/button_border"
         android:layout_marginVertical="10dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="10dp"
@@ -20,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toTopOf="@+id/txtAddressBookingInfo"
             app:layout_constraintTop_toTopOf="@+id/txtAddressBookingInfo">
@@ -29,7 +30,7 @@
                 android:id="@+id/txtNameBookingInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="24dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -41,9 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="33dp"
-                android:text="@string/date_booking"
+                android:layout_marginEnd="16dp"
                 android:drawableStart="@drawable/ic_date_range_black_24dp"
+                android:text="@string/date_booking"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,20 +52,22 @@
                 android:id="@+id/txtAddressBookingInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/address_booking"
+                android:layout_marginBottom="14dp"
                 android:drawableStart="@drawable/ic_place_black_24dp"
-                app:layout_constraintStart_toStartOf="@+id/txtNameBookingInfo"
-                app:layout_constraintTop_toBottomOf="@+id/txtNameBookingInfo" />
+                android:text="@string/address_booking"
+                app:layout_constraintBottom_toTopOf="@+id/txtPhonePlace"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.048"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/txtNumberPersonBookingInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="280dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/numer_people_booking"
+                android:layout_marginStart="256dp"
+                android:layout_marginTop="20dp"
                 android:drawableStart="@drawable/ic_group_black_24dp"
+                android:text="@string/numer_people_booking"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtAddressBookingInfo" />
 
@@ -72,10 +75,10 @@
                 android:id="@+id/txtPhonePlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="11dp"
-                android:text="@string/phone_place"
                 android:drawableStart="@drawable/ic_local_phone_black_24dp"
+                android:text="@string/phone_place"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
