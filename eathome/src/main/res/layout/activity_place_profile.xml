@@ -38,7 +38,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="332dp"
+                    android:layout_marginTop="362dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -46,7 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="8dp">
+                        android:layout_marginVertical="6dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_name"
@@ -79,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="8dp">
+                        android:layout_marginVertical="6dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_email"
@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="8dp">
+                        android:layout_marginVertical="6dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_oldPassword"
@@ -133,7 +133,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="8dp">
+                        android:layout_marginVertical="6dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_newPassword"
@@ -154,7 +154,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="8dp">
+                        android:layout_marginVertical="6dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_confirmPassword"
@@ -185,7 +185,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="8dp">
+                        android:layout_marginVertical="6dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_address"
@@ -226,7 +226,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="8dp">
+                        android:layout_marginVertical="6dp">
 
 
                         <EditText
@@ -259,7 +259,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginVertical="8dp">
+                        android:layout_marginVertical="6dp">
 
                         <EditText
                             android:id="@+id/activity_place_profile_et_phone"
@@ -289,9 +289,9 @@
                     <View
                         android:id="@+id/divider2"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.2dp"
                         android:layout_marginVertical="8dp"
-                        android:background="?android:attr/listDivider" />
+                        android:background="@color/colorPrimaryDark" />
 
 
                     <LinearLayout
@@ -308,8 +308,6 @@
                             android:text="@string/deliveryCost"
                             android:layout_marginStart="20dp"/>
 
-
-
                         <SeekBar
                             android:id="@+id/activity_place_profile_sb_deliveryCost"
                             android:layout_width="219dp"
@@ -322,8 +320,9 @@
                         <View
                             android:id="@+id/divider1"
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="?android:attr/listDivider" />
+                            android:layout_height="0.2dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/colorAccent" />
 
                         <CheckBox
                             android:id="@+id/activity_place_profile_cb_booking"
@@ -346,9 +345,9 @@
                         <View
                             android:id="@+id/divider3"
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
+                            android:layout_height="0.2dp"
                             android:layout_marginVertical="9dp"
-                            android:background="?android:attr/listDivider" />
+                            android:background="@color/colorPrimaryDark" />
 
                         <TextView
                             android:id="@+id/textView15"
@@ -415,7 +414,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_marginVertical="2dp"
-                        android:background="?android:attr/listDivider" />
+                        android:background="@color/colorAccent" />
 
 
                     <Button
@@ -425,13 +424,15 @@
                         android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="5dp"
                         android:background="@drawable/button_style"
-                        android:text="@string/set_opening" />
+                        android:text="@string/set_opening"
+                        android:textColor="@color/colorPrimaryDark"/>
 
                     <Button
                         android:id="@+id/activity_place_profile_btn_save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
+                        android:textColor="@color/colorPrimaryDark"
                         android:background="@drawable/button_style"
                         android:text="@string/save" />
 
@@ -442,7 +443,7 @@
                         android:layout_marginHorizontal="20dp"
                         android:background="@drawable/button_style"
                         android:text="@string/delete_account"
-                />
+                        android:textColor="@color/colorPrimaryDark"/>
 
                 </TableLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
