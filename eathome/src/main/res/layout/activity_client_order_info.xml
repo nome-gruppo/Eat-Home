@@ -48,7 +48,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_emoticon_sad" />
+        app:srcCompat="@drawable/ic_emoticon_sad"
+        android:contentDescription="@string/sorry_there_are_no_orders" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClientOrder"

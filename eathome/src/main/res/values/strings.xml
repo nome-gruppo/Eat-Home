@@ -132,5 +132,9 @@
     <string name="cancel">Cancel</string>
     <string name="successfulRegistration">Successful Registration</string>
     <string name="yes">Yes</string>
+    <string name="sorry_there_are_no_booking">Sorry! There are no booking.</string>
+    <string name="sorry_there_are_no_orders">Sorry! There are no orders.</string>
+    <string name="email">Email</string>
+
 
 </resources>

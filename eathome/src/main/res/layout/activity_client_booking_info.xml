@@ -42,7 +42,8 @@
         app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listViewBookingInfo"
-        app:srcCompat="@drawable/ic_emoticon_sad" />
+        app:srcCompat="@drawable/ic_emoticon_sad"
+        android:contentDescription="@string/sorry_there_are_no_booking" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClientBooking"

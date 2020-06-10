@@ -118,6 +118,9 @@
     <string name="cancel">Cancella</string>
     <string name="successfulRegistration">Registrazione effettuata con successo</string>
     <string name="yes">Sì</string>
+    <string name="sorry_there_are_no_booking">Spiacenti! Non ci sono prenotazioni.</string>
+    <string name="sorry_there_are_no_orders">Spiacenti! Non ci sono ordini.</string>
+    <string name="email">Email</string>
 
 
 </resources>
