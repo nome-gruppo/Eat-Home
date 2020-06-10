@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,6 +20,7 @@
                     <ListView
                         android:id="@+id/listViewChooseAddress"
                         android:layout_width="wrap_content"
+                        android:background="@color/quantum_white_100"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
