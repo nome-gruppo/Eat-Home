@@ -80,9 +80,11 @@
         android:id="@+id/my_feedback_place_noFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+     android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:visibility="gone"
-        android:text="@string/no_feedback"/>
+        android:layout_marginEnd="391dp"
+        android:text="@string/no_feedback"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/feedback_listview"
