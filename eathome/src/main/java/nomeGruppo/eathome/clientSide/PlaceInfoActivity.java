@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,7 +53,7 @@ import static nomeGruppo.eathome.utility.UtilitiesAndControls.PICT_SIZE_MAX;
 /*
 activity che visualizza le informazioni per il locale selezionato dall'utente
  */
-public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCallback {
+public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private Place place;
     private ImageView imgPlaceInfo;
@@ -78,10 +80,11 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         imgPlaceInfo = findViewById(R.id.imgPlaceInfo);
         txtOpeningTime = findViewById(R.id.txtOpeningTime);
         btnOrder = findViewById(R.id.btnOrder);
-
         openingTimeUtility = new OpeningTime();
-
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+
+        Toolbar toolbarPlaceInfo = findViewById(R.id.tlbPlaceInfo);
+        setSupportActionBar(toolbarPlaceInfo);
 
         if (place != null) {
 

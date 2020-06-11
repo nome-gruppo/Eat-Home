@@ -8,6 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbPlaceInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="0dp"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
     <RelativeLayout
         android:id="@+id/activity_place_info"
