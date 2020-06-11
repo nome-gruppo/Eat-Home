@@ -155,7 +155,7 @@
         <activity
             android:name=".clientSide.PlaceListFoodOrderActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/choose"
             android:largeHeap="true"/>
     </application>
 

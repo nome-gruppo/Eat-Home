@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -90,6 +92,25 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         order = new Order();
         nameFood = new ArrayList<>();
         finalTot = 0;
+
+        Toolbar toolbarListFoodOrder = findViewById(R.id.tlbListFoodOrder);
+        setSupportActionBar(toolbarListFoodOrder);
+        toolbarListFoodOrder.setTitle("@string/choose");
+        toolbarListFoodOrder.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarListFoodOrder.setNavigationOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent placeInfoIntent = new Intent(PlaceListFoodOrderActivity.this, PlaceInfoActivity.class);
+                        placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
+                        startActivity(placeInfoIntent);
+                        finish();
+                    }
+                }
+        );
+
+
+
 
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
