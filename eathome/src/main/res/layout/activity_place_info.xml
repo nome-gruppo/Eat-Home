@@ -8,11 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbPlaceInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
 
     <RelativeLayout
         android:id="@+id/activity_place_info"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="56dp"
         android:background="@color/colorPrimaryDark"
         android:padding="20dp">
 
@@ -22,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginVertical="20dp"
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@id/imgPlaceInfo"
             android:textSize="25sp"
@@ -34,7 +42,7 @@
             android:id="@+id/txtAddressPlaceInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="60dp"
+            android:layout_marginVertical="50dp"
             android:layout_marginStart="5dp"
             android:textColor="@color/quantum_black_100"
             android:layout_toEndOf="@id/imgPlaceInfo"
@@ -44,7 +52,6 @@
             android:id="@+id/imgPlaceInfo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginVertical="20dp"
             android:background="@drawable/button_style"
             android:contentDescription="@string/image"
             app:srcCompat="@drawable/ic_menu_gallery" />
@@ -56,7 +63,7 @@
         android:id="@+id/txtBookingPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="190dp"
         android:layout_marginStart="10dp"
         android:text="@string/booking_expected"
         android:visibility="invisible" />
@@ -65,7 +72,7 @@
         android:id="@+id/txtDeliveryPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="185dp"
+        android:layout_marginVertical="215dp"
         android:layout_marginStart="10dp"
         android:text="@string/delivery_expected"
         android:visibility="invisible" />
@@ -74,7 +81,7 @@
         android:id="@+id/activity_place_info_ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="220dp"
+        android:layout_marginVertical="250dp"
         android:layout_marginStart="7dp"
         android:numStars="5" />
 
@@ -82,7 +89,7 @@
         android:id="@+id/activity_place_info_numFeedback"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="250dp"
+        android:layout_marginVertical="290dp"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/activity_place_info_ratingBar"
         android:textSize="12sp" />
@@ -94,14 +101,14 @@
         android:layout_width="275dp"
         android:layout_height="83dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp" />
+        android:layout_marginTop="320dp" />
 
 
     <View
         android:id="@+id/divider6"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginVertical="400dp"
+        android:layout_marginVertical="420dp"
         android:background="?android:attr/listDivider" />
 
     <LinearLayout

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -83,6 +84,9 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
+
+
+
         if (place != null) {
 
             txtNamePlaceInfo.setText(place.namePlace);
@@ -152,6 +156,8 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
         }
 
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

@@ -94,17 +94,17 @@
         <activity
             android:name=".clientSide.ConfirmOrderActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/order_summary"
             android:largeHeap="true" />
         <activity
             android:name=".clientSide.ConfirmBookingActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/bookings"
+            android:label="@string/title_activity_main"
             android:largeHeap="true" />
         <activity
             android:name=".clientSide.ClientBookingInfoActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/bookings"
             android:largeHeap="true"
             android:windowSoftInputMode="adjustPan" />
         <activity

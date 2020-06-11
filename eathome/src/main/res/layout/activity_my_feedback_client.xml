@@ -13,7 +13,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-          <ListView
+        <ListView
                 android:id="@+id/listViewFeedbackClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/txtNoFeedback"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
        android:layout_marginHorizontal="90dp"
         android:text="@string/no_feedback"

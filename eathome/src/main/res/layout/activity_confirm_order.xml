@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <ScrollView
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbConfirmOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+
+        android:layout_height="180dp"
         app:cardElevation="6dp"
         app:cardBackgroundColor="@color/colorPrimaryDark">
 
@@ -24,15 +34,6 @@
             android:layout_height="200dp">
 
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-              android:layout_marginTop="20dp"  android:layout_marginHorizontal="150dp"
-                android:text="@string/order_summary"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -59,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="72dp"
+                android:layout_marginBottom="100dp"
                 android:text="@string/tot_delivery"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -79,8 +80,8 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="36dp"
                 android:text="@string/total"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="32dp"
                 android:drawableStart="@drawable/ic_euro_symbol_black_24dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -187,12 +188,12 @@
             <Button
                 android:id="@+id/btnConfirmOrder"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="40dp"
+                android:layout_marginVertical="30dp"
                 android:background="@drawable/button_style"
                 android:text="@string/confirm" />
 
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
