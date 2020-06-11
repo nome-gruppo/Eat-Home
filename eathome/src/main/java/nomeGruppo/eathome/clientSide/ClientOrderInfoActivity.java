@@ -38,14 +38,16 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
     private OrderInfoAdapter orderInfoAdapter;
     private List<Order>listOrder;
     private FirebaseConnection firebaseConnection;
+    private BottomNavigationView bottomMenuClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_order_info);
 
-        final BottomNavigationView bottomMenuClient = findViewById(R.id.bottom_navigationClientOrder);
+
         final ListView listViewOrderInfo = findViewById(R.id.listViewOrderInfo);
+        this.bottomMenuClient = findViewById(R.id.bottom_navigationClientOrder);
 
         this.firebaseConnection=new FirebaseConnection();
 
@@ -77,6 +79,9 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        final MenuItem mItem = bottomMenuClient.getMenu().findItem(R.id.action_orders);
+        mItem.setChecked(true);
 
         readOrder();
     }

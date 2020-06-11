@@ -80,11 +80,25 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         imgPlaceInfo = findViewById(R.id.imgPlaceInfo);
         txtOpeningTime = findViewById(R.id.txtOpeningTime);
         btnOrder = findViewById(R.id.btnOrder);
+
         openingTimeUtility = new OpeningTime();
+
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
         Toolbar toolbarPlaceInfo = findViewById(R.id.tlbPlaceInfo);
         setSupportActionBar(toolbarPlaceInfo);
+        getSupportActionBar().setTitle(null);
+        toolbarPlaceInfo.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarPlaceInfo.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homepageIntent = new Intent(PlaceInfoActivity.this, HomepageActivity.class);
+                homepageIntent.putExtra(FirebaseConnection.PLACE, place);
+                startActivity(homepageIntent);
+                finish(); }
+                                                      }
+        );
+
 
         if (place != null) {
 
@@ -155,6 +169,8 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         }
 
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

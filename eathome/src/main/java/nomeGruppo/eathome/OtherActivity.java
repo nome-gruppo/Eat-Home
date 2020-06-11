@@ -35,6 +35,7 @@ public class OtherActivity extends AppCompatActivity {
     private Place place;
     private Client client;
     private FirebaseAuth mAuth;
+    private BottomNavigationView bottomNavigationMenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class OtherActivity extends AppCompatActivity {
         final Button btnProfile = findViewById(R.id.btnMyProfile);
         final Button btnFeedback = findViewById(R.id.btnMyFeedback);
         final Button btnLogout = findViewById(R.id.btnLogout);
-        final BottomNavigationView bottomNavigationMenu = findViewById(R.id.bottom_navigationOther);
+        bottomNavigationMenu = findViewById(R.id.bottom_navigationOther);
 
         this.mAuth = FirebaseAuth.getInstance();
         this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
@@ -134,5 +135,13 @@ public class OtherActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        final MenuItem mItem = bottomNavigationMenu.getMenu().findItem(R.id.action_other);
+        mItem.setChecked(true);
     }
 }
