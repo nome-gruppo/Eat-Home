@@ -11,7 +11,7 @@
         android:id="@+id/app_logo"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:background="@drawable/button_style"
+        android:background="@drawable/icon_border"
         android:contentDescription="@string/launcher"
         android:elevation="15dp"
         android:foregroundGravity="center"

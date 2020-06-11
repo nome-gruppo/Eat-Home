@@ -94,7 +94,7 @@
         <activity
             android:name=".clientSide.ConfirmOrderActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/order_summary"
             android:largeHeap="true" />
         <activity
             android:name=".clientSide.ConfirmBookingActivity"
@@ -104,7 +104,7 @@
         <activity
             android:name=".clientSide.ClientBookingInfoActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/bookings"
             android:largeHeap="true"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -155,7 +155,7 @@
         <activity
             android:name=".clientSide.PlaceListFoodOrderActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/choose"
             android:largeHeap="true"/>
     </application>
 

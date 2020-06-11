@@ -58,6 +58,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
     @Override
