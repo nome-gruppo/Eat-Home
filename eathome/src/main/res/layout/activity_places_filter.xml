@@ -311,7 +311,7 @@
                     android:id="@+id/activity_places_filter_cb_other"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="108dp"
+                    android:layout_marginEnd="104dp"
                     android:checked="true"
                     android:text="@string/other"
                     app:layout_constraintEnd_toEndOf="parent"
