@@ -5,25 +5,21 @@
     <item android:id="@+id/action_home"
         android:title="@string/menu_home"
         android:icon="@drawable/ic_menu_camera"
-        app:showAsAction="ifRoom"
         android:enabled="true"/>
 
     <item android:id="@+id/action_orders"
         android:title="@string/orders"
         android:icon="@drawable/ic_menu_scooter"
-        app:showAsAction="ifRoom"
         android:enabled="true"/>
 
     <item android:id="@+id/action_bookings"
         android:title="@string/bookings"
         android:icon="@drawable/ic_menu_booking"
-        app:showAsAction="ifRoom"
         android:enabled="true"/>
 
-    <item android:id="@+id/action_profile"
+    <item android:id="@+id/action_other"
         android:title="@string/my_account"
         android:icon="@drawable/ic_other"
-        app:showAsAction="ifRoom"
         android:enabled="true"/>
 
 </menu>

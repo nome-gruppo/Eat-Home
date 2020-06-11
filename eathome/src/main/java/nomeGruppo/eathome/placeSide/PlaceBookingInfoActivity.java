@@ -36,6 +36,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
     private PlaceBookingAdapter placeBookingAdapter;
     private TextView txtNoBooking;
     private ImageView impNoBooking;
+    private BottomNavigationView bottomMenuPlace;
 
 
     @Override
@@ -43,7 +44,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_booking_info);
 
-        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceBookingInfo);
+        this.bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceBookingInfo);
         this.txtNoBooking = findViewById(R.id.txtNoBookingPlace);
         this.impNoBooking = findViewById(R.id.imgNoBookingPlace);
 
@@ -65,7 +66,12 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        final MenuItem mItem = bottomMenuPlace.getMenu().findItem(R.id.action_bookings);
+        mItem.setChecked(true);
+
         listBooking.clear();
+
 
         FirebaseConnection firebaseConnection = new FirebaseConnection();
 

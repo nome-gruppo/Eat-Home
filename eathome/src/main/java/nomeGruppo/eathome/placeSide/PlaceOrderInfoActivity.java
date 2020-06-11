@@ -43,17 +43,19 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
     private MenuNavigationItemSelected menuNavigationItemSelected;
     private List<Order> listOrder;
     private PlaceOrderAdapter placeOrderAdapter;
+    private BottomNavigationView bottomMenuPlace;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order_info);
 
-        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceOrderInfo);
+
         final ListView listViewOrderInfo = findViewById(R.id.listViewPlaceOrderInfo);
         final ImageButton restore = findViewById(R.id.btnRestore);
         final TabLayout tabLayout = findViewById(R.id.tabLayoutPlaceOrderInfo);
 
+        this.bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceOrderInfo);
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
         this.listOrder = new LinkedList<>();
         this.placeOrderAdapter = new PlaceOrderAdapter(this, R.layout.listitem_order_info, listOrder);
@@ -118,6 +120,9 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        final MenuItem mItem = bottomMenuPlace.getMenu().findItem(R.id.action_orders);
+        mItem.setChecked(true);
 
         loadOrder();
 
