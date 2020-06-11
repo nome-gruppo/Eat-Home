@@ -12,10 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,7 +53,7 @@ import static nomeGruppo.eathome.utility.UtilitiesAndControls.PICT_SIZE_MAX;
 /*
 activity che visualizza le informazioni per il locale selezionato dall'utente
  */
-public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCallback {
+public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private Place place;
     private ImageView imgPlaceInfo;
@@ -84,7 +85,19 @@ public class PlaceInfoActivity extends FragmentActivity implements OnMapReadyCal
 
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
 
-
+        Toolbar toolbarPlaceInfo = findViewById(R.id.tlbPlaceInfo);
+        setSupportActionBar(toolbarPlaceInfo);
+        getSupportActionBar().setTitle(null);
+        toolbarPlaceInfo.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarPlaceInfo.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homepageIntent = new Intent(PlaceInfoActivity.this, HomepageActivity.class);
+                homepageIntent.putExtra(FirebaseConnection.PLACE, place);
+                startActivity(homepageIntent);
+                finish(); }
+                                                      }
+        );
 
 
         if (place != null) {

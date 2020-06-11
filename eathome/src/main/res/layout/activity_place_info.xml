@@ -3,7 +3,8 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
+
+    android:orientation="vertical"
     android:background="@color/quantum_white_100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,55 +17,78 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-
     <RelativeLayout
         android:id="@+id/activity_place_info"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_marginTop="56dp"
-        android:background="@color/colorPrimaryDark"
-        android:padding="20dp">
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+
+       >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="109dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_border"
+            app:layout_constraintBottom_toBottomOf="parent">
 
 
-        <TextView
-            android:id="@+id/txtNamePlaceInfo"
+            <TextView
+                android:id="@+id/txtNamePlaceInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="30dp"
+                android:textAllCaps="true"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtAddressPlaceInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="70dp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/quantum_black_100"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@id/imgPlaceInfo"
-            android:textSize="25sp"
-            android:textColor="@color/quantum_black_100"
-            android:textAllCaps="true"
-            android:textStyle="bold" />
+            android:background="@color/quantum_white_100">
 
-        <TextView
-            android:id="@+id/txtAddressPlaceInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="50dp"
-            android:layout_marginStart="5dp"
-            android:textColor="@color/quantum_black_100"
-            android:layout_toEndOf="@id/imgPlaceInfo"
-            android:textSize="15sp" />
+            <ImageView
+                android:id="@+id/imgPlaceInfo"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:elevation="6dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_menu_gallery" />
 
-        <ImageView
-            android:id="@+id/imgPlaceInfo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/button_style"
-            android:contentDescription="@string/image"
-            app:srcCompat="@drawable/ic_menu_gallery" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </RelativeLayout>
+
+
 
     <TextView
         android:id="@+id/txtBookingPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="190dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginStart="20dp"
         android:text="@string/booking_expected"
         android:visibility="invisible" />
 
@@ -72,8 +96,8 @@
         android:id="@+id/txtDeliveryPlaceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="215dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginVertical="245dp"
+        android:layout_marginStart="20dp"
         android:text="@string/delivery_expected"
         android:visibility="invisible" />
 
@@ -81,15 +105,15 @@
         android:id="@+id/activity_place_info_ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="250dp"
-        android:layout_marginStart="7dp"
+        android:layout_marginVertical="280dp"
+        android:layout_marginStart="17dp"
         android:numStars="5" />
 
     <TextView
         android:id="@+id/activity_place_info_numFeedback"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="290dp"
+        android:layout_marginVertical="315dp"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/activity_place_info_ratingBar"
         android:textSize="12sp" />
@@ -101,20 +125,20 @@
         android:layout_width="275dp"
         android:layout_height="83dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="320dp" />
+        android:layout_marginTop="360dp" />
 
 
     <View
         android:id="@+id/divider6"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginVertical="420dp"
+        android:layout_marginVertical="460dp"
         android:background="?android:attr/listDivider" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="470dp"
+        android:layout_marginTop="540dp"
         android:padding="20dp">
 
         <androidx.cardview.widget.CardView
@@ -174,7 +198,7 @@
         android:id="@+id/txtOpeningTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="420dp"
+        android:layout_marginVertical="485dp"
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:textAlignment="viewStart"/>

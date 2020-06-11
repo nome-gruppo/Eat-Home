@@ -179,4 +179,5 @@
     <string name="sei_sicuro_di_voler_eliminare_l_account">Do you want to delete?</string>
     <string name="filter_by">Filter by</string>
     <string name="choose">Options</string>
+    <string name="op" translatable="false"> </string>
 </resources>
