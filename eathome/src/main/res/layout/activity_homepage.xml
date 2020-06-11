@@ -61,9 +61,10 @@
         android:id="@+id/homepage_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:fillViewport="true"
         android:orientation="vertical"
+
         app:layout_constraintBottom_toTopOf="@id/bottom_navigationClient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +73,7 @@
         <ListView
             android:id="@+id/listViewPlace"
             android:layout_width="match_parent"
+            android:divider="@null"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
