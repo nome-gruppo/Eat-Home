@@ -29,7 +29,7 @@
             android:label="@string/my_feedback"/>
 
         <activity android:name=".clientSide.PlacesFilterActivity"
-            android:label="@string/title_activity_main"/>
+            android:label="@string/filter_by"/>
 
         <activity android:name=".clientSide.profile.MyAddressesActivity"
             android:label="@string/my_address"/>

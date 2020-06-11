@@ -3,6 +3,7 @@ package nomeGruppo.eathome.clientSide;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -126,6 +127,21 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         //inizializza i listener delle varie view
         initCheckListener();
+
+        Toolbar toolbarPlacesFIlter = findViewById(R.id.tlbPlacesFilter);
+        setSupportActionBar(toolbarPlacesFIlter);
+        toolbarPlacesFIlter.setTitle("@string/filter_by");
+        toolbarPlacesFIlter.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarPlacesFIlter.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homepageIntent = new Intent(PlacesFilterActivity.this, HomepageActivity.class);
+                homepageIntent.putExtra(FirebaseConnection.PLACE, places);
+                startActivity(homepageIntent);
+                finish();
+            }
+        });
+
 
         final Bundle bundle = getIntent().getBundleExtra("outState");
 
@@ -461,6 +477,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
     }
 
     //TODO serve visto che non c'è la toolbar?
+    //e invece sì
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
