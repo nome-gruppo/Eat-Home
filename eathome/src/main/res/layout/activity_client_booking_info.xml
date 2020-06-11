@@ -20,6 +20,7 @@
             android:text="@string/bookings"
             android:textSize="20sp"
             android:textAllCaps="true"
+            android:layout_centerInParent="true"
             android:textStyle="bold"
             android:textColor="@color/quantum_white_100"
             android:layout_centerVertical="true"
