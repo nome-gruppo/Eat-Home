@@ -94,6 +94,8 @@ public class PlaceProfileActivity extends AppCompatActivity {
             }
         });
 
+
+
         nameEt = findViewById(R.id.activity_place_profile_et_name);
         emailEt = findViewById(R.id.activity_place_profile_et_email);
         oldPasswordEt = findViewById(R.id.activity_place_profile_et_oldPassword);
