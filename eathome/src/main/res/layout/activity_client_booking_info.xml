@@ -5,7 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
    >
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        android:fillViewport="true"
+        android:layout_marginBottom="70dp"
 
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -45,7 +54,7 @@
         android:id="@+id/bottom_navigationClientBooking"
         style="@style/BottomNavigation"
         android:background="@drawable/bottom_navigation"
-        android:layout_width="416dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
