@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/quantum_white_100"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbConfirmBooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="0dp"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/button_border"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/txtNumberPersonBooking"
+            android:layout_width="32dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="138dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/one" />
+
+
+    <EditText
+        android:id="@+id/txtDateBooking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:autofillHints="@string/date"
+        android:background="@drawable/edit_text_border"
+        android:hint="@string/date"
+
+        android:inputType="date" />
+
+        <EditText
+            android:id="@+id/txtHourBooking"
+            android:layout_width="236dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="107dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:autofillHints="@string/choose_time"
+            android:background="@drawable/edit_text_border"
+            android:gravity="end"
+            android:hint="@string/choose_time"
+            android:inputType="datetime" />
+
+
+    <ImageButton
+        android:id="@+id/btnAddPersonBooking"
+        android:layout_width="51dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginStart="200dp"
+        android:background="@color/trasparent"
+        android:contentDescription="@string/image_button"
+        app:srcCompat="@drawable/ic_button_add_menu" />
+
+    <ImageButton
+        android:id="@+id/btnDeletePersonBooking"
+        android:layout_width="51dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="77dp"
+        android:background="@color/trasparent"
+        android:contentDescription="@string/image_button"
+        app:srcCompat="@drawable/ic_less" />
+
+        <EditText
+            android:id="@+id/editNameClientBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:autofillHints="@string/name"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/name"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txtDayOfWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="175dp"
+            android:text=""
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+       android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:text="@string/choose_number_person" />
+        <Button
+            android:id="@+id/btnConfirmBooking"
+            android:layout_width="320dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="350dp"
+            android:layout_marginStart="175dp"
+            android:background="@drawable/button_style"
+            android:text="@string/confirm"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </RelativeLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>
