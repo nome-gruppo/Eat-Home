@@ -137,7 +137,7 @@
         <activity
             android:name=".placeSide.PlaceOpeningTimeActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/set_opening"
             android:largeHeap="true" />
         <activity
             android:name=".OtherActivity"

@@ -1,7 +1,9 @@
 package nomeGruppo.eathome.clientSide.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -52,6 +54,20 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         addressList = new ArrayList<>();
         addressesLW = findViewById(R.id.activity_my_addresses_listView);
         client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);//recupero oggetto cliente passato
+
+        Toolbar toolbarMyAddresses = findViewById(R.id.tlbClientMyAddresses);
+        setSupportActionBar(toolbarMyAddresses);
+        toolbarMyAddresses.setTitle("@string/my_address");
+        toolbarMyAddresses.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarMyAddresses.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent clientProfileIntent = new Intent(MyAddressesActivity.this, ClientProfileActivity.class);
+                clientProfileIntent.putExtra(FirebaseConnection.CLIENT, client);
+                startActivity(clientProfileIntent);
+                finish();
+            }
+        });
 
         if (client != null) {//se esiste un oggetto cliente
             mAdapter = new AddressAdapter(this, addressList, client.idClient, MyAddressesActivity.this);//imposto l'adapter

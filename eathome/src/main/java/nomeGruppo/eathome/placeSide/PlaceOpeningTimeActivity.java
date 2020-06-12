@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +28,7 @@ import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.placeSide.profile.PlaceProfileActivity;
 import nomeGruppo.eathome.utility.Days;
 import nomeGruppo.eathome.utility.OpeningTime;
 
@@ -50,6 +52,20 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opening_time);
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+
+        Toolbar toolbarOpeningTIme = findViewById(R.id.tlbPlaceOpeningTime);
+        setSupportActionBar(toolbarOpeningTIme);
+        toolbarOpeningTIme.setTitle("@string/set_opening");
+        toolbarOpeningTIme.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarOpeningTIme.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent placeProfileItent = new Intent(PlaceOpeningTimeActivity.this, PlaceProfileActivity.class);
+                placeProfileItent.putExtra(FirebaseConnection.PLACE, place);
+                startActivity(placeProfileItent);
+                finish();
+            }
+        });
 
         this.editMonday = findViewById(R.id.editMonday);
         this.editTuesday = findViewById(R.id.editTuesday);
@@ -362,8 +378,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
     /**
      * metodo per la creazione dell'account Place
-     * @param email
-     * @param password
+     * @param email creation
+     * @param password .
      */
 
     private void createAccount(String email, String password) {
