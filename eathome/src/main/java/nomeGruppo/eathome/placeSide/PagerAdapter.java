@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-
 import nomeGruppo.eathome.actors.Place;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -22,11 +21,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                TabToday tabToday = new TabToday(place);
-                return tabToday;
+                return new TabToday(place);
             case 1:
-                TabPrevious tabPrevious = new TabPrevious(place);
-                return tabPrevious;
+                return new TabPrevious(place);
             default:
                 return null;
         }

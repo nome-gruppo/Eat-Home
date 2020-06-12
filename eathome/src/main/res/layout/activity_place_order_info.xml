@@ -12,8 +12,9 @@
         android:id="@+id/tabLayoutPlaceOrderInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="63dp"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/lin"
+        app:layout_constraintBottom_toTopOf="@+id/viewPagerOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,47 +36,24 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <ImageButton
-        android:id="@+id/btnRestore"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/image_button"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayoutPlaceOrderInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lin"
-        app:layout_constraintVertical_bias="0.801"
-        app:srcCompat="@drawable/ic_restore_black_24dp" />
-
-    <LinearLayout
-        android:id="@+id/lin"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerOrder"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginVertical="10dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlaceOrderInfo"
+        android:layout_height="fill_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRestore">
-
-        <ListView
-            android:id="@+id/listViewPlaceOrderInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlaceOrderInfo"
         style="@style/BottomNavigation"
-        android:background="@drawable/bottom_navigation"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/bottom_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lin"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerOrder"
         app:menu="@menu/bottom_navigation_menu" />
 
 
