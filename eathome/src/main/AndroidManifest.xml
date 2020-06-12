@@ -122,13 +122,6 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".placeSide.PlaceOrderPreviousActivity"
-            android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
-            android:largeHeap="true"
-            android:windowSoftInputMode="adjustPan" />
-
-        <activity
             android:name=".placeSide.PlaceBookingInfoActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
