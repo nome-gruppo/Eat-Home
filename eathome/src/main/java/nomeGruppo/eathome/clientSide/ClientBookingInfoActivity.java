@@ -33,6 +33,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
     private List<Booking> listBooking;
     private BookingInfoAdapter bookingInfoAdapter;
     private FirebaseConnection firebaseConnection;
+    private BottomNavigationView bottomMenuClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_booking_info);
 
         final ListView listViewBookingInfo = findViewById(R.id.listViewBookingInfo);
-        final BottomNavigationView bottomMenuClient = findViewById(R.id.bottom_navigationClientBooking);
+        this.bottomMenuClient = findViewById(R.id.bottom_navigationClientBooking);
 
         this.firebaseConnection=new FirebaseConnection();
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
@@ -57,11 +58,15 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        final MenuItem mItem = bottomMenuClient.getMenu().findItem(R.id.action_bookings);
+        mItem.setChecked(true);
 
         listBooking.clear();
         //leggo in firebase le prenotazioni del cliente in base al suo id

@@ -14,8 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -72,6 +74,20 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.openingTimeUtility = new OpeningTime();
 
+
+        Toolbar toolbarConfirmOrder = findViewById(R.id.tlbConfirmOrder);
+        setSupportActionBar(toolbarConfirmOrder);
+        toolbarConfirmOrder.setTitle("@string/order_summary");
+        toolbarConfirmOrder.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarConfirmOrder.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             Intent placeListFoodIntent = new Intent(ConfirmOrderActivity.this, PlaceListFoodOrderActivity.class);
+             placeListFoodIntent.putExtra(FirebaseConnection.PLACE, place);
+             startActivity(placeListFoodIntent);
+             finish();
+            }
+        });
         txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f", order.totalOrder));
         txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder));
         txtTotDelivery.setText(String.format(Locale.getDefault(),"%d",order.deliveryCost));

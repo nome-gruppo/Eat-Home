@@ -68,7 +68,7 @@
     <string name="sunday">Sunday</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="set_opening">Set opening days and hours</string>
+    <string name="set_opening">Opening days and hours</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
     <string name="opening_time">The place is now open until </string>
@@ -178,5 +178,6 @@
     <string name="place_area">Place area</string>
     <string name="sei_sicuro_di_voler_eliminare_l_account">Do you want to delete?</string>
     <string name="filter_by">Filter by</string>
+    <string name="choose">Options</string>
 
 </resources>

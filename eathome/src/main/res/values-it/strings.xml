@@ -38,7 +38,7 @@
     <string name="total">Totale</string>
     <string name="confirm">Conferma</string>
     <string name="are_you_sure">Sei sicuro di voler confermare?</string>
-    <string name="choose_time">Seleziona ora di consegna</string>
+    <string name="choose_time">Ora di consegna</string>
     <string name="no_booking">Spiacenti! Non ci sono prenotazioni</string>
     <string name="no_order">Spiacenti! Non ci sono ordinazioni</string>
     <string name="monday">Lunedì</string>
@@ -50,7 +50,7 @@
     <string name="sunday">Domenica</string>
     <string name="open">Aperto</string>
     <string name="close">Chiuso</string>
-    <string name="set_opening">Imposta giorni e orari di apertura</string>
+    <string name="set_opening">Giorni e orari di apertura</string>
     <string name="from">Da:</string>
     <string name="to">A:</string>
     <string name="opening_time">Il locale ora è aperto fino alle  </string>
@@ -156,7 +156,7 @@
     <string name="type_place">Tipologia</string>
     <string name="place_area">"Zona "</string>
     <string name="filter_by">Filtra per</string>
-
+    <string name="choose">Opzioni</string>
 
 
 </resources>

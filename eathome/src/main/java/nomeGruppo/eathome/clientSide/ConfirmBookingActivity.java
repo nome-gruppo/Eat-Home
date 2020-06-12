@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +34,7 @@ import java.util.Objects;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.actions.Booking;
+import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -55,6 +57,7 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     private EditText editNameBooking;
     private OpeningTime openingTimeUtility;
     private Calendar dateBooking;
+    private Client client;
 
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
@@ -82,6 +85,24 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
 
         this.mDBHelper = new DBOpenHelper(this);
         this.mDB = mDBHelper.getWritableDatabase();
+
+
+        Toolbar toolbarConfirmBooking = findViewById(R.id.tlbConfirmBooking);
+        setSupportActionBar(toolbarConfirmBooking);
+        toolbarConfirmBooking.setTitle(getResources().getString(R.string.bookings));
+        toolbarConfirmBooking.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarConfirmBooking.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent placeInfoIntent = new Intent(ConfirmBookingActivity.this, PlaceInfoActivity.class);
+                placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
+                startActivity(placeInfoIntent);
+                finish();
+            }
+        });
+
+
+
 
         //se l'utente clicca sul bottone per aggiungere persone al tavolo della prenotazione
         btnAddPersonBooking.setOnClickListener(new View.OnClickListener() {

@@ -50,7 +50,7 @@ public class MenuNavigationItemSelected {
                 activity.finish();
 
                 break;
-            case R.id.action_profile:
+            case R.id.action_other:
 
                 intent = new Intent(context, OtherActivity.class);
                 intent.putExtra(FirebaseConnection.CLIENT, client);
@@ -84,7 +84,7 @@ public class MenuNavigationItemSelected {
                 context.startActivity(intent);
                 activity.finish();
                 break;
-            case R.id.action_profile:
+            case R.id.action_other:
                 intent = new Intent(context, OtherActivity.class);
                 intent.putExtra(FirebaseConnection.PLACE, place);
                 context.startActivity(intent);

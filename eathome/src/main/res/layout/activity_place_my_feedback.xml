@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
+    android:background="@color/quantum_white_100"
     tools:context=".placeSide.profile.PlaceMyFeedbackActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbPlaceMyFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:background="@color/colorPrimaryDark"
-        android:padding="20dp">
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="70dp"
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    >
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:background="@drawable/button_border"
+          android:layout_height="130dp"
+          android:layout_marginTop="20dp">
 
             <RatingBar
                 android:id="@+id/feedback_ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+               android:layout_centerVertical="true"
                 android:layout_marginEnd="7dp"
+                android:layout_marginStart="10dp"
                 android:numStars="5"
                 app:layout_constraintEnd_toStartOf="@+id/feedback_tw_average"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,39 +47,49 @@
                 android:id="@+id/feedback_tw_average"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="49dp"
+                android:layout_centerVertical="true"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/feedback_ratingBar"
-                app:layout_constraintTop_toTopOf="parent" />
+               android:layout_marginHorizontal="260dp"/>
+      </RelativeLayout>
 
-            <TextView
-                android:id="@+id/feedback_tw_numReview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="29dp"
-                android:layout_marginBottom="15dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+              <TextView
+                  android:id="@+id/feedback_tw_numReview"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="18sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/quantum_black_100"
+                  android:background="@color/quantum_white_100"
+                  android:layout_marginTop="8dp"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent" />
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </RelativeLayout>
 
     <TextView
         android:id="@+id/my_feedback_place_noFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+     android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:visibility="gone"
-        android:text="@string/no_feedback"/>
+        android:layout_marginEnd="391dp"
+        android:text="@string/no_feedback"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/feedback_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="250dp"/>
 
-</LinearLayout>
+</RelativeLayout>

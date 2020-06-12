@@ -11,7 +11,7 @@
         android:id="@+id/app_logo"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:background="@drawable/button_style"
+        android:background="@drawable/icon_border"
         android:contentDescription="@string/launcher"
         android:elevation="15dp"
         android:foregroundGravity="center"
@@ -97,6 +97,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/activity_login_et_password"
         app:layout_constraintStart_toStartOf="@id/activity_login_et_password"
         app:layout_constraintTop_toBottomOf="@id/activity_login_btn_login" />

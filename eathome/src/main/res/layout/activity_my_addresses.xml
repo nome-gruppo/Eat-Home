@@ -4,27 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbClientMyAddresses"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimaryDark"
-
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/my_address"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textColor="@color/quantum_white_100"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"/>
-
-    </RelativeLayout>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -44,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
+        android:divider="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
