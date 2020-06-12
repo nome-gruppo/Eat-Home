@@ -181,5 +181,6 @@
     <string name="choose">Options</string>
     <string name= "greetings">Welcome,</string>
     <string name="comma" translatable="false">.</string>
+    <string name="nameApp" translatable="false">Eat@Home</string>
 
 </resources>
