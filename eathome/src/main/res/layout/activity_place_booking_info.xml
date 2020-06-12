@@ -42,15 +42,15 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerBooking"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_navigationPlaceBookingInfo"
+        app:layout_constraintEnd_toEndOf="@+id/bottom_navigationPlaceBookingInfo"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/tabLayoutPlaceBookingInfo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@id/tabLayoutPlaceBookingInfo"
+        app:layout_constraintVertical_bias="0.056" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
