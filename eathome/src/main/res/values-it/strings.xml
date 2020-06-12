@@ -68,8 +68,8 @@
     <string name="invalid_time">Il locale è chiuso nell\'ora selezionata</string>
     <string name="reservation_confirmed">Prenotazione confermata</string>
     <string name="order_confirm">Ordine confermato</string>
-    <string name="invalid_order">Il carello è vuoto</string>
-    <string name="show_cart">Mostra carello</string>
+    <string name="invalid_order">Il carrello è vuoto</string>
+    <string name="show_cart">Mostra carrello</string>
     <string name="not_done">Non eseguito</string>
     <string name="done">Eseguito</string>
     <string name="my_feedback">Le mie recensioni</string>
@@ -157,6 +157,7 @@
     <string name="place_area">"Zona "</string>
     <string name="filter_by">Filtra per</string>
     <string name="choose">Opzioni</string>
+    <string name="greetings">Ciao,</string>
 
 
 </resources>
