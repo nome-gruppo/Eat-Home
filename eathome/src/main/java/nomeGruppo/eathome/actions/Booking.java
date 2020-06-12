@@ -2,6 +2,8 @@ package nomeGruppo.eathome.actions;
 
 public class Booking {
 
+
+
     public long dateBooking;
     public int personNumBooking;
     public String nameBooking;

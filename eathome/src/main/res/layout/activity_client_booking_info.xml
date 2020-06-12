@@ -46,7 +46,7 @@
         android:id="@+id/bottom_navigationClientBooking"
         style="@style/BottomNavigation"
         android:background="@drawable/bottom_navigation"
-        android:layout_width="416dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
