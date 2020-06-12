@@ -68,7 +68,7 @@
     <string name="sunday">Sunday</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="set_opening">Set opening days and hours</string>
+    <string name="set_opening">Opening days and hours</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
     <string name="opening_time">The place is now open until </string>
