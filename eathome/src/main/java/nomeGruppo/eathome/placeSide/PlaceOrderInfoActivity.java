@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,9 +43,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
 
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
-    private ViewPager viewPager;
-    private PagerAdapter pagerAdapter;
-    private TabLayout tabLayout;
+    private ListView listView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,32 +53,9 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero l'oggetto Place
 
         final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceOrderInfo);
-        tabLayout = findViewById(R.id.tabLayoutPlaceOrderInfo);
-        this.viewPager=findViewById(R.id.viewPagerOrder);
-        this.pagerAdapter=new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),place);
-        viewPager.setAdapter(pagerAdapter);
+        this.listView=findViewById(R.id.listViewPlaceOrderInfo);
 
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
-
-
-        //tabLoyout per switchare tra gli ordini odierni e precedenti
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
 
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -88,5 +64,64 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {//se clicca su un ordine nella lista
+                Order order = (Order) adapterView.getItemAtPosition(i);//recupero l'ordine cliccato
+                showDialogListFood(order);//mostro dialog chiamando showDialogListFood
+            }
+        });
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        showListOrder();
+    }
+
+    private void showListOrder(){
+
+        final List<Order>listOrder = new LinkedList<>();
+        final PlaceOrderAdapter placeOrderAdapter = new PlaceOrderAdapter(this, R.layout.listitem_order_info, listOrder);
+        this.listView.setAdapter(placeOrderAdapter);
+
+        listOrder.clear();
+
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
+        //leggo gli ordini corrispondenti a idPlace dal db
+        firebaseConnection.getmDatabase().child(FirebaseConnection.ORDER_NODE).orderByChild("idPlaceOrder").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Order order = snapshot.getValue(Order.class);//recupero l'Order letto
+                        listOrder.add(order);
+                    }
+                    Collections.reverse(listOrder);//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
+                    placeOrderAdapter.notifyDataSetChanged();
+                } else {//se non ci sono ordini per il Place
+                    Toast.makeText(PlaceOrderInfoActivity.this, getResources().getString(R.string.no_order), Toast.LENGTH_SHORT).show();//messagio di avviso
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    /**
+     * metodo per aprire dialogListFoodOrder per visualizzare i dettagli dell'ordine
+     * @param order
+     */
+    private void showDialogListFood(Order order) {
+        DialogListFoodOrder dialogListFoodOrder = new DialogListFoodOrder(order);
+        dialogListFoodOrder.show(getSupportFragmentManager(), "Dialog list food");
+    }
+
+
 }

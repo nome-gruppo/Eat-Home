@@ -5,52 +5,26 @@
     android:layout_height="match_parent"
     app:layout_constraintVertical_chainStyle="spread">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutPlaceBookingInfo"
+    <ListView
+        android:id="@+id/listViewPlaceBookingInfo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="350dp"
-        android:background="@drawable/toolbar_border"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabMode="scrollable">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabToday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabPrevious"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/previous" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPagerBooking"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bottom_navigationPlaceBookingInfo"
-        app:layout_constraintEnd_toEndOf="@+id/bottom_navigationPlaceBookingInfo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/tabLayoutPlaceBookingInfo"
-        app:layout_constraintTop_toTopOf="@id/tabLayoutPlaceBookingInfo"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigationPlaceBookingInfo"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlaceBookingInfo"
         style="@style/BottomNavigation"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@drawable/bottom_navigation"
+        app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

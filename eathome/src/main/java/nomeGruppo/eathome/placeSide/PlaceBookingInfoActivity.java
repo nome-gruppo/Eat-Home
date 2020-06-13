@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,9 +38,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
 
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private PagerAdapter pagerAdapter;
+    private ListView listView;
 
 
     @Override
@@ -49,10 +50,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
-        this.tabLayout=findViewById(R.id.tabLayoutPlaceBookingInfo);
-        this.viewPager=findViewById(R.id.viewPagerBooking);
-        this.pagerAdapter=new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),place);
-        viewPager.setAdapter(pagerAdapter);
+        this.listView=findViewById(R.id.listViewPlaceBookingInfo);
 
         //mostro il menu sottostante
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,25 +60,46 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
             }
         });
 
-        //tabLoyout per switchare tra le prenotazioni odierne e precedenti
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        showListBooking();
+    }
+
+    private void showListBooking(){
+
+        final List<Booking> listBooking=new LinkedList<>();
+        final PlaceBookingAdapter placeBookingAdapter=new PlaceBookingAdapter(this,R.layout.listitem_booking_info,listBooking);
+        this.listView.setAdapter(placeBookingAdapter);
+
+        listBooking.clear();
+
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+        //leggo in firebase le prenotazioni con id place corrispondente
+        firebaseConnection.getmDatabase().child(FirebaseConnection.BOOKING_NODE).orderByChild("idPlaceBooking").equalTo(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {//se esiste almeno una prenotazione
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Booking booking = snapshot.getValue(Booking.class);
+                        listBooking.add(booking);
+
+                    }
+                    Collections.reverse(listBooking);//inverto i valori nella lista così da averli in ordine di prenotazione più recente effettuata
+                    placeBookingAdapter.notifyDataSetChanged();
+            }else {//se non c'è alcuna prenotazione
+                    Toast.makeText(PlaceBookingInfoActivity.this, getResources().getString(R.string.no_booking),Toast.LENGTH_SHORT).show();
+                }
             }
-
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
-
-
     }
 }
