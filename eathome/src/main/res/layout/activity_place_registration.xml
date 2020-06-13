@@ -4,278 +4,263 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:fillViewport="false">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:orientation="vertical">
-
-    <EditText
-        android:id="@+id/editNamePlace"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="8dp"
-        android:autofillHints="@string/placeName"
-        android:background="@drawable/edit_text_border"
-        android:drawableStart="@drawable/ic_local_activity_black_24dp"
-        android:ems="10"
-        android:hint="@string/placeName"
-        android:inputType="textPersonName"
-        android:textAlignment="center" />
-
-    <AutoCompleteTextView
-        android:id="@+id/editCityPlace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/enterCity"
-        android:completionHint="@string/enterCity"
-        android:completionThreshold="2"
-        android:layout_marginTop="2dp"
-        android:drawableStart="@drawable/ic_place_black_24dp"
-        android:textAlignment="center"
-        android:background="@drawable/edit_text_border" />
-
-    <EditText
-        android:id="@+id/editAddressPlace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/enterAddress"
-        android:layout_marginVertical="8dp"
-        android:drawableStart="@drawable/ic_place_black_24dp"
-        android:textAlignment="center"
-        android:background="@drawable/edit_text_border"
-        android:inputType="textPostalAddress"
-        android:autofillHints="@string/enterAddress"/>
-
-    <EditText
-        android:id="@+id/editNumberAddressPlace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/enterAddressNumber"
-       android:layout_marginTop="2dp"
-        android:drawableStart="@drawable/ic_place_black_24dp"
-        android:textAlignment="center"
-        android:background="@drawable/edit_text_border"
-        android:inputType="textPostalAddress"
-        tools:ignore="TextFields"
-        android:autofillHints="@string/enterAddressNumber"/>
-
-    <EditText
-        android:id="@+id/editPhonePlace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/enterPhone"
-        android:layout_marginVertical="8dp"
-        android:drawableStart="@drawable/ic_local_phone_black_24dp"
-        android:textAlignment="center"
-        android:background="@drawable/edit_text_border"
-        android:inputType="phone"
-        android:autofillHints="@string/enterPhone"/>
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="6dp"
-        app:cardBackgroundColor="@color/trasparent"
-        android:layout_marginVertical="10dp">
-
-        <LinearLayout
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/editNamePlace"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/txtCategories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@string/categories"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:textSize="16sp" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
-
-        <RadioButton
-            android:id="@+id/radioPizzeria"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/pizzeria" />
-
-        <RadioButton
-            android:id="@+id/radioItalianRestaurant"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="8dp"
+            android:autofillHints="@string/placeName"
+            android:background="@drawable/edit_text_border"
+            android:drawableStart="@drawable/ic_local_activity_black_24dp"
+            android:ems="10"
+            android:hint="@string/placeName"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
+        <AutoCompleteTextView
+            android:id="@+id/editCityPlace"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/italianRestaurant" />
-
-        <RadioButton
-            android:id="@+id/radioPizzeriaRestaurant"
-            android:layout_width="wrap_content"
+            android:hint="@string/enterCity"
+            android:completionHint="@string/enterCity"
+            android:completionThreshold="2"
+            android:layout_marginTop="2dp"
+            android:drawableStart="@drawable/ic_place_black_24dp"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_border" />
+        <EditText
+            android:id="@+id/editAddressPlace"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/pizzeriaRestaurant" />
-
-        <RadioButton
-            android:id="@+id/radioSushi"
-            android:layout_width="wrap_content"
+            android:ems="10"
+            android:hint="@string/enterAddress"
+            android:layout_marginVertical="8dp"
+            android:drawableStart="@drawable/ic_place_black_24dp"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_border"
+            android:inputType="textPostalAddress"
+            android:autofillHints="@string/enterAddress"/>
+        <EditText
+            android:id="@+id/editNumberAddressPlace"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/sushi" />
-
-        <RadioButton android:id="@+id/radioOther"
-            android:layout_width="wrap_content"
+            android:ems="10"
+            android:hint="@string/enterAddressNumber"
+            android:layout_marginTop="2dp"
+            android:drawableStart="@drawable/ic_place_black_24dp"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_border"
+            android:inputType="textPostalAddress"
+            tools:ignore="TextFields"
+            android:autofillHints="@string/enterAddressNumber"/>
+        <EditText
+            android:id="@+id/editPhonePlace"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/other"
-            android:onClick="onRadioButtonClicked"/>
-    </RadioGroup>
+            android:ems="10"
+            android:hint="@string/enterPhone"
+            android:layout_marginVertical="8dp"
+            android:drawableStart="@drawable/ic_local_phone_black_24dp"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_border"
+            android:inputType="phone"
+            android:autofillHints="@string/enterPhone"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/txtCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:text="@string/categories"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="14sp" />
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+                    <RadioButton
+                        android:id="@+id/radioPizzeria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/pizzeria" />
+                    <RadioButton
+                        android:id="@+id/radioItalianRestaurant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/italianRestaurant" />
+                    <RadioButton
+                        android:id="@+id/radioPizzeriaRestaurant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/pizzeriaRestaurant" />
+                    <RadioButton
+                        android:id="@+id/radioSushi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/sushi" />
+                    <RadioButton android:id="@+id/radioOther"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/other"
+                        android:onClick="onRadioButtonClicked"/>
+                </RadioGroup>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/txtActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:text="@string/actions"
+                    android:textSize="14sp"
+    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginStart="8dp">
+
+                    <RadioButton
+                        android:id="@+id/radioOrders"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/orders" />
+                    <RadioButton
+                        android:id="@+id/radioBooking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/bookings" />
+                    <RadioButton
+                        android:id="@+id/radioEither"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/either" />
+                </RadioGroup>
 
 
-    <TextView
-        android:id="@+id/txtActions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@string/actions"
-        android:textSize="16sp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"/>
+                <TextView
+                    android:id="@+id/txt3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:ems="10"
+                    android:text="@string/deliveryCost"
+                    android:textSize="14sp" />
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="10dp">
+                <TextView
+                    android:id="@+id/txtDeliveryCost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:text="@string/zero"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="14sp" />
+                <SeekBar
+                    android:id="@+id/seekDeliveryCost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="5"
+                    android:layout_marginBottom="20dp"
+                    android:progress="0"
+                  android:layout_marginHorizontal="10dp"/>
 
-        <RadioButton
-            android:id="@+id/radioOrders"
-            android:layout_width="wrap_content"
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="?android:attr/listDivider" />
+
+
+        <EditText
+            android:id="@+id/editMailPlace"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/orders" />
+   android:layout_marginHorizontal="10dp"
+            android:autofillHints="@string/enterEmail"
+            android:background="@drawable/edit_text_border"
+            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:ems="10"
+    android:layout_marginTop="20dp"
+            android:hint="@string/enterEmail"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center" />
 
-        <RadioButton
-            android:id="@+id/radioBooking"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/editPasswordPlace"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/bookings" />
-
-        <RadioButton
-            android:id="@+id/radioEither"
-            android:layout_width="wrap_content"
+            android:ems="10"
+            android:hint="@string/enterPassword"
+            android:background="@drawable/edit_text_border"
+            android:inputType="textPassword"
+            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+            android:layout_marginVertical="10dp"
+            android:textAlignment="center"
+     android:layout_marginHorizontal="10dp"
+            android:autofillHints="@string/enterPassword"/>
+        <Button
+            android:id="@+id/btnSignin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/either" />
+            android:background="@drawable/button_style"
+            android:text="@string/tw_signUp"
+       android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal" />
+        <TextView
+            android:id="@+id/activity_place_registration_tw_status"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/emailAlreadyExists"
+            android:textSize="24sp"
+            android:visibility="invisible" />
+        <TextView
+            android:id="@+id/txtPath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-    </RadioGroup>
 
-    <TextView
-        android:id="@+id/txt3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@string/deliveryCost"
-        android:textSize="16sp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"/>
-
-    <TextView
-        android:id="@+id/txtDeliveryCost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@string/zero"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:textSize="16sp" />
-
-    <SeekBar
-        android:id="@+id/seekDeliveryCost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="5"
-        android:progress="0"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"/>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <EditText
-        android:id="@+id/editMailPlace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/enterEmail"
-        android:background="@drawable/edit_text_border"
-        android:inputType="textEmailAddress"
-        android:drawableStart="@drawable/ic_email_black_24dp"
-        android:layout_marginVertical="10dp"
-        android:textAlignment="center"
-        android:layout_marginEnd="10dp"
-        android:autofillHints="@string/enterEmail"/>
-
-    <EditText
-        android:id="@+id/editPasswordPlace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/enterPassword"
-        android:background="@drawable/edit_text_border"
-        android:inputType="textPassword"
-        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
-        android:layout_marginVertical="10dp"
-        android:textAlignment="center"
-        android:layout_marginEnd="10dp"
-        android:autofillHints="@string/enterPassword"/>
-
-    <Button
-        android:id="@+id/btnSignin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_style"
-        android:text="@string/tw_signUp"
-        android:layout_marginVertical="10dp"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:id="@+id/activity_place_registration_tw_status"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="@string/emailAlreadyExists"
-        android:textSize="24sp"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/txtPath"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
-
-</LinearLayout>
-
+    </LinearLayout>
 </ScrollView>
