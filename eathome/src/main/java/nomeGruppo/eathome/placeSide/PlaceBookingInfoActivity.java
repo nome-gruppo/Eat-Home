@@ -29,6 +29,7 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.BookingComparator;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 
 /*
@@ -101,21 +102,5 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    /**
-     * classe per ordinare i Booking per data
-     */
-
-    private class BookingComparator implements Comparator<Booking> {
-        @Override
-        public int compare(Booking booking1, Booking booking2) {
-            if(booking1.dateBooking>booking2.dateBooking){
-                return -1;
-            }else if(booking1.dateBooking<booking2.dateBooking){
-                return 1;
-            }
-            return 0;
-        }
     }
 }

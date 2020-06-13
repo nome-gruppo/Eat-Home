@@ -26,6 +26,7 @@ import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.DialogListFoodOrder;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
+import nomeGruppo.eathome.utility.OrderComparator;
 
 /*
 activity per far visualizzare al cliente il riepilogo dei suoi ordini
@@ -110,7 +111,7 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
                         Order order = snapshot.getValue(Order.class);
                         listOrder.add(order);//aggiungo l'ordine alla lista collegata all'adapter
                     }
-                    Collections.reverse(listOrder);//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
+                    Collections.sort(listOrder,new OrderComparator());//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
                     orderInfoAdapter.notifyDataSetChanged();
                 }else{//se non c'è nemmeno un ordine
                     Toast.makeText(ClientOrderInfoActivity.this, R.string.no_order,Toast.LENGTH_SHORT).show();
