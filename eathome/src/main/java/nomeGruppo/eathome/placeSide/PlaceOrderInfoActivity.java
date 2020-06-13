@@ -1,32 +1,25 @@
 package nomeGruppo.eathome.placeSide;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
@@ -34,7 +27,6 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.DialogListFoodOrder;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
-import nomeGruppo.eathome.utility.PlaceOrderAdapter;
 
 /**
  * activity per visualizzare le informazioni sulle ordinazioni
@@ -99,7 +91,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
                         Order order = snapshot.getValue(Order.class);//recupero l'Order letto
                         listOrder.add(order);
                     }
-                    Collections.reverse(listOrder);//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
+                    Collections.sort(listOrder,new OrderComparator());//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
                     placeOrderAdapter.notifyDataSetChanged();
                 } else {//se non ci sono ordini per il Place
                     Toast.makeText(PlaceOrderInfoActivity.this, getResources().getString(R.string.no_order), Toast.LENGTH_SHORT).show();//messagio di avviso
@@ -121,6 +113,19 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
     private void showDialogListFood(Order order) {
         DialogListFoodOrder dialogListFoodOrder = new DialogListFoodOrder(order);
         dialogListFoodOrder.show(getSupportFragmentManager(), "Dialog list food");
+    }
+
+    private class OrderComparator implements Comparator<Order> {
+
+        @Override
+        public int compare(Order order1, Order order2) {
+            if(order1.timeOrder>order2.timeOrder){
+                return -1;
+            }else if(order1.timeOrder<order2.timeOrder){
+                return 1;
+            }
+            return 0;
+        }
     }
 
 

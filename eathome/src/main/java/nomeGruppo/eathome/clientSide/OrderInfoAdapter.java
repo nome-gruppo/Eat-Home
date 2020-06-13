@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomeGruppo.eathome.clientSide;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
@@ -43,7 +46,10 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
                 title.setText(order.namePlaceOrder);
                 total.setText(order.totalOrder + " €");
                 address.setText(order.addressPlaceOrder);
-                date.setText(order.dateOrder + " " + order.timeOrder);
+                Calendar calendar = Calendar.getInstance();//istanzio Calendar
+                calendar.setTimeInMillis(order.timeOrder);//imposto la data in formato long
+                //imposto la data in formato dd/mm/yyyy, hh:mm
+                date.setText(new SimpleDateFormat(getContext().getResources().getString(R.string.dateFormat) + " - " +getContext().getResources().getString(R.string.hourFormat), Locale.getDefault()).format(calendar.getTime()));
                 phone.setText(order.phonePlaceOrder);
 
                 if (order.stateOrder) {

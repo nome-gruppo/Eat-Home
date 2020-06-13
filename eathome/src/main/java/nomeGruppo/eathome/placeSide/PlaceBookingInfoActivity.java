@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,9 +89,8 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Booking booking = snapshot.getValue(Booking.class);
                         listBooking.add(booking);
-
                     }
-                    Collections.reverse(listBooking);//inverto i valori nella lista così da averli in ordine di prenotazione più recente effettuata
+                    Collections.sort(listBooking,new BookingComparator());//ordino gli elementi in ordine di prenotazione più recente effettuata
                     placeBookingAdapter.notifyDataSetChanged();
             }else {//se non c'è alcuna prenotazione
                     Toast.makeText(PlaceBookingInfoActivity.this, getResources().getString(R.string.no_booking),Toast.LENGTH_SHORT).show();
@@ -101,5 +101,21 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    /**
+     * classe per ordinare i Booking per data
+     */
+
+    private class BookingComparator implements Comparator<Booking> {
+        @Override
+        public int compare(Booking booking1, Booking booking2) {
+            if(booking1.dateBooking>booking2.dateBooking){
+                return -1;
+            }else if(booking1.dateBooking<booking2.dateBooking){
+                return 1;
+            }
+            return 0;
+        }
     }
 }

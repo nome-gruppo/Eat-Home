@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -54,6 +53,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     private FirebaseUser mUser;
 
+    private Calendar calendar;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.order = (Order) getIntent().getSerializableExtra(FirebaseConnection.ORDER);
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.openingTimeUtility = new OpeningTime();
+        this.calendar=Calendar.getInstance();
 
 
         Toolbar toolbarConfirmOrder = findViewById(R.id.tlbConfirmOrder);
@@ -217,8 +219,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
     private void addOrderFirebase() {
         order.setNameClientOrder(editName.getText().toString());
         order.setPhoneClientOrder(editPhone.getText().toString());
-        order.setTimeOrder(chooseTime.getText().toString());
-        order.setDateOrder(new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(new Date()));
+        order.setTimeOrder(calendar.getTimeInMillis());
         order.timestampOrder = System.currentTimeMillis();   //momento in cui è stato realizzato l'ordine
         FirebaseConnection firebaseConnection = new FirebaseConnection();
 
@@ -255,8 +256,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
                 if (timeOrder != null) {
                     //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
                     if (timeOrder.after(timeOpening) && timeOrder.before(timeClosed)) {
-                        Button editChooseTime = findViewById(R.id.editChooseTime);
-                        editChooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
+                        chooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
+                        calendar.set(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,hourOfDay,minutes);//imposto la data e l'ora dell'ordine in Calendar
                     } else {//se il locale è chiuso nell'ora selezionata
                         //mostra messaggio
                         Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();
