@@ -87,7 +87,6 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
 
         Toolbar toolbarPlaceInfo = findViewById(R.id.tlbPlaceInfo);
         setSupportActionBar(toolbarPlaceInfo);
-        getSupportActionBar().setTitle(null);
         toolbarPlaceInfo.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
         toolbarPlaceInfo.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,8 +117,10 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
             numFeedbackTW.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    final boolean FLAG_CLIENT=true;//flag per avvisare che l'activity PlaceMyFeedbackActivity è stata raggiunta da un client
                     Intent intent = new Intent(PlaceInfoActivity.this, PlaceMyFeedbackActivity.class);
                     intent.putExtra(FirebaseConnection.PLACE, place);
+                    intent.putExtra("flag_client",FLAG_CLIENT);
                     startActivity(intent);
                 }
             });

@@ -26,6 +26,7 @@ import nomeGruppo.eathome.ShowAnswerPlace;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.clientSide.MyFeedbackClientActivity;
+import nomeGruppo.eathome.clientSide.PlaceInfoActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
 
@@ -50,6 +51,8 @@ public class PlaceMyFeedbackActivity extends AppCompatActivity {
 
         mPlace = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero oggetto Place
 
+        final boolean FLAG_CLIENT=getIntent().getBooleanExtra("flag_client",false);//recupero il flag che mi avvisa che l'activity è stata raggiunta da un client
+
         //toolbar
         Toolbar toolbarPlaceMyFeedback = findViewById(R.id.tlbPlaceMyFeedback);
         setSupportActionBar(toolbarPlaceMyFeedback);
@@ -59,12 +62,19 @@ public class PlaceMyFeedbackActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent otherActivityIntent=new Intent(PlaceMyFeedbackActivity.this, OtherActivity.class);
-                otherActivityIntent.putExtra(FirebaseConnection.PLACE, mPlace);
-                startActivity(otherActivityIntent);
-                finish();
-                                                                }
-                                                            }
+                if(FLAG_CLIENT){//se l'activity è stata raggiunta da un client
+                    Intent activityIntent = new Intent(PlaceMyFeedbackActivity.this, PlaceInfoActivity.class);
+                    activityIntent.putExtra(FirebaseConnection.PLACE, mPlace);
+                    startActivity(activityIntent);
+                    finish();
+                }else {//se l'activity è stata raggiunta da un place
+                    Intent otherActivityIntent = new Intent(PlaceMyFeedbackActivity.this, OtherActivity.class);
+                    otherActivityIntent.putExtra(FirebaseConnection.PLACE, mPlace);
+                    startActivity(otherActivityIntent);
+                    finish();
+                }
+            }
+        }
 
         );
 
