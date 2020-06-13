@@ -41,16 +41,18 @@ public class PlaceBookingAdapter extends ArrayAdapter<Booking> {
             final TextView address = convertView.findViewById(R.id.txtAddressBookingInfo);
             final TextView date = convertView.findViewById(R.id.txtDateBookingInfo);
             final TextView number = convertView.findViewById(R.id.txtNumberPersonBookingInfo);
+            final TextView phone=convertView.findViewById(R.id.txtPhonePlace);
             final Booking booking = getItem(position);
 
             if(booking != null) {
                 title.setText(booking.nameBooking);//imposto come titolo il nome del cliente che ha prenotato
                 address.setVisibility(View.INVISIBLE);//rendo invisibile la textView per l'indirizzo
+                phone.setVisibility(View.INVISIBLE);//rendo invisibile la textView per il numero di telefono del locale
                 Calendar calendar = Calendar.getInstance();//istanzio Calendar
                 calendar.setTimeInMillis(booking.dateBooking);//imposto la data in formato long
                 //imposto la data in formato dd/mm/yyyy, hh:mm
-                date.setText(new SimpleDateFormat(res.getString(R.string.dateFormat) + ", " + res.getString(R.string.hourFormat), Locale.getDefault()).format(calendar));
-                number.setText(booking.personNumBooking);
+                date.setText(new SimpleDateFormat(res.getString(R.string.dateFormat) + " - " + res.getString(R.string.hourFormat), Locale.getDefault()).format(calendar.getTime()));
+                number.setText(String.valueOf(booking.personNumBooking));
             }
         }
         return convertView;

@@ -9,8 +9,7 @@ public class Order implements Serializable {
     public String addressOrder;
     public String nameClientOrder;
     public String phoneClientOrder;
-    public String timeOrder;
-    public String dateOrder;
+    public long timeOrder;
     public float timestampOrder;
     public ArrayList<String> foodsOrder;
     public float totalOrder;
@@ -41,7 +40,7 @@ public class Order implements Serializable {
         this.addressOrder = addressOrder;
     }
 
-    public void setTimeOrder(String timeOrder) {
+    public void setTimeOrder(long timeOrder) {
         this.timeOrder = timeOrder;
     }
 
@@ -80,10 +79,6 @@ public class Order implements Serializable {
 
     public void setPhoneClientOrder(String phoneClientOrder) {
         this.phoneClientOrder = phoneClientOrder;
-    }
-
-    public void setDateOrder(String dateOrder) {
-        this.dateOrder = dateOrder;
     }
 
     public void setTotalOrder(float totalOrder) {

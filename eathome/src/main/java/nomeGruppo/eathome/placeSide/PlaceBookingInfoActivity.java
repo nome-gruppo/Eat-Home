@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,11 +39,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
 
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
-    private List<Booking> listBooking;
-    private PlaceBookingAdapter placeBookingAdapter;
-    private TextView txtNoBooking;
-    private ImageView impNoBooking;
-    private BottomNavigationView bottomMenuPlace;
+    private ListView listView;
 
 
     @Override
@@ -44,14 +47,11 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_booking_info);
 
-        this.bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceBookingInfo);
-        this.txtNoBooking = findViewById(R.id.txtNoBookingPlace);
-        this.impNoBooking = findViewById(R.id.imgNoBookingPlace);
+        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceBookingInfo);
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
-        this.listBooking = new LinkedList<>();
-        this.placeBookingAdapter = new PlaceBookingAdapter(this, R.layout.listitem_booking_info, listBooking);
+        this.listView=findViewById(R.id.listViewPlaceBookingInfo);
 
         //mostro il menu sottostante
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -61,17 +61,23 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
 
-        final MenuItem mItem = bottomMenuPlace.getMenu().findItem(R.id.action_bookings);
-        mItem.setChecked(true);
+        showListBooking();
+    }
+
+    private void showListBooking(){
+
+        final List<Booking> listBooking=new LinkedList<>();
+        final PlaceBookingAdapter placeBookingAdapter=new PlaceBookingAdapter(this,R.layout.listitem_booking_info,listBooking);
+        this.listView.setAdapter(placeBookingAdapter);
 
         listBooking.clear();
-
 
         FirebaseConnection firebaseConnection = new FirebaseConnection();
 
@@ -82,20 +88,34 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {//se esiste almeno una prenotazione
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Booking booking = snapshot.getValue(Booking.class);
-                        listBooking.add(booking);//aggiungo la prenotazione alla lista a cui è stato impostato l'adapter
+                        listBooking.add(booking);
                     }
-                } else {//se non c'è alcuna prenotazione
-                    txtNoBooking.setVisibility(View.VISIBLE);//mostro il messaggio 'siamo spiacenti'
-                    impNoBooking.setVisibility(View.VISIBLE);//mostro la smile triste
+                    Collections.sort(listBooking,new BookingComparator());//ordino gli elementi in ordine di prenotazione più recente effettuata
+                    placeBookingAdapter.notifyDataSetChanged();
+            }else {//se non c'è alcuna prenotazione
+                    Toast.makeText(PlaceBookingInfoActivity.this, getResources().getString(R.string.no_booking),Toast.LENGTH_SHORT).show();
                 }
-                placeBookingAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+    }
 
+    /**
+     * classe per ordinare i Booking per data
+     */
+
+    private class BookingComparator implements Comparator<Booking> {
+        @Override
+        public int compare(Booking booking1, Booking booking2) {
+            if(booking1.dateBooking>booking2.dateBooking){
+                return -1;
+            }else if(booking1.dateBooking<booking2.dateBooking){
+                return 1;
+            }
+            return 0;
+        }
     }
 }

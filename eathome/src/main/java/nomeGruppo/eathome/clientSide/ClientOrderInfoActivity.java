@@ -26,7 +26,6 @@ import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.DialogListFoodOrder;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
-import nomeGruppo.eathome.utility.OrderInfoAdapter;
 
 /*
 activity per far visualizzare al cliente il riepilogo dei suoi ordini

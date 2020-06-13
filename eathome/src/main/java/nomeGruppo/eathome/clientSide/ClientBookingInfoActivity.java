@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -81,6 +82,7 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
                 }else{//se non ci sono prenotazioni
                     Toast.makeText(ClientBookingInfoActivity.this,getResources().getString(R.string.no_booking),Toast.LENGTH_LONG).show();
                 }
+                Collections.reverse(listBooking);//inverto i valori nella lista così da averli in ordine di prenotazione più recente effettuata
                 bookingInfoAdapter.notifyDataSetChanged();
             }
 
