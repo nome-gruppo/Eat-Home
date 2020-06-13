@@ -83,7 +83,8 @@
         android:layout_height="wrap_content"
      android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_marginEnd="391dp"
+    android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="@string/no_feedback"
         android:visibility="gone" />
 

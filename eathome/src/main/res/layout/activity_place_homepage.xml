@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/quantum_white_100"
@@ -10,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/activity_place_info"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="155dp"
         android:background="@color/colorPrimaryDark"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,6 +26,7 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="@color/quantum_black_100"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
@@ -37,28 +37,31 @@
         android:layout_height="115dp"
         android:layout_gravity="center"
         android:layout_marginTop="90dp"
+        android:contentDescription="@string/image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
-        android:contentDescription="@string/image" />
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
 
     <ProgressBar
         android:id="@+id/progressBarPlaceHome"
         style="?android:attr/progressBarStyle"
         android:layout_width="27dp"
         android:layout_height="31dp"
+        android:layout_marginTop="33dp"
         android:visibility="gone"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="192dp"
-        tools:layout_editor_absoluteY="118dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/place_homepage_linearLayout_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_homepage_placeImg" />
 
     <LinearLayout
         android:id="@+id/place_homepage_linearLayout_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/quantum_white_100"
+        android:layout_marginTop="5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlace"
         app:layout_constraintEnd_toEndOf="parent"

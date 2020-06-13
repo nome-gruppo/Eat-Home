@@ -172,10 +172,9 @@ public class HomepageActivity extends AppCompatActivity {
 
         }
 
-        //TODO controlla se serve
-//        if (!Places.isInitialized()) {
-//            Places.initialize(getApplicationContext(), getString(R.string.api_key));
-//        }
+
+   if (!Places.isInitialized()) {        Places.initialize(getApplicationContext(), getString(R.string.api_key));
+       }
 
         //inizializza tutti i listeners
         initListeners();
