@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="56dp"
 
         android:elevation="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,13 +26,13 @@
         android:layout_width="155dp"
         android:layout_height="155dp"
 
-        android:layout_marginTop="184dp"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="204dp"
         android:background="@drawable/icon_border"
         android:contentDescription="@string/launcher"
         android:elevation="15dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +55,7 @@
         android:id="@+id/NameLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="244dp"
+        android:layout_marginBottom="564dp"
         android:fontFamily="@font/linglenglang"
         android:text="@string/nameApp"
         android:textColor="@color/colorAccent"

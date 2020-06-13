@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/activity_place_info"
         android:layout_width="match_parent"
-        android:layout_height="155dp"
+        android:layout_height="85dp"
         android:background="@color/colorPrimaryDark"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,13 +20,13 @@
             android:id="@+id/place_homepage_txtNamePlace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginHorizontal="10dp"
-
-            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/linglenglang"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="55sp"
             android:textStyle="bold"
-            android:textColor="@color/quantum_black_100"
+            android:textColor="@color/quantum_white_100"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
