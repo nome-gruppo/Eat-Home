@@ -56,8 +56,7 @@
     <LinearLayout
         android:id="@+id/place_homepage_linearLayout_list"
         android:layout_width="match_parent"
-        android:layout_height="434dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="0dp"
         android:background="@color/quantum_white_100"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlace"
@@ -68,7 +67,7 @@
         <ListView
             android:id="@+id/place_homepage_listMenu"
             android:layout_width="match_parent"
-            android:layout_height="418dp"
+            android:layout_height="wrap_content"
             android:divider="@null"
             android:background="@color/quantum_white_100" />
 
