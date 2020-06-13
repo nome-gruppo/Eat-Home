@@ -125,7 +125,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
                     Intent loginIntent = new Intent(PlaceListFoodOrderActivity.this, LoginActivity.class);
                     loginIntent.putExtra(FirebaseConnection.FROM_ANOTHER_ACTIVITY, false);
                     loginIntent.putExtra(FirebaseConnection.PLACE, place);
-                    loginIntent.putExtra(FirebaseConnection.ORDER, order);   //TODO serve?
+                    loginIntent.putExtra(FirebaseConnection.ORDER, order);
                     startActivityForResult(loginIntent, TO_LOGIN_ACTIVITY);//apri login
                 }
             }

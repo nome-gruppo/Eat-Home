@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -314,11 +315,13 @@ public class FirebaseConnection {
         private final FirebaseUser user;
         private final String uID;
         private final String table;
+        private final Activity activity;
 
-        public DeleteAccount(FirebaseUser user, String uID, String table) {
+        public DeleteAccount(FirebaseUser user, String uID, String table, Activity activity) {
             this.user = user;
             this.uID = uID;
             this.table = table;
+            this.activity = activity;
         }
 
         @Override
@@ -329,20 +332,15 @@ public class FirebaseConnection {
                 public void onComplete(@NonNull Task<Void> task) {
 
                     if (task.isSuccessful()) {
-                        mDatabase.child(table).child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        mDatabase.child(table).child(uID).removeValue(new DatabaseReference.CompletionListener() {
                             @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    dataSnapshot.getRef().removeValue();
+                            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
 
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(activity, "account eliminato", Toast.LENGTH_LONG).show();
 
                             }
                         });
+
                     }
                 }
             });

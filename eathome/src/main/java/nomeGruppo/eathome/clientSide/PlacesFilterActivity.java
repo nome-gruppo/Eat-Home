@@ -476,8 +476,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
         }
     }
 
-    //TODO serve visto che non c'è la toolbar?
-    //e invece sì
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

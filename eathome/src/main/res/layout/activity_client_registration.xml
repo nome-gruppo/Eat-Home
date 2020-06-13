@@ -79,7 +79,7 @@
         android:id="@+id/btnSignInClient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/action_sign_in"
+        android:text= "@string/tw_signUp"
         android:background="@drawable/button_style"
         android:layout_marginVertical="30dp"
         android:layout_gravity="center_horizontal"

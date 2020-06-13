@@ -15,7 +15,11 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
+    <ScrollView
 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="280dp"
@@ -81,17 +85,14 @@
 
         <EditText
             android:id="@+id/editNameClientBooking"
-            android:layout_width="192dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtNumberPersonBooking"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="93dp"
+            android:layout_marginTop="200dp"
             android:autofillHints="@string/name"
             android:background="@drawable/edit_text_border"
             android:ems="10"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:hint="@string/name"
             android:inputType="textPersonName" />
 
@@ -113,18 +114,19 @@
             android:layout_marginTop="80dp"
             android:gravity="center"
             android:text="@string/choose_number_person" />
-
+        <Button
+            android:id="@+id/btnConfirmBooking"
+            android:layout_width="320dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="350dp"
+            android:layout_marginStart="175dp"
+            android:background="@drawable/button_style"
+            android:text="@string/confirm"
+            app:layout_constraintEnd_toEndOf="parent" />
     </RelativeLayout>
-    <Button
-        android:id="@+id/btnConfirmBooking"
-        android:layout_width="320dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="60dp"
+    </ScrollView>
 
-        android:layout_gravity="center"
-        android:background="@drawable/button_style"
-        android:text="@string/confirm"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </LinearLayout>

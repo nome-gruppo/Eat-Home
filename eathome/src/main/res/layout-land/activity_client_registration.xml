@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="false">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background">
+
+            <ImageView
+                android:id="@+id/app_logo"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+
+                android:layout_marginStart="290dp"
+                android:layout_marginTop="76dp"
+                android:layout_marginEnd="150dp"
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/icon_border"
+                android:contentDescription="@string/launcher"
+                android:elevation="15dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.44"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editNameClient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="230dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="200dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/edit_text_border"
+                android:drawableStart="@drawable/ic_menu_login"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:hint="@string/name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editMailClient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="278dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="290dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/edit_text_border"
+                android:drawableStart="@drawable/ic_email_black_24dp"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:hint="@string/enterEmail"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/editPasswordClient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="328dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/edit_text_border"
+                android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:hint="@string/enterPassword"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/btnSignInClient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="390dp"
+                android:layout_marginStart="310dp"
+                android:background="@drawable/button_style"
+                android:text="@string/action_sign_in"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/activity_client_registration_tw_status"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_marginVertical="450dp"
+                android:text="@string/emailAlreadyExists"
+                android:textSize="24sp"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

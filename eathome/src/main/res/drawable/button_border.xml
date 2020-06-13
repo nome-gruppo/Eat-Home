@@ -10,6 +10,6 @@
     <!-- Round Corners -->
     <corners android:radius="6dp" />
 
-    <padding android:bottom="8dp" android:top="8dp" android:left="8dp"/>
+    <padding android:bottom="6dp" android:top="6dp" android:left="6dp"/>
 
 </shape>

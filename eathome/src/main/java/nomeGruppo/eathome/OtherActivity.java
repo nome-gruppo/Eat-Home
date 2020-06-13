@@ -9,13 +9,18 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
@@ -47,10 +52,13 @@ public class OtherActivity extends AppCompatActivity {
         final Button btnFeedback = findViewById(R.id.btnMyFeedback);
         final Button btnLogout = findViewById(R.id.btnLogout);
         bottomNavigationMenu = findViewById(R.id.bottom_navigationOther);
+        final TextView txtUsername = findViewById(R.id.username);
+
 
         this.mAuth = FirebaseAuth.getInstance();
         this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+
 
         if(place!=null){ //se l'activity corrente è stata raggiunta da un Place
 
@@ -69,6 +77,9 @@ public class OtherActivity extends AppCompatActivity {
                     Intent profilePlaceIntent=new Intent(OtherActivity.this, PlaceProfileActivity.class);
                     profilePlaceIntent.putExtra(FirebaseConnection.PLACE,place);
                     startActivity(profilePlaceIntent);//apro l'activity del profilo di Place
+
+
+
                 }
             });
 
@@ -81,6 +92,7 @@ public class OtherActivity extends AppCompatActivity {
                     startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
             });
+            txtUsername.setText(place.namePlace);
         }
 
         else{ //se l'activity corrente è stata raggiunta da un Client
@@ -113,6 +125,7 @@ public class OtherActivity extends AppCompatActivity {
 
                 }
             });
+            txtUsername.setText(client.nameClient);
 
         }
 

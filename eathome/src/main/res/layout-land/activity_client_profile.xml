@@ -18,12 +18,16 @@
 
     />
 
+    <ScrollView
 
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/edit_text_border">
 
         <TableLayout
@@ -214,47 +218,53 @@
             android:id="@+id/activity_client_btn_myAddresses"
             android:layout_width="158dp"
             android:layout_height="47dp"
-            android:layout_gravity="center"
             android:layout_marginVertical="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/button_style"
             android:text="@string/my_address"
             android:textAlignment="center"
-
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.039"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
 
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_client_btn_myAddresses"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.039"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/activity_client_btn_save"
+            android:layout_width="258dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_style"
+            android:text="@string/save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.039"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+        <Button
+            android:id="@+id/activity_client_btn_deleteAccount"
+            android:layout_width="258dp"
+            android:layout_height="47dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_style"
+            android:text="@string/delete_account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.039"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_client_btn_save" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/divider5"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="?android:attr/listDivider" />
-
-    <Button
-        android:id="@+id/activity_client_btn_save"
-        android:layout_width="256dp"
-        android:layout_height="47dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/button_style"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.039"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/activity_client_btn_deleteAccount"
-        android:layout_width="258dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="2dp"
-        android:layout_gravity="center"
-        android:background="@drawable/button_style"
-        android:text="@string/delete_account" />
-
-
+    </ScrollView>
 </LinearLayout>
