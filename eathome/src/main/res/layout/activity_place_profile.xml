@@ -22,7 +22,7 @@
         android:layout_marginTop="0dp"
         android:autofillHints="false"
         tools:layout_editor_absoluteX="1dp">
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
@@ -397,6 +397,6 @@
                     android:text="@string/delete_account" />
 
             </TableLayout>
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </LinearLayout>
