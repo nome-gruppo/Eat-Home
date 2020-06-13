@@ -173,9 +173,9 @@ public class HomepageActivity extends AppCompatActivity {
         }
 
         //TODO controlla se serve
-        if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), getString(R.string.api_key));
-        }
+//        if (!Places.isInitialized()) {
+//            Places.initialize(getApplicationContext(), getString(R.string.api_key));
+//        }
 
         //inizializza tutti i listeners
         initListeners();
@@ -288,7 +288,7 @@ public class HomepageActivity extends AppCompatActivity {
 
                 ArrayList<nomeGruppo.eathome.actors.Place> listPlaceFilter = (ArrayList<nomeGruppo.eathome.actors.Place>) data.getSerializableExtra("listPlace");
 
-                //TODO se nul
+
                 if (listPlaceFilter != null) {
                     listPlace.addAll(listPlaceFilter);
                     placeAdapter.notifyDataSetChanged();
@@ -351,7 +351,7 @@ public class HomepageActivity extends AppCompatActivity {
         addressesBar.dismissDropDown();
     }
 
-    //TODO SERVE?
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

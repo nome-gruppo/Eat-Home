@@ -102,6 +102,9 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
 
         if (place != null) {
 
+            final MapFragment mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+            mMapFragment.getMapAsync(this);
+
             txtNamePlaceInfo.setText(place.namePlace);
             txtAddressPlaceInfo.setText(getString(R.string.addressPrinted, this.place.addressPlace,
                     this.place.addressNumPlace, this.place.cityPlace));
@@ -121,9 +124,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
                 }
             });
 
-            //TODO controllo sa queste rihìghe di codice si possono rimuovere
-            MapFragment mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-            mMapFragment.getMapAsync(this);
+
 
 
             //se il locale accetta prenotazioni
