@@ -44,11 +44,12 @@
                 android:id="@+id/listitem_feedback_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="44dp"
+                android:layout_marginEnd="12dp"
                 android:text="@string/feedback_date"
                 app:layout_constraintBottom_toBottomOf="@+id/listitem_feedback_name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/listitem_feedback_name" />
+                app:layout_constraintTop_toTopOf="@+id/listitem_feedback_name"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/listitem_feedback_name"

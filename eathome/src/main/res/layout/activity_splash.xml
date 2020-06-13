@@ -13,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="36dp"
 
         android:elevation="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 
@@ -25,14 +25,12 @@
         android:id="@+id/app_logo"
         android:layout_width="155dp"
         android:layout_height="155dp"
-
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="288dp"
         android:background="@drawable/icon_border"
         android:contentDescription="@string/launcher"
         android:elevation="15dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,13 +53,12 @@
         android:id="@+id/NameLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="564dp"
+        android:layout_marginBottom="452dp"
         android:fontFamily="@font/linglenglang"
         android:text="@string/nameApp"
         android:textColor="@color/colorAccent"
         android:textSize="90sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
