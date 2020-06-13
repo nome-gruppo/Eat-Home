@@ -4,41 +4,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:text="@string/bookings"
+            android:textAllCaps="true"
+            android:textColor="@color/quantum_white_100"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlaceBookingInfo"
+        style="@style/BottomNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@drawable/bottom_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
-        style="@style/BottomNavigation"
-        android:background="@drawable/bottom_navigation"/>
+        app:menu="@menu/bottom_navigation_menu" />
 
-    <ListView
-        android:id="@+id/listViewPlaceBookingInfo"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/lin"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="263dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgNoBookingPlace"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ListView
+            android:id="@+id/listViewPlaceBookingInfo"
+            android:layout_width="match_parent"
+            android:layout_marginTop="80dp"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtNoBookingPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="309dp"
+        android:layout_marginTop="10dp"
         android:text="@string/no_booking"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlaceBookingInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgNoBookingPlace" />
+        app:layout_constraintTop_toBottomOf="@+id/imgNoBookingPlace"
+        app:layout_constraintVertical_bias="0.151" />
 
     <ImageView
         android:id="@+id/imgNoBookingPlace"
@@ -46,13 +81,12 @@
         android:layout_height="60dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="22dp"
+        android:contentDescription="@string/image"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/txtNoBookingPlace"
-        app:layout_constraintEnd_toEndOf="@+id/txtNoBookingPlace"
-        app:layout_constraintStart_toStartOf="@+id/txtNoBookingPlace"
-        app:layout_constraintTop_toBottomOf="@+id/listViewPlaceBookingInfo"
-        app:srcCompat="@drawable/ic_emoticon_sad"
-        android:contentDescription="@string/image" />
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlaceBookingInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_emoticon_sad" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
