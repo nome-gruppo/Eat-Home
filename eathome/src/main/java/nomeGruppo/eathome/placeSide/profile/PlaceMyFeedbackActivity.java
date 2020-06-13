@@ -96,19 +96,20 @@ public class PlaceMyFeedbackActivity extends AppCompatActivity {
 
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//se clicca su una recensione
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Feedback feedback=(Feedback)adapterView.getItemAtPosition(i);
-                if(feedback.replyPlace.trim().length()==0){//se non esite una risposta
-                    Toast.makeText(PlaceMyFeedbackActivity.this,getResources().getString(R.string.no_reply),Toast.LENGTH_SHORT).show();//mostra messaggio di avviso
-                }else {//se il ristorante ha risposto
-                    ShowAnswerPlace showAnswerPlace = new ShowAnswerPlace(feedback.replyPlace);
-                    showAnswerPlace.show(getSupportFragmentManager(), "Show answer");//mostra risposta chiamando showAnswerPlace
+        if(!FLAG_CLIENT){//se l'activity è stata raggiunta da un place
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//se clicca su una recensione
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Feedback feedback=(Feedback)adapterView.getItemAtPosition(i);
+                    if(feedback.replyPlace.trim().length()==0){//se non esite una risposta
+                        Toast.makeText(PlaceMyFeedbackActivity.this,getResources().getString(R.string.no_reply),Toast.LENGTH_SHORT).show();//mostra messaggio di avviso
+                    }else {//se il ristorante ha risposto
+                        ShowAnswerPlace showAnswerPlace = new ShowAnswerPlace(feedback.replyPlace);
+                        showAnswerPlace.show(getSupportFragmentManager(), "Show answer");//mostra risposta chiamando showAnswerPlace
+                    }
                 }
-            }
-        });
-
+            });
+        }
     }
 
     /**
