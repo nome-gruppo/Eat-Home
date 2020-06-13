@@ -82,7 +82,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
             }).setPositiveButton(getActivity().getResources().getString(R.string.send), new DialogInterface.OnClickListener() { //se il cliente clicca su 'invia'
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    if (ratingBar.getRating() == 0.0) { //se è stata data una valutazione TODO controlla se funzione uguaglianza
+                    if (ratingBar.getRating() > 0.0) { //se è stata data una valutazione 
                         sendReview();//inserisco la recensione in Firebase
                         updateValuationPlace();//aggiorno la valutazione media all'interno di Place corrispondente
                     }
