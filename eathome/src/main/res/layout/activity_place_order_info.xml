@@ -14,6 +14,7 @@
         android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/lin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:tabTextColor="@color/quantum_white_100"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
