@@ -27,6 +27,7 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.DialogListFoodOrder;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
+import nomeGruppo.eathome.utility.OrderComparator;
 
 /**
  * activity per visualizzare le informazioni sulle ordinazioni
@@ -115,18 +116,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
         dialogListFoodOrder.show(getSupportFragmentManager(), "Dialog list food");
     }
 
-    private class OrderComparator implements Comparator<Order> {
 
-        @Override
-        public int compare(Order order1, Order order2) {
-            if(order1.timeOrder>order2.timeOrder){
-                return -1;
-            }else if(order1.timeOrder<order2.timeOrder){
-                return 1;
-            }
-            return 0;
-        }
-    }
 
 
 }
