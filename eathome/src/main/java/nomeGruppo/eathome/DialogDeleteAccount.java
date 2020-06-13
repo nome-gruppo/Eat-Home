@@ -96,7 +96,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                 mEditor.apply();
 
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_NODE);
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.CLIENT_NODE, getActivity());
 
                 Thread accountThread = new Thread(deleteAccount);
                 accountThread.start();
@@ -104,7 +104,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
             }else if(mPlace != null){
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_NODE);
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_NODE, getActivity());
                 final FirebaseConnection.DeleteFeedback deleteFeedback = new FirebaseConnection.DeleteFeedback(userId);
 
                 Thread accountThread = new Thread(deleteAccount);
@@ -120,17 +120,14 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }finally {
-                    Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
-                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(homeIntent);
-                    getActivity().finish();
                 }
-
-
-
             }
+
+            Intent homeIntent = new Intent(getActivity(), HomepageActivity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(homeIntent);
+            getActivity().finish();
         }
     }
 }

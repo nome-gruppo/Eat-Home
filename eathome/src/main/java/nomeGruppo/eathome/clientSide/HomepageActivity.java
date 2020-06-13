@@ -379,7 +379,6 @@ public class HomepageActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-
         //cerca nel database i locali nella città dell'utente
         firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).orderByChild("cityPlace").equalTo(city).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
