@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/toolbar_border"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 

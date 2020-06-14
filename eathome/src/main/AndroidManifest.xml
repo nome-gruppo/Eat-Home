@@ -60,13 +60,13 @@
 
         <activity android:name=".placeSide.PlaceRegistrationActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/tw_signUp"
             android:largeHeap="true" />
 
         <activity
             android:name=".clientSide.ClientRegistrationActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_main"
+            android:label="@string/tw_signUp"
             android:largeHeap="true" />
 
         <activity

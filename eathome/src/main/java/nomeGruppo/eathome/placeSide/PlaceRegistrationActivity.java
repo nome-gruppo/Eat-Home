@@ -1,5 +1,7 @@
 package nomeGruppo.eathome.placeSide;
 
+import nomeGruppo.eathome.LoginActivity;
+import nomeGruppo.eathome.clientSide.ClientRegistrationActivity;
 import nomeGruppo.eathome.utility.City;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -86,6 +89,20 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         place = new Place();
         control = new UtilitiesAndControls();
+
+        Toolbar toolbarPlaceRegistration = findViewById(R.id.tlbPlaceRegistration);
+        setSupportActionBar(toolbarPlaceRegistration);
+        toolbarPlaceRegistration.setTitle("@string/tw_signUp");
+        toolbarPlaceRegistration.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarPlaceRegistration.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentLoginActivity = new Intent(PlaceRegistrationActivity.this, LoginActivity.class);
+                intentLoginActivity.putExtra(FirebaseConnection.PLACE, place);
+                startActivity(intentLoginActivity);
+                finish();
+            }
+        });
 
         final City city = new City();//classe che contiene l'elenco delle città
 

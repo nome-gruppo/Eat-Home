@@ -15,8 +15,9 @@
         android:background="@drawable/toolbar_border"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
 
-    />
+        />
 
     <ScrollView
 

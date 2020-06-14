@@ -7,6 +7,8 @@
     android:background="@drawable/background"
     tools:context=".LoginActivity">
 
+
+
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="130dp"
@@ -18,9 +20,10 @@
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.121" />
 
     <EditText
         android:id="@+id/activity_login_et_email"
@@ -107,7 +110,7 @@
         android:id="@+id/activity_login_tw_signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="188dp"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/tw_signUp"

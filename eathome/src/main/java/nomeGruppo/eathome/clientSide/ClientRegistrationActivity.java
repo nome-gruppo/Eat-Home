@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -62,6 +64,22 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         passwordClientET.setImeOptions(EditorInfo.IME_ACTION_DONE);
         final Button signInBtn = findViewById(R.id.btnSignInClient);
         statusTV =  findViewById(R.id.activity_client_registration_tw_status);
+
+
+        Toolbar toolbarClientRegistration = findViewById(R.id.tlbClientRegistration);
+        setSupportActionBar(toolbarClientRegistration);
+        toolbarClientRegistration.setTitle("@string/tw_signUp");
+        toolbarClientRegistration.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
+        toolbarClientRegistration.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentLoginActivity = new Intent(ClientRegistrationActivity.this, LoginActivity.class);
+                intentLoginActivity.putExtra(FirebaseConnection.CLIENT, client);
+                startActivity(intentLoginActivity);
+                finish();
+            }
+        });
+
 
         //se l'utente clicca sul bottone registrati
         signInBtn.setOnClickListener(new View.OnClickListener() {
