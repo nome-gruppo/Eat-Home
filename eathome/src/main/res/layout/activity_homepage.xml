@@ -97,7 +97,7 @@
         android:layout_marginBottom="@dimen/fab_margin"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_filter_list" />
+        app:srcCompat="@drawable/ic_baseline_local_dining_24" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClient"

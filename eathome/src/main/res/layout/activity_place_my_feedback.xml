@@ -67,7 +67,7 @@
                   android:textStyle="bold"
                   android:textColor="@color/quantum_black_100"
                   android:background="@color/quantum_white_100"
-                  android:layout_marginTop="8dp"
+                  android:layout_marginTop="7dp"
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintTop_toTopOf="parent" />

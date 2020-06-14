@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".clientSide.PlacesFilterActivity"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:fillViewport="true">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbPlacesFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="846dp"
+        android:layout_height="558dp"
+        app:layout_constraintEnd_toEndOf="@+id/activity_places_filter_rg_type"
+        app:layout_constraintStart_toEndOf="@+id/activity_places_filter_rg_type">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView12"
+            android:layout_width="313dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="7dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.007">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp">
+
+                <RadioGroup
+                    android:id="@+id/activity_places_filter_rg_type"
+                    android:layout_width="204dp"
+                    android:layout_height="127dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/activity_places_filter_rb_delivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="filtersOnRadioButtonClicked"
+                        android:text="@string/delivery"
+                        tools:layout_editor_absoluteX="6dp"
+                        tools:layout_editor_absoluteY="78dp" />
+
+                    <RadioButton
+                        android:id="@+id/activity_places_filter_rb_booking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="filtersOnRadioButtonClicked"
+                        android:text="@string/bookings"
+                        tools:layout_editor_absoluteX="6dp"
+                        tools:layout_editor_absoluteY="110dp" />
+
+                    <RadioButton
+                        android:id="@+id/activity_places_filter_rb_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:onClick="filtersOnRadioButtonClicked"
+                        android:text="@string/all"
+                        tools:layout_editor_absoluteX="6dp"
+                        tools:layout_editor_absoluteY="142dp" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="10dp">
+
+                        <TextView
+                            android:id="@+id/activity_places_filter_tw_free_delivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="21dp"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/free_delivery"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/switch1activity_places_filter_switch_free_delivery"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <Switch
+                            android:id="@+id/switch1activity_places_filter_switch_free_delivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:thumbTint="@color/colorAccent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/activity_places_filter_btn_show"
+            android:layout_width="313dp"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_style"
+            android:text="@string/show_place"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.357"
+            app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/activity_places_filter_tw_valuation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/average_valuation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.008"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView13" />
+
+            <androidx.cardview.widget.CardView
+            android:id="@+id/cardView14"
+            android:layout_width="313dp"
+            android:layout_height="79dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="92dp"
+            android:background="@drawable/edit_text_border"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:elevation="10dp">
+
+                <TextView
+                    android:id="@+id/activity_places_filter_tw_orderBy"
+                    android:layout_width="69dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="60dp"
+                    android:text="@string/order_by"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RadioGroup
+                android:id="@+id/activity_places_filter_rg_order"
+                android:layout_width="wrap_content"
+                android:layout_height="41dp"
+                android:layout_marginVertical="20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/activity_places_filter_rb_name_order"
+                    android:layout_width="86dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginBottom="104dp"
+                    android:checked="true"
+                    android:onClick="orderByOnRadioButtonClicked"
+                    android:text="@string/order_name" />
+
+                <RadioButton
+                    android:id="@+id/activity_places_filter_rb_valuation_order"
+                    android:layout_width="123dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="orderByOnRadioButtonClicked"
+                    android:text="@string/valuation" />
+
+                <RadioButton
+                    android:id="@+id/activity_places_filter_rb_distance_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_marginBottom="32dp"
+                    android:onClick="orderByOnRadioButtonClicked"
+                    android:text="@string/distance"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/activity_places_filter_rb_valuation_order"
+                    tools:layout_conversion_absoluteHeight="32dp"
+                    tools:layout_conversion_absoluteWidth="123dp" />
+            </RadioGroup>
+        </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView13"
+                android:layout_width="313dp"
+                android:layout_height="202dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_text_border"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView12">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="170dp"
+                    android:layout_height="189dp"
+                    android:elevation="10dp"
+                    tools:layout_editor_absoluteX="17dp"
+                    tools:layout_editor_absoluteY="173dp">
+
+                    <TextView
+                        android:id="@+id/activity_places_filter_tw_categories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginEnd="100dp"
+                        android:layout_marginBottom="172dp"
+                        android:text="@string/order_categories"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/activity_places_filter_cb_restaurant_pizzeria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/pizzeriaRestaurant"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_places_filter_cb_itaRestaurant"
+                        tools:layout_conversion_absoluteHeight="32dp"
+                        tools:layout_conversion_absoluteWidth="151dp" />
+
+                    <CheckBox
+                        android:id="@+id/activity_places_filter_cb_sushi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="104dp"
+                        android:checked="true"
+                        android:text="@string/sushi"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_places_filter_cb_restaurant_pizzeria"
+                        tools:layout_conversion_absoluteHeight="27dp"
+                        tools:layout_conversion_absoluteWidth="0dp" />
+
+                    <CheckBox
+                        android:id="@+id/activity_places_filter_cb_itaRestaurant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/italianRestaurant"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_places_filter_cb_pizzeria"
+                        tools:layout_conversion_absoluteHeight="0dp"
+                        tools:layout_conversion_absoluteWidth="148dp" />
+
+                    <CheckBox
+                        android:id="@+id/activity_places_filter_cb_pizzeria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="36dp"
+                        android:checked="true"
+                        android:text="@string/pizzeria"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_conversion_absoluteHeight="32dp"
+                        tools:layout_conversion_absoluteWidth="82dp" />
+
+                    <CheckBox
+                        android:id="@+id/activity_places_filter_cb_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:checked="true"
+                        android:text="@string/other"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_places_filter_cb_sushi"
+                        tools:layout_conversion_absoluteHeight="27dp"
+                        tools:layout_conversion_absoluteWidth="0dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <SeekBar
+                android:id="@+id/activity_places_filter_sb_valuation"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="333dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="5dp"
+                android:max="5"
+                android:progress="0"
+                app:layout_constraintBottom_toTopOf="@+id/cardView14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.021"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_places_filter_tw_valuation"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>
