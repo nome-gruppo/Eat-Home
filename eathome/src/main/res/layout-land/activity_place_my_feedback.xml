@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/quantum_white_100"
+    tools:context=".placeSide.profile.PlaceMyFeedbackActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbPlaceMyFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+
+    <RelativeLayout
+        android:layout_width="320dp"
+        android:layout_height="138dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="50dp"
+
+
+        >
+
+        <TextView
+            android:id="@+id/feedback_tw_numReview"
+            android:layout_width="120dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="7dp"
+            android:elevation="4dp"
+            android:textAlignment="center"
+        android:background="@color/quantum_white_100"
+        android:layout_centerHorizontal="true"
+            android:textColor="@color/quantum_black_100"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="158dp"
+            android:background="@drawable/button_border"
+            android:layout_marginTop="20dp">
+
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.51">
+
+                <RatingBar
+                    android:id="@+id/feedback_ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="7dp"
+                    android:numStars="5"
+                    app:layout_constraintEnd_toStartOf="@+id/feedback_tw_average"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/feedback_tw_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="260dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/my_feedback_place_noFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+     android:layout_centerInParent="true"
+        android:layout_gravity="center"
+    android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/no_feedback"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/feedback_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="320dp"
+        android:divider="@null" />
+
+</RelativeLayout>

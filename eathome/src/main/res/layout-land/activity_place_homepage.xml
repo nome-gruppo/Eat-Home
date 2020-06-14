@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/quantum_white_100"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/activity_place_info"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimaryDark"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/place_homepage_txtNamePlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/linglenglang"
+            android:textAlignment="center"
+            android:textColor="@color/quantum_white_100"
+            android:textSize="55sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/place_homepage_placeImg"
+        android:layout_width="200dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/image"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBarPlaceHome"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="27dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="150dp"
+
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlace"
+        app:layout_constraintStart_toEndOf="@+id/place_homepage_placeImg"
+        app:layout_constraintTop_toBottomOf="@+id/activity_place_info" />
+
+
+    <ListView
+        android:id="@+id/place_homepage_listMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="210dp"
+        android:background="@color/quantum_white_100"
+        android:divider="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarPlaceHome" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/place_homepage_btnAddMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_homepage_placeImg"
+        app:srcCompat="@drawable/ic_baseline_local_dining_24" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigationPlace"
+        style="@style/BottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
