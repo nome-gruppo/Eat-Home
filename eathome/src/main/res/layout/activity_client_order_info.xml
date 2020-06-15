@@ -26,26 +26,17 @@
 
     </RelativeLayout>
 
-
-
-    <LinearLayout
-        android:id="@+id/lin"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationClientOrder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent">
-
         <ListView
             android:id="@+id/listViewOrderInfo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
+            android:layout_height="0dp"
+            android:layout_marginTop="65dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:divider="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigationClientOrder"/>
 
     <TextView
         android:id="@+id/txtNoOrderClient"
@@ -76,7 +67,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationClientOrder"
         style="@style/BottomNavigation"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
