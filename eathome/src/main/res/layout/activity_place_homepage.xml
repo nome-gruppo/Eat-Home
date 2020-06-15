@@ -38,23 +38,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="90dp"
         android:contentDescription="@string/image"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
-
-    <ProgressBar
-        android:id="@+id/progressBarPlaceHome"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="27dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="33dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/place_homepage_linearLayout_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_homepage_placeImg" />
 
     <LinearLayout
         android:id="@+id/place_homepage_linearLayout_list"

@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,7 +55,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private boolean changeImg=false;
     private Food food;
     private MenuNavigationItemSelected menuNavigationItemSelected;
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +70,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         final ListView listViewMenu = findViewById(R.id.place_homepage_listMenu);
         final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlace);
         imgPlace= findViewById(R.id.place_homepage_placeImg);
-        progressBar=findViewById(R.id.progressBarPlaceHome);
 
         menuNavigationItemSelected=new MenuNavigationItemSelected();
         listFood=new LinkedList<>();
@@ -107,7 +106,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     @Override
     protected void onStart() {
         super.onStart();
-        progressBar.setVisibility(View.VISIBLE);
         listFood.clear();
 
         if(!changeImg) {//se l'immagine non è stata appena cambiata
@@ -122,7 +120,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             imgPlace.setImageBitmap(bitmap);
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    imgPlace.setVisibility(View.VISIBLE);
+                }
+            });
         }
 
         final FirebaseConnection firebaseConnection=new FirebaseConnection();
@@ -137,7 +140,6 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                     }
                 }
                 mAdapter.notifyDataSetChanged();
-                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -211,7 +213,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         food.setIdFood(firebaseConnection.getmDatabase().push().getKey());
         firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
 
-        listFood.add(food);//aggiungo food alla lista
+        listFood.add(0,food);//aggiungo food in testa alla lista
         mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi
     }
 }

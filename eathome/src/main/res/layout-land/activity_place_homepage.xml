@@ -37,25 +37,13 @@
         android:layout_height="115dp"
         android:layout_marginTop="25dp"
         android:contentDescription="@string/image"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
-
-    <ProgressBar
-        android:id="@+id/progressBarPlaceHome"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="27dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="150dp"
-
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationPlace"
-        app:layout_constraintStart_toEndOf="@+id/place_homepage_placeImg"
-        app:layout_constraintTop_toBottomOf="@+id/activity_place_info" />
-
 
     <ListView
         android:id="@+id/place_homepage_listMenu"
@@ -65,7 +53,7 @@
         android:background="@color/quantum_white_100"
         android:divider="@null"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarPlaceHome" />
+        app:layout_constraintTop_toBottomOf="@+id/place_homepage_btnAddMenu" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -73,7 +61,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         android:layout_marginTop="4dp"
         android:clickable="true"
         android:focusable="true"
