@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -75,16 +77,18 @@ import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.PlaceAdapter;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
-/**Homepage dell'app
+/**
+ * Homepage dell'app
  */
 public class HomepageActivity extends AppCompatActivity {
 
     private static final String TAG = HomepageActivity.class.getName();
+    private static final String ROTATION = "rotation";      //nome usato per passare il flag per la rotazione quando si cambia orientazione dello schermo
+    private static final String LIST = "listPlace";     //nome usato per passare la lista dei locali quando si cambia orientazione dello schermo
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
     private static final int SEARCH_FILTER_REQUEST_CODE = 51;
-
 
     private BottomNavigationView bottomMenuClient;
 
@@ -125,6 +129,8 @@ public class HomepageActivity extends AppCompatActivity {
 
     private MyLocationListener myLocationListener;
 
+    private boolean rotation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +159,12 @@ public class HomepageActivity extends AppCompatActivity {
 
         //lista dei locali mostrati
         listPlace = new ArrayList<>();
+
+        if (savedInstanceState != null) {
+            rotation = savedInstanceState.getBoolean(ROTATION, false);
+            listPlace = (ArrayList<nomeGruppo.eathome.actors.Place>) savedInstanceState.getSerializable(LIST);
+        }
+
         placeAdapter = new PlaceAdapter(this, R.layout.listitem_place_homepage, listPlace);
         listViewPlace.setAdapter(placeAdapter);
 
@@ -160,6 +172,9 @@ public class HomepageActivity extends AppCompatActivity {
         userCity = mPreferences.getString("city", null);
 
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        addressesBar.dismissDropDown();
+
 
         //se non è mai stata effettuata una ricerca prima
         if (userCity == null) {
@@ -173,8 +188,9 @@ public class HomepageActivity extends AppCompatActivity {
         }
 
 
-   if (!Places.isInitialized()) {        Places.initialize(getApplicationContext(), getString(R.string.api_key));
-       }
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getString(R.string.api_key));
+        }
 
         //inizializza tutti i listeners
         initListeners();
@@ -188,45 +204,49 @@ public class HomepageActivity extends AppCompatActivity {
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if (firstLogin && user != null) {
+        if (!rotation) {
+            if (firstLogin && user != null) {
 
-            //leggo la tabella myInfo per verificare se ci sono locali da recensire
-            Cursor c = mDB.query(DBOpenHelper.TABLE_INFO, DBOpenHelper.COLUMNS_INFO, DBOpenHelper.SELECTION_BY_USER_ID_INFO, new String[]{user.getUid()}, null, null, null);
-            final int rows = c.getCount();
+                //leggo la tabella myInfo per verificare se ci sono locali da recensire
+                Cursor c = mDB.query(DBOpenHelper.TABLE_INFO, DBOpenHelper.COLUMNS_INFO, DBOpenHelper.SELECTION_BY_USER_ID_INFO, new String[]{user.getUid()}, null, null, null);
+                final int rows = c.getCount();
 
-            if (rows > 0) {//se ci sono locali per cui l'utente ha prenotato/ordinato
-                while (c.moveToNext()) {
-                    final String idPlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ID_INFO));
-                    final String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
-                    final String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault());//imposto il formato della data
-                    Date date = null;
-                    try {
-                        date = simpleDateFormat.parse(dateInfo);//faccio il cast della stringa dateInfo in formato Date
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                if (rows > 0) {//se ci sono locali per cui l'utente ha prenotato/ordinato
+                    while (c.moveToNext()) {
+                        final String idPlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.ID_INFO));
+                        final String namePlace = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.NAME_PLACE));
+                        final String dateInfo = c.getString(c.getColumnIndexOrThrow(DBOpenHelper.DATE_TIME));
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault());//imposto il formato della data
+                        Date date = null;
+                        try {
+                            date = simpleDateFormat.parse(dateInfo);//faccio il cast della stringa dateInfo in formato Date
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
-                    final Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
-                    final Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
+                        final Calendar calendar = Calendar.getInstance();//accoglierà la data di prenotazione/ordinazione
+                        final Calendar curDate = Calendar.getInstance();//accoglierà la data odierna
 
-                    if (date != null) {
-                        calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
-                        curDate.getTime();//prendo la data odierna
-                        if (curDate.compareTo(calendar) >= 1) { //se la data odierna è successiva alla data di prenotazione/ordinazione
-                            openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, mDB, mDBHelper);//apre il dialog per la recensione
+                        if (date != null) {
+                            calendar.setTime(date);//imposto la data in Calendar per poterla confronatare con la data odierna
+                            curDate.getTime();//prendo la data odierna
+                            if (curDate.compareTo(calendar) >= 1) { //se la data odierna è successiva alla data di prenotazione/ordinazione
+                                openDialogReview(idPlace, namePlace, client.idClient, client.nameClient, mDB, mDBHelper);//apre il dialog per la recensione
+                            }
                         }
                     }
+                    c.close();
+
                 }
-                c.close();
-
             }
-        }
 
-        //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
-        if (!setFilter && userCity != null) {
-            search(userCity);
+            //se non è mai stata effettuata una ricerca prima e l'utente non ha inserito nessun filtro
+            if (!setFilter && userCity != null) {
+                search(userCity);
+            }
+
         }
+        rotation = false;
     }//end onStart
 
     @Override
@@ -303,6 +323,28 @@ public class HomepageActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_LOCATION_REQUEST_CODE) {
+
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+            }
+        }
+    }// end onRequestPermissionsResult
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(ROTATION, true);
+        outState.putSerializable(LIST, listPlace);
+    }
+
     public void loadAddresses(String query) {
 
         // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
@@ -342,29 +384,6 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
     }//end loadAddresses
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        addressesBar.dismissDropDown();
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_LOCATION_REQUEST_CODE) {
-
-            // If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
-            }
-        }
-    }// end onRequestPermissionsResult
 
     private void openDialogReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper) {
         DialogEnterPlaceReview dialogEnterPlaceReview = new DialogEnterPlaceReview(idPlace, namePlace, idClient, nameClient, mDB, mDBHelper);

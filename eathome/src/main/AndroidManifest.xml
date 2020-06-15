@@ -75,6 +75,7 @@
             android:label="@string/title_activity_main"
             android:largeHeap="true"
             android:windowSoftInputMode="adjustPan" />
+
         <activity android:name=".clientSide.HomepageActivity"
             android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
