@@ -18,6 +18,13 @@
         <item name="itemIconTint">@color/colorPrimaryDark</item>
         <item name="itemTextColor">@color/colorPrimaryDark</item>
     </style>
+    
+    <style name="Button">
+        <item name="paddingStart">16dp</item>
+        <item name="paddingEnd">16dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:minWidth">64dp</item>
+    </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">20sp</item>
