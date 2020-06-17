@@ -14,7 +14,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -37,6 +36,7 @@ import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.actors.PlacesByValuation;
 import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 /**
  * Questa activity è chiamata quando l'utente clicca sul FAB che gli permette di filtrare i locali visulazzati
@@ -419,27 +419,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     }// end applyFilters
 
-    private void locationPermissionRequest() {
-        //richiedo permessi
-        if (ActivityCompat.checkSelfPermission(PlacesFilterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(PlacesFilterActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //permessi non concessi
-
-            ActivityCompat.requestPermissions(PlacesFilterActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    PERMISSION_LOCATION_REQUEST_CODE);
-
-        } else {
-            //permessi concessi
-
-            if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), PERMISSION_LOCATION_REQUEST_CODE);
-
-            } else {
-                orderByDistanceRB.setClickable(true);
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000000L, 0, myLocationListener);
-            }
-        }
-    }
 
     public void filtersOnRadioButtonClicked(View view) {
         // Is the button now checked?
@@ -471,7 +450,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         if (view.getId() == R.id.activity_places_filter_rb_distance_order) {
             if (checked) {
-                locationPermissionRequest();
+                UtilitiesAndControls.locationPermissionRequest(PlacesFilterActivity.this, mLocationManager,myLocationListener,PERMISSION_LOCATION_REQUEST_CODE,null,orderByDistanceRB);
             }
         }
     }

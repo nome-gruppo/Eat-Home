@@ -1,11 +1,9 @@
 package nomeGruppo.eathome.clientSide;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
@@ -31,9 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -392,7 +388,6 @@ public class HomepageActivity extends AppCompatActivity {
 
     private void search(String city) {
 
-
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         progressBar.setVisibility(View.VISIBLE);
@@ -485,25 +480,7 @@ public class HomepageActivity extends AppCompatActivity {
         findPlacesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //richiedo permessi
-                if (ActivityCompat.checkSelfPermission(HomepageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        && ActivityCompat.checkSelfPermission(HomepageActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    //permessi non concessi
-
-                    ActivityCompat.requestPermissions(HomepageActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                            PERMISSION_LOCATION_REQUEST_CODE);
-
-                } else {
-                    //permessi concessi
-
-                    if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
-                    } else {
-                        progressBar.setVisibility(View.VISIBLE);
-                        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000000L, 0, myLocationListener);
-                    }
-                }
+                UtilitiesAndControls.locationPermissionRequest(HomepageActivity.this, mLocationManager,myLocationListener,PERMISSION_LOCATION_REQUEST_CODE, progressBar, null);
             }
         });
 

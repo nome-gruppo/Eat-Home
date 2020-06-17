@@ -169,7 +169,7 @@
     <string name="feedback_text">Feedback text</string>
     <string name="date_booking">Booking date</string>
     <string name="address_booking">Booking address</string>
-    <string name="numer_people_booking">Number of people booking</string>
+    <string name="number_people_booking">Number of people booking</string>
     <string name="phone_place">"Place phone number "</string>
     <string name="email">Email</string>
     <string name="password" translatable="false">Password</string>
@@ -182,5 +182,6 @@
     <string name= "greetings">Welcome,</string>
     <string name="comma" translatable="false">.</string>
     <string name="nameApp" translatable="false">Eat@Home</string>
+    <string name="positionDialog">The app needs location permissions to find places near you</string>
 
 </resources>

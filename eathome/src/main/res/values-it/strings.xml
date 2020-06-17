@@ -150,7 +150,7 @@
     <string name="email">Email</string>
     <string name="date_booking">Data prenotazione</string>
     <string name="address_booking">Indirizzo prenotazione</string>
-    <string name="numer_people_booking">"Numero di persone "</string>
+    <string name="number_people_booking">"Numero di persone "</string>
     <string name="phone_place">"Numero di telefono "</string>
     <string name="address_place">Indirizzo</string>
     <string name="type_place">Tipologia</string>
@@ -158,6 +158,7 @@
     <string name="filter_by">Filtra per</string>
     <string name="choose">Opzioni</string>
     <string name="greetings">Ciao,</string>
+    <string name="positionDialog">L\'app ha bisogno della posizione per ricercare i locali vicini a te</string>
 
 
 </resources>
