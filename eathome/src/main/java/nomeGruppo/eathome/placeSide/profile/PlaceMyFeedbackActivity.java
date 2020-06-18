@@ -25,7 +25,6 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.ShowAnswerPlace;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
-import nomeGruppo.eathome.clientSide.MyFeedbackClientActivity;
 import nomeGruppo.eathome.clientSide.PlaceInfoActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
@@ -66,13 +65,12 @@ public class PlaceMyFeedbackActivity extends AppCompatActivity {
                     Intent activityIntent = new Intent(PlaceMyFeedbackActivity.this, PlaceInfoActivity.class);
                     activityIntent.putExtra(FirebaseConnection.PLACE, mPlace);
                     startActivity(activityIntent);
-                    finish();
                 }else {//se l'activity è stata raggiunta da un place
                     Intent otherActivityIntent = new Intent(PlaceMyFeedbackActivity.this, OtherActivity.class);
                     otherActivityIntent.putExtra(FirebaseConnection.PLACE, mPlace);
                     startActivity(otherActivityIntent);
-                    finish();
                 }
+                finish();
             }
         }
 

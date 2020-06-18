@@ -43,7 +43,7 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private final SQLiteDatabase mDB;
     private final DBOpenHelper mDBHelper;
     private EditText editFeedback;
-    private Calendar date;
+    private final Calendar date;
     private final FirebaseConnection firebaseConnection;
 
 

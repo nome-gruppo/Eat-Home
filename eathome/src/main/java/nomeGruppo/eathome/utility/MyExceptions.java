@@ -7,7 +7,7 @@ package nomeGruppo.eathome.utility;
 public class MyExceptions extends RuntimeException {
 
     public static final int FIREBASE_NOT_FOUND = 1;     //se non è stato trovato alcun oggetto nel database
-    private int exceptionType;
+    private final int exceptionType;
 
     public MyExceptions(int exceptionType, String errorMessage){
         super(errorMessage);

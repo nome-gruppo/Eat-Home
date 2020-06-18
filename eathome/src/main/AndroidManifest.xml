@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
+        
         <activity android:name=".placeSide.profile.PlaceMyFeedbackActivity"
             android:label="@string/my_feedback"/>
 

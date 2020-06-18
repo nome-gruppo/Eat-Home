@@ -57,7 +57,6 @@ public class ConfirmBookingActivity extends AppCompatActivity implements DatePic
     private EditText editNameBooking;
     private OpeningTime openingTimeUtility;
     private Calendar dateBooking;
-    private Client client;
 
     private DBOpenHelper mDBHelper;
     private SQLiteDatabase mDB;
