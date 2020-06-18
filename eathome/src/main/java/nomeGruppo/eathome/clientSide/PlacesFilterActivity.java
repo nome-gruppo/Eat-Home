@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,8 @@ import nomeGruppo.eathome.actors.PlacesByDistance;
 import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.actors.PlacesByValuation;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.MyExceptions;
+import nomeGruppo.eathome.utility.MyLocationListenerAbstract;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 /**
@@ -116,7 +119,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         showBtn = findViewById(R.id.activity_places_filter_btn_show);
 
-        myLocationListener = new MyLocationListener();
+        myLocationListener = new MyLocationListener(UtilitiesAndControls.LOCATION_TIMEOUT);
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         outState = new Bundle();
@@ -154,10 +157,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
             deliveryRB.setChecked(bundle.getBoolean(DELIVERY_RB, false));
             bookingRB.setChecked(bundle.getBoolean(BOOKING_RB, false));
-
-//        if(!deliveryRB.isChecked() && !bookingRB.isChecked()){
-//            allRB.isChecked();
-//        }
 
             orderByValuationRB.setChecked(bundle.getBoolean(ORDER_BY_VALUATION_RB, false));
             orderByDistanceRB.setChecked(bundle.getBoolean(ORDER_BY_DISTANCE_RB, false));
@@ -204,7 +203,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
             }
         }
-
     }
 
     public void initCheckListener() {
@@ -450,6 +448,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         if (view.getId() == R.id.activity_places_filter_rb_distance_order) {
             if (checked) {
+                showBtn.setClickable(false);
                 UtilitiesAndControls.locationPermissionRequest(PlacesFilterActivity.this, mLocationManager, myLocationListener, PERMISSION_LOCATION_REQUEST_CODE, null, orderByDistanceRB);
             }
         }
@@ -461,25 +460,49 @@ public class PlacesFilterActivity extends AppCompatActivity {
         return true;
     }
 
-    private class MyLocationListener implements LocationListener {
+    private class MyLocationListener extends MyLocationListenerAbstract {
+
+        public MyLocationListener(long timer) {
+            super(timer);
+            //eccezione sollevata nel thread ma la posizione non è stata ancora trovata
+            final Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
+                @Override
+                public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
+                    if (e instanceof MyExceptions) {
+                        if (((MyExceptions) e).getExceptionType() == MyExceptions.TIMEOUT) {
+                            //eccezione sollevata nel thread ma la posizione non è stata ancora trovata
+
+                            Log.e("UtilitiesAndControls", "locationPermissionRequest called by " + PlacesFilterActivity.this.getPackageCodePath());
+                            Toast.makeText(getApplicationContext(), R.string.locationNotFound, Toast.LENGTH_SHORT).show();
+
+                            orderByDistanceRB.setChecked(false);
+                            mLocationManager.removeUpdates(myLocationListener);
+                        }
+                    }
+                }
+            };
+            super.timerThread.setUncaughtExceptionHandler(handler);
+        }
 
         public void onLocationChanged(Location location) {
 
             PlacesFilterActivity.this.userLatitude = location.getLatitude();
             PlacesFilterActivity.this.userLongitude = location.getLongitude();
 
+            setLocationFound();
+            showBtn.setClickable(true);
         }
 
         public void onProviderDisabled(String arg0) {
+            Toast.makeText(getApplicationContext(), R.string.gpsBeenDesabled, Toast.LENGTH_SHORT).show();
+            orderByDistanceRB.setChecked(false);
+            showBtn.setClickable(true);
 
         }
 
         public void onProviderEnabled(String provider) {
-
+            showBtn.setClickable(true);
         }
 
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
     }
 }

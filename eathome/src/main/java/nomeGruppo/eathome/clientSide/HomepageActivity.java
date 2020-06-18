@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -70,6 +69,8 @@ import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
+import nomeGruppo.eathome.utility.MyExceptions;
+import nomeGruppo.eathome.utility.MyLocationListenerAbstract;
 import nomeGruppo.eathome.utility.PlaceAdapter;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
@@ -149,7 +150,7 @@ public class HomepageActivity extends AppCompatActivity {
         findPlacesBtn = findViewById(R.id.activity_homepage_btn_find_places);
         progressBar = findViewById(R.id.homepage_progressBar);
 
-        myLocationListener = new MyLocationListener();
+        myLocationListener = new MyLocationListener(UtilitiesAndControls.LOCATION_TIMEOUT);
 
         addressesBarAdapter = new AddressesBarAdapter(getApplicationContext(), R.layout.dropdown_list_layout);
 
@@ -276,6 +277,7 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString("address", addressesBar.getText().toString());
         editor.putString("city", userCity);
@@ -496,6 +498,7 @@ public class HomepageActivity extends AppCompatActivity {
                             intent.putExtra(FirebaseConnection.CLIENT, client);
                             startActivity(intent);
                             finish();
+
                         } else {
                             Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                             startActivity(intent);
@@ -611,44 +614,71 @@ public class HomepageActivity extends AppCompatActivity {
         });
     }//end initListeners
 
-    private class MyLocationListener implements LocationListener {
+    private class MyLocationListener extends MyLocationListenerAbstract {
 
         private double latitude;
         private double longitude;
 
-        public void onLocationChanged(Location location) {
+        public MyLocationListener(final long timer) {
+            super(timer);
 
+            //handler eccezione sollevata nel thread
+            final Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
+                @Override
+                public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
+                    if (e instanceof MyExceptions) {
+                        if (((MyExceptions) e).getExceptionType() == MyExceptions.TIMEOUT) {
+                            //eccezione sollevata nel thread ma la posizione non è stata ancora trovata
+
+                            Log.e(TAG, "timeout: " + timer);
+                            Toast.makeText(getApplicationContext(), R.string.locationNotFound, Toast.LENGTH_SHORT).show();
+
+                            mLocationManager.removeUpdates(myLocationListener);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            };
+            super.timerThread.setUncaughtExceptionHandler(handler);
+        }
+
+        //se posizione individuata
+        public void onLocationChanged(Location location) {
             Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
             List<Address> list;
             try {
+
+                setLocationFound(); //posizione trovata e timer bloccato
                 list = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
+                final String locality = list.get(0).getLocality();
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
 
-                addressesBar.setText(list.get(0).getAddressLine(0));
-                userCity = list.get(0).getLocality();
+                addressesBar.setText(locality);
+                userCity = locality;
                 findPlacesBtn.setVisibility(View.GONE);
                 search(userCity);
                 progressBar.setVisibility(View.GONE);
                 listViewPlace.setVisibility(View.VISIBLE);
+                //elimina registrazione listener dal location manager per evitare altra ricerca
+                mLocationManager.removeUpdates(this);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+        //se gps disabilitato durante ricerca
         public void onProviderDisabled(String arg0) {
-
+            Toast.makeText(getApplicationContext(), R.string.gpsBeenDesabled, Toast.LENGTH_SHORT).show();
         }
 
+        //se gps riabilitato durante ricerca
         public void onProviderEnabled(String provider) {
-
+            findPlacesBtn.performClick();
         }
 
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
     }
 }
 

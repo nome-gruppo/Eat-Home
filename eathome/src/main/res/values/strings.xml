@@ -140,7 +140,6 @@
     <string name="emailSent">Email sent</string>
     <string name="confirmation">Confirmation</string>
     <string name="launcher" translatable="false">launcher</string>
-    <string name="ops_c_stato_un_errore">Ops. There\'s an error</string>
     <string name="no_address">There ins\'t any saved address</string>
     <string name="search_button">Search city</string>
     <string name="date">Date</string>
@@ -183,5 +182,6 @@
     <string name="comma" translatable="false">.</string>
     <string name="nameApp" translatable="false">Eat@Home</string>
     <string name="positionDialog">The app needs location permissions to find places near you</string>
+    <string name="gpsBeenDesabled">Your GPS has been disabled</string>
 
 </resources>

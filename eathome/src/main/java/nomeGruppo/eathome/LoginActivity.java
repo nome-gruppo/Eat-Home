@@ -1,13 +1,7 @@
 package nomeGruppo.eathome;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,6 +11,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -120,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             user = mAuth.getCurrentUser();
                             if (user != null) {
-                                connection.searchUserInDb(user.getUid(), progressBar, LoginActivity.this);
+                                connection.searchUserInDb(user.getUid(), progressBar, LoginActivity.this, null);
                             }
                         } else {
                             progressBar.setVisibility(View.INVISIBLE);

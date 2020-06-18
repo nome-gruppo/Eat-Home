@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,7 +22,8 @@ import androidx.core.app.ActivityCompat;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 
-/*Classe contenente tutti i controlli utili in più activities
+/**
+ * Classe contenente tutti i controlli utili in più activities
  */
 public class UtilitiesAndControls {
 
@@ -31,13 +31,8 @@ public class UtilitiesAndControls {
      * costante che indica la dimensione massima di un Place
      */
     public static final int PICT_SIZE_MAX = 3840;
-
+    public static final long LOCATION_TIMEOUT = 20000L;
     private static final int MIN_PASSWORD_LENGTH = 6;
-
-
-    public UtilitiesAndControls() {
-
-    }
 
     /**
      * metodo che ontrolla la validità della mail
@@ -99,7 +94,17 @@ public class UtilitiesAndControls {
         return result;
     }
 
-    public static void locationPermissionRequest(final Activity activity, LocationManager mLocationManager, LocationListener myLocationListener,
+    /**
+     * metodo per richiedere i permessi del gps
+     *
+     * @param activity           activity chiamante
+     * @param mLocationManager   istanza del LocationManager usate in activity
+     * @param myLocationListener implementazione del locationListeres usata in activity
+     * @param requestCode        requestCode usato in activity per il metodo onRequestPermissionResult
+     * @param progressBar        progressbar presente nella HomepageActivity, null altrimenti
+     * @param radioButton        radioButton usato nella PlacesFilterActivity
+     */
+    public static void locationPermissionRequest(final Activity activity, final LocationManager mLocationManager, final MyLocationListenerAbstract myLocationListener,
                                                  final int requestCode, ProgressBar progressBar, RadioButton radioButton) {
 
         //richiedo i permessi
@@ -123,17 +128,23 @@ public class UtilitiesAndControls {
 
         } else {
             //permessi concessi
+
             if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                //gps non abilitato
                 activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
             } else {
+                //gps abilitato
+
                 if (activity instanceof HomepageActivity) {
                     progressBar.setVisibility(View.VISIBLE);
 
                 } else {
                     radioButton.setClickable(true);
                 }
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000000L, 0, myLocationListener);
+
+                myLocationListener.startTimer();    //inizia timer per ricerca posizione
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100000L, 0, myLocationListener);
             }
         }
     }

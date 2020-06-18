@@ -120,7 +120,6 @@
     <string name="noChangedPassword">Spiacenti, non è stato possibilie modificare la tua password</string>
     <string name="emailSent">Email inviata</string>
     <string name="confirmation">Conferma</string>
-    <string name="ops_c_stato_un_errore">Ops. C\'è stato un errore</string>
     <string name="no_address">Non ci sono indirizzi salvati</string>
     <string name="search_button">Ricerca città</string>
     <string name="date">Data</string>
@@ -159,6 +158,7 @@
     <string name="choose">Opzioni</string>
     <string name="greetings">Ciao,</string>
     <string name="positionDialog">L\'app ha bisogno della posizione per ricercare i locali vicini a te</string>
+    <string name="gpsBeenDesabled">Il tuo GPS è stato disabilitato</string>
 
 
 </resources>

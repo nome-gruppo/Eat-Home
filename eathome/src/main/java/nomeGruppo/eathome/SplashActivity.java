@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,17 +17,17 @@ import com.google.firebase.auth.FirebaseUser;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.MyExceptions;
+import nomeGruppo.eathome.utility.TimerThread;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final long MIN_TIME_INTERVAL = 2000L;
-    private static final long MAX_TIME_INTERVAL = 10000L;
-    private static final long NO_CONNECTION_INTERVAL = 4500L;
+    private static final long MIN_TIME_INTERVAL = 2000L;        //Tempo minimo di visualizzazione dell'activity
+    private static final long MAX_TIME_INTERVAL = 15000L;       //Tempo massimo dopo il quale se non si passa all'activity successiva l'app si chiude
+    private static final long NO_CONNECTION_INTERVAL = 4500L;   //Tempo di visualizzazione in caso di nessuna connessione ad internet
 
     private ProgressBar progressBar;
     private FirebaseUser user;
-    private TextView errorTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         progressBar = findViewById(R.id.activity_launcher_progressBar);
-        errorTv = findViewById(R.id.activity_launcher_tv_error);
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
@@ -45,9 +45,28 @@ public class SplashActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        final Thread.UncaughtExceptionHandler exceptionHandler = new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
+                if (e instanceof MyExceptions) {
+                    if (((MyExceptions) e).getExceptionType() == MyExceptions.TIMEOUT) {
+                        Log.e("SplashActivity", "Uncaught exception from thread" + MyExceptions.TIMEOUT_MESSAGE);
+                        endAll();
+                    }
+                }
+            }
+        };
+
         if (UtilitiesAndControls.isNetworkAvailable(this)) {
 
+            final TimerThread timerThread = new TimerThread(MAX_TIME_INTERVAL);
+
+            timerThread.setUncaughtExceptionHandler(exceptionHandler);
+            timerThread.start();
+
             if (user == null) {
+                //utente non autenticato
+                //mostra splashscreen per intervallo minimo
                 final Handler noLoginHandler = new Handler();
                 noLoginHandler.postDelayed(new Runnable() {
                     public void run() {
@@ -55,24 +74,17 @@ public class SplashActivity extends AppCompatActivity {
                         Intent homePageIntent = new Intent(SplashActivity.this, HomepageActivity.class);
                         startActivity(homePageIntent);
                         finish();
+                        timerThread.stopTimer();    //termina il timer
                     }
                 }, MIN_TIME_INTERVAL);
 
             } else {
-                final ClosingTimerThread timerThread = new ClosingTimerThread();
-                final Thread mThread = new Thread(timerThread);
+
                 final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
-                mThread.start();
-
-                try {
-                    firebaseConnection.searchUserInDb(user.getUid(), progressBar, this);
-                } catch (MyExceptions e) {
-                    if (e.getExceptionType() == MyExceptions.FIREBASE_NOT_FOUND) {
-                        errorTv.setVisibility(View.VISIBLE);
-                    }
-                }
+                firebaseConnection.searchUserInDb(user.getUid(), progressBar, this, timerThread);
             }
+
         } else {
             progressBar.setVisibility(View.INVISIBLE);
 
@@ -80,12 +92,11 @@ public class SplashActivity extends AppCompatActivity {
             final Handler noConnectionHandler = new Handler();
             noConnectionHandler.postDelayed(new Runnable() {
                 public void run() {
-                    SplashActivity.this.finish();
-                    System.exit(0);
+                    endAll();
                 }
             }, NO_CONNECTION_INTERVAL);
         }
-    }
+    }//fine onStart
 
     @Override
     public void onBackPressed() {
@@ -93,20 +104,10 @@ public class SplashActivity extends AppCompatActivity {
         Process.killProcess(Process.myPid());
     }
 
-    private class ClosingTimerThread extends Thread {
-
-        @Override
-        public void run() {
-            super.run();
-
-            try {
-                Thread.sleep(MAX_TIME_INTERVAL);
-
-                SplashActivity.this.finish();
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    //chiude l'activity e impedisce che venga chiamata la home
+    private void endAll() {
+        moveTaskToBack(true);
+        finish();
+        Process.killProcess(Process.myPid());
     }
 }

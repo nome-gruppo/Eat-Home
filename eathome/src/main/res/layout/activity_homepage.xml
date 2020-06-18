@@ -14,7 +14,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
     </RelativeLayout>
 
 
@@ -59,13 +58,13 @@
         android:id="@+id/homepage_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:fillViewport="true"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigationClient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/activity_homepage_addressesBar">
+        app:layout_constraintTop_toBottomOf="@id/homepage_progressBar">
 
         <ListView
             android:id="@+id/listViewPlace"

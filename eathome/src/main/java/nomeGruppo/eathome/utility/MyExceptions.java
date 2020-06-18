@@ -1,5 +1,7 @@
 package nomeGruppo.eathome.utility;
 
+import java.util.Locale;
+
 /**
  * La classe MyException contiene le eccezioni personalizzate sollevate a runtime
  * <p>
@@ -7,12 +9,18 @@ package nomeGruppo.eathome.utility;
  */
 public class MyExceptions extends RuntimeException {
 
-    public static final int FIREBASE_NOT_FOUND = 1;     //se non è stato trovato alcun oggetto nel database
+    public static final int TIMEOUT = 1;
+
+    public static final String TIMEOUT_MESSAGE = "Timeout";
     private final int exceptionType;
 
     public MyExceptions(int exceptionType, String errorMessage) {
         super(errorMessage);
         this.exceptionType = exceptionType;
+    }
+
+    public MyExceptions(int exceptionType, String errorMessage, long timeout) {
+        this(exceptionType, errorMessage + String.format(Locale.getDefault(), " %d msec", timeout));
     }
 
     public int getExceptionType() {

@@ -32,6 +32,7 @@ import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.utility.MyExceptions;
+import nomeGruppo.eathome.utility.TimerThread;
 
 /**
  * FIrebaseConnection contiene costanti e metodi per la gestione del database Firebase Realtime e di FirebaseAuthentication
@@ -103,15 +104,17 @@ public class FirebaseConnection {
      * @param node        nodo in cui effettuare la ricerca nel database
      * @param progressBar cfr. searchUserInDb
      * @param activity    cfr. searchUserInDb
+     * @param timerThread cfr. searchUserInDb
      */
-    private void searchUser(final String userId, final String node, final ProgressBar progressBar, final Activity activity) throws MyExceptions {
+    private void searchUser(final String userId, final String node, final ProgressBar progressBar, final Activity activity, final TimerThread timerThread) {
 
         final boolean fromAnotherActivity = activity.getIntent().getBooleanExtra(FROM_ANOTHER_ACTIVITY, false);
 
         mDatabase.child(node).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) throws MyExceptions {
+
                 if (dataSnapshot.exists()) {
                     operationSuccess = true;
                     if (progressBar != null) {
@@ -146,19 +149,20 @@ public class FirebaseConnection {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         activity.startActivity(intent);
                     }
+                    if (timerThread != null) {
+                        timerThread.stopTimer();
+                    }
                     activity.finish();
                     //se non è stato trovato l'id nel nodo clienti cerca in places
                 } else if (!dataSnapshot.exists() && node.equals(FirebaseConnection.CLIENT_NODE)) {
-                    searchUser(userId, PLACE_NODE, progressBar, activity);
-                } else {
-                    throw new MyExceptions(MyExceptions.FIREBASE_NOT_FOUND, "Not found in Firebase");
+                    searchUser(userId, PLACE_NODE, progressBar, activity, timerThread);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, "searchUserInDb:onCancelled", databaseError.toException());
-                throw new MyExceptions(MyExceptions.FIREBASE_NOT_FOUND, "Not found in Firebase");
+
             }
         });
     }// end searchUserInDb
@@ -170,9 +174,11 @@ public class FirebaseConnection {
      * @param userId      codice id dell'utente da ricercare nek database
      * @param progressBar progressBar, che indica l'operazione di ricerca, presente nell'activity chiamante
      * @param activity    activity chiamante il metodo
+     * @param timerThread thread del timer scaduto il quale si solleva un'eccezione.
+     *                    Null se non usato
      */
-    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity) throws MyExceptions {
-        this.searchUser(userId, CLIENT_NODE, progressBar, activity);
+    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity, TimerThread timerThread) {
+        this.searchUser(userId, CLIENT_NODE, progressBar, activity, timerThread);
     }
 
     /**
