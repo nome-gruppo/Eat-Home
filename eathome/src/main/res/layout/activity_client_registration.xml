@@ -9,7 +9,7 @@
         android:id="@+id/tlbClientRegistration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_border_backround"
+        android:background="@drawable/toolbar_border_background"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
 

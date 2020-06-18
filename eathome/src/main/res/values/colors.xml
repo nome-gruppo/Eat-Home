@@ -5,7 +5,7 @@
     <color name="colorAccent">#cda434</color>
     <color name="colorSecondary">#00FFFFFF</color>
     <color name="colorThird">#4Dffffff</color>
-    <color name="trasparent">#00F0F8FF</color>
-    <color name="trasparent2">#CCF0F8FF</color>
+    <color name="transparent">#00F0F8FF</color>
+    <color name="transparent2">#CCF0F8FF</color>
 
 </resources>

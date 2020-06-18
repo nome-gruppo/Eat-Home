@@ -160,7 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:background="@color/trasparent"
+                    android:background="@color/transparent"
                     android:text="@string/show_menu" />
             </RelativeLayout>
 
@@ -185,7 +185,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:background="@color/trasparent"
+                    android:background="@color/transparent"
                     android:enabled="false"
                     android:text="@string/action_book" />
             </RelativeLayout>

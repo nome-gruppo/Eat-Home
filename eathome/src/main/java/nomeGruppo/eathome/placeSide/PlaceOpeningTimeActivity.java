@@ -89,13 +89,13 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
         final Switch switchSaturday = findViewById(R.id.switchSaturday);
         final Switch switchSunday = findViewById(R.id.switchSunday);
 
-        final Button btnSignIn = findViewById(R.id.btnSigninPlace);
+        final Button btnSignUp = findViewById(R.id.btnSignUpPlace);
         final Button btnEdit = findViewById(R.id.btnEditOpeningTime);
         this.openingTime = new HashMap<>(7);
         this.openingTimeUtility = new OpeningTime();
 
         if (place.openingTime != null) {//se sono stati impostati orari di apertura
-            btnSignIn.setVisibility(View.INVISIBLE);//rendo invisibile il pulsante registrati
+            btnSignUp.setVisibility(View.INVISIBLE);//rendo invisibile il pulsante registrati
             btnEdit.setVisibility(View.VISIBLE);//rendo visibile il pulsante modifica
 
             if (Objects.equals(place.openingTime.get(Days.MONDAY.toString()), CLOSED)) {//se place è chiuso
@@ -325,7 +325,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
             }
         });
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {//se è Place è in fase di registrazione e quindi clicca su registra
 
