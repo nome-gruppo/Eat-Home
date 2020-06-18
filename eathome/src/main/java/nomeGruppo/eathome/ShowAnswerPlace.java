@@ -17,16 +17,16 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class ShowAnswerPlace extends AppCompatDialogFragment {
     private final String reply;
 
-    public ShowAnswerPlace(String reply){
-        this.reply=reply;
+    public ShowAnswerPlace(String reply) {
+        this.reply = reply;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View view = inflater.inflate(R.layout.dialog_reply_feedback, (ViewGroup) getActivity().getCurrentFocus(), false);
 

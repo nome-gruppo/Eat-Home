@@ -26,10 +26,10 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView,@NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if(inflater != null) {
+        if (inflater != null) {
             convertView = inflater.inflate(R.layout.listitem_order_info, parent, false);
 
             final TextView title = convertView.findViewById(R.id.txtNameOrderInfo);
@@ -49,7 +49,7 @@ public class OrderInfoAdapter extends ArrayAdapter<Order> {
                 Calendar calendar = Calendar.getInstance();//istanzio Calendar
                 calendar.setTimeInMillis(order.timeOrder);//imposto la data in formato long
                 //imposto la data in formato dd/mm/yyyy, hh:mm
-                date.setText(new SimpleDateFormat(getContext().getResources().getString(R.string.dateFormat) + " - " +getContext().getResources().getString(R.string.hourFormat), Locale.getDefault()).format(calendar.getTime()));
+                date.setText(new SimpleDateFormat(getContext().getResources().getString(R.string.dateFormat) + " - " + getContext().getResources().getString(R.string.hourFormat), Locale.getDefault()).format(calendar.getTime()));
                 phone.setText(order.phonePlaceOrder);
 
                 if (order.stateOrder) {

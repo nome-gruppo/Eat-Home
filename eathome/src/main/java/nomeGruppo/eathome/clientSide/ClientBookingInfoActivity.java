@@ -45,18 +45,18 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
         final ListView listViewBookingInfo = findViewById(R.id.listViewBookingInfo);
         this.bottomMenuClient = findViewById(R.id.bottom_navigationClientBooking);
 
-        this.firebaseConnection=new FirebaseConnection();
-        this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
-        this.menuNavigationItemSelected=new MenuNavigationItemSelected();
-        this.listBooking=new LinkedList<>();
-        this.bookingInfoAdapter=new BookingInfoAdapter(this,R.layout.listitem_booking_info,listBooking);
+        this.firebaseConnection = new FirebaseConnection();
+        this.client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        this.menuNavigationItemSelected = new MenuNavigationItemSelected();
+        this.listBooking = new LinkedList<>();
+        this.bookingInfoAdapter = new BookingInfoAdapter(this, R.layout.listitem_booking_info, listBooking);
         listViewBookingInfo.setAdapter(bookingInfoAdapter);
 
         //menu sottostante l'activity
         bottomMenuClient.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return menuNavigationItemSelected.menuNavigation(item,client,ClientBookingInfoActivity.this);
+                return menuNavigationItemSelected.menuNavigation(item, client, ClientBookingInfoActivity.this);
             }
 
         });
@@ -80,10 +80,10 @@ public class ClientBookingInfoActivity extends AppCompatActivity {
                         Booking booking = snapshot.getValue(Booking.class);
                         listBooking.add(booking);//aggiungo la prenotazione alla lista collegata all'adapter
                     }
-                }else{//se non ci sono prenotazioni
-                    Toast.makeText(ClientBookingInfoActivity.this,getResources().getString(R.string.no_booking),Toast.LENGTH_LONG).show();
+                } else {//se non ci sono prenotazioni
+                    Toast.makeText(ClientBookingInfoActivity.this, getResources().getString(R.string.no_booking), Toast.LENGTH_LONG).show();
                 }
-                Collections.sort(listBooking,new BookingComparator());//ordino gli elementi in ordine di prenotazione più recente effettuata
+                Collections.sort(listBooking, new BookingComparator());//ordino gli elementi in ordine di prenotazione più recente effettuata
                 bookingInfoAdapter.notifyDataSetChanged();
             }
 

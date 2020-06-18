@@ -12,6 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,21 +23,21 @@
             android:textStyle="bold"
             android:textColor="@color/quantum_white_100"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"/>
+            android:layout_marginStart="15dp" />
 
     </RelativeLayout>
 
-        <ListView
-            android:id="@+id/listViewOrderInfo"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="65dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:divider="@null"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/bottom_navigationClientOrder"/>
+    <ListView
+        android:id="@+id/listViewOrderInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:divider="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigationClientOrder" />
 
     <TextView
         android:id="@+id/txtNoOrderClient"
@@ -74,6 +75,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu"
-        android:background="@drawable/bottom_navigation"/>
+        android:background="@drawable/bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

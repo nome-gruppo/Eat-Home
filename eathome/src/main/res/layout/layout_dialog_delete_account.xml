@@ -31,6 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_delete_account_tw"
         app:layout_constraintVertical_bias="0.222" />
+
     <EditText
         android:id="@+id/dialog_delete_account_et_password"
         android:layout_width="match_parent"
@@ -42,5 +43,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.824"
-        android:importantForAutofill="no"  />
+        android:importantForAutofill="no" />
 </androidx.constraintlayout.widget.ConstraintLayout>

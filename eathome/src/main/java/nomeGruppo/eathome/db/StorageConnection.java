@@ -23,7 +23,7 @@ public class StorageConnection {
     }
 
     //metodo per caricare l'immagine nello storage
-    public void uploadImageBitmap(ByteArrayOutputStream stream, String idPlace){
+    public void uploadImageBitmap(ByteArrayOutputStream stream, String idPlace) {
         byte[] image = stream.toByteArray();
 
         UploadTask uploadTask = this.storageReference(idPlace).putBytes(image);
@@ -43,7 +43,7 @@ public class StorageConnection {
     }
 
     //metodo per ottenere il riferimento all'immagine corrispondente al Place
-    public StorageReference storageReference(String idPlace){
+    public StorageReference storageReference(String idPlace) {
         return this.mStorageRef.child("images/" + idPlace + ".jpg");
     }
 

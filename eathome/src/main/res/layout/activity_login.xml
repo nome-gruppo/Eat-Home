@@ -8,7 +8,6 @@
     tools:context=".LoginActivity">
 
 
-
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="130dp"
@@ -41,7 +40,7 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_logo"/>
+        app:layout_constraintTop_toBottomOf="@id/app_logo" />
 
     <EditText
         android:id="@+id/activity_login_et_password"
@@ -76,7 +75,7 @@
         app:layout_constraintBottom_toTopOf="@+id/activity_login_btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_password"/>
+        app:layout_constraintTop_toBottomOf="@+id/activity_login_et_password" />
 
     <Button
         android:id="@+id/activity_login_btn_login"

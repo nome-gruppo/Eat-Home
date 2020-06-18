@@ -20,8 +20,8 @@ import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.clientSide.HomepageActivity;
 import nomeGruppo.eathome.clientSide.MyFeedbackClientActivity;
-import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.clientSide.profile.ClientProfileActivity;
+import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 import nomeGruppo.eathome.placeSide.profile.PlaceProfileActivity;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
@@ -30,7 +30,7 @@ import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 activity dove sono presenti il mio profilo le mie recensioni e il logout
  */
 public class OtherActivity extends AppCompatActivity {
-    private final MenuNavigationItemSelected menuNavigationItemSelected=new MenuNavigationItemSelected();
+    private final MenuNavigationItemSelected menuNavigationItemSelected = new MenuNavigationItemSelected();
     private Place place;
     private Client client;
     private FirebaseAuth mAuth;
@@ -50,17 +50,17 @@ public class OtherActivity extends AppCompatActivity {
 
 
         this.mAuth = FirebaseAuth.getInstance();
-        this.place=(Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        this.client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
 
-        if(place!=null){ //se l'activity corrente è stata raggiunta da un Place
+        if (place != null) { //se l'activity corrente è stata raggiunta da un Place
 
             //mostro il menu sottostante
             bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    return menuNavigationItemSelected.menuNavigationPlace(item,place,OtherActivity.this);//carico il menu dei Place
+                    return menuNavigationItemSelected.menuNavigationPlace(item, place, OtherActivity.this);//carico il menu dei Place
                 }
             });
 
@@ -68,10 +68,9 @@ public class OtherActivity extends AppCompatActivity {
             btnProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent profilePlaceIntent=new Intent(OtherActivity.this, PlaceProfileActivity.class);
-                    profilePlaceIntent.putExtra(FirebaseConnection.PLACE,place);
+                    Intent profilePlaceIntent = new Intent(OtherActivity.this, PlaceProfileActivity.class);
+                    profilePlaceIntent.putExtra(FirebaseConnection.PLACE, place);
                     startActivity(profilePlaceIntent);//apro l'activity del profilo di Place
-
 
 
                 }
@@ -81,21 +80,19 @@ public class OtherActivity extends AppCompatActivity {
             btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent feedbackPlaceIntent=new Intent(OtherActivity.this, PlaceMyFeedbackActivity.class);
-                    feedbackPlaceIntent.putExtra(FirebaseConnection.PLACE,place);
+                    Intent feedbackPlaceIntent = new Intent(OtherActivity.this, PlaceMyFeedbackActivity.class);
+                    feedbackPlaceIntent.putExtra(FirebaseConnection.PLACE, place);
                     startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
             });
             txtUsername.setText(place.namePlace);
-        }
-
-        else{ //se l'activity corrente è stata raggiunta da un Client
+        } else { //se l'activity corrente è stata raggiunta da un Client
 
             //mostro il menu sottostante
             bottomNavigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    return menuNavigationItemSelected.menuNavigation(item,client,OtherActivity.this);//carico il menu dei CLient
+                    return menuNavigationItemSelected.menuNavigation(item, client, OtherActivity.this);//carico il menu dei CLient
                 }
             });
 
@@ -103,8 +100,8 @@ public class OtherActivity extends AppCompatActivity {
             btnProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent profileClientIntent=new Intent(OtherActivity.this, ClientProfileActivity.class);
-                    profileClientIntent.putExtra(FirebaseConnection.CLIENT,client);
+                    Intent profileClientIntent = new Intent(OtherActivity.this, ClientProfileActivity.class);
+                    profileClientIntent.putExtra(FirebaseConnection.CLIENT, client);
                     startActivity(profileClientIntent);//apro l'activity profilo di Cliente
                 }
             });
@@ -113,8 +110,8 @@ public class OtherActivity extends AppCompatActivity {
             btnFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent feedbackClientIntent=new Intent(OtherActivity.this, MyFeedbackClientActivity.class);
-                    feedbackClientIntent.putExtra(FirebaseConnection.CLIENT,client);
+                    Intent feedbackClientIntent = new Intent(OtherActivity.this, MyFeedbackClientActivity.class);
+                    feedbackClientIntent.putExtra(FirebaseConnection.CLIENT, client);
                     startActivity(feedbackClientIntent);//apro l'activity dei feedback di Client
 
                 }

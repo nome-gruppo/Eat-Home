@@ -14,7 +14,7 @@
         android:id="@+id/editCityClient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-            android:layout_marginStart="-5dp"
+        android:layout_marginStart="-5dp"
         android:layout_marginHorizontal="20dp"
         android:hint="@string/enterCity"
         android:completionHint="@string/enterCity"
@@ -38,7 +38,7 @@
         android:inputType="textPostalAddress"
         app:layout_constraintStart_toStartOf="@+id/editCityClient"
         app:layout_constraintTop_toBottomOf="@+id/editCityClient"
-        android:autofillHints="@string/enterAddress"/>
+        android:autofillHints="@string/enterAddress" />
 
     <EditText
         android:id="@+id/editNumberAddressClient"
@@ -55,7 +55,7 @@
         app:layout_constraintStart_toStartOf="@+id/editAddressClient"
         app:layout_constraintTop_toBottomOf="@+id/editAddressClient"
         tools:ignore="TextFields"
-        android:autofillHints="@string/enterAddressNumber"/>
+        android:autofillHints="@string/enterAddressNumber" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

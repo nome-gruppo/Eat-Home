@@ -45,7 +45,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero l'oggetto Place
 
         final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceOrderInfo);
-        this.listView=findViewById(R.id.listViewPlaceOrderInfo);
+        this.listView = findViewById(R.id.listViewPlaceOrderInfo);
 
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
 
@@ -73,9 +73,9 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
         showListOrder();
     }
 
-    private void showListOrder(){
+    private void showListOrder() {
 
-        final List<Order>listOrder = new LinkedList<>();
+        final List<Order> listOrder = new LinkedList<>();
         final PlaceOrderAdapter placeOrderAdapter = new PlaceOrderAdapter(this, R.layout.listitem_order_info, listOrder);
         this.listView.setAdapter(placeOrderAdapter);
 
@@ -91,7 +91,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
                         Order order = snapshot.getValue(Order.class);//recupero l'Order letto
                         listOrder.add(order);
                     }
-                    Collections.sort(listOrder,new OrderComparator());//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
+                    Collections.sort(listOrder, new OrderComparator());//inverto i valori nella lista così da averli in ordine di ordinazione più recente effettuata
                     placeOrderAdapter.notifyDataSetChanged();
                 } else {//se non ci sono ordini per il Place
                     Toast.makeText(PlaceOrderInfoActivity.this, getResources().getString(R.string.no_order), Toast.LENGTH_SHORT).show();//messagio di avviso
@@ -108,14 +108,13 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
 
     /**
      * metodo per aprire dialogListFoodOrder per visualizzare i dettagli dell'ordine
+     *
      * @param order
      */
     private void showDialogListFood(Order order) {
         DialogListFoodOrder dialogListFoodOrder = new DialogListFoodOrder(order);
         dialogListFoodOrder.show(getSupportFragmentManager(), "Dialog list food");
     }
-
-
 
 
 }

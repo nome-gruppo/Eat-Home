@@ -14,7 +14,7 @@ public class Client implements Serializable {
     public String emailClient;
 
 
-    public Client(){
+    public Client() {
 
     }
 

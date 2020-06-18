@@ -43,25 +43,25 @@ public class MyFeedbackClientActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_my_feedback_client);
 
-        this.client=(Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+        this.client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
-        Toolbar toolBarClientFeedback=findViewById(R.id.tlbClientFeedback);
+        Toolbar toolBarClientFeedback = findViewById(R.id.tlbClientFeedback);
         setSupportActionBar(toolBarClientFeedback);
         toolBarClientFeedback.setTitle(getResources().getString(R.string.my_feedback));
         toolBarClientFeedback.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
         toolBarClientFeedback.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent otherActivityIntent=new Intent(MyFeedbackClientActivity.this, OtherActivity.class);
-                otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
+                Intent otherActivityIntent = new Intent(MyFeedbackClientActivity.this, OtherActivity.class);
+                otherActivityIntent.putExtra(FirebaseConnection.CLIENT, client);
                 startActivity(otherActivityIntent);
                 finish();
             }
         });
 
-        this.listViewFeedbackClient=findViewById(R.id.listViewFeedbackClient);
-        this.imgNoFeedback=findViewById(R.id.imgNoFeedback);
-        this.txtNoFeedback=findViewById(R.id.txtNoFeedback);
+        this.listViewFeedbackClient = findViewById(R.id.listViewFeedbackClient);
+        this.imgNoFeedback = findViewById(R.id.imgNoFeedback);
+        this.txtNoFeedback = findViewById(R.id.txtNoFeedback);
 
         loadFeedback();
 
@@ -70,7 +70,7 @@ public class MyFeedbackClientActivity extends AppCompatActivity {
     /**
      * metodo per visualizzare le recensioni date dal cliente
      */
-    private void loadFeedback(){
+    private void loadFeedback() {
 
         final FirebaseConnection connection = new FirebaseConnection();
         final DatabaseReference mDB = connection.getmDatabase();
@@ -82,8 +82,8 @@ public class MyFeedbackClientActivity extends AppCompatActivity {
         mDB.child(FirebaseConnection.FEEDBACK_NODE).orderByChild("idClientFeedback").equalTo(client.idClient).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){//se esiste almeno un feedback
-                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                if (dataSnapshot.exists()) {//se esiste almeno un feedback
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         feedbackList.add(snapshot.getValue(Feedback.class));//aggiungo il feedback trovato alla lista a cui ho impostato l'adapter
 
@@ -91,7 +91,7 @@ public class MyFeedbackClientActivity extends AppCompatActivity {
 
                     listViewFeedbackClient.setAdapter(mAdapter);
                 }
-                if(feedbackList.isEmpty()){//se non è stato trovato alcun feedback
+                if (feedbackList.isEmpty()) {//se non è stato trovato alcun feedback
                     imgNoFeedback.setVisibility(View.VISIBLE);//mostro la smile triste
                     txtNoFeedback.setVisibility(View.VISIBLE);//mostro il messaggio 'siamo spiacenti'
                 }

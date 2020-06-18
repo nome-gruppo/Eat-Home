@@ -45,7 +45,7 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
-        this.listView=findViewById(R.id.listViewPlaceBookingInfo);
+        this.listView = findViewById(R.id.listViewPlaceBookingInfo);
 
         //mostro il menu sottostante
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,10 +65,10 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
         showListBooking();
     }
 
-    private void showListBooking(){
+    private void showListBooking() {
 
-        final List<Booking> listBooking=new LinkedList<>();
-        final PlaceBookingAdapter placeBookingAdapter=new PlaceBookingAdapter(this,R.layout.listitem_booking_info,listBooking);
+        final List<Booking> listBooking = new LinkedList<>();
+        final PlaceBookingAdapter placeBookingAdapter = new PlaceBookingAdapter(this, R.layout.listitem_booking_info, listBooking);
         this.listView.setAdapter(placeBookingAdapter);
 
         listBooking.clear();
@@ -84,12 +84,13 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
                         Booking booking = snapshot.getValue(Booking.class);
                         listBooking.add(booking);
                     }
-                    Collections.sort(listBooking,new BookingComparator());//ordino gli elementi in ordine di prenotazione più recente effettuata
+                    Collections.sort(listBooking, new BookingComparator());//ordino gli elementi in ordine di prenotazione più recente effettuata
                     placeBookingAdapter.notifyDataSetChanged();
-            }else {//se non c'è alcuna prenotazione
-                    Toast.makeText(PlaceBookingInfoActivity.this, getResources().getString(R.string.no_booking),Toast.LENGTH_SHORT).show();
+                } else {//se non c'è alcuna prenotazione
+                    Toast.makeText(PlaceBookingInfoActivity.this, getResources().getString(R.string.no_booking), Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

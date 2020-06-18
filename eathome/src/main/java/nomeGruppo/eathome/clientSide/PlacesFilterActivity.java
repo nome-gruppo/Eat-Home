@@ -1,11 +1,5 @@
 package nomeGruppo.eathome.clientSide;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +16,12 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -31,10 +31,10 @@ import java.util.TreeSet;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.actors.PlacesByDistance;
 import nomeGruppo.eathome.actors.PlacesByName;
 import nomeGruppo.eathome.actors.PlacesByValuation;
-import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
@@ -450,7 +450,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
         if (view.getId() == R.id.activity_places_filter_rb_distance_order) {
             if (checked) {
-                UtilitiesAndControls.locationPermissionRequest(PlacesFilterActivity.this, mLocationManager,myLocationListener,PERMISSION_LOCATION_REQUEST_CODE,null,orderByDistanceRB);
+                UtilitiesAndControls.locationPermissionRequest(PlacesFilterActivity.this, mLocationManager, myLocationListener, PERMISSION_LOCATION_REQUEST_CODE, null, orderByDistanceRB);
             }
         }
     }

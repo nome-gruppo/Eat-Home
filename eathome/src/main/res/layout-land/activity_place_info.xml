@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="580dp"
     android:fillViewport="true">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbPlaceInfo"
         android:layout_width="match_parent"
@@ -22,205 +22,202 @@
         android:layout_marginTop="65dp"
         android:fillViewport="true">
 
-<RelativeLayout
-    android:orientation="vertical"
-    android:background="@color/quantum_white_100"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-
-
-
-
-    <RelativeLayout
-        android:id="@+id/activity_place_info"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:layout_height="wrap_content"
-
-       >
-
         <RelativeLayout
+            android:orientation="vertical"
+            android:background="@color/quantum_white_100"
             android:layout_width="match_parent"
-            android:layout_height="109dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/button_border"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="0dp">
+
+
+            <RelativeLayout
+                android:id="@+id/activity_place_info"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="wrap_content"
+
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="109dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/button_border"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/txtNamePlaceInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/linglenglang"
+                        android:textAllCaps="true"
+                        android:textColor="@color/quantum_black_100"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAddressPlaceInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginVertical="70dp"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/quantum_black_100"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/quantum_white_100">
+
+                    <ImageView
+                        android:id="@+id/imgPlaceInfo"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:elevation="6dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_menu_gallery" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </RelativeLayout>
 
 
             <TextView
-                android:id="@+id/txtNamePlaceInfo"
+                android:id="@+id/txtBookingPlaceInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/linglenglang"
-                android:textAllCaps="true"
-                android:textColor="@color/quantum_black_100"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="160dp"
+                android:text="@string/booking_expected"
+                android:visibility="invisible" />
 
             <TextView
-                android:id="@+id/txtAddressPlaceInfo"
+                android:id="@+id/txtDeliveryPlaceInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginVertical="70dp"
-                android:layout_marginStart="5dp"
-                android:textColor="@color/quantum_black_100"
+                android:layout_marginVertical="185dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/delivery_expected"
+                android:visibility="invisible" />
+
+            <RatingBar
+                android:id="@+id/activity_place_info_ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="220dp"
+                android:layout_marginStart="17dp"
+                android:numStars="5" />
+
+            <TextView
+                android:id="@+id/activity_place_info_numFeedback"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="250dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/activity_place_info_ratingBar"
                 android:textSize="12sp" />
-        </RelativeLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@color/quantum_white_100">
 
-            <ImageView
-                android:id="@+id/imgPlaceInfo"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:elevation="6dp"
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="275dp"
+                android:layout_height="83dp"
                 android:layout_centerHorizontal="true"
-                android:contentDescription="@string/image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_menu_gallery" />
+                android:layout_marginTop="300dp" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </RelativeLayout>
-
-
-    <TextView
-        android:id="@+id/txtBookingPlaceInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="160dp"
-        android:text="@string/booking_expected"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/txtDeliveryPlaceInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="185dp"
-        android:layout_marginStart="20dp"
-        android:text="@string/delivery_expected"
-        android:visibility="invisible" />
-
-    <RatingBar
-        android:id="@+id/activity_place_info_ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="220dp"
-        android:layout_marginStart="17dp"
-        android:numStars="5" />
-
-    <TextView
-        android:id="@+id/activity_place_info_numFeedback"
-        android:layout_width="85dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="250dp"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/activity_place_info_ratingBar"
-        android:textSize="12sp" />
-
-
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_width="275dp"
-        android:layout_height="83dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp" />
-
-
-    <View
-        android:id="@+id/divider6"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="400dp"
-        android:background="?android:attr/listDivider" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/divider6"
-        android:layout_marginTop="58dp"
-        android:padding="20dp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            app:cardElevation="10dp">
-
-            <RelativeLayout
+            <View
+                android:id="@+id/divider6"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="5dp">
+                android:layout_height="0.5dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="400dp"
+                android:background="?android:attr/listDivider" />
 
-                <Button
-                    android:id="@+id/btnOrder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@color/transparent"
-                    android:text="@string/show_menu" />
-            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/divider6"
+                android:layout_marginTop="58dp"
+                android:padding="20dp">
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    app:cardElevation="10dp">
 
-        </androidx.cardview.widget.CardView>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            app:cardElevation="10dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:padding="5dp">
-
-                <Button
-                    android:id="@+id/btnBook"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@color/transparent"
-                    android:enabled="false"
-                    android:text="@string/action_book" />
-            </RelativeLayout>
+                        <Button
+                            android:id="@+id/btnOrder"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:background="@color/transparent"
+                            android:text="@string/show_menu" />
+                    </RelativeLayout>
 
 
-        </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    app:cardElevation="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:padding="5dp">
+
+                        <Button
+                            android:id="@+id/btnBook"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:background="@color/transparent"
+                            android:enabled="false"
+                            android:text="@string/action_book" />
+                    </RelativeLayout>
 
 
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/txtOpeningTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-            android:layout_marginTop="430dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="18sp"
-        android:textAlignment="viewStart"/>
+                </androidx.cardview.widget.CardView>
 
 
-</RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtOpeningTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="430dp"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                android:textAlignment="viewStart" />
+
+
+        </RelativeLayout>
 
     </ScrollView>
 </RelativeLayout>

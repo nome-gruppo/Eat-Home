@@ -12,9 +12,9 @@ import nomeGruppo.eathome.actions.Booking;
 public class BookingComparator implements Comparator<Booking> {
     @Override
     public int compare(Booking booking1, Booking booking2) {
-        if(booking1.dateBooking>booking2.dateBooking){
+        if (booking1.dateBooking > booking2.dateBooking) {
             return -1;
-        }else if(booking1.dateBooking<booking2.dateBooking){
+        } else if (booking1.dateBooking < booking2.dateBooking) {
             return 1;
         }
         return 0;

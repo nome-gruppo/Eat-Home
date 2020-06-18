@@ -3,7 +3,6 @@ package nomeGruppo.eathome.actions;
 public class Feedback {
 
 
-
     public String idFeedback;
     public float voteFeedback;
     public String textFeedback;

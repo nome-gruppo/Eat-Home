@@ -36,7 +36,7 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         final LayoutInflater inflater = requireActivity().getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, (ViewGroup) requireActivity().getCurrentFocus(),false);
+        final View dialogView = inflater.inflate(R.layout.layout_dialog_delete_account, (ViewGroup) requireActivity().getCurrentFocus(), false);
 
         final EditText emailEt = dialogView.findViewById(R.id.dialog_delete_account_et_email);
         final EditText passwordEt = dialogView.findViewById(R.id.dialog_delete_account_et_password);
@@ -77,17 +77,17 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
     public void onStop() {
         super.onStop();
 
-        if(deleted) {
+        if (deleted) {
 
-            Client mClient = (Client)requireActivity().getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
-            Place mPlace = (Place)requireActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+            Client mClient = (Client) requireActivity().getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
+            Place mPlace = (Place) requireActivity().getIntent().getSerializableExtra(FirebaseConnection.PLACE);
             //elimina ordinazioni e prenotazioni
-            if(mClient != null){
+            if (mClient != null) {
 
-                try(DBOpenHelper helper = new DBOpenHelper(getContext())) {
+                try (DBOpenHelper helper = new DBOpenHelper(getContext())) {
 
                     helper.deleteDatabase();
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
 
@@ -102,9 +102,9 @@ public class DialogDeleteAccount extends AppCompatDialogFragment {
                 accountThread.start();
 
 
-            }else if(mPlace != null){
+            } else if (mPlace != null) {
 
-                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId,FirebaseConnection.PLACE_NODE, getActivity());
+                final FirebaseConnection.DeleteAccount deleteAccount = new FirebaseConnection.DeleteAccount(mUser, userId, FirebaseConnection.PLACE_NODE, getActivity());
                 final FirebaseConnection.DeleteFeedback deleteFeedback = new FirebaseConnection.DeleteFeedback(userId);
 
                 Thread accountThread = new Thread(deleteAccount);

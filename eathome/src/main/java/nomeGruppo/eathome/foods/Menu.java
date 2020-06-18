@@ -7,7 +7,7 @@ public class Menu {
     public String idPlace;
     public List<Food> listFood;
 
-    public Menu(){
+    public Menu() {
 
     }
 

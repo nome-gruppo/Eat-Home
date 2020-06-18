@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/action_home"
+    <item
+        android:id="@+id/action_home"
         android:title="@string/menu_home"
         android:icon="@drawable/ic_menu_camera"
-        android:enabled="true"/>
+        android:enabled="true" />
 
-    <item android:id="@+id/action_orders"
+    <item
+        android:id="@+id/action_orders"
         android:title="@string/orders"
         android:icon="@drawable/ic_menu_scooter"
-        android:enabled="true"/>
+        android:enabled="true" />
 
-    <item android:id="@+id/action_bookings"
+    <item
+        android:id="@+id/action_bookings"
         android:title="@string/bookings"
         android:icon="@drawable/ic_menu_booking"
-        android:enabled="true"/>
+        android:enabled="true" />
 
-    <item android:id="@+id/action_other"
+    <item
+        android:id="@+id/action_other"
         android:title="@string/my_account"
         android:icon="@drawable/ic_other"
-        android:enabled="true"/>
+        android:enabled="true" />
 
 </menu>

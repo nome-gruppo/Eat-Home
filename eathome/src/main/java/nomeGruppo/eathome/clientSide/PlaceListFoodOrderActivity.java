@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,11 +28,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
@@ -110,8 +113,6 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
         );
 
 
-
-
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,7 +158,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     }
 
     /**
-     *  dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
+     * dialog che visualizza l'elenco dei cibi ordinati con costo e quantità
      */
 
     public void openDialogOrder(final HashMap<Food, Integer> listFoodOrder, final Place place) {
@@ -238,12 +239,12 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
     }
 
     /**
-     *    dialog per selezionare l'indirizzo di spedizione
+     * dialog per selezionare l'indirizzo di spedizione
      */
     private void openDialogChooseAddress(final Place place) {
 
         final LayoutInflater inflater = PlaceListFoodOrderActivity.this.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.dialog_choose_address, (ViewGroup) getCurrentFocus(),false);
+        final View view = inflater.inflate(R.layout.dialog_choose_address, (ViewGroup) getCurrentFocus(), false);
 
         final ListView listViewAddress = view.findViewById(R.id.listViewChooseAddress);
         final FloatingActionButton btnAddAddress = view.findViewById(R.id.btnAddAddress);
@@ -306,6 +307,7 @@ public class PlaceListFoodOrderActivity extends AppCompatActivity implements Dia
 
     /**
      * metodo per settare i valore di order
+     *
      * @param addressOrder indirizzo di spedizione
      * @return
      */

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@color/quantum_white_100"
-    android:layout_height="match_parent"
->
+    android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -18,8 +18,6 @@
     </RelativeLayout>
 
 
-
-
     <include
         android:id="@+id/activity_homepage_addressesBar"
         layout="@layout/layout_addresses_bar"
@@ -30,7 +28,7 @@
         app:layout_constraintVertical_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ProgressBar
         android:id="@+id/homepage_progressBar"
@@ -73,7 +71,7 @@
             android:id="@+id/listViewPlace"
             android:layout_width="match_parent"
             android:divider="@null"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <Button

@@ -43,7 +43,7 @@ import static nomeGruppo.eathome.utility.UtilitiesAndControls.PICT_SIZE_MAX;
 /*
 activity homepage per Place
  */
-public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener{
+public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMenu.DialogAddMenuListener {
 
     private static final int GET_FROM_GALLERY = 3;
 
@@ -51,7 +51,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private Place place;
     private List<Food> listFood;
     private MyMenuAdapter mAdapter;
-    private boolean changeImg=false;
+    private boolean changeImg = false;
     private Food food;
     private MenuNavigationItemSelected menuNavigationItemSelected;
 
@@ -62,17 +62,17 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
 
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        food=new Food();
+        food = new Food();
 
         final TextView txtNamePlace = findViewById(R.id.place_homepage_txtNamePlace);
         final FloatingActionButton btnAddMenu = findViewById(R.id.place_homepage_btnAddMenu);
         final ListView listViewMenu = findViewById(R.id.place_homepage_listMenu);
         final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlace);
-        imgPlace= findViewById(R.id.place_homepage_placeImg);
+        imgPlace = findViewById(R.id.place_homepage_placeImg);
 
-        menuNavigationItemSelected=new MenuNavigationItemSelected();
-        listFood=new LinkedList<>();
-        mAdapter=new MyMenuAdapter(this, listFood,place);
+        menuNavigationItemSelected = new MenuNavigationItemSelected();
+        listFood = new LinkedList<>();
+        mAdapter = new MyMenuAdapter(this, listFood, place);
 
         txtNamePlace.setText(place.namePlace);
         listViewMenu.setAdapter(mAdapter);
@@ -80,7 +80,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         bottomMenuPlace.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return menuNavigationItemSelected.menuNavigationPlace(item,place,PlaceHomeActivity.this);
+                return menuNavigationItemSelected.menuNavigationPlace(item, place, PlaceHomeActivity.this);
             }
         });
 
@@ -107,7 +107,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onStart();
         listFood.clear();
 
-        if(!changeImg) {//se l'immagine non è stata appena cambiata
+        if (!changeImg) {//se l'immagine non è stata appena cambiata
             StorageConnection storageConnection = new StorageConnection();//apro la connessione allo Storage di Firebase
             StorageReference storageReference = storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
 
@@ -127,7 +127,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             });
         }
 
-        final FirebaseConnection firebaseConnection=new FirebaseConnection();
+        final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
         //leggo i cibi presenti all'interno del ristorante e li assegno alla listFood collegata con l'adapter per poter stamparli sulla listView corrispondente
         firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -140,6 +140,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                 }
                 mAdapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -151,21 +152,22 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
      * metodo per aprire il dialog per aggiungere voci al menu
      */
 
-    private void openDialog(){
-        DialogAddMenu dialogAddMenu=new DialogAddMenu();
-        dialogAddMenu.show(getSupportFragmentManager(),"Dialog add menu");
+    private void openDialog() {
+        DialogAddMenu dialogAddMenu = new DialogAddMenu();
+        dialogAddMenu.show(getSupportFragmentManager(), "Dialog add menu");
     }
 
     /**
      * metodo per aprire la galleria del dispositivo
      */
-    private void openGallery(){
+    private void openGallery() {
         //intent per accedere alla galleria
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
     }
 
     /**
      * metodo per prendere l'immagine dalla galleria dell'utente e caricarla sull'app
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -173,20 +175,20 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GET_FROM_GALLERY && resultCode== Activity.RESULT_OK) {
+        if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri imageUri = data.getData();//restituisce l'uri dell'immagine
             Bitmap bitmap;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);//converto l'uri in Bitmap
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG,10,stream);//comprimo l'immagine
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);//comprimo l'immagine
 
                 imgPlace.setImageBitmap(bitmap);//assegno l'immagine come copertina della home
-                changeImg=true;//imposto che l'immagine è stata appena cambiata
+                changeImg = true;//imposto che l'immagine è stata appena cambiata
 
-                StorageConnection storage=new StorageConnection();//apro la connessione allo Storage di Firebase
-                storage.uploadImageBitmap(stream,place.idPlace);//inserisco l'immagine nello storage
+                StorageConnection storage = new StorageConnection();//apro la connessione allo Storage di Firebase
+                storage.uploadImageBitmap(stream, place.idPlace);//inserisco l'immagine nello storage
 
                 stream.close();
 
@@ -198,21 +200,22 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
     /**
      * metodo per inserire la nuova voce del menu al db firebase
-     * @param nameFood nome del cibo da aggiungere
+     *
+     * @param nameFood        nome del cibo da aggiungere
      * @param ingredientsFood ingredienti del cibo da aggiungere
-     * @param priceFood prezzo del cibo da aggiungere
+     * @param priceFood       prezzo del cibo da aggiungere
      */
 
     @Override
-    public void applyTexts(String nameFood, String ingredientsFood,float priceFood) {
-        FirebaseConnection firebaseConnection=new FirebaseConnection();
+    public void applyTexts(String nameFood, String ingredientsFood, float priceFood) {
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
         food.setName(nameFood);
         food.setIngredients(ingredientsFood);
         food.setPrice(priceFood);
         food.setIdFood(firebaseConnection.getmDatabase().push().getKey());
         firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
 
-        listFood.add(0,food);//aggiungo food in testa alla lista
+        listFood.add(0, food);//aggiungo food in testa alla lista
         mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi
     }
 }

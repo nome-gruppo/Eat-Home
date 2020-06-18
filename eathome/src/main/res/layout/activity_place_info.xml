@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:orientation="vertical"
     android:background="@color/quantum_white_100"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbPlaceInfo"
@@ -24,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
 
-       >
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -81,7 +80,6 @@
 
 
     </RelativeLayout>
-
 
 
     <TextView
@@ -203,7 +201,7 @@
         android:layout_marginVertical="485dp"
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
-        android:textAlignment="viewStart"/>
+        android:textAlignment="viewStart" />
 
 
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -36,7 +37,7 @@ public class DialogAddMenu extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_insert_food, (ViewGroup) requireActivity().getCurrentFocus(),false);
+        View view = inflater.inflate(R.layout.dialog_insert_food, (ViewGroup) requireActivity().getCurrentFocus(), false);
 
         editNameFood = view.findViewById(R.id.editNameFood);
         editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
@@ -52,7 +53,7 @@ public class DialogAddMenu extends AppCompatDialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 //se non sono state inserite tutte le voci richieste
                 if (editNameFood.getText().toString().trim().length() == 0 || editIngredientsFood.getText().toString().trim().length() == 0 || editPriceFood.getText().toString().trim().length() == 0) {
-                    Toast.makeText(getContext(),requireActivity().getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();//mostra messaggio di avviso
+                    Toast.makeText(getContext(), requireActivity().getResources().getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();//mostra messaggio di avviso
                     DialogAddMenu dialogAddMenu = new DialogAddMenu();
                     dialogAddMenu.show(requireActivity().getSupportFragmentManager(), "Dialog add menu");//mostra nuovamante il dialog per inserire voce al menu
                 } else {//se tutte le voci sono state inserite

@@ -14,17 +14,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Client;
@@ -74,7 +78,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         this.order = (Order) getIntent().getSerializableExtra(FirebaseConnection.ORDER);
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.openingTimeUtility = new OpeningTime();
-        this.calendar=Calendar.getInstance();
+        this.calendar = Calendar.getInstance();
 
 
         Toolbar toolbarConfirmOrder = findViewById(R.id.tlbConfirmOrder);
@@ -84,16 +88,16 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         toolbarConfirmOrder.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             Intent placeListFoodIntent = new Intent(ConfirmOrderActivity.this, PlaceListFoodOrderActivity.class);
-             placeListFoodIntent.putExtra(FirebaseConnection.PLACE, place);
-             startActivity(placeListFoodIntent);
-             finish();
+                Intent placeListFoodIntent = new Intent(ConfirmOrderActivity.this, PlaceListFoodOrderActivity.class);
+                placeListFoodIntent.putExtra(FirebaseConnection.PLACE, place);
+                startActivity(placeListFoodIntent);
+                finish();
             }
         });
-        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f", order.totalOrder));
-        txtTotOrder.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder));
-        txtTotDelivery.setText(String.format(Locale.getDefault(),"%d",order.deliveryCost));
-        txtTotal.setText(String.format(Locale.getDefault(),"%.2f",order.totalOrder + order.deliveryCost));
+        txtTotOrder.setText(String.format(Locale.getDefault(), "%.2f", order.totalOrder));
+        txtTotOrder.setText(String.format(Locale.getDefault(), "%.2f", order.totalOrder));
+        txtTotDelivery.setText(String.format(Locale.getDefault(), "%d", order.deliveryCost));
+        txtTotal.setText(String.format(Locale.getDefault(), "%.2f", order.totalOrder + order.deliveryCost));
         txtAddressOrder.setText(order.addressOrder);
 
         this.mDBHelper = new DBOpenHelper(this);
@@ -146,25 +150,25 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
      * metodo per aggiungere eventuali note all'ordinazione
      */
 
-    private void openDialogAddNote(){
+    private void openDialogAddNote() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ConfirmOrderActivity.this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_reply_feedback, (ViewGroup) getCurrentFocus(),false);
-        final EditText note=view.findViewById(R.id.editReplyFeedback);
-        if(order.note==null){
+        View view = inflater.inflate(R.layout.dialog_reply_feedback, (ViewGroup) getCurrentFocus(), false);
+        final EditText note = view.findViewById(R.id.editReplyFeedback);
+        if (order.note == null) {
             note.setHint(getResources().getString(R.string.add_note));
-        }else{
+        } else {
             note.setText(order.note);
         }
         builder.setView(view).setTitle(getResources().getString(R.string.add_note));
         builder.setView(view).setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(note.getText().toString().trim().length()==0){
-                    Toast.makeText(ConfirmOrderActivity.this,getResources().getString(R.string.no_note),Toast.LENGTH_SHORT).show();
-                }else{
+                if (note.getText().toString().trim().length() == 0) {
+                    Toast.makeText(ConfirmOrderActivity.this, getResources().getString(R.string.no_note), Toast.LENGTH_SHORT).show();
+                } else {
                     order.setNote(note.getText().toString());
-                    Toast.makeText(ConfirmOrderActivity.this,getResources().getString(R.string.note_success),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConfirmOrderActivity.this, getResources().getString(R.string.note_success), Toast.LENGTH_SHORT).show();
                 }
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -234,9 +238,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
 
     /**
      * metodo per impostare l'ora di consegna dell'ordinazione
+     *
      * @param timePicker orologio di default
-     * @param hourOfDay ora consegna
-     * @param minutes minuti consegna
+     * @param hourOfDay  ora consegna
+     * @param minutes    minuti consegna
      */
 
     @Override
@@ -248,7 +253,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
         Date timeClosed;
         Date timeOrder;
         try {
-            if(openingTime != null) {
+            if (openingTime != null) {
                 timeOrder = parser.parse(hourOfDay + ":" + minutes);
                 timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'orario di chiusura
                 timeOpening = openingTimeUtility.getTimeOpening(getApplicationContext(), openingTime);//estrapolo l'orario di apertura
@@ -257,7 +262,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements TimePicke
                     //se l'ora dell'ordine è comprea tra ora di apertura e ora di chiusura
                     if (timeOrder.after(timeOpening) && timeOrder.before(timeClosed)) {
                         chooseTime.setText(parser.format(timeOrder));//imposta l'ora nella EditText
-                        calendar.set(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,hourOfDay,minutes);//imposto la data e l'ora dell'ordine in Calendar
+                        calendar.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, hourOfDay, minutes);//imposto la data e l'ora dell'ordine in Calendar
                     } else {//se il locale è chiuso nell'ora selezionata
                         //mostra messaggio
                         Toast.makeText(ConfirmOrderActivity.this, ConfirmOrderActivity.this.getResources().getString(R.string.invalid_time), Toast.LENGTH_SHORT).show();

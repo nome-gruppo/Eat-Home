@@ -24,14 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import nomeGruppo.eathome.utility.MyExceptions;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actions.Order;
-import nomeGruppo.eathome.clientSide.HomepageActivity;
-import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
+import nomeGruppo.eathome.clientSide.HomepageActivity;
+import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
+import nomeGruppo.eathome.utility.MyExceptions;
 
 /**
  * FIrebaseConnection contiene costanti e metodi per la gestione del database Firebase Realtime e di FirebaseAuthentication
@@ -104,7 +104,7 @@ public class FirebaseConnection {
      * @param progressBar cfr. searchUserInDb
      * @param activity    cfr. searchUserInDb
      */
-    private void searchUser(final String userId, final String node, final ProgressBar progressBar, final Activity activity) throws MyExceptions{
+    private void searchUser(final String userId, final String node, final ProgressBar progressBar, final Activity activity) throws MyExceptions {
 
         final boolean fromAnotherActivity = activity.getIntent().getBooleanExtra(FROM_ANOTHER_ACTIVITY, false);
 
@@ -150,7 +150,7 @@ public class FirebaseConnection {
                     //se non è stato trovato l'id nel nodo clienti cerca in places
                 } else if (!dataSnapshot.exists() && node.equals(FirebaseConnection.CLIENT_NODE)) {
                     searchUser(userId, PLACE_NODE, progressBar, activity);
-                }else{
+                } else {
                     throw new MyExceptions(MyExceptions.FIREBASE_NOT_FOUND, "Not found in Firebase");
                 }
             }
@@ -171,7 +171,7 @@ public class FirebaseConnection {
      * @param progressBar progressBar, che indica l'operazione di ricerca, presente nell'activity chiamante
      * @param activity    activity chiamante il metodo
      */
-    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity) throws MyExceptions{
+    public void searchUserInDb(final String userId, final ProgressBar progressBar, final Activity activity) throws MyExceptions {
         this.searchUser(userId, CLIENT_NODE, progressBar, activity);
     }
 

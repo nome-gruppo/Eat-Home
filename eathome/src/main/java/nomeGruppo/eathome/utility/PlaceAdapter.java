@@ -30,19 +30,18 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
     private final Resources res;
 
     public PlaceAdapter(Context context, int textViewResourceId,
-                         List<Place> place) {
+                        List<Place> place) {
         super(context, textViewResourceId, place);
         this.res = context.getResources();
     }
 
 
-
     @NonNull
     @Override
-    public View getView(int position, View convertView,@NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if(inflater != null) {
+        if (inflater != null) {
             convertView = inflater.inflate(R.layout.listitem_place_homepage, parent, false);
             final TextView title = convertView.findViewById(R.id.txtNamePlaceFragment);
             final TextView type = convertView.findViewById(R.id.txtTypePlaceFragment);
@@ -74,16 +73,16 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         return convertView;
     }
 
-    private void setImage(final ImageView imgPlace, Place place){
-        StorageConnection storageConnection=new StorageConnection();//apro la connessione allo Storage di Firebase
-        StorageReference storageReference=storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
+    private void setImage(final ImageView imgPlace, Place place) {
+        StorageConnection storageConnection = new StorageConnection();//apro la connessione allo Storage di Firebase
+        StorageReference storageReference = storageConnection.storageReference(place.idPlace);//l'immagine nello Storage ha lo stesso nome del codice del ristorante
 
         //metodo di lettura immagine tramite byte
-        storageReference.getBytes(PICT_SIZE_MAX*PICT_SIZE_MAX)
+        storageReference.getBytes(PICT_SIZE_MAX * PICT_SIZE_MAX)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {
-                        Bitmap bitmap=BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         imgPlace.setImageBitmap(bitmap);
                     }
 

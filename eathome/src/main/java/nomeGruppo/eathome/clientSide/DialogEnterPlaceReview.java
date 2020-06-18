@@ -31,7 +31,7 @@ import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 
 /**
-dialog per l'inserimento delle recensioni da parte del cliente
+ * dialog per l'inserimento delle recensioni da parte del cliente
  */
 
 public class DialogEnterPlaceReview extends AppCompatDialogFragment {
@@ -47,15 +47,15 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     private final FirebaseConnection firebaseConnection;
 
 
-    DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper){
-        this.idPlace=idPlace;
-        this.namePlace=namePlace;
-        this.idClient=idClient;
-        this.nameClient=nameClient;
-        this.mDB=mDB;
-        this.mDBHelper=mDBHelper;
+    DialogEnterPlaceReview(String idPlace, String namePlace, String idClient, String nameClient, SQLiteDatabase mDB, DBOpenHelper mDBHelper) {
+        this.idPlace = idPlace;
+        this.namePlace = namePlace;
+        this.idClient = idClient;
+        this.nameClient = nameClient;
+        this.mDB = mDB;
+        this.mDBHelper = mDBHelper;
         this.date = Calendar.getInstance();
-        this.firebaseConnection=new FirebaseConnection();
+        this.firebaseConnection = new FirebaseConnection();
     }
 
     @NonNull
@@ -63,9 +63,9 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            final View view = inflater.inflate(R.layout.dialog_enter_place_review, (ViewGroup) getActivity().getCurrentFocus(),false);
+            final View view = inflater.inflate(R.layout.dialog_enter_place_review, (ViewGroup) getActivity().getCurrentFocus(), false);
 
             final TextView txtNamePlaceReview = view.findViewById(R.id.txtNamePlaceReview);
             this.ratingBar = view.findViewById(R.id.ratingBar);
@@ -96,9 +96,9 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
     /**
      * metodo per inserire la recensione in db firebase
      */
-    private void sendReview(){
-        Feedback feedback=new Feedback();
-        if(editFeedback.getText().toString().trim().length()==0){
+    private void sendReview() {
+        Feedback feedback = new Feedback();
+        if (editFeedback.getText().toString().trim().length() == 0) {
             editFeedback.setText(" ");
         }
         feedback.setTextFeedback(editFeedback.getText().toString());//assegno il testo della recensione
@@ -112,24 +112,24 @@ public class DialogEnterPlaceReview extends AppCompatDialogFragment {
         //prelevo la chiave assegnata in automatico da Firebase
         String idFeedback = firebaseConnection.getmDatabase().child(FirebaseConnection.FEEDBACK_NODE).push().getKey();
         feedback.setIdFeedback(idFeedback);
-        firebaseConnection.write(FirebaseConnection.FEEDBACK_NODE,idFeedback,feedback);//inserisco Feedback all'interno di Firebase
+        firebaseConnection.write(FirebaseConnection.FEEDBACK_NODE, idFeedback, feedback);//inserisco Feedback all'interno di Firebase
     }
 
     /**
      * metodo per aggiornare la media della valutazione del locale
      */
-    private void updateValuationPlace(){
+    private void updateValuationPlace() {
 
         //leggo il Place corrispondente all'id all'interno di firebase
         firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).orderByKey().equalTo(idPlace).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {//se è stato trovato Place
+                if (dataSnapshot.exists()) {//se è stato trovato Place
                     //ritorna un iterable con un solo elemento
-                    for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         Place place = snapshot.getValue(Place.class);
-                        if(place != null) {
+                        if (place != null) {
                             place.newValuation(ratingBar.getRating());//assegno la valutazione data dal cliente al Place corrispondente
 
                             firebaseConnection.getmDatabase().child(FirebaseConnection.PLACE_NODE).child(idPlace).setValue(place);//aggiorno il valore in firebase

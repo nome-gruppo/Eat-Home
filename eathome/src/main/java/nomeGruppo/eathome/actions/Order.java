@@ -23,7 +23,6 @@ public class Order implements Serializable {
     public boolean stateOrder;
 
 
-
     public Order() {
 
     }

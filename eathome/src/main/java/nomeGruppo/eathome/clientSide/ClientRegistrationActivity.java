@@ -56,14 +56,14 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         client = new Client();
         final UtilitiesAndControls control = new UtilitiesAndControls();
 
-        nameClientET =  findViewById(R.id.editNameClient);
+        nameClientET = findViewById(R.id.editNameClient);
         nameClientET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        emailClientET =  findViewById(R.id.editMailClient);
+        emailClientET = findViewById(R.id.editMailClient);
         emailClientET.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        passwordClientET =  findViewById(R.id.editPasswordClient);
+        passwordClientET = findViewById(R.id.editPasswordClient);
         passwordClientET.setImeOptions(EditorInfo.IME_ACTION_DONE);
         final Button signInBtn = findViewById(R.id.btnSignInClient);
-        statusTV =  findViewById(R.id.activity_client_registration_tw_status);
+        statusTV = findViewById(R.id.activity_client_registration_tw_status);
 
 
         Toolbar toolbarClientRegistration = findViewById(R.id.tlbClientRegistration);
@@ -111,7 +111,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if(accountCreated) {
+        if (accountCreated) {
             FirebaseConnection db = new FirebaseConnection(); //apro la connessione al db
 
             //assegno come chiave del db l'user id generato da Firebase Authentication
@@ -121,6 +121,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
 
     /**
      * metodo per creare l'account cliente
+     *
      * @param email
      * @param password
      */

@@ -1,8 +1,5 @@
 package nomeGruppo.eathome.clientSide.profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +8,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -117,7 +116,7 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
     public void applyTexts(Address address) {
         //ricerca che l'address non sia già presente nella lista
         boolean found = false;
-        for(Address item: addressList){
+        for (Address item : addressList) {
             if (item.equals(address)) {
                 found = true;
                 break;
@@ -125,14 +124,14 @@ public class MyAddressesActivity extends AppCompatActivity implements DialogAddA
         }
 
         //se non trovato aggiungilo nella lista
-        if(!found){
+        if (!found) {
 
-                mDBHelper.addAddress(mDB, address, client.idClient);
-                Address mAddress = new Address(mDBHelper.getLastIdAddresses(mDB), address);
-                addressList.add(mAddress);
-                mAdapter.notifyDataSetChanged();
-                noAddressesTW.setVisibility(View.GONE);
-                addressesLW.setAdapter(mAdapter);
+            mDBHelper.addAddress(mDB, address, client.idClient);
+            Address mAddress = new Address(mDBHelper.getLastIdAddresses(mDB), address);
+            addressList.add(mAddress);
+            mAdapter.notifyDataSetChanged();
+            noAddressesTW.setVisibility(View.GONE);
+            addressesLW.setAdapter(mAdapter);
 
         }
     }

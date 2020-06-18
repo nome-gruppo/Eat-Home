@@ -1,7 +1,8 @@
 package nomeGruppo.eathome.utility;
 
-/**La classe MyException contiene le eccezioni personalizzate sollevate a runtime
- *
+/**
+ * La classe MyException contiene le eccezioni personalizzate sollevate a runtime
+ * <p>
  * La classe è stata creata in modo da poter essere utilizzata per più eccezioni grazie al campo exceptionType
  */
 public class MyExceptions extends RuntimeException {
@@ -9,12 +10,12 @@ public class MyExceptions extends RuntimeException {
     public static final int FIREBASE_NOT_FOUND = 1;     //se non è stato trovato alcun oggetto nel database
     private final int exceptionType;
 
-    public MyExceptions(int exceptionType, String errorMessage){
+    public MyExceptions(int exceptionType, String errorMessage) {
         super(errorMessage);
         this.exceptionType = exceptionType;
     }
 
-    public int getExceptionType(){
+    public int getExceptionType() {
         return exceptionType;
     }
 

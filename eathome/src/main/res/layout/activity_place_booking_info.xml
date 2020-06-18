@@ -30,7 +30,6 @@
     </RelativeLayout>
 
 
-
     <ListView
         android:id="@+id/listViewPlaceBookingInfo"
         android:layout_width="match_parent"
@@ -41,7 +40,7 @@
         android:divider="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigationPlaceBookingInfo"/>
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigationPlaceBookingInfo" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlaceBookingInfo"
@@ -53,6 +52,6 @@
         app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

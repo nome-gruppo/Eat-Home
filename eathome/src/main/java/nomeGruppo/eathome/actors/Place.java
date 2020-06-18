@@ -3,7 +3,7 @@ package nomeGruppo.eathome.actors;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class Place implements Serializable{
+public class Place implements Serializable {
 
     public static final String ID_FIELD = "idPlace";
 
@@ -21,13 +21,13 @@ public class Place implements Serializable{
     public int numberReview;
     public boolean takesBookingPlace;
     public boolean takesOrderPlace;
-    public HashMap<String,String>openingTime;
+    public HashMap<String, String> openingTime;
 
-    public Place(){
+    public Place() {
 
     }
 
-    public Place(String addressNumPlace, String addressPlace, String cityPlace, int deliveryCost, String namePlace,String phonePlace) {
+    public Place(String addressNumPlace, String addressPlace, String cityPlace, int deliveryCost, String namePlace, String phonePlace) {
         this.addressNumPlace = addressNumPlace;
         this.addressPlace = addressPlace;
         this.categories = null;
@@ -87,7 +87,7 @@ public class Place implements Serializable{
         this.openingTime = openingTime;
     }
 
-    public void newValuation(float vote){
+    public void newValuation(float vote) {
 
         this.valuation = ((this.numberReview * this.valuation) + vote) / (this.numberReview + 1);
 

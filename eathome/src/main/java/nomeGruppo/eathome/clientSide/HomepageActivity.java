@@ -54,10 +54,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -480,7 +480,7 @@ public class HomepageActivity extends AppCompatActivity {
         findPlacesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UtilitiesAndControls.locationPermissionRequest(HomepageActivity.this, mLocationManager,myLocationListener,PERMISSION_LOCATION_REQUEST_CODE, progressBar, null);
+                UtilitiesAndControls.locationPermissionRequest(HomepageActivity.this, mLocationManager, myLocationListener, PERMISSION_LOCATION_REQUEST_CODE, progressBar, null);
             }
         });
 

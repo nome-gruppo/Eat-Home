@@ -1,7 +1,5 @@
 package nomeGruppo.eathome;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +7,8 @@ import android.os.Process;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,8 +67,8 @@ public class SplashActivity extends AppCompatActivity {
 
                 try {
                     firebaseConnection.searchUserInDb(user.getUid(), progressBar, this);
-                }catch (MyExceptions e){
-                    if(e.getExceptionType() == MyExceptions.FIREBASE_NOT_FOUND){
+                } catch (MyExceptions e) {
+                    if (e.getExceptionType() == MyExceptions.FIREBASE_NOT_FOUND) {
                         errorTv.setVisibility(View.VISIBLE);
                     }
                 }

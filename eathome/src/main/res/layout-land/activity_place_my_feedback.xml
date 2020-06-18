@@ -34,8 +34,8 @@
             android:layout_marginTop="7dp"
             android:elevation="4dp"
             android:textAlignment="center"
-        android:background="@color/quantum_white_100"
-        android:layout_centerHorizontal="true"
+            android:background="@color/quantum_white_100"
+            android:layout_centerHorizontal="true"
             android:textColor="@color/quantum_black_100"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -92,9 +92,9 @@
         android:id="@+id/my_feedback_place_noFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-     android:layout_centerInParent="true"
+        android:layout_centerInParent="true"
         android:layout_gravity="center"
-    android:layout_centerHorizontal="true"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/no_feedback"
         android:visibility="gone" />

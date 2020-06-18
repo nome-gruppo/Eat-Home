@@ -3,11 +3,14 @@
 
     <!-- Background Color -->
     <solid android:color="@color/colorThird" />
-    
+
 
     <!-- Round Corners -->
     <corners android:radius="6dp" />
 
-    <padding android:bottom="8dp" android:top="8dp" android:left="10dp"/>
+    <padding
+        android:bottom="8dp"
+        android:top="8dp"
+        android:left="10dp" />
 
 </shape>

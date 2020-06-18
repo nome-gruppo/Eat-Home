@@ -22,7 +22,7 @@ public class Address {
         this.idAddress = idAddress;
     }
 
-    public Address(int idAddress, Address address){
+    public Address(int idAddress, Address address) {
         this(address.getCity(), address.getStreet(), address.getNumberAddress());
         this.idAddress = idAddress;
     }
@@ -51,13 +51,13 @@ public class Address {
     @Override
     public boolean equals(@Nullable Object obj) {
 
-        if(obj instanceof Address){
+        if (obj instanceof Address) {
             final String objCity = ((Address) obj).getCity().toLowerCase();
             final String objStreet = ((Address) obj).getStreet().toLowerCase();
             final String objAddressNum = ((Address) obj).getNumberAddress().toLowerCase();
 
             return objCity.equals(this.city.toLowerCase()) && objStreet.equals(this.street.toLowerCase()) && objAddressNum.equals(this.numberAddress.toLowerCase());
-        }else{
+        } else {
             return false;
         }
 

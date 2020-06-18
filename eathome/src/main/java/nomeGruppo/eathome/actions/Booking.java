@@ -3,7 +3,6 @@ package nomeGruppo.eathome.actions;
 public class Booking {
 
 
-
     public long dateBooking;
     public int personNumBooking;
     public String nameBooking;
@@ -15,7 +14,7 @@ public class Booking {
 
     public static final String ID_CLIENT_FIELD = "idClientBooking";
 
-    public Booking(){
+    public Booking() {
 
     }
 

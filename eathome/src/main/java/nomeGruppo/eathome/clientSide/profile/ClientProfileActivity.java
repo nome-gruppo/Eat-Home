@@ -1,8 +1,5 @@
 package nomeGruppo.eathome.clientSide.profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,14 +10,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nomeGruppo.eathome.DialogDeleteAccount;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.DialogDeleteAccount;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 /*
@@ -60,7 +60,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_profile);
 
 
-        this.client=(Client)getIntent().getSerializableExtra(FirebaseConnection.CLIENT);//ricevo l'oggetto cliente dall'activity chiamante
+        this.client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);//ricevo l'oggetto cliente dall'activity chiamante
 
         final Toolbar toolBarClientProfile = findViewById(R.id.tlbClientProfile);
         setSupportActionBar(toolBarClientProfile);
@@ -69,8 +69,8 @@ public class ClientProfileActivity extends AppCompatActivity {
         toolBarClientProfile.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//se clicca sul pulsante indietro della toolbar
-                Intent otherActivityIntent=new Intent(ClientProfileActivity.this, OtherActivity.class);
-                otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
+                Intent otherActivityIntent = new Intent(ClientProfileActivity.this, OtherActivity.class);
+                otherActivityIntent.putExtra(FirebaseConnection.CLIENT, client);
                 startActivity(otherActivityIntent);//avvio l'activity precedente(other activity)
                 finish();
             }
@@ -94,14 +94,14 @@ public class ClientProfileActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {//se clicca su salva
             @Override
             public void onClick(View view) {
-                if(edit){//se c'è stata una modifica
+                if (edit) {//se c'è stata una modifica
                     editFinished = true;//imposto il falg modifica a true
-                    Intent otherActivityIntent=new Intent(ClientProfileActivity.this, OtherActivity.class);
-                    otherActivityIntent.putExtra(FirebaseConnection.CLIENT,client);
+                    Intent otherActivityIntent = new Intent(ClientProfileActivity.this, OtherActivity.class);
+                    otherActivityIntent.putExtra(FirebaseConnection.CLIENT, client);
                     startActivity(otherActivityIntent);//avvio l'activity predecente(other activity)
                     finish();
-                }else{//se non c'è stata alcuna modifica
-                    Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.no_change),Toast.LENGTH_SHORT).show();//messaggio nessuna modifica
+                } else {//se non c'è stata alcuna modifica
+                    Toast.makeText(ClientProfileActivity.this, getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();//messaggio nessuna modifica
                 }
             }
         });
@@ -141,11 +141,11 @@ public class ClientProfileActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if(editFinished){//se c'è stata una modifica
+        if (editFinished) {//se c'è stata una modifica
             FirebaseConnection connection = new FirebaseConnection();
             connection.write(FirebaseConnection.CLIENT_NODE, user.getUid(), client);
 
-            Toast.makeText(ClientProfileActivity.this,getResources().getString(R.string.success_save),Toast.LENGTH_SHORT).show();//messaggio modica avvenuta con successo
+            Toast.makeText(ClientProfileActivity.this, getResources().getString(R.string.success_save), Toast.LENGTH_SHORT).show();//messaggio modica avvenuta con successo
         }
     }
 
@@ -276,7 +276,7 @@ public class ClientProfileActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(ClientProfileActivity.this, getString(R.string.notValidEmail), Toast.LENGTH_LONG).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(ClientProfileActivity.this, getString(R.string.incorrectPassword), Toast.LENGTH_LONG).show();
                 }
             }
@@ -292,24 +292,24 @@ public class ClientProfileActivity extends AppCompatActivity {
                 connection.reauthenticateUser(user, user.getEmail(), oldPassword);
 
                 //controllo riautenticazione utente
-                if (connection.getOperationSuccess()){
+                if (connection.getOperationSuccess()) {
 
                     //controllo uguaglianza password
-                    if(oldPassword.equals(newPassword) && newPassword.equals(confirmPassword)){
+                    if (oldPassword.equals(newPassword) && newPassword.equals(confirmPassword)) {
 
-                        if(controls.isPasswordValid(confirmPassword)){
+                        if (controls.isPasswordValid(confirmPassword)) {
 
                             connection.updatePassword(user, newPassword, ClientProfileActivity.this);
-                            if(connection.getOperationSuccess()){
+                            if (connection.getOperationSuccess()) {
                                 edit = true;
                             }
-                        }else{
+                        } else {
                             Toast.makeText(ClientProfileActivity.this, getString(R.string.incorrectPasswordFormat), Toast.LENGTH_LONG).show();
                         }
-                    }else{
+                    } else {
                         Toast.makeText(ClientProfileActivity.this, getString(R.string.enteredDifferentPasswords), Toast.LENGTH_LONG).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(ClientProfileActivity.this, getString(R.string.oldIncorrectPassword), Toast.LENGTH_LONG).show();
                 }
             }
@@ -319,11 +319,11 @@ public class ClientProfileActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if(controls.isPhoneValid(phoneEt.getText().toString().trim())){
+                if (controls.isPhoneValid(phoneEt.getText().toString().trim())) {
                     client.phoneClient = phoneEt.getText().toString().trim();
                     edit = true;
                     Toast.makeText(ClientProfileActivity.this, getString(R.string.phoneNumberChangedCorrectly), Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(ClientProfileActivity.this, getString(R.string.notValidPhoneNumber), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -337,8 +337,6 @@ public class ClientProfileActivity extends AppCompatActivity {
                 startActivity(myAddressesIntent);
             }
         });
-
-
 
 
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {

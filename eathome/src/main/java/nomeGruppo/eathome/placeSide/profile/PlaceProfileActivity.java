@@ -1,8 +1,5 @@
 package nomeGruppo.eathome.placeSide.profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,17 +14,20 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nomeGruppo.eathome.DialogDeleteAccount;
 import nomeGruppo.eathome.OtherActivity;
-import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
-import nomeGruppo.eathome.placeSide.PlaceOpeningTimeActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.actors.PlaceCategories;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.DialogDeleteAccount;
+import nomeGruppo.eathome.placeSide.PlaceHomeActivity;
+import nomeGruppo.eathome.placeSide.PlaceOpeningTimeActivity;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 /*
@@ -76,24 +76,23 @@ public class PlaceProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_profile);
 
-        mPlace = (Place)getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero oggetto Place passato
+        mPlace = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero oggetto Place passato
 
         mAuth = FirebaseAuth.getInstance();
 
-        Toolbar toolBarPlaceProfile=findViewById(R.id.tlbPlaceProfile);
+        Toolbar toolBarPlaceProfile = findViewById(R.id.tlbPlaceProfile);
         setSupportActionBar(toolBarPlaceProfile);
         toolBarPlaceProfile.setTitle(getResources().getString(R.string.my_account));
         toolBarPlaceProfile.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
         toolBarPlaceProfile.setNavigationOnClickListener(new View.OnClickListener() {//se clicca sul tasto indietro nella toolbar
             @Override
             public void onClick(View v) {
-                Intent otherActivityIntent=new Intent(PlaceProfileActivity.this, OtherActivity.class);
-                otherActivityIntent.putExtra(FirebaseConnection.PLACE,mPlace);
+                Intent otherActivityIntent = new Intent(PlaceProfileActivity.this, OtherActivity.class);
+                otherActivityIntent.putExtra(FirebaseConnection.PLACE, mPlace);
                 startActivity(otherActivityIntent);//avvia acitivity precedente(other activity)
                 finish();
             }
         });
-
 
 
         nameEt = findViewById(R.id.activity_place_profile_et_name);
@@ -121,16 +120,16 @@ public class PlaceProfileActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.activity_place_profile_btn_save);
         deleteAccountBtn = findViewById(R.id.activity_client_btn_deleteAccount);
 
-        if(mPlace != null) {//se esiste un oggetto Place
+        if (mPlace != null) {//se esiste un oggetto Place
             nameEt.setHint(mPlace.namePlace);
             emailEt.setHint(mPlace.emailPlace);
             addressEt.setHint(mPlace.addressPlace);
             addressNumEt.setHint(mPlace.addressNumPlace);
             cityEt.setHint(mPlace.cityPlace);
 
-            if(mPlace.phonePlace != null) {//se esiste il numero di telefono
+            if (mPlace.phonePlace != null) {//se esiste il numero di telefono
                 phoneEt.setHint(mPlace.phonePlace);//imposto il numero
-            }else{//se non c'è alcun numero di telefono
+            } else {//se non c'è alcun numero di telefono
                 phoneEt.setHint(getResources().getString(R.string.enterPhone));//imposto il messaggio di richiesta
             }
 
@@ -141,19 +140,19 @@ public class PlaceProfileActivity extends AppCompatActivity {
             String category = mPlace.categories;//recupero la categoria
 
             //match categoria locale
-            if(category.equals(PlaceCategories.SUSHI.toString())){//se categoria =sushi
+            if (category.equals(PlaceCategories.SUSHI.toString())) {//se categoria =sushi
                 categoryRb = findViewById(R.id.activity_place_profile_rb_sushi);
 
-            }else if(category.equals(PlaceCategories.PIZZERIA.toString())){//se categoria=pizzeria
+            } else if (category.equals(PlaceCategories.PIZZERIA.toString())) {//se categoria=pizzeria
                 categoryRb = findViewById(R.id.activity_place_profile_rb_pizzeria);
 
-            }else if(category.equals(PlaceCategories.PIZZERIA_RISTORANTE.toString())){//se categoria=pizzeria/ristorante
+            } else if (category.equals(PlaceCategories.PIZZERIA_RISTORANTE.toString())) {//se categoria=pizzeria/ristorante
                 categoryRb = findViewById(R.id.activity_place_profile_rb_restaurant);
 
-            }else if(category.equals(PlaceCategories.RISTORANTE_ITALIANO.toString())){//se categoria=ristorante
+            } else if (category.equals(PlaceCategories.RISTORANTE_ITALIANO.toString())) {//se categoria=ristorante
                 categoryRb = findViewById(R.id.activity_place_profile_rb_italianRestaurant);
 
-            }else if(category.equals(PlaceCategories.ALTRO.toString())){//se categoria=altro
+            } else if (category.equals(PlaceCategories.ALTRO.toString())) {//se categoria=altro
                 categoryRb = findViewById(R.id.activity_place_profile_rb_other);
 
             }
@@ -315,9 +314,9 @@ public class PlaceProfileActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(addressEt.getText().toString().trim().length() == 0 || addressNumEt.getText().toString().trim().length() == 0){
+                if (addressEt.getText().toString().trim().length() == 0 || addressNumEt.getText().toString().trim().length() == 0) {
                     addressBtn.setClickable(false);
-                }else {
+                } else {
                     addressBtn.setClickable(true);
                 }
             }
@@ -340,9 +339,9 @@ public class PlaceProfileActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(cityEt.getText().toString().trim().length() == 0){
+                if (cityEt.getText().toString().trim().length() == 0) {
                     cityBtn.setClickable(false);
-                }else{
+                } else {
                     cityBtn.setClickable(true);
                 }
             }
@@ -351,7 +350,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
     }
 
     //inizializza listener buttons, seekbar e checkboxes
-    public void initButtonsListeners(){
+    public void initButtonsListeners() {
 
         final FirebaseConnection connection = new FirebaseConnection();
         final UtilitiesAndControls controls = new UtilitiesAndControls();
@@ -377,7 +376,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
                     //controllo validità formato mail
                     if (controls.isEmailValid(email)) {
 
-                        connection.updateEmail(mAuth, user,FirebaseConnection.PLACE_NODE, email, PlaceProfileActivity.this);
+                        connection.updateEmail(mAuth, user, FirebaseConnection.PLACE_NODE, email, PlaceProfileActivity.this);
 
                         //controllo se l'email è stata cambiata, allora modifica le informazioni da inserire nel database
                         if (email.equals(user.getEmail())) {
@@ -389,7 +388,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(PlaceProfileActivity.this, "Email non valida", Toast.LENGTH_LONG).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(PlaceProfileActivity.this, "Password non corretta", Toast.LENGTH_LONG).show();
                 }
             }
@@ -406,24 +405,24 @@ public class PlaceProfileActivity extends AppCompatActivity {
                 connection.reauthenticateUser(user, email, oldPassword);
 
                 //controllo riautenticazione utente
-                if (connection.getOperationSuccess()){
+                if (connection.getOperationSuccess()) {
 
                     //controllo uguaglianza password
-                    if(oldPassword.equals(newPassword) && newPassword.equals(confirmPassword)){
+                    if (oldPassword.equals(newPassword) && newPassword.equals(confirmPassword)) {
 
-                        if(controls.isPasswordValid(confirmPassword)){
+                        if (controls.isPasswordValid(confirmPassword)) {
 
                             connection.updatePassword(user, newPassword, PlaceProfileActivity.this);
-                            if(connection.getOperationSuccess()){
+                            if (connection.getOperationSuccess()) {
                                 edit = true;
                             }
-                        }else{
+                        } else {
                             Toast.makeText(PlaceProfileActivity.this, "Formato password non corretto", Toast.LENGTH_LONG).show();
                         }
-                    }else{
+                    } else {
                         Toast.makeText(PlaceProfileActivity.this, "Le password non sono corrette", Toast.LENGTH_LONG).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(PlaceProfileActivity.this, "Email non corretta", Toast.LENGTH_LONG).show();
                 }
             }
@@ -434,11 +433,11 @@ public class PlaceProfileActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if(controls.isPhoneValid(phoneEt.getText().toString().trim())){
+                if (controls.isPhoneValid(phoneEt.getText().toString().trim())) {
                     mPlace.setPhonePlace(phoneEt.getText().toString().trim());
                     edit = true;
                     Toast.makeText(PlaceProfileActivity.this, "Telefono cambiato correttamente", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(PlaceProfileActivity.this, "Telefono non valido", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -449,12 +448,12 @@ public class PlaceProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(addressEt.getText() != null){
+                if (addressEt.getText() != null) {
                     mPlace.addressPlace = addressEt.getText().toString().trim();
                     edit = true;
                 }
 
-                if(addressNumEt.getText() != null){
+                if (addressNumEt.getText() != null) {
                     mPlace.addressNumPlace = addressNumEt.getText().toString().trim();
                     edit = true;
                 }
@@ -508,7 +507,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent timesIntent = new Intent(PlaceProfileActivity.this, PlaceOpeningTimeActivity.class);
-                timesIntent.putExtra(FirebaseConnection.PLACE,mPlace);
+                timesIntent.putExtra(FirebaseConnection.PLACE, mPlace);
                 startActivity(timesIntent);
 
             }
@@ -517,7 +516,7 @@ public class PlaceProfileActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(edit) {
+                if (edit) {
                     //modifica database solo se qualche campo è stato editato
                     FirebaseConnection connection = new FirebaseConnection();
                     connection.write(FirebaseConnection.PLACE_NODE, user.getUid(), mPlace);
@@ -526,8 +525,8 @@ public class PlaceProfileActivity extends AppCompatActivity {
                     intent.putExtra(FirebaseConnection.PLACE, mPlace);
                     startActivity(intent);
                     finish();
-                }else{
-                    Toast.makeText(PlaceProfileActivity.this,getResources().getString(R.string.no_change), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(PlaceProfileActivity.this, getResources().getString(R.string.no_change), Toast.LENGTH_LONG).show();
                 }
             }
         });

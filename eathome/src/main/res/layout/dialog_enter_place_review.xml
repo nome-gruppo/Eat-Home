@@ -21,12 +21,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="319dp"
             android:layout_height="186dp"
-    android:layout_centerInParent="true"
+            android:layout_centerInParent="true"
             android:background="@drawable/button_border"
 
 
-
-          >
+            >
 
             <TextView
                 android:id="@+id/txtNamePlaceReview"
@@ -58,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-        android:textAlignment="center"
+                android:textAlignment="center"
                 android:autofillHints="@string/enter_feedback"
                 android:elevation="7dp"
                 android:ems="10"

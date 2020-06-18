@@ -34,7 +34,7 @@ public class PlacesByDistance implements Comparator<Place> {
         Location location1 = new Location("");
         Location location2 = new Location("");
 
-        try{
+        try {
 
             List<Address> list1 = geocoder.getFromLocationName(stringAddress1, 1);
             Address address1 = list1.get(0);

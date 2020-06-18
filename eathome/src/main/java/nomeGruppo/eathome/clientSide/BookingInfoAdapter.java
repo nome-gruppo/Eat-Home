@@ -19,7 +19,7 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;
 
 /**
-adapter per il riepilogo delle prenotazioni
+ * adapter per il riepilogo delle prenotazioni
  */
 public class BookingInfoAdapter extends ArrayAdapter<Booking> {
 

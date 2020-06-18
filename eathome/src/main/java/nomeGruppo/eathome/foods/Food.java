@@ -6,13 +6,14 @@ public class Food {
     public float priceFood;
     public String ingredientsFood;
 
-    public Food(){
+    public Food() {
 
     }
 
     public void setIdFood(String idFood) {
         this.idFood = idFood;
     }
+
     public void setName(String name) {
         this.nameFood = name;
     }

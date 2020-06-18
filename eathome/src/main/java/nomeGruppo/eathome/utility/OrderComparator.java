@@ -12,9 +12,9 @@ public class OrderComparator implements Comparator<Order> {
 
     @Override
     public int compare(Order order1, Order order2) {
-        if(order1.timeOrder>order2.timeOrder){
+        if (order1.timeOrder > order2.timeOrder) {
             return -1;
-        }else if(order1.timeOrder<order2.timeOrder){
+        } else if (order1.timeOrder < order2.timeOrder) {
             return 1;
         }
         return 0;

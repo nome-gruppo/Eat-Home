@@ -79,7 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/place_homepage_placeImg"
         app:srcCompat="@drawable/ic_button_add_menu"
-        android:focusable="true"/>
+        android:focusable="true" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigationPlace"
@@ -90,6 +90,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu"
-        android:background="@drawable/bottom_navigation"/>
+        android:background="@drawable/bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

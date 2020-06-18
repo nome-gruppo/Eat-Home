@@ -33,16 +33,16 @@
             android:text="@string/one" />
 
 
-    <EditText
-        android:id="@+id/txtDateBooking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:autofillHints="@string/date"
-        android:background="@drawable/edit_text_border"
-        android:hint="@string/date"
+        <EditText
+            android:id="@+id/txtDateBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autofillHints="@string/date"
+            android:background="@drawable/edit_text_border"
+            android:hint="@string/date"
 
-        android:inputType="date" />
+            android:inputType="date" />
 
         <EditText
             android:id="@+id/txtHourBooking"
@@ -58,26 +58,26 @@
             android:inputType="datetime" />
 
 
-    <ImageButton
-        android:id="@+id/btnAddPersonBooking"
-        android:layout_width="51dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginStart="200dp"
-        android:background="@color/transparent"
-        android:contentDescription="@string/image_button"
-        app:srcCompat="@drawable/ic_button_add_menu" />
+        <ImageButton
+            android:id="@+id/btnAddPersonBooking"
+            android:layout_width="51dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginStart="200dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/image_button"
+            app:srcCompat="@drawable/ic_button_add_menu" />
 
-    <ImageButton
-        android:id="@+id/btnDeletePersonBooking"
-        android:layout_width="51dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="77dp"
-        android:background="@color/transparent"
-        android:contentDescription="@string/image_button"
-        app:srcCompat="@drawable/ic_less" />
+        <ImageButton
+            android:id="@+id/btnDeletePersonBooking"
+            android:layout_width="51dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="77dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/image_button"
+            app:srcCompat="@drawable/ic_less" />
 
         <EditText
             android:id="@+id/editNameClientBooking"
@@ -109,12 +109,13 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-       android:layout_centerHorizontal="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
             android:gravity="center"
             android:text="@string/choose_number_person" />
 
     </RelativeLayout>
+
     <Button
         android:id="@+id/btnConfirmBooking"
         android:layout_width="320dp"

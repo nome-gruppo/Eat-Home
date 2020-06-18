@@ -38,13 +38,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nomeGruppo.eathome.actors.Client;
-import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.db.StorageConnection;
+import nomeGruppo.eathome.placeSide.profile.PlaceMyFeedbackActivity;
 import nomeGruppo.eathome.utility.OpeningTime;
 
 import static nomeGruppo.eathome.utility.UtilitiesAndControls.PICT_SIZE_MAX;
@@ -89,12 +89,13 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbarPlaceInfo.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
         toolbarPlaceInfo.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent homepageIntent = new Intent(PlaceInfoActivity.this, HomepageActivity.class);
-                homepageIntent.putExtra(FirebaseConnection.PLACE, place);
-                startActivity(homepageIntent);
-                finish(); }
+                                                          @Override
+                                                          public void onClick(View v) {
+                                                              Intent homepageIntent = new Intent(PlaceInfoActivity.this, HomepageActivity.class);
+                                                              homepageIntent.putExtra(FirebaseConnection.PLACE, place);
+                                                              startActivity(homepageIntent);
+                                                              finish();
+                                                          }
                                                       }
         );
 
@@ -117,15 +118,13 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
             numFeedbackTW.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final boolean FLAG_CLIENT=true;//flag per avvisare che l'activity PlaceMyFeedbackActivity è stata raggiunta da un client
+                    final boolean FLAG_CLIENT = true;//flag per avvisare che l'activity PlaceMyFeedbackActivity è stata raggiunta da un client
                     Intent intent = new Intent(PlaceInfoActivity.this, PlaceMyFeedbackActivity.class);
                     intent.putExtra(FirebaseConnection.PLACE, place);
-                    intent.putExtra("flag_client",FLAG_CLIENT);
+                    intent.putExtra("flag_client", FLAG_CLIENT);
                     startActivity(intent);
                 }
             });
-
-
 
 
             //se il locale accetta prenotazioni
@@ -173,7 +172,6 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onStart() {
@@ -203,6 +201,7 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
 
     /**
      * metodo per leggere e visualizzare gli orari di apertura di place
+     *
      * @throws ParseException
      */
     public void openingTime() throws ParseException {
@@ -218,9 +217,9 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
             Date timeClosed = openingTimeUtility.getTimeClosed(getApplicationContext(), openingTime);//estrapolo l'ora di chiusura
 
             //se timeClosed.before(timeOpening) allora il locale chiude dopo la mezzanotte
-            if(timeClosed.before(timeOpening)){
+            if (timeClosed.before(timeOpening)) {
                 calendar.setTime(timeClosed);
-                calendar.add(Calendar.DAY_OF_MONTH,1);
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
                 timeClosed = calendar.getTime();
             }
 

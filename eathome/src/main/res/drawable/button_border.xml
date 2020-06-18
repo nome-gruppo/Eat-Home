@@ -5,11 +5,16 @@
     <solid android:color="@color/quantum_white_100" />
 
     <!-- Border Color -->
-    <stroke android:width="0.5dp" android:color="@color/colorAccent" />
+    <stroke
+        android:width="0.5dp"
+        android:color="@color/colorAccent" />
 
     <!-- Round Corners -->
     <corners android:radius="6dp" />
 
-    <padding android:bottom="6dp" android:top="6dp" android:left="6dp"/>
+    <padding
+        android:bottom="6dp"
+        android:top="6dp"
+        android:left="6dp" />
 
 </shape>

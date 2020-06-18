@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="600dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbPlaceProfile"
         android:layout_width="match_parent"
@@ -17,16 +17,19 @@
         android:minHeight="?attr/actionBarSize"
         app:titleTextAppearance="@style/Toolbar.TitleText"
         android:theme="?attr/actionBarTheme" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:autofillHints="false"
         tools:layout_editor_absoluteX="1dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,6 +57,7 @@
                         tools:ignore="LabelFor"
                         tools:layout_editor_absoluteX="100dp"
                         tools:layout_editor_absoluteY="25dp" />
+
                     <ImageButton
                         android:id="@+id/activity_place_profile_imBtn_name"
                         android:layout_width="wrap_content"
@@ -64,6 +68,7 @@
                         android:contentDescription="@string/image_button"
                         android:src="@drawable/ic_profile_edit" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -84,6 +89,7 @@
                         tools:ignore="LabelFor"
                         tools:layout_editor_absoluteX="104dp"
                         tools:layout_editor_absoluteY="91dp" />
+
                     <ImageButton
                         android:id="@+id/activity_place_profile_imBtn_email"
                         android:layout_width="wrap_content"
@@ -94,6 +100,7 @@
                         android:contentDescription="@string/image_button"
                         android:src="@drawable/ic_profile_edit" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -113,6 +120,7 @@
                         android:hint="@string/old_password"
                         android:inputType="textPassword" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -132,6 +140,7 @@
                         android:hint="@string/new_password"
                         android:inputType="textPassword" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -151,6 +160,7 @@
                         android:ems="10"
                         android:hint="@string/confirm_password"
                         android:inputType="textPassword" />
+
                     <ImageButton
                         android:id="@+id/activity_place_profile_imBtn_password"
                         android:layout_width="wrap_content"
@@ -161,6 +171,7 @@
                         android:contentDescription="@string/image_button"
                         android:src="@drawable/ic_profile_edit" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -179,6 +190,7 @@
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"
                         tools:ignore="LabelFor" />
+
                     <EditText
                         android:id="@+id/activity_place_profile_et_numAddress"
                         android:layout_width="50dp"
@@ -189,6 +201,7 @@
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"
                         tools:ignore="LabelFor" />
+
                     <ImageButton
                         android:id="@+id/activity_place_profile_imBtn_address"
                         android:layout_width="wrap_content"
@@ -198,6 +211,7 @@
                         android:contentDescription="@string/image_button"
                         android:src="@drawable/ic_profile_edit" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -217,6 +231,7 @@
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"
                         tools:ignore="LabelFor" />
+
                     <ImageButton
                         android:id="@+id/activity_place_profile_imBtn_city"
                         android:layout_width="wrap_content"
@@ -227,6 +242,7 @@
                         android:contentDescription="@string/image_button"
                         android:src="@drawable/ic_profile_edit" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -245,6 +261,7 @@
                         android:importantForAutofill="no"
                         android:inputType="phone"
                         tools:ignore="LabelFor" />
+
                     <ImageButton
                         android:id="@+id/activity_place_profile_imBtn_phone"
                         android:layout_width="wrap_content"
@@ -255,6 +272,7 @@
                         android:contentDescription="@string/image_button"
                         android:src="@drawable/ic_profile_edit" />
                 </TableRow>
+
                 <View
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"
@@ -264,19 +282,18 @@
                     android:background="?android:attr/listDivider" />
 
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:scrollbars="vertical">
+
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/deliveryCost"
-                        android:layout_marginStart="20dp"/>
-
+                        android:layout_marginStart="20dp" />
 
 
                     <SeekBar
@@ -286,6 +303,7 @@
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="25dp"
                         android:max="5" />
+
                     <View
                         android:id="@+id/divider1"
                         android:layout_width="match_parent"
@@ -302,6 +320,7 @@
                         android:layout_marginTop="15dp"
                         android:gravity="start"
                         android:text="@string/bookings" />
+
                     <CheckBox
                         android:id="@+id/activity_place_profile_cb_delivery"
                         android:layout_width="wrap_content"
@@ -309,6 +328,7 @@
                         android:layout_marginVertical="0dp"
                         android:layout_marginStart="20dp"
                         android:text="@string/delivery" />
+
                     <View
                         android:id="@+id/divider3"
                         android:layout_width="match_parent"
@@ -322,7 +342,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/categories"
-                        android:layout_marginStart="20dp"/>
+                        android:layout_marginStart="20dp" />
+
                     <RadioGroup
                         android:id="@+id/radioGroup"
                         android:layout_width="wrap_content"
@@ -330,31 +351,35 @@
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="15dp"
                         android:orientation="vertical">
+
                         <RadioButton
                             android:id="@+id/activity_place_profile_rb_sushi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="onRadioButtonClicked"
                             android:text="@string/sushi" />
+
                         <RadioButton
                             android:id="@+id/activity_place_profile_rb_restaurant"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="onRadioButtonClicked"
-                            android:text="@string/pizzeriaRestaurant">
-                        </RadioButton>
+                            android:text="@string/pizzeriaRestaurant"></RadioButton>
+
                         <RadioButton
                             android:id="@+id/activity_place_profile_rb_pizzeria"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="onRadioButtonClicked"
                             android:text="@string/pizzeria" />
+
                         <RadioButton
                             android:id="@+id/activity_place_profile_rb_italianRestaurant"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="onRadioButtonClicked"
                             android:text="@string/italianRestaurant" />
+
                         <RadioButton
                             android:id="@+id/activity_place_profile_rb_other"
                             android:layout_width="wrap_content"
@@ -363,6 +388,7 @@
                             android:text="@string/other" />
                     </RadioGroup>
                 </LinearLayout>
+
                 <View
                     android:id="@+id/divider4"
                     android:layout_width="match_parent"
@@ -379,7 +405,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/button_style"
-                android:text="@string/set_opening" />
+                    android:text="@string/set_opening" />
 
                 <Button
                     android:id="@+id/activity_place_profile_btn_save"

@@ -361,6 +361,7 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
     /**
      * metodo per impostare gli orari e i giorni di apertura nell'hashMap
+     *
      * @param openingTime HashMap
      * @return hashMap openingTime
      */
@@ -377,7 +378,8 @@ public class PlaceOpeningTimeActivity extends AppCompatActivity {
 
     /**
      * metodo per la creazione dell'account Place
-     * @param email creation
+     *
+     * @param email    creation
      * @param password .
      */
 

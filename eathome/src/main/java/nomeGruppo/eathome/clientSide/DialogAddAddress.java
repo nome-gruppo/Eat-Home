@@ -12,15 +12,17 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Address;
 import nomeGruppo.eathome.utility.City;
 
-/**dialog per aggiungere un nuovo indirizzo che verrà salvato nel database locale
- *
+/**
+ * dialog per aggiungere un nuovo indirizzo che verrà salvato nel database locale
  */
 public class DialogAddAddress extends AppCompatDialogFragment {
 
@@ -32,7 +34,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) requireActivity().getCurrentFocus(),false);
+        View view = inflater.inflate(R.layout.dialog_insert_address, (ViewGroup) requireActivity().getCurrentFocus(), false);
 
         final EditText editAddress = view.findViewById(R.id.editAddressClient);
         final AutoCompleteTextView editCity = view.findViewById(R.id.editCityClient);
@@ -40,7 +42,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
         final City city = new City();//classe che contiene l'elenco delle città
 
         //creo un adapter che conterrà l'elenco delle città per l'autocompletetext
-        if(getContext() != null) {
+        if (getContext() != null) {
             ArrayAdapter<String> adapterCity = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, city.getListCity());
             editCity.setAdapter(adapterCity);//setto l'adapter in editCity
         }
@@ -61,7 +63,7 @@ public class DialogAddAddress extends AppCompatDialogFragment {
                     dialogAddAddress.show(requireActivity().getSupportFragmentManager(), "Dialog add address");
                 } else {
 
-                    final Address mAddress = new Address(editCity.getText().toString(),editAddress.getText().toString(),editNumberAddress.getText().toString());
+                    final Address mAddress = new Address(editCity.getText().toString(), editAddress.getText().toString(), editNumberAddress.getText().toString());
 
                     listener.applyTexts(mAddress);
                 }
