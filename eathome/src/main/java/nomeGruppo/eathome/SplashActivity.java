@@ -1,6 +1,8 @@
 package nomeGruppo.eathome;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,56 +48,71 @@ public class SplashActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        final Thread.UncaughtExceptionHandler exceptionHandler = new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
-                if (e instanceof MyExceptions) {
-                    if (((MyExceptions) e).getExceptionType() == MyExceptions.TIMEOUT) {
-                        Log.e("SplashActivity", "Uncaught exception from thread" + MyExceptions.TIMEOUT_MESSAGE);
-                        endAll();
+        if (Geocoder.isPresent()) {
+            final Thread.UncaughtExceptionHandler exceptionHandler = new Thread.UncaughtExceptionHandler() {
+                @Override
+                public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
+                    if (e instanceof MyExceptions) {
+                        if (((MyExceptions) e).getExceptionType() == MyExceptions.TIMEOUT) {
+                            Log.e("SplashActivity", "Uncaught exception from thread" + MyExceptions.TIMEOUT_MESSAGE);
+                            endAll();
+                        }
                     }
                 }
-            }
-        };
+            };
 
-        if (UtilitiesAndControls.isNetworkAvailable(this)) {
+            if (UtilitiesAndControls.isNetworkAvailable(this)) {
 
-            final TimerThread timerThread = new TimerThread(MAX_TIME_INTERVAL);
+                final TimerThread timerThread = new TimerThread(MAX_TIME_INTERVAL);
 
-            timerThread.setUncaughtExceptionHandler(exceptionHandler);
-            timerThread.start();
+                timerThread.setUncaughtExceptionHandler(exceptionHandler);
+                timerThread.start();
 
-            if (user == null) {
-                //utente non autenticato
-                //mostra splashscreen per intervallo minimo
-                final Handler noLoginHandler = new Handler();
-                noLoginHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        //utente non ha effettuato il login
-                        Intent homePageIntent = new Intent(SplashActivity.this, HomepageActivity.class);
-                        startActivity(homePageIntent);
-                        finish();
-                        timerThread.stopTimer();    //termina il timer
-                    }
-                }, MIN_TIME_INTERVAL);
+                if (user == null) {
+                    //utente non autenticato
+                    //mostra splashscreen per intervallo minimo
+                    final Handler noLoginHandler = new Handler();
+                    noLoginHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            //utente non ha effettuato il login
+                            Intent homePageIntent = new Intent(SplashActivity.this, HomepageActivity.class);
+                            startActivity(homePageIntent);
+                            finish();
+                            timerThread.stopTimer();    //termina il timer
+                        }
+                    }, MIN_TIME_INTERVAL);
+
+                } else {
+
+                    final FirebaseConnection firebaseConnection = new FirebaseConnection();
+
+                    firebaseConnection.searchUserInDb(user.getUid(), progressBar, this, timerThread);
+                }
 
             } else {
+                progressBar.setVisibility(View.INVISIBLE);
 
-                final FirebaseConnection firebaseConnection = new FirebaseConnection();
-
-                firebaseConnection.searchUserInDb(user.getUid(), progressBar, this, timerThread);
+                //chiudi l'app dopo 4.5 secondi se non c'è connessione ad internet
+                final Handler noConnectionHandler = new Handler();
+                noConnectionHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        endAll();
+                    }
+                }, NO_CONNECTION_INTERVAL);
             }
-
         } else {
-            progressBar.setVisibility(View.INVISIBLE);
-
-            //chiudi l'app dopo 4.5 secondi se non c'è connessione ad internet
-            final Handler noConnectionHandler = new Handler();
-            noConnectionHandler.postDelayed(new Runnable() {
-                public void run() {
-                    endAll();
-                }
-            }, NO_CONNECTION_INTERVAL);
+            //geocoder non presente
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.noGeocoderDialogTitle)
+                    .setMessage(R.string.noGeocoderDialogText)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            endAll();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
     }//fine onStart
 

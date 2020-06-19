@@ -159,6 +159,9 @@
     <string name="greetings">Ciao,</string>
     <string name="positionDialog">L\'app ha bisogno della posizione per ricercare i locali vicini a te</string>
     <string name="gpsBeenDesabled">Il tuo GPS è stato disabilitato</string>
+    <string name="noGeocoderDialogTitle">Ci dispiace davvero tanto!</string>
+    <string name="noGeocoderDialogText">Questa app necessita del \"Geocoder\" per funzionare correttamente.
+        Sfortunatamente non è presente negli emulatori o alcune volte potrebbe non funzionare.</string>
 
 
 </resources>

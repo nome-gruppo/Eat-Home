@@ -183,5 +183,7 @@
     <string name="nameApp" translatable="false">Eat@Home</string>
     <string name="positionDialog">The app needs location permissions to find places near you</string>
     <string name="gpsBeenDesabled">Your GPS has been disabled</string>
+    <string name="noGeocoderDialogTitle">We are really sorry!</string>
+    <string name="noGeocoderDialogText">This app needs \"Geocoder\" to work properly. Unlikely, it is not present in emulators or sometimes it will not work.</string>
 
 </resources>
