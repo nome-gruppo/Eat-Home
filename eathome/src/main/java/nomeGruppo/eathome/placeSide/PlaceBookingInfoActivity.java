@@ -34,14 +34,14 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
     private ListView listView;
-
+    private BottomNavigationView bottomMenuPlace;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_booking_info);
 
-        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceBookingInfo);
+        this.bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceBookingInfo);
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
@@ -59,8 +59,11 @@ public class PlaceBookingInfoActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
+
+        final MenuItem mItem = bottomMenuPlace.getMenu().findItem(R.id.action_bookings);
+        mItem.setChecked(true);
 
         showListBooking();
     }
