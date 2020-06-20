@@ -17,7 +17,6 @@
         android:theme="?attr/actionBarTheme" />
 
     <RelativeLayout
-        android:id="@+id/activity_place_info"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="20dp"
         android:layout_height="wrap_content"

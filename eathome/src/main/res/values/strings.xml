@@ -117,8 +117,6 @@
     <string name="phoneNumberChangedCorrectly">Phone number changed correctly</string>
     <string name="notValidPhoneNumber">Not valid phone number</string>
     <string name="emailAlreadyExists">Email already exists</string>
-    <string name="today">Today</string>
-    <string name="previous">Previous</string>
     <string name="locationNotFound">Location not found</string>
     <string name="reply">Reply</string>
     <string name="answer_added">Answer added</string>
@@ -162,7 +160,6 @@
     <string name="phone_number">Phone number</string>
     <string name="total_order">Total order</string>
     <string name="ingredients_info">Ingredients</string>
-    <string name="_0" translatable="false">0</string>
     <string name="feedback_date">Feedback date</string>
     <string name="feedback_name">Feedback name</string>
     <string name="feedback_text">Feedback text</string>
@@ -174,8 +171,6 @@
     <string name="password" translatable="false">Password</string>
     <string name="address_place">Address place</string>
     <string name="type_place">Type place</string>
-    <string name="place_area">Place area</string>
-    <string name="sei_sicuro_di_voler_eliminare_l_account">Do you want to delete?</string>
     <string name="filter_by">Filter by</string>
     <string name="choose">Options</string>
     <string name="greetings">Welcome,</string>

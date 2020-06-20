@@ -97,8 +97,6 @@
     <string name="phoneNumberChangedCorrectly">Numero di telefono cambiato correttamente</string>
     <string name="notValidPhoneNumber">Numero di telefono non valido</string>
     <string name="emailAlreadyExists">Email già esistente</string>
-    <string name="today">Oggi</string>
-    <string name="previous">Precedenti</string>
     <string name="locationNotFound">Località non trovata</string>
     <string name="reply">Rispondi</string>
     <string name="answer_added">Risposta aggiunta</string>
@@ -145,7 +143,6 @@
     <string name="feedback_date">Data recensione</string>
     <string name="feedback_name">Nome recensione</string>
     <string name="feedback_text">Testo recensione</string>
-    <string name="sei_sicuro_di_voler_eliminare_l_account">Sei sicuro di voler eliminare l\'account?</string>
     <string name="email">Email</string>
     <string name="date_booking">Data prenotazione</string>
     <string name="address_booking">Indirizzo prenotazione</string>
@@ -153,7 +150,6 @@
     <string name="phone_place">"Numero di telefono "</string>
     <string name="address_place">Indirizzo</string>
     <string name="type_place">Tipologia</string>
-    <string name="place_area">"Zona "</string>
     <string name="filter_by">Filtra per</string>
     <string name="choose">Opzioni</string>
     <string name="greetings">Ciao,</string>

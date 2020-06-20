@@ -107,14 +107,12 @@
                 android:autofillHints="@string/enterPhone" />
 
             <View
-                android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="20dp"
                 android:background="@color/quantum_white_divider" />
 
             <TextView
-                android:id="@+id/txtCategories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -169,14 +167,12 @@
             </RadioGroup>
 
             <View
-                android:id="@+id/divider1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="20dp"
                 android:background="@color/quantum_white_divider" />
 
             <TextView
-                android:id="@+id/txtActions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -218,7 +214,6 @@
 
 
             <TextView
-                android:id="@+id/txt3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -251,7 +246,6 @@
 
 
             <View
-                android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="20dp"
@@ -306,7 +300,6 @@
                 android:visibility="invisible" />
 
             <TextView
-                android:id="@+id/txtPath"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="" />

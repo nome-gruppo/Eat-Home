@@ -11,7 +11,7 @@ public class TimerThread extends Thread {
     private static final String NAME = TimerThread.class.getName();
     private final long timer;       //durata del parametro
     private boolean running;        //flag per non sollevare l'eccezione al termine del timer
-    private MyExceptions myException;
+    private final MyExceptions myException;
 
     public TimerThread(long timer) {
         super(NAME);
@@ -40,7 +40,8 @@ public class TimerThread extends Thread {
             if (this.running) {
                 throw myException;
             }
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -6,7 +6,6 @@
     app:layout_constraintVertical_chainStyle="spread">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
 

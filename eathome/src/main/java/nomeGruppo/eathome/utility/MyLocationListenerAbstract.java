@@ -10,7 +10,7 @@ import android.os.Bundle;
  */
 public abstract class MyLocationListenerAbstract implements LocationListener {
 
-    protected TimerThread timerThread;
+    protected final TimerThread timerThread;
 
     protected MyLocationListenerAbstract(long timer) {
         this.timerThread = new TimerThread(timer);

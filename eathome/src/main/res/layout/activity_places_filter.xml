@@ -88,7 +88,6 @@
                         android:elevation="10dp">
 
                         <TextView
-                            android:id="@+id/activity_places_filter_tw_free_delivery"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
@@ -154,14 +153,12 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
                 android:elevation="10dp">
 
                 <TextView
-                    android:id="@+id/activity_places_filter_tw_orderBy"
                     android:layout_width="69dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="60dp"
@@ -173,7 +170,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RadioGroup
-                android:id="@+id/activity_places_filter_rg_order"
                 android:layout_width="wrap_content"
                 android:layout_height="41dp"
                 android:layout_marginVertical="20dp"
@@ -234,7 +230,6 @@
                 tools:layout_editor_absoluteY="173dp">
 
                 <TextView
-                    android:id="@+id/activity_places_filter_tw_categories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"

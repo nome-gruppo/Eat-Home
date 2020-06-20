@@ -274,7 +274,6 @@
                 </TableRow>
 
                 <View
-                    android:id="@+id/divider2"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginVertical="8dp"
@@ -289,7 +288,6 @@
                     android:scrollbars="vertical">
 
                     <TextView
-                        android:id="@+id/textView14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/deliveryCost"
@@ -305,7 +303,6 @@
                         android:max="5" />
 
                     <View
-                        android:id="@+id/divider1"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_marginHorizontal="10dp"
@@ -330,7 +327,6 @@
                         android:text="@string/delivery" />
 
                     <View
-                        android:id="@+id/divider3"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_marginVertical="9dp"
@@ -338,14 +334,12 @@
                         android:background="?android:attr/listDivider" />
 
                     <TextView
-                        android:id="@+id/textView15"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/categories"
                         android:layout_marginStart="20dp" />
 
                     <RadioGroup
-                        android:id="@+id/radioGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
@@ -390,7 +384,6 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/divider4"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginVertical="2dp"
