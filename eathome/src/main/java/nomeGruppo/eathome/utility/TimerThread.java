@@ -16,7 +16,6 @@ public class TimerThread extends Thread {
     public TimerThread(long timer) {
         super(NAME);
         this.timer = timer;
-        this.running = true;
         this.myException = new MyExceptions(MyExceptions.TIMEOUT, MyExceptions.TIMEOUT_MESSAGE, timer);
     }
 
@@ -27,6 +26,10 @@ public class TimerThread extends Thread {
 
     public void stopTimer() {
         this.running = false;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 
     @Override

@@ -131,7 +131,7 @@ public class UtilitiesAndControls {
 
             if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 //gps non abilitato
-                activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                activity.startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), requestCode);
 
             } else {
                 //gps abilitato

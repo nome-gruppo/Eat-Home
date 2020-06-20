@@ -17,10 +17,12 @@ public abstract class MyLocationListenerAbstract implements LocationListener {
     }
 
     /**
-     * attiva il timer
+     * attiva il timer se non è già stato attivato
      */
     protected void startTimer() {
-        this.timerThread.start();
+        if (!timerThread.isRunning()) {
+            this.timerThread.start();
+        }
     }
 
     @Override

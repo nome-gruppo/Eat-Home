@@ -7,9 +7,9 @@ public class PlacesByValuation implements Comparator<Place> {
     public int compare(Place place1, Place place2) {
         int result = 0;
 
-        if (place1.valuation < place2.valuation) {
+        if (place1.valuation > place2.valuation) {
             result = -1;
-        } else if (place1.valuation > place2.valuation) {
+        } else if (place1.valuation < place2.valuation) {
             result = 1;
         }
 

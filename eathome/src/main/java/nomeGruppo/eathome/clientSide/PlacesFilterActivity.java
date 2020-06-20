@@ -28,7 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.Collections;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
@@ -397,21 +397,16 @@ public class PlacesFilterActivity extends AppCompatActivity {
         }
 
         //seleziona ordinamento
-        TreeSet<Place> treeSet;
+        result = new ArrayList<>(places);
         if (orderByValuationRB.isChecked()) {
-            treeSet = new TreeSet<>(new PlacesByValuation());
+            Collections.sort(result, new PlacesByValuation());
 
         } else if (orderByDistanceRB.isChecked()) {
-
-            treeSet = new TreeSet<>(new PlacesByDistance(userLatitude, userLongitude, getApplicationContext()));
+            Collections.sort(result, new PlacesByDistance(userLatitude, userLongitude, getApplicationContext()));
 
         } else {
-            treeSet = new TreeSet<>(new PlacesByName());
+            Collections.sort(result, new PlacesByName());
         }
-
-        treeSet.addAll(places);
-        result = new ArrayList<>(treeSet);
-
 
         return result;
 
