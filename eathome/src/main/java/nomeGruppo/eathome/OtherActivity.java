@@ -48,7 +48,6 @@ public class OtherActivity extends AppCompatActivity {
         bottomNavigationMenu = findViewById(R.id.bottom_navigationOther);
         final TextView txtUsername = findViewById(R.id.username);
 
-
         this.mAuth = FirebaseAuth.getInstance();
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
         this.client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
@@ -72,7 +71,6 @@ public class OtherActivity extends AppCompatActivity {
                     profilePlaceIntent.putExtra(FirebaseConnection.PLACE, place);
                     startActivity(profilePlaceIntent);//apro l'activity del profilo di Place
 
-
                 }
             });
 
@@ -85,7 +83,7 @@ public class OtherActivity extends AppCompatActivity {
                     startActivity(feedbackPlaceIntent);//apro l'activity dei feedback di Place
                 }
             });
-            txtUsername.setText(place.namePlace);
+            txtUsername.setText(getString(R.string.greetings, place.namePlace));
         } else { //se l'activity corrente è stata raggiunta da un Client
 
             //mostro il menu sottostante
@@ -116,7 +114,7 @@ public class OtherActivity extends AppCompatActivity {
 
                 }
             });
-            txtUsername.setText(client.nameClient);
+            txtUsername.setText(getString(R.string.greetings, client.nameClient));
 
         }
 

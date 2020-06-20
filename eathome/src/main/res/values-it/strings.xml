@@ -152,7 +152,7 @@
     <string name="type_place">Tipologia</string>
     <string name="filter_by">Filtra per</string>
     <string name="choose">Opzioni</string>
-    <string name="greetings">Ciao,</string>
+    <string name="greetings">Ciao, %s.</string>
     <string name="positionDialog">L\'app ha bisogno della posizione per ricercare i locali vicini a te</string>
     <string name="gpsBeenDesabled">Il tuo GPS è stato disabilitato</string>
     <string name="noGeocoderDialogTitle">Ci dispiace davvero tanto!</string>

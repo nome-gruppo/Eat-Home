@@ -173,7 +173,7 @@
     <string name="type_place">Type place</string>
     <string name="filter_by">Filter by</string>
     <string name="choose">Options</string>
-    <string name="greetings">Welcome,</string>
+    <string name="greetings">Welcome, %s.</string>
     <string name="comma" translatable="false">.</string>
     <string name="nameApp" translatable="false">Eat@Home</string>
     <string name="positionDialog">The app needs location permissions to find places near you</string>

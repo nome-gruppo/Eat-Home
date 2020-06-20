@@ -17,31 +17,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="@string/greetings"
-            android:textColor="@color/quantum_white_100"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/quantum_white_100"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:text="@string/comma"
-            android:layout_toEndOf="@id/username"
             android:textColor="@color/quantum_white_100"
             android:textSize="20sp"
             android:textStyle="italic" />
@@ -50,9 +30,8 @@
 
     <Button
         android:id="@+id/btnMyProfile"
-        android:layout_width="391dp"
-        android:layout_height="58dp"
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
