@@ -36,6 +36,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
     private Place place;
     private MenuNavigationItemSelected menuNavigationItemSelected;
     private ListView listView;
+    private BottomNavigationView bottomMenuPlace;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
 
         this.place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);//recupero l'oggetto Place
 
-        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceOrderInfo);
+        this.bottomMenuPlace = findViewById(R.id.bottom_navigationPlaceOrderInfo);
         this.listView = findViewById(R.id.listViewPlaceOrderInfo);
 
         this.menuNavigationItemSelected = new MenuNavigationItemSelected();
@@ -67,8 +68,10 @@ public class PlaceOrderInfoActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
+        final MenuItem mItem = bottomMenuPlace.getMenu().findItem(R.id.action_orders);
+        mItem.setChecked(true);
 
         showListOrder();
     }
