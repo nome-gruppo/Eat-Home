@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -150,8 +151,9 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         final EditText editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
         final EditText editPriceFood = view.findViewById(R.id.editPriceFood);
         editNameFood.setText(food.nameFood);
+        editNameFood.setImeOptions(EditorInfo.IME_MASK_ACTION);
         editIngredientsFood.setText(food.ingredientsFood);
-        editPriceFood.setText(String.format(Locale.getDefault(), "%.02f", food.priceFood));
+        editPriceFood.setText(String.format(Locale.getDefault(),"%.2f", food.priceFood));
         builder.setView(view).setTitle(getContext().getResources().getString(R.string.edit)).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
