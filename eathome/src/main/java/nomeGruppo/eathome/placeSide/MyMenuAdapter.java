@@ -151,9 +151,8 @@ public class MyMenuAdapter extends ArrayAdapter<Food> {
         final EditText editIngredientsFood = view.findViewById(R.id.editIngredientsFood);
         final EditText editPriceFood = view.findViewById(R.id.editPriceFood);
         editNameFood.setText(food.nameFood);
-        editNameFood.setImeOptions(EditorInfo.IME_MASK_ACTION);
         editIngredientsFood.setText(food.ingredientsFood);
-        editPriceFood.setText(String.format(Locale.getDefault(),"%.2f", food.priceFood));
+        editPriceFood.setText(Float.toString(food.priceFood));
         builder.setView(view).setTitle(getContext().getResources().getString(R.string.edit)).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
