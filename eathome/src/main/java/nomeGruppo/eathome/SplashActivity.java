@@ -26,7 +26,7 @@ import nomeGruppo.eathome.utility.UtilitiesAndControls;
 public class SplashActivity extends AppCompatActivity {
 
     private static final long MIN_TIME_INTERVAL = 2000L;        //Tempo minimo di visualizzazione dell'activity
-    private static final long MAX_TIME_INTERVAL = 15000L;       //Tempo massimo dopo il quale se non si passa all'activity successiva l'app si chiude
+    private static final long MAX_TIME_INTERVAL = 20000L;       //Tempo massimo dopo il quale se non si passa all'activity successiva l'app si chiude
     private static final long NO_CONNECTION_INTERVAL = 4500L;   //Tempo di visualizzazione in caso di nessuna connessione ad internet
 
     private ProgressBar progressBar;
