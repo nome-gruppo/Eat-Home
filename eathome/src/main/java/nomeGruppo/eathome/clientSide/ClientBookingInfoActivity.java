@@ -22,7 +22,7 @@ import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actions.Booking;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
-import nomeGruppo.eathome.utility.BookingComparator;
+import nomeGruppo.eathome.actions.BookingComparator;
 import nomeGruppo.eathome.utility.MenuNavigationItemSelected;
 
 /*

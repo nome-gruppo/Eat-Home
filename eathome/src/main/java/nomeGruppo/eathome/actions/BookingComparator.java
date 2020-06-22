@@ -1,8 +1,7 @@
-package nomeGruppo.eathome.utility;
+package nomeGruppo.eathome.actions;
 
 import java.util.Comparator;
 
-import nomeGruppo.eathome.actions.Booking;
 
 
 /**

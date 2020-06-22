@@ -392,6 +392,8 @@ public class HomepageActivity extends AppCompatActivity {
 
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
+        UtilitiesAndControls.hideKeyboard(this);
+
         progressBar.setVisibility(View.VISIBLE);
 
         //cerca nel database i locali nella città dell'utente

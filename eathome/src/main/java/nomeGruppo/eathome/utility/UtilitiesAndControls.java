@@ -12,6 +12,7 @@ import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.util.Patterns;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -146,6 +147,13 @@ public class UtilitiesAndControls {
                 myLocationListener.startTimer();    //inizia timer per ricerca posizione
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100000L, 0, myLocationListener);
             }
+        }
+    }
+
+    public static void hideKeyboard(Context context){
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm != null) {
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         }
     }
 }
