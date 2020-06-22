@@ -150,6 +150,10 @@ public class UtilitiesAndControls {
         }
     }
 
+    /**Nasconde la tastiera
+     *
+     * @param context contesto 
+     */
     public static void hideKeyboard(Context context){
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         if(imm != null) {
