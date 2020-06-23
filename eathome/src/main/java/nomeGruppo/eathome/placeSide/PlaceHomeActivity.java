@@ -118,11 +118,12 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
                         public void onSuccess(byte[] bytes) {
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             imgPlace.setImageBitmap(bitmap);
+                            imgPlace.setVisibility(View.VISIBLE);//rendo visibile l'immagine
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    imgPlace.setVisibility(View.VISIBLE);
+                    imgPlace.setVisibility(View.VISIBLE);//rendo visibile l'immagine
                 }
             });
         }
