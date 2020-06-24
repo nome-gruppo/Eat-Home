@@ -25,7 +25,8 @@
         android:background="@drawable/icon_border"
         android:contentDescription="@string/launcher"
         android:elevation="15dp"
-        android:src="@mipmap/ic_launcher"
+        android:padding="12dp"
+        android:src="@drawable/logo3"
         app:layout_constraintBottom_toBottomOf="@+id/activity_launcher_progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
