@@ -80,7 +80,6 @@ import nomeGruppo.eathome.utility.UtilitiesAndControls;
 public class HomepageActivity extends AppCompatActivity {
 
     private static final String TAG = HomepageActivity.class.getName();
-    private static final String ROTATION = "rotation";      //nome usato per passare il flag per la rotazione quando si cambia orientazione dello schermo
     private static final String LIST = "listPlace";     //nome usato per passare la lista dei locali quando si cambia orientazione dello schermo
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -126,7 +125,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     private MyLocationListener myLocationListener;
 
-    private boolean rotation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +157,6 @@ public class HomepageActivity extends AppCompatActivity {
         listPlace = new ArrayList<>();
 
         if (savedInstanceState != null) {
-            rotation = savedInstanceState.getBoolean(ROTATION, false);
             listPlace = (ArrayList<nomeGruppo.eathome.actors.Place>) savedInstanceState.getSerializable(LIST);
         }
 
@@ -201,7 +199,7 @@ public class HomepageActivity extends AppCompatActivity {
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if (!rotation) {
+        if (listPlace.isEmpty()) {
             if (firstLogin && user != null) {
 
                 //leggo la tabella myInfo per verificare se ci sono locali da recensire
@@ -243,7 +241,6 @@ public class HomepageActivity extends AppCompatActivity {
             }
 
         }
-        rotation = false;
     }//end onStart
 
     @Override
@@ -339,7 +336,7 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(ROTATION, true);
+
         outState.putSerializable(LIST, listPlace);
     }
 

@@ -467,7 +467,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
                         if (((MyExceptions) e).getExceptionType() == MyExceptions.TIMEOUT) {
                             //eccezione sollevata nel thread ma la posizione non è stata ancora trovata
 
-                            Log.e("UtilitiesAndControls", "locationPermissionRequest called by " + PlacesFilterActivity.this.getPackageCodePath());
+                            Log.i("UtilitiesAndControls", "locationPermissionRequest called by " + PlacesFilterActivity.this.getPackageCodePath());
                             Toast.makeText(getApplicationContext(), R.string.locationNotFound, Toast.LENGTH_SHORT).show();
 
                             orderByDistanceRB.setChecked(false);
