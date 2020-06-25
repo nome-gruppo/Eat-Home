@@ -174,7 +174,6 @@
     <string name="filter_by">Filter by</string>
     <string name="choose">Options</string>
     <string name="greetings">Welcome, %s.</string>
-    <string name="comma" translatable="false">.</string>
     <string name="positionDialog">The app needs location permissions to find places near you</string>
     <string name="gpsBeenDesabled">Your GPS has been disabled</string>
     <string name="noGeocoderDialogTitle">We are really sorry!</string>
