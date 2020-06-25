@@ -169,8 +169,8 @@ public class PlacesFilterActivity extends AppCompatActivity {
     }// end onCreate
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
         final String userCity = getIntent().getStringExtra("userCity");
 
@@ -322,7 +322,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
                             toRemove.add(item);
                         }
                     }
-                } else {
+                } else if(bookingRB.isChecked()){
                     for (Place item : places) {
                         if (!item.takesBookingPlace) {
                             toRemove.add(item);
@@ -412,7 +412,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     }// end applyFilters
 
-
     public void filtersOnRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -434,6 +433,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
                 break;
         }
+        someChanged = true;
         typeChanged = true;
     }
 

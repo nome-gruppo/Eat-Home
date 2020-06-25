@@ -1,4 +1,4 @@
-package nomeGruppo.eathome.utility;
+package nomeGruppo.eathome.clientSide;
 
 import android.content.Context;
 import android.content.res.Resources;

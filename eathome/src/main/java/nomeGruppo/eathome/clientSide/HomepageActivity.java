@@ -61,7 +61,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import nomeGruppo.eathome.AddressesBarAdapter;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
@@ -71,7 +70,6 @@ import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.MyExceptions;
 import nomeGruppo.eathome.utility.MyLocationListenerAbstract;
-import nomeGruppo.eathome.utility.PlaceAdapter;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 /**
@@ -389,8 +387,6 @@ public class HomepageActivity extends AppCompatActivity {
 
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
 
-        UtilitiesAndControls.hideKeyboard(this);
-
         progressBar.setVisibility(View.VISIBLE);
 
         //cerca nel database i locali nella città dell'utente
@@ -475,6 +471,8 @@ public class HomepageActivity extends AppCompatActivity {
 
                     }
                 }
+
+                UtilitiesAndControls.hideKeyboard(getApplicationContext());
             }
         });
 
