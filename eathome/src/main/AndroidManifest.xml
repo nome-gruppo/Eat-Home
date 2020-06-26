@@ -66,21 +66,15 @@
 
         <activity
             android:name=".placeSide.PlaceRegistrationActivity"
-            android:hardwareAccelerated="false"
-            android:label="@string/tw_signUp"
-            android:largeHeap="true" />
+            android:label="@string/tw_signUp"/>
 
         <activity
             android:name=".clientSide.ClientRegistrationActivity"
-            android:hardwareAccelerated="false"
-            android:label="@string/tw_signUp"
-            android:largeHeap="true" />
+            android:label="@string/tw_signUp"/>
 
         <activity
             android:name=".placeSide.PlaceHomeActivity"
-            android:hardwareAccelerated="false"
             android:label="@string/title_activity_main"
-            android:largeHeap="true"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
