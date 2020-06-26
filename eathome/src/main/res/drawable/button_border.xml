@@ -10,7 +10,7 @@
         android:color="@color/colorAccent" />
 
     <!-- Round Corners -->
-    <corners android:radius="6dp" />
+    <corners android:radius="8dp" />
 
     <padding
         android:bottom="6dp"
