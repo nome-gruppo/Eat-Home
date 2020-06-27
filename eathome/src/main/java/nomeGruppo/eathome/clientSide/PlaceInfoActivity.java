@@ -7,16 +7,19 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,6 +57,7 @@ activity che visualizza le informazioni per il locale selezionato dall'utente
  */
 public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private Client client;
     private Place place;
     private ImageView imgPlaceInfo;
     private TextView txtOpeningTime;
@@ -83,21 +87,14 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         openingTimeUtility = new OpeningTime();
 
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
         Toolbar toolbarPlaceInfo = findViewById(R.id.tlbPlaceInfo);
         setSupportActionBar(toolbarPlaceInfo);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarPlaceInfo.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
-        toolbarPlaceInfo.setNavigationOnClickListener(new View.OnClickListener() {
-                                                          @Override
-                                                          public void onClick(View v) {
-                                                              Intent homepageIntent = new Intent(PlaceInfoActivity.this, HomepageActivity.class);
-                                                              homepageIntent.putExtra(FirebaseConnection.PLACE, place);
-                                                              startActivity(homepageIntent);
-                                                              finish();
-                                                          }
-                                                      }
-        );
+
 
 
         if (place != null) {
@@ -171,7 +168,6 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
 
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onStart() {
@@ -197,6 +193,12 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     /**

@@ -83,6 +83,7 @@ public class HomepageActivity extends AppCompatActivity {
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
     private static final int SEARCH_FILTER_REQUEST_CODE = 51;
+    private static final int PLACE_INFO_REQUEST_CODE  = 46;
 
     private BottomNavigationView bottomMenuClient;
 
@@ -193,6 +194,9 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        final MenuItem mItem = bottomMenuClient.getMenu().findItem(R.id.action_home);
+        mItem.setChecked(true);
 
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -606,7 +610,7 @@ public class HomepageActivity extends AppCompatActivity {
                 Intent placeInfoIntent = new Intent(HomepageActivity.this, PlaceInfoActivity.class);
                 placeInfoIntent.putExtra(FirebaseConnection.CLIENT, client);
                 placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
-                startActivity(placeInfoIntent);
+                startActivityForResult(placeInfoIntent, PLACE_INFO_REQUEST_CODE);
             }
         });
     }//end initListeners

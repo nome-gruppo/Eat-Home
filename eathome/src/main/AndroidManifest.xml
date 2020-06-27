@@ -43,7 +43,12 @@
 
         <activity
             android:name=".clientSide.PlacesFilterActivity"
-            android:label="@string/filter_by" />
+            android:label="@string/filter_by"
+            android:parentActivityName=".clientSide.HomepageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".clientSide.HomepageActivity"/>
+        </activity>
 
         <activity
             android:name=".clientSide.profile.MyAddressesActivity"
@@ -66,11 +71,21 @@
 
         <activity
             android:name=".placeSide.PlaceRegistrationActivity"
-            android:label="@string/tw_signUp"/>
+            android:label="@string/tw_signUp"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity"/>
+        </activity>
 
         <activity
             android:name=".clientSide.ClientRegistrationActivity"
-            android:label="@string/tw_signUp"/>
+            android:label="@string/tw_signUp"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity"/>
+        </activity>
 
         <activity
             android:name=".placeSide.PlaceHomeActivity"
@@ -87,7 +102,13 @@
             android:label="@string/title_activity_main" />
         <activity
             android:name=".clientSide.PlaceInfoActivity"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main"
+            android:parentActivityName=".clientSide.HomepageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".clientSide.HomepageActivity"/>
+        </activity>
+
         <activity
             android:name=".clientSide.ConfirmOrderActivity"
             android:label="@string/order_summary" />

@@ -52,6 +52,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     private MyMenuAdapter mAdapter;
     private boolean changeImg = false;
     private MenuNavigationItemSelected menuNavigationItemSelected;
+    private BottomNavigationView bottomMenuPlace;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         final TextView txtNamePlace = findViewById(R.id.place_homepage_txtNamePlace);
         final FloatingActionButton btnAddMenu = findViewById(R.id.place_homepage_btnAddMenu);
         final ListView listViewMenu = findViewById(R.id.place_homepage_listMenu);
-        final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlace);
+        bottomMenuPlace = findViewById(R.id.bottom_navigationPlace);
         imgPlace = findViewById(R.id.place_homepage_placeImg);
 
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
@@ -100,6 +101,10 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     @Override
     protected void onStart() {
         super.onStart();
+
+        final MenuItem mItem = bottomMenuPlace.getMenu().findItem(R.id.action_home);
+        mItem.setChecked(true);
+
         mAdapter.clear();
 
         if (!changeImg) {//se l'immagine non è stata appena cambiata
