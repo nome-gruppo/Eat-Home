@@ -28,8 +28,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;

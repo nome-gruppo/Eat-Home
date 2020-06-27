@@ -1,6 +1,5 @@
 package nomeGruppo.eathome.placeSide;
 
-import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.utility.City;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
