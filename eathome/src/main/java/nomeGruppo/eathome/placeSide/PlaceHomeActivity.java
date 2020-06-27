@@ -49,10 +49,8 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
 
     private ImageView imgPlace;
     private Place place;
-    private List<Food> listFood;
     private MyMenuAdapter mAdapter;
     private boolean changeImg = false;
-    private Food food;
     private MenuNavigationItemSelected menuNavigationItemSelected;
 
     @Override
@@ -60,19 +58,16 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_homepage);
 
-
-        place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        food = new Food();
-
         final TextView txtNamePlace = findViewById(R.id.place_homepage_txtNamePlace);
         final FloatingActionButton btnAddMenu = findViewById(R.id.place_homepage_btnAddMenu);
         final ListView listViewMenu = findViewById(R.id.place_homepage_listMenu);
         final BottomNavigationView bottomMenuPlace = findViewById(R.id.bottom_navigationPlace);
         imgPlace = findViewById(R.id.place_homepage_placeImg);
 
+        place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
+
         menuNavigationItemSelected = new MenuNavigationItemSelected();
-        listFood = new LinkedList<>();
-        mAdapter = new MyMenuAdapter(this, listFood, place);
+        mAdapter = new MyMenuAdapter(this, place);
 
         txtNamePlace.setText(place.namePlace);
         listViewMenu.setAdapter(mAdapter);
@@ -105,7 +100,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
     @Override
     protected void onStart() {
         super.onStart();
-        listFood.clear();
+        mAdapter.clear();
 
         if (!changeImg) {//se l'immagine non è stata appena cambiata
             StorageConnection storageConnection = new StorageConnection();//apro la connessione allo Storage di Firebase
@@ -136,7 +131,7 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        listFood.add(snapshot.getValue(Food.class));
+                        mAdapter.add(snapshot.getValue(Food.class));
                     }
                 }
                 mAdapter.notifyDataSetChanged();
@@ -149,30 +144,20 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
         });
     }
 
-    /**
-     * metodo per aprire il dialog per aggiungere voci al menu
-     */
+    @Override
+    public void applyTexts(String nameFood, String ingredientsFood, float priceFood) {
+        FirebaseConnection firebaseConnection = new FirebaseConnection();
+        Food food = new Food();
+        food.setName(nameFood);
+        food.setIngredients(ingredientsFood);
+        food.setPrice(priceFood);
+        food.setIdFood(firebaseConnection.getmDatabase().push().getKey());
+        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
 
-    private void openDialog() {
-        DialogAddMenu dialogAddMenu = new DialogAddMenu();
-        dialogAddMenu.show(getSupportFragmentManager(), "Dialog add menu");
+        mAdapter.insert(food,0);
+        mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi
     }
 
-    /**
-     * metodo per aprire la galleria del dispositivo
-     */
-    private void openGallery() {
-        //intent per accedere alla galleria
-        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-    }
-
-    /**
-     * metodo per prendere l'immagine dalla galleria dell'utente e caricarla sull'app
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -207,16 +192,27 @@ public class PlaceHomeActivity extends AppCompatActivity implements DialogAddMen
      * @param priceFood       prezzo del cibo da aggiungere
      */
 
-    @Override
-    public void applyTexts(String nameFood, String ingredientsFood, float priceFood) {
-        FirebaseConnection firebaseConnection = new FirebaseConnection();
-        food.setName(nameFood);
-        food.setIngredients(ingredientsFood);
-        food.setPrice(priceFood);
-        food.setIdFood(firebaseConnection.getmDatabase().push().getKey());
-        firebaseConnection.getmDatabase().child(FirebaseConnection.FOOD_NODE).child(place.idPlace).child(food.idFood).setValue(food);//aggiungo il nuovo 'cibo' al database
-
-        listFood.add(0, food);//aggiungo food in testa alla lista
-        mAdapter.notifyDataSetChanged();//aggiorno l'adapter così da aggiornare la listView con l'elenco dei cibi
+    /**
+     * metodo per aprire il dialog per aggiungere voci al menu
+     */
+    private void openDialog() {
+        DialogAddMenu dialogAddMenu = new DialogAddMenu();
+        dialogAddMenu.show(getSupportFragmentManager(), "Dialog add menu");
     }
+
+    /**
+     * metodo per aprire la galleria del dispositivo
+     */
+    private void openGallery() {
+        //intent per accedere alla galleria
+        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+    }
+
+    /**
+     * usato per prendere l'immagine dalla galleria e inserirla nell'app
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
 }
