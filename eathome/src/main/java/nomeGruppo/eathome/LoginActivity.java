@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseConnection connection = new FirebaseConnection();
-                if (emailET.getText() == null) {
+                if (emailET.getText().length() == 0) {
                     Toast.makeText(getApplicationContext(), getString(R.string.enterEmailToContinue), Toast.LENGTH_LONG).show();
                 } else {
                     connection.resetPassword(mAuth, emailET.getText().toString().trim(), LoginActivity.this);

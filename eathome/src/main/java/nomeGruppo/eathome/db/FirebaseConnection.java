@@ -305,6 +305,8 @@ public class FirebaseConnection {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(activity, R.string.emailSent, Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(activity, R.string.notValidEmail, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
