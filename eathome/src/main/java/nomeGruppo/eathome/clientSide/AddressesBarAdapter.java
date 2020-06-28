@@ -1,4 +1,4 @@
-package nomeGruppo.eathome;
+package nomeGruppo.eathome.clientSide;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,8 @@ import com.google.android.libraries.places.api.model.AutocompletePrediction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nomeGruppo.eathome.R;
 
 public class AddressesBarAdapter extends ArrayAdapter<AutocompletePrediction> {
 

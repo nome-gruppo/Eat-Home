@@ -25,7 +25,8 @@
         android:background="@drawable/icon_border"
         android:contentDescription="@string/launcher"
         android:elevation="15dp"
-        android:src="@mipmap/ic_launcher"
+        android:padding="12dp"
+        android:src="@drawable/logo3"
         app:layout_constraintBottom_toBottomOf="@+id/activity_launcher_progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:fontFamily="@font/linglenglang"
-        android:text="@string/nameApp"
+        android:text="@string/app_name"
         android:textColor="@color/colorAccent"
         android:textSize="90sp"
         app:layout_constraintBottom_toTopOf="@+id/app_logo"

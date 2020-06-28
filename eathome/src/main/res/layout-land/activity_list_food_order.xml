@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/toolbar_border"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -34,7 +35,7 @@
                 android:id="@+id/listViewFoodInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:divider="@null"
                 tools:ignore="NestedScrolling" />
 

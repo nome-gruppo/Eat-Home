@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import nomeGruppo.eathome.R;
+import nomeGruppo.eathome.actions.BookingComparator;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -116,6 +117,8 @@ public class ClientOrderInfoActivity extends AppCompatActivity {
                 } else {//se non c'è nemmeno un ordine
                     Toast.makeText(ClientOrderInfoActivity.this, R.string.no_order, Toast.LENGTH_SHORT).show();
                 }
+                Collections.sort(listOrder, new OrderComparator());//ordino gli elementi in base all'ordine effettuato più recenteente
+                orderInfoAdapter.notifyDataSetChanged();
             }
 
             @Override

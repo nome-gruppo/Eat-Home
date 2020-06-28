@@ -1,7 +1,7 @@
 <resources>
     <string name="api_key" translatable="false">AIzaSyD16nICsy8YDrIUIt_CXfoGgPpIJRNDeSI</string>
 
-    <string name="app_name" translatable="false">Eat Home</string>
+    <string name="app_name" translatable="false">Eat@Home</string>
     <string name="image_button" translatable="false">ImageButton</string>
     <string name="image" translatable="false">Image</string>
     <string name="title_activity_main" translatable="false">MainActivity</string>
@@ -174,8 +174,6 @@
     <string name="filter_by">Filter by</string>
     <string name="choose">Options</string>
     <string name="greetings">Welcome, %s.</string>
-    <string name="comma" translatable="false">.</string>
-    <string name="nameApp" translatable="false">Eat@Home</string>
     <string name="positionDialog">The app needs location permissions to find places near you</string>
     <string name="gpsBeenDesabled">Your GPS has been disabled</string>
     <string name="noGeocoderDialogTitle">We are really sorry!</string>

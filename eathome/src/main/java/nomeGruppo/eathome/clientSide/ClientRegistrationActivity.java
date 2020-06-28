@@ -20,7 +20,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
@@ -69,17 +68,8 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         Toolbar toolbarClientRegistration = findViewById(R.id.tlbClientRegistration);
         setSupportActionBar(toolbarClientRegistration);
         toolbarClientRegistration.setTitle("@string/tw_signUp");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarClientRegistration.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
-        toolbarClientRegistration.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentLoginActivity = new Intent(ClientRegistrationActivity.this, LoginActivity.class);
-                intentLoginActivity.putExtra(FirebaseConnection.CLIENT, client);
-                startActivity(intentLoginActivity);
-                finish();
-            }
-        });
-
 
         //se l'utente clicca sul bottone registrati
         signInBtn.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +115,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
      * @param email
      * @param password
      */
-
-    public void createAccount(String email, String password) {
+    private void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

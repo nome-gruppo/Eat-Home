@@ -131,20 +131,11 @@ public class PlacesFilterActivity extends AppCompatActivity {
         //inizializza i listener delle varie view
         initCheckListener();
 
-        Toolbar toolbarPlacesFIlter = findViewById(R.id.tlbPlacesFilter);
-        setSupportActionBar(toolbarPlacesFIlter);
-        toolbarPlacesFIlter.setTitle("@string/filter_by");
-        toolbarPlacesFIlter.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
-        toolbarPlacesFIlter.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent homepageIntent = new Intent(PlacesFilterActivity.this, HomepageActivity.class);
-                homepageIntent.putExtra(FirebaseConnection.PLACE, places);
-                startActivity(homepageIntent);
-                finish();
-            }
-        });
-
+        Toolbar toolbarPlacesFilter = findViewById(R.id.tlbPlacesFilter);
+        setSupportActionBar(toolbarPlacesFilter);
+        toolbarPlacesFilter.setTitle(R.string.filter_by);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbarPlacesFilter.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
 
         final Bundle bundle = getIntent().getBundleExtra("outState");
 
@@ -169,8 +160,8 @@ public class PlacesFilterActivity extends AppCompatActivity {
     }// end onCreate
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
         final String userCity = getIntent().getStringExtra("userCity");
 
@@ -205,7 +196,51 @@ public class PlacesFilterActivity extends AppCompatActivity {
         }
     }
 
-    public void initCheckListener() {
+    public void filtersOnRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.activity_places_filter_rb_all:
+            case R.id.activity_places_filter_rb_delivery:
+                if (checked) {
+                    freeDeliverySwitch.setClickable(true);
+
+                }
+                break;
+            case R.id.activity_places_filter_rb_booking:
+                if (checked)
+                    freeDeliverySwitch.setClickable(false);
+                freeDeliverySwitch.setChecked(false);
+                freeDeliverySet = false;
+
+                break;
+        }
+        someChanged = true;
+        typeChanged = true;
+    }
+
+    public void orderByOnRadioButtonClicked(View view) {
+
+        boolean checked = ((RadioButton) view).isChecked();
+
+        if (view.getId() == R.id.activity_places_filter_rb_distance_order) {
+            if (checked) {
+                showBtn.setClickable(false);
+                UtilitiesAndControls.locationPermissionRequest(PlacesFilterActivity.this, mLocationManager, myLocationListener,
+                        PERMISSION_LOCATION_REQUEST_CODE, null, orderByDistanceRB);
+            }
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    private void initCheckListener() {
 
         CompoundButton.OnCheckedChangeListener changeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -322,7 +357,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
                             toRemove.add(item);
                         }
                     }
-                } else {
+                } else if(bookingRB.isChecked()){
                     for (Place item : places) {
                         if (!item.takesBookingPlace) {
                             toRemove.add(item);
@@ -412,49 +447,6 @@ public class PlacesFilterActivity extends AppCompatActivity {
 
     }// end applyFilters
 
-
-    public void filtersOnRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch (view.getId()) {
-            case R.id.activity_places_filter_rb_all:
-            case R.id.activity_places_filter_rb_delivery:
-                if (checked) {
-                    freeDeliverySwitch.setClickable(true);
-
-                }
-                break;
-            case R.id.activity_places_filter_rb_booking:
-                if (checked)
-                    freeDeliverySwitch.setClickable(false);
-                freeDeliverySwitch.setChecked(false);
-                freeDeliverySet = false;
-
-                break;
-        }
-        typeChanged = true;
-    }
-
-    public void orderByOnRadioButtonClicked(View view) {
-
-        boolean checked = ((RadioButton) view).isChecked();
-
-        if (view.getId() == R.id.activity_places_filter_rb_distance_order) {
-            if (checked) {
-                showBtn.setClickable(false);
-                UtilitiesAndControls.locationPermissionRequest(PlacesFilterActivity.this, mLocationManager, myLocationListener, PERMISSION_LOCATION_REQUEST_CODE, null, orderByDistanceRB);
-            }
-        }
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
-
     private class MyLocationListener extends MyLocationListenerAbstract {
 
         public MyLocationListener(long timer) {
@@ -467,7 +459,7 @@ public class PlacesFilterActivity extends AppCompatActivity {
                         if (((MyExceptions) e).getExceptionType() == MyExceptions.TIMEOUT) {
                             //eccezione sollevata nel thread ma la posizione non è stata ancora trovata
 
-                            Log.e("UtilitiesAndControls", "locationPermissionRequest called by " + PlacesFilterActivity.this.getPackageCodePath());
+                            Log.i("UtilitiesAndControls", "locationPermissionRequest called by " + PlacesFilterActivity.this.getPackageCodePath());
                             Toast.makeText(getApplicationContext(), R.string.locationNotFound, Toast.LENGTH_SHORT).show();
 
                             orderByDistanceRB.setChecked(false);

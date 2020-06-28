@@ -1,6 +1,5 @@
 package nomeGruppo.eathome.placeSide;
 
-import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.utility.City;
 import nomeGruppo.eathome.R;
 import nomeGruppo.eathome.actors.Place;
@@ -92,16 +91,9 @@ public class PlaceRegistrationActivity extends AppCompatActivity {
         Toolbar toolbarPlaceRegistration = findViewById(R.id.tlbPlaceRegistration);
         setSupportActionBar(toolbarPlaceRegistration);
         toolbarPlaceRegistration.setTitle("@string/tw_signUp");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarPlaceRegistration.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backspace_black_24dp));
-        toolbarPlaceRegistration.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentLoginActivity = new Intent(PlaceRegistrationActivity.this, LoginActivity.class);
-                intentLoginActivity.putExtra(FirebaseConnection.PLACE, place);
-                startActivity(intentLoginActivity);
-                finish();
-            }
-        });
+
 
         final City city = new City();//classe che contiene l'elenco delle città
 

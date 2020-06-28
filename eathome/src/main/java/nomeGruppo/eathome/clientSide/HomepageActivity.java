@@ -61,7 +61,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import nomeGruppo.eathome.AddressesBarAdapter;
 import nomeGruppo.eathome.LoginActivity;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
@@ -71,7 +70,6 @@ import nomeGruppo.eathome.db.DBOpenHelper;
 import nomeGruppo.eathome.db.FirebaseConnection;
 import nomeGruppo.eathome.utility.MyExceptions;
 import nomeGruppo.eathome.utility.MyLocationListenerAbstract;
-import nomeGruppo.eathome.utility.PlaceAdapter;
 import nomeGruppo.eathome.utility.UtilitiesAndControls;
 
 /**
@@ -80,12 +78,12 @@ import nomeGruppo.eathome.utility.UtilitiesAndControls;
 public class HomepageActivity extends AppCompatActivity {
 
     private static final String TAG = HomepageActivity.class.getName();
-    private static final String ROTATION = "rotation";      //nome usato per passare il flag per la rotazione quando si cambia orientazione dello schermo
     private static final String LIST = "listPlace";     //nome usato per passare la lista dei locali quando si cambia orientazione dello schermo
 
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int PERMISSION_LOCATION_REQUEST_CODE = 1000;
     private static final int SEARCH_FILTER_REQUEST_CODE = 51;
+    private static final int PLACE_INFO_REQUEST_CODE  = 46;
 
     private BottomNavigationView bottomMenuClient;
 
@@ -126,7 +124,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     private MyLocationListener myLocationListener;
 
-    private boolean rotation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +156,6 @@ public class HomepageActivity extends AppCompatActivity {
         listPlace = new ArrayList<>();
 
         if (savedInstanceState != null) {
-            rotation = savedInstanceState.getBoolean(ROTATION, false);
             listPlace = (ArrayList<nomeGruppo.eathome.actors.Place>) savedInstanceState.getSerializable(LIST);
         }
 
@@ -198,10 +195,13 @@ public class HomepageActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        final MenuItem mItem = bottomMenuClient.getMenu().findItem(R.id.action_home);
+        mItem.setChecked(true);
+
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if (!rotation) {
+        if (listPlace.isEmpty()) {
             if (firstLogin && user != null) {
 
                 //leggo la tabella myInfo per verificare se ci sono locali da recensire
@@ -243,7 +243,6 @@ public class HomepageActivity extends AppCompatActivity {
             }
 
         }
-        rotation = false;
     }//end onStart
 
     @Override
@@ -339,7 +338,7 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(ROTATION, true);
+
         outState.putSerializable(LIST, listPlace);
     }
 
@@ -391,8 +390,6 @@ public class HomepageActivity extends AppCompatActivity {
     private void search(String city) {
 
         final FirebaseConnection firebaseConnection = new FirebaseConnection();
-
-        UtilitiesAndControls.hideKeyboard(this);
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -478,6 +475,8 @@ public class HomepageActivity extends AppCompatActivity {
 
                     }
                 }
+
+                UtilitiesAndControls.hideKeyboard(getApplicationContext());
             }
         });
 
@@ -611,7 +610,7 @@ public class HomepageActivity extends AppCompatActivity {
                 Intent placeInfoIntent = new Intent(HomepageActivity.this, PlaceInfoActivity.class);
                 placeInfoIntent.putExtra(FirebaseConnection.CLIENT, client);
                 placeInfoIntent.putExtra(FirebaseConnection.PLACE, place);
-                startActivity(placeInfoIntent);
+                startActivityForResult(placeInfoIntent, PLACE_INFO_REQUEST_CODE);
             }
         });
     }//end initListeners

@@ -17,6 +17,7 @@
     <style name="BottomNavigation">
         <item name="itemIconTint">@color/colorPrimaryDark</item>
         <item name="itemTextColor">@color/colorPrimaryDark</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
     <style name="Button">

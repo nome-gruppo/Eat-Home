@@ -24,7 +24,6 @@ import java.util.Locale;
 import nomeGruppo.eathome.FeedbackAdapter;
 import nomeGruppo.eathome.OtherActivity;
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.ShowAnswerPlace;
 import nomeGruppo.eathome.actions.Feedback;
 import nomeGruppo.eathome.actors.Place;
 import nomeGruppo.eathome.clientSide.PlaceInfoActivity;
