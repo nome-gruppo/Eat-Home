@@ -54,7 +54,6 @@ activity che visualizza le informazioni per il locale selezionato dall'utente
  */
 public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private Client client;
     private Place place;
     private ImageView imgPlaceInfo;
     private TextView txtOpeningTime;
@@ -84,7 +83,6 @@ public class PlaceInfoActivity extends AppCompatActivity implements OnMapReadyCa
         openingTimeUtility = new OpeningTime();
 
         place = (Place) getIntent().getSerializableExtra(FirebaseConnection.PLACE);
-        client = (Client) getIntent().getSerializableExtra(FirebaseConnection.CLIENT);
 
         Toolbar toolbarPlaceInfo = findViewById(R.id.tlbPlaceInfo);
         setSupportActionBar(toolbarPlaceInfo);

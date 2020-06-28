@@ -21,7 +21,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import nomeGruppo.eathome.R;
-import nomeGruppo.eathome.actions.BookingComparator;
 import nomeGruppo.eathome.actions.Order;
 import nomeGruppo.eathome.actors.Client;
 import nomeGruppo.eathome.db.FirebaseConnection;
