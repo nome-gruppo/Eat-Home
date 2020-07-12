@@ -1,5 +1,5 @@
 <resources>
-    <string name="api_key" translatable="false">AIzaSyD16nICsy8YDrIUIt_CXfoGgPpIJRNDeSI</string>
+    <string name="api_key" translatable="false">INSERT_KEY_HERE</string>
 
     <string name="app_name" translatable="false">Eat@Home</string>
     <string name="image_button" translatable="false">ImageButton</string>
